@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mentions légales · Confidentialité · CGU — Norvy</title>
+<meta name="description" content="Mentions légales, politique de confidentialité (RGPD) et conditions générales d'utilisation du site norvy.lu." />
+<meta name="robots" content="noindex, follow" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<meta name="theme-color" content="#0E1013" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0E1013;--bg-elev:#15181D;--bg-elev-2:#1C2026;--border:#262B33;--border-soft:#1F242B;--text:#F5F5F2;--text-dim:#9BA1AB;--text-faint:#5C6470;--accent:#C5F574}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter Tight',-apple-system,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+.container{max-width:800px;margin:0 auto;padding:0 32px}
+nav{position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);background:rgba(14,16,19,.7);border-bottom:1px solid var(--border-soft)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:18px 32px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:26px;font-weight:700;letter-spacing:-.04em;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);margin-top:12px}
+.nav-back{display:inline-flex;align-items:center;gap:6px;color:var(--text-dim);text-decoration:none;font-size:14px;transition:color .2s}
+.nav-back:hover{color:var(--text)}
+.hero{padding:80px 0 40px;border-bottom:1px solid var(--border-soft)}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);text-transform:uppercase;letter-spacing:.12em;margin-bottom:20px}
+h1{font-size:clamp(36px,5vw,56px);font-weight:500;letter-spacing:-.03em;line-height:1.05;margin-bottom:20px}
+h1 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--text-dim)}
+.lead{font-size:18px;color:var(--text-dim);line-height:1.55;font-weight:300;max-width:600px}
+.toc{padding:32px 0;border-bottom:1px solid var(--border-soft)}
+.toc-title{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-faint);margin-bottom:14px}
+.toc-list{list-style:none;display:flex;flex-wrap:wrap;gap:8px 24px}
+.toc-list a{color:var(--text-dim);text-decoration:none;font-size:14px;transition:color .2s}
+.toc-list a:hover{color:var(--accent)}
+section.legal{padding:60px 0;border-bottom:1px solid var(--border-soft)}
+section.legal:last-of-type{border-bottom:none}
+h2{font-size:32px;font-weight:500;letter-spacing:-.02em;margin-bottom:16px;line-height:1.15}
+h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--text-dim)}
+h3{font-size:19px;font-weight:500;letter-spacing:-.01em;margin:32px 0 12px;color:var(--text)}
+p{color:var(--text-dim);font-size:15px;line-height:1.7;margin-bottom:14px;font-weight:300}
+p strong,p b{color:var(--text);font-weight:500}
+ul,ol{color:var(--text-dim);margin:14px 0 14px 20px;font-size:15px;line-height:1.7;font-weight:300}
+li{margin-bottom:8px}
+li strong{color:var(--text);font-weight:500}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(197,245,116,.3);transition:border-color .2s}
+a:hover{border-color:var(--accent)}
+.info-table{width:100%;border-top:1px solid var(--border);margin:24px 0}
+.info-row{display:grid;grid-template-columns:220px 1fr;gap:24px;padding:16px 0;border-bottom:1px solid var(--border);font-size:14px}
+.info-row dt{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint)}
+.info-row dd{color:var(--text);font-weight:300}
+.callout{background:var(--bg-elev);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;padding:20px 24px;margin:24px 0}
+.callout p{margin-bottom:0;color:var(--text)}
+footer{border-top:1px solid var(--border-soft);padding:48px 0 32px;margin-top:60px;text-align:center}
+.footer-bottom{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-faint)}
+@media (max-width:700px){.info-row{grid-template-columns:1fr;gap:4px}h1{font-size:36px}h2{font-size:26px}.container{padding:0 24px}}
+</style>
+</head>
+<body>
+<nav><div class="nav-inner"><a href="/" class="logo">norvy<span class="logo-dot"></span></a><a href="/" class="nav-back"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Retour au site</a></div></nav>
+
+<header class="hero"><div class="container">
+<div class="eyebrow">DOCUMENTATION LÉGALE</div>
+<h1>Mentions légales, <em>confidentialité</em> et CGU.</h1>
+<p class="lead">Cette page rassemble l'ensemble des informations légales relatives au site norvy.lu et aux services Norvy. Mise à jour : 6 mai 2026.</p>
+</div></header>
+
+<section class="toc"><div class="container">
+<div class="toc-title">Sommaire</div>
+<ul class="toc-list">
+<li><a href="#mentions">1. Mentions légales</a></li>
+<li><a href="#confidentialite">2. Confidentialité (RGPD)</a></li>
+<li><a href="#cgu">3. Conditions d'utilisation</a></li>
+</ul>
+</div></section>
+
+<section class="legal" id="mentions"><div class="container">
+<div class="eyebrow">SECTION 01</div>
+<h2>Mentions <em>légales.</em></h2>
+<p>Conformément à la législation luxembourgeoise et européenne sur le commerce électronique, les informations suivantes sont mises à votre disposition.</p>
+<h3>Éditeur du site</h3>
+<dl class="info-table">
+<div class="info-row"><dt>Dénomination</dt><dd>Norvy SARL-S (en formation)</dd></div>
+<div class="info-row"><dt>Forme juridique</dt><dd>Société à responsabilité limitée simplifiée — projet en formation au Grand-Duché de Luxembourg</dd></div>
+<div class="info-row"><dt>Siège social</dt><dd>Adresse à communiquer prochainement (immatriculation en cours)</dd></div>
+<div class="info-row"><dt>Contact</dt><dd><a href="mailto:contact@norvy.lu">contact@norvy.lu</a></dd></div>
+<div class="info-row"><dt>Directeur de la publication</dt><dd>Mohamed, fondateur de Norvy</dd></div>
+</dl>
+<div class="callout"><p><strong>Note transitoire :</strong> Norvy SARL-S est actuellement en cours de constitution. Les informations légales ci-dessus seront complétées dès l'immatriculation au Registre de commerce et des sociétés du Luxembourg (RCSL), notamment l'adresse de siège social et le numéro RCSL.</p></div>
+<h3>Hébergement du site</h3>
+<dl class="info-table">
+<div class="info-row"><dt>Hébergeur</dt><dd>GitHub, Inc.</dd></div>
+<div class="info-row"><dt>Adresse</dt><dd>88 Colin P Kelly Jr Street, San Francisco, CA 94107, États-Unis</dd></div>
+<div class="info-row"><dt>Service utilisé</dt><dd>GitHub Pages (CDN distribué mondialement)</dd></div>
+</dl>
+<h3>Propriété intellectuelle</h3>
+<p>L'ensemble du contenu présent sur le site norvy.lu (textes, images, logos, mockups, illustrations, code source, architecture du site, ressources téléchargeables) est la propriété exclusive de Norvy ou de ses partenaires, et est protégé par les lois luxembourgeoises et internationales relatives à la propriété intellectuelle.</p>
+<p>Toute reproduction, représentation, modification, publication, adaptation totale ou partielle des éléments du site, par quelque moyen que ce soit, sans autorisation préalable écrite de Norvy, est interdite et constitue une contrefaçon sanctionnée par le Code pénal luxembourgeois.</p>
+<p>L'utilisation à titre privé, dans un cadre strictement personnel, de la <a href="Norvy-Checklist-AMLR-2024-1624.pdf">Checklist AMLR</a> et des autres ressources gratuites mises à disposition est autorisée. Toute redistribution, revente ou utilisation commerciale nécessite une autorisation écrite préalable.</p>
+</div></section>
+
+<section class="legal" id="confidentialite"><div class="container">
+<div class="eyebrow">SECTION 02</div>
+<h2>Politique de <em>confidentialité.</em></h2>
+<p>Norvy s'engage à protéger vos données personnelles. Cette politique précise quelles données nous collectons, pourquoi, comment elles sont traitées, et quels sont vos droits au titre du Règlement général sur la protection des données <strong>(RGPD)</strong> et de la loi luxembourgeoise du 1er août 2018.</p>
+<h3>Responsable du traitement</h3>
+<p>Le responsable du traitement des données collectées via norvy.lu est <strong>Norvy SARL-S (en formation)</strong>, joignable à l'adresse <a href="mailto:contact@norvy.lu">contact@norvy.lu</a>.</p>
+<h3>Données collectées</h3>
+<p>Lorsque vous vous inscrivez à la liste d'attente (waitlist) ou demandez la Checklist AMLR, nous collectons uniquement votre <strong>adresse email</strong>. Aucune autre donnée n'est demandée — pas de nom, pas de cabinet, pas d'adresse, pas de coordonnées téléphoniques.</p>
+<p>Nous collectons également, de façon technique et automatique, la <strong>source de l'inscription</strong> (formulaire utilisé : hero, popup, lead magnet, CTA final) et la <strong>date et heure</strong> de soumission. Ces métadonnées nous aident à comprendre quels contenus de notre site sont les plus utiles.</p>
+<h3>Finalités du traitement</h3>
+<p>Vos données sont utilisées exclusivement pour :</p>
+<ul>
+<li><strong>Vous tenir informé</strong> du lancement public de Norvy et de l'ouverture de l'accès anticipé.</li>
+<li><strong>Vous transmettre la ressource demandée</strong> (Checklist AMLR) si vous l'avez sollicitée.</li>
+<li><strong>Vous envoyer des informations pertinentes</strong> sur l'AMLR et les obligations de conformité, à fréquence raisonnable (au maximum une fois par mois).</li>
+</ul>
+<p><strong>Nous ne vendons, ne louons et ne partageons jamais vos données avec des tiers à des fins commerciales.</strong></p>
+<h3>Base légale du traitement</h3>
+<p>Le traitement de vos données repose sur votre <strong>consentement libre et éclairé</strong> (article 6.1.a du RGPD), matérialisé par la soumission volontaire de votre adresse email via l'un de nos formulaires.</p>
+<h3>Sous-traitants techniques</h3>
+<p>Pour la collecte et la gestion des emails, Norvy fait appel au service tiers <strong>Web3Forms</strong> (relais email pour formulaires web). Ce service traite uniquement les données nécessaires à la transmission de votre soumission, sans usage commercial. Plus d'informations : <a href="https://web3forms.com/privacy" target="_blank" rel="noopener">web3forms.com/privacy</a>.</p>
+<p>L'hébergement du site est assuré par <strong>GitHub Pages</strong>. GitHub peut conserver des journaux d'accès techniques (adresse IP, navigateur) à des fins de sécurité et de prévention des abus, conformément à sa propre politique de confidentialité.</p>
+<h3>Durée de conservation</h3>
+<p>Vos données sont conservées <strong>jusqu'à votre demande de désinscription</strong>, et au maximum pendant <strong>3 ans</strong> à compter de votre dernière interaction avec Norvy. À l'expiration de ce délai, vos données sont supprimées définitivement.</p>
+<h3>Transferts hors Union européenne</h3>
+<p>Web3Forms et GitHub étant des services basés aux États-Unis, vos données peuvent transiter en dehors de l'Union européenne. Ces transferts sont encadrés par les <strong>clauses contractuelles types de la Commission européenne</strong> et, pour les sous-traitants américains certifiés, par le <strong>Data Privacy Framework</strong>.</p>
+<h3>Vos droits</h3>
+<p>Conformément au RGPD, vous disposez à tout moment des droits suivants sur vos données personnelles :</p>
+<ul>
+<li><strong>Droit d'accès</strong> — obtenir une copie des données vous concernant que nous détenons.</li>
+<li><strong>Droit de rectification</strong> — faire corriger toute donnée inexacte ou incomplète.</li>
+<li><strong>Droit à l'effacement</strong> (« droit à l'oubli ») — demander la suppression de vos données.</li>
+<li><strong>Droit à la limitation du traitement</strong> — demander que vos données ne soient plus utilisées sans être supprimées.</li>
+<li><strong>Droit à la portabilité</strong> — recevoir vos données dans un format structuré et lisible.</li>
+<li><strong>Droit d'opposition</strong> — vous opposer à tout moment au traitement de vos données.</li>
+<li><strong>Droit de retirer votre consentement</strong> — à tout moment, sans avoir à justifier votre demande.</li>
+</ul>
+<div class="callout"><p>Pour exercer l'un de ces droits, écrivez-nous à <a href="mailto:contact@norvy.lu">contact@norvy.lu</a>. Nous vous répondrons dans un délai maximum d'un mois, conformément à l'article 12 du RGPD.</p></div>
+<h3>Réclamation</h3>
+<p>Si vous estimez que le traitement de vos données ne respecte pas la réglementation, vous avez le droit d'introduire une réclamation auprès de la <strong>Commission nationale pour la protection des données (CNPD)</strong>, l'autorité luxembourgeoise compétente : <a href="https://cnpd.public.lu" target="_blank" rel="noopener">cnpd.public.lu</a>.</p>
+<h3>Cookies et traceurs</h3>
+<p>Le site norvy.lu <strong>n'utilise pas de cookies de traçage</strong>, ni d'outils d'analyse comportementale (pas de Google Analytics, pas de Meta Pixel, pas de retargeting publicitaire). Seul un mécanisme de stockage local (<em>localStorage</em>) est utilisé, à des fins purement fonctionnelles : mémoriser que vous avez déjà vu le popup de la Checklist AMLR (afin de ne pas vous le présenter à chaque visite). Cette donnée reste sur votre navigateur et ne nous est jamais transmise.</p>
+</div></section>
+
+<section class="legal" id="cgu"><div class="container">
+<div class="eyebrow">SECTION 03</div>
+<h2>Conditions générales <em>d'utilisation.</em></h2>
+<p>Les présentes conditions régissent l'utilisation du site <strong>norvy.lu</strong>. En accédant au site, vous acceptez de vous y conformer.</p>
+<h3>Objet du site</h3>
+<p>Le site norvy.lu est un site vitrine présentant le projet Norvy, plateforme de gestion de cabinet d'avocats avec module AML/KYC nativement intégré. Le site permet aux visiteurs intéressés de s'inscrire à la liste d'attente, de télécharger des ressources informatives gratuites, et de prendre connaissance des fonctionnalités à venir de la plateforme.</p>
+<p><strong>La plateforme Norvy elle-même n'est pas encore opérationnelle.</strong> Le site informe sur un produit en développement, dont le lancement est prévu en 2026.</p>
+<h3>Accès au site</h3>
+<p>Le site est accessible gratuitement à tout utilisateur disposant d'une connexion internet. Les frais d'accès et d'utilisation du réseau sont à la charge de l'utilisateur. Norvy ne pourra être tenu responsable d'éventuels dysfonctionnements du réseau ou des serveurs ou de tout autre événement échappant à un contrôle raisonnable.</p>
+<h3>Comportement de l'utilisateur</h3>
+<p>L'utilisateur s'engage à utiliser le site dans le respect des lois en vigueur. Il s'interdit notamment :</p>
+<ul>
+<li>De porter atteinte à l'intégrité ou à la sécurité du site (tentatives d'intrusion, d'attaques, etc.)</li>
+<li>De diffuser des contenus illicites, diffamatoires, contraires à l'ordre public ou aux bonnes mœurs</li>
+<li>D'utiliser le site à des fins de spam, de phishing ou de toute autre activité frauduleuse</li>
+<li>De collecter ou de réutiliser de manière automatisée le contenu du site (scraping)</li>
+</ul>
+<h3>Ressources gratuites</h3>
+<p>La <strong>Checklist AMLR</strong> et les autres ressources informatives mises à disposition sur le site sont fournies à titre gratuit et purement informatif. Elles ne constituent <strong>en aucun cas un conseil juridique personnalisé</strong> et ne sauraient se substituer à la consultation d'un professionnel du droit ou d'un Compliance Officer qualifié.</p>
+<p>Norvy n'est pas un cabinet d'avocats et ne fournit pas de prestations de conseil juridique. Les informations communiquées le sont à titre indicatif. L'utilisateur reste seul responsable de l'usage qu'il fait des informations fournies et des décisions qu'il prend sur cette base.</p>
+<h3>Limitation de responsabilité</h3>
+<p>Norvy met tout en œuvre pour fournir des informations exactes, à jour et fiables. Toutefois, Norvy ne saurait être tenu responsable :</p>
+<ul>
+<li>De l'inexactitude ou de l'obsolescence éventuelle des informations diffusées sur le site, notamment en cas d'évolution réglementaire postérieure à la dernière mise à jour</li>
+<li>Des dommages directs ou indirects résultant de l'utilisation du site ou des ressources téléchargées</li>
+<li>D'une interruption temporaire d'accès au site pour des raisons de maintenance, d'évolution technique ou de cas de force majeure</li>
+</ul>
+<h3>Liens externes</h3>
+<p>Le site peut contenir des liens vers des sites tiers. Norvy n'exerce aucun contrôle sur le contenu de ces sites et décline toute responsabilité quant à leur contenu, leur disponibilité ou leur politique de confidentialité.</p>
+<h3>Modification des conditions</h3>
+<p>Norvy se réserve le droit de modifier les présentes CGU à tout moment, notamment pour les adapter à l'évolution du projet, des services proposés ou de la réglementation applicable. Les modifications prennent effet dès leur publication sur cette page. Il appartient à l'utilisateur de consulter régulièrement cette page.</p>
+<h3>Droit applicable et juridiction compétente</h3>
+<p>Les présentes CGU sont régies par le <strong>droit luxembourgeois</strong>. En cas de litige relatif à l'interprétation ou à l'exécution de ces conditions, les tribunaux du Luxembourg seront seuls compétents, sous réserve des règles impératives applicables aux consommateurs.</p>
+<h3>Contact</h3>
+<p>Pour toute question relative aux présentes conditions, à la politique de confidentialité ou aux mentions légales, vous pouvez nous joindre à : <a href="mailto:contact@norvy.lu">contact@norvy.lu</a>.</p>
+</div></section>
+
+<footer><div class="container"><div class="footer-bottom">© 2026 NORVY · LUXEMBOURG · DERNIÈRE MISE À JOUR : 6 MAI 2026</div></div></footer>
+</body>
+</html>
