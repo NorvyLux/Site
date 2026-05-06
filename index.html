@@ -2662,7 +2662,7 @@
       const totalHeight = document.documentElement.scrollHeight;
       const scrollPercent = (scrolled / totalHeight) * 100;
 
-      if (scrollPercent >= 50) {
+      if (scrollPercent >= 30) {
         showPopup();
         window.removeEventListener('scroll', checkScroll);
       }
