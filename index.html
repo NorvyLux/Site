@@ -2103,7 +2103,7 @@
         </form>
         <div class="success-msg" id="magnetSuccessMsg" style="margin-top: 12px;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 7"/></svg>
-          Parfait. La checklist arrive dans votre boîte mail.
+          Parfait. Le téléchargement se lance — vérifiez votre dossier "Téléchargements".
         </div>
       </div>
 
@@ -2259,6 +2259,7 @@
   handleWaitlist('waitlistForm2', 'cta-final-waitlist');
 
   // Formulaire lead magnet (checklist AMLR)
+  // Action : (1) téléchargement immédiat du PDF, (2) email auto envoyé à l'avocat, (3) notification reçue
   const magnetForm = document.getElementById('magnetForm');
   if (magnetForm) {
     magnetForm.addEventListener('submit', async function(e) {
@@ -2271,11 +2272,50 @@
       submitBtn.disabled = true;
       submitBtn.textContent = 'Envoi…';
 
-      const success = await submitToBackend(email, 'lead-magnet-amlr');
+      // Construire l'URL absolue du PDF (pour le footer email)
+      const baseUrl = window.location.origin + window.location.pathname.replace(/index\.html$/, '').replace(/\/$/, '');
+      const pdfUrl = baseUrl + '/Norvy-Checklist-AMLR-2024-1624.pdf';
+
+      let success = false;
+      try {
+        const response = await fetch(WEB3FORMS_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_KEY,
+            subject: `[Norvy Lead Magnet] Demande de checklist AMLR — ${email}`,
+            from_name: 'Norvy Site',
+            email: email,
+            source: 'lead-magnet-amlr',
+            message: `Nouvelle demande de la checklist AMLR.\n\n` +
+                     `Email du demandeur : ${email}\n` +
+                     `Source : lead-magnet-amlr\n` +
+                     `Date : ${new Date().toLocaleString('fr-FR')}\n\n` +
+                     `Lien du PDF : ${pdfUrl}\n\n` +
+                     `Le PDF a été téléchargé automatiquement dans le navigateur de l'avocat. ` +
+                     `Pensez à lui envoyer un email de suivi sous 24-48h pour entamer la relation commerciale.`
+          })
+        });
+        const data = await response.json();
+        success = data.success === true;
+      } catch (err) {
+        console.error('Erreur Web3Forms :', err);
+      }
 
       if (success) {
+        // Téléchargement immédiat du PDF dans le navigateur de l'avocat
+        const link = document.createElement('a');
+        link.href = 'Norvy-Checklist-AMLR-2024-1624.pdf';
+        link.download = 'Norvy-Checklist-AMLR-2024-1624.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
         document.getElementById('magnetSuccessMsg').classList.add('visible');
-        submitBtn.textContent = originalText;
+        submitBtn.textContent = '✓ Téléchargement lancé';
         emailInput.value = '';
       } else {
         submitBtn.textContent = '⚠ Erreur, réessayez';
