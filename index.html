@@ -2186,26 +2186,32 @@
 </footer>
 
 <script>
-  // === CONFIGURATION TALLY ===
-  const TALLY_FORM_ID = 'Np82Z0';
-  const TALLY_ENDPOINT = `https://api.tally.so/forms/${TALLY_FORM_ID}/submissions`;
+  // === CONFIGURATION WEB3FORMS ===
+  const WEB3FORMS_KEY = 'c5f749fc-eb96-485f-9697-c47e7a9cc406';
+  const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
 
-  // Envoie l'email à Tally avec un identifiant de source
-  async function submitToTally(email, source) {
+  // Envoie l'email à Web3Forms avec un identifiant de source
+  async function submitToBackend(email, source) {
     try {
-      const response = await fetch(TALLY_ENDPOINT, {
+      const response = await fetch(WEB3FORMS_ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
         body: JSON.stringify({
-          fields: {
-            email: email,
-            source: source
-          }
+          access_key: WEB3FORMS_KEY,
+          subject: `[Norvy Waitlist] Nouvelle inscription — ${source}`,
+          from_name: 'Norvy Site',
+          email: email,
+          source: source,
+          message: `Nouvelle inscription sur le site Norvy.\n\nEmail : ${email}\nSource : ${source}\nDate : ${new Date().toLocaleString('fr-FR')}`
         })
       });
-      return response.ok;
+      const data = await response.json();
+      return data.success === true;
     } catch (err) {
-      console.error('Erreur Tally :', err);
+      console.error('Erreur Web3Forms :', err);
       return false;
     }
   }
@@ -2224,20 +2230,28 @@
       submitBtn.disabled = true;
       submitBtn.textContent = 'Envoi…';
 
-      await submitToTally(email, source);
+      const success = await submitToBackend(email, source);
 
-      // Succès affiché que la requête réussisse ou non (UX cohérente)
-      if (formId === 'waitlistForm') {
-        document.getElementById('successMsg').classList.add('visible');
-        submitBtn.textContent = originalText;
+      if (success) {
+        if (formId === 'waitlistForm') {
+          document.getElementById('successMsg').classList.add('visible');
+          submitBtn.textContent = originalText;
+        } else {
+          submitBtn.textContent = '✓ Vous êtes sur la liste';
+          submitBtn.style.background = 'transparent';
+          submitBtn.style.color = 'var(--accent)';
+          submitBtn.style.border = '1px solid var(--accent)';
+        }
+        emailInput.value = '';
       } else {
-        submitBtn.textContent = '✓ Vous êtes sur la liste';
-        submitBtn.style.background = 'transparent';
-        submitBtn.style.color = 'var(--accent)';
-        submitBtn.style.border = '1px solid var(--accent)';
+        submitBtn.textContent = '⚠ Erreur, réessayez';
+        submitBtn.style.background = '#FF6B6B';
+        setTimeout(() => {
+          submitBtn.textContent = originalText;
+          submitBtn.style.background = '';
+        }, 3000);
       }
       submitBtn.disabled = false;
-      emailInput.value = '';
     });
   }
 
@@ -2257,12 +2271,17 @@
       submitBtn.disabled = true;
       submitBtn.textContent = 'Envoi…';
 
-      await submitToTally(email, 'lead-magnet-amlr');
+      const success = await submitToBackend(email, 'lead-magnet-amlr');
 
-      document.getElementById('magnetSuccessMsg').classList.add('visible');
-      submitBtn.textContent = originalText;
+      if (success) {
+        document.getElementById('magnetSuccessMsg').classList.add('visible');
+        submitBtn.textContent = originalText;
+        emailInput.value = '';
+      } else {
+        submitBtn.textContent = '⚠ Erreur, réessayez';
+        setTimeout(() => { submitBtn.textContent = originalText; }, 3000);
+      }
       submitBtn.disabled = false;
-      emailInput.value = '';
     });
   }
 
