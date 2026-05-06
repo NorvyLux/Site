@@ -1355,6 +1355,187 @@
     font-weight: 300;
   }
 
+  /* === LEAD MAGNET POPUP === */
+  .magnet-popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(14, 16, 19, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .magnet-popup-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .magnet-popup {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    max-width: 920px;
+    width: 100%;
+    max-height: 92vh;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    position: relative;
+    transform: translateY(20px) scale(0.97);
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow:
+      0 50px 100px -20px rgba(0,0,0,0.7),
+      0 30px 60px -30px rgba(0,0,0,0.6);
+  }
+
+  .magnet-popup-overlay.visible .magnet-popup {
+    transform: translateY(0) scale(1);
+  }
+
+  .magnet-popup-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .magnet-popup-close:hover {
+    background: var(--bg-elev-2);
+    color: var(--text);
+    transform: rotate(90deg);
+  }
+
+  .magnet-popup-close svg { width: 16px; height: 16px; }
+
+  .magnet-popup-content {
+    padding: 48px 40px;
+  }
+
+  .magnet-popup-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 16px;
+    padding: 4px 10px;
+    background: rgba(197, 245, 116, 0.08);
+    border: 1px solid rgba(197, 245, 116, 0.2);
+    border-radius: 100px;
+  }
+
+  .magnet-popup-eyebrow::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .magnet-popup-content h2 {
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+
+  .magnet-popup-content h2 em {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--text-dim);
+  }
+
+  .magnet-popup-content > p {
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.55;
+    margin-bottom: 20px;
+    font-weight: 300;
+  }
+
+  .magnet-popup-bullets {
+    list-style: none;
+    margin-bottom: 24px;
+  }
+
+  .magnet-popup-bullets li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 5px 0;
+    font-size: 13.5px;
+    color: var(--text-dim);
+    line-height: 1.4;
+  }
+
+  .magnet-popup-bullets svg {
+    width: 14px;
+    height: 14px;
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .magnet-popup .hero-form {
+    margin-bottom: 8px;
+  }
+
+  .magnet-popup-trust {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-faint);
+    letter-spacing: 0.05em;
+    margin-top: 12px;
+  }
+
+  .magnet-popup-visual {
+    background: linear-gradient(135deg, var(--bg-elev-2) 0%, var(--bg) 100%);
+    border-left: 1px solid var(--border);
+    padding: 48px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .magnet-popup-visual::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(197, 245, 116, 0.06) 0%, transparent 60%);
+  }
+
+  .magnet-popup .pdf-mock {
+    transform: rotate(-3deg) scale(0.95);
+    max-width: 240px;
+    margin: 0 auto;
+  }
+
   /* FINAL CTA */
   .final-cta {
     padding: 140px 0;
@@ -1488,6 +1669,11 @@
     .magnet-card { grid-template-columns: 1fr; padding: 36px 28px; gap: 36px; }
     .pdf-mock { max-width: 280px; margin: 0 auto; }
     .personas-grid { grid-template-columns: 1fr; }
+    .magnet-popup { grid-template-columns: 1fr; max-height: 95vh; }
+    .magnet-popup-content { padding: 32px 24px 24px; }
+    .magnet-popup-visual { padding: 24px; min-height: 200px; border-left: none; border-top: 1px solid var(--border); }
+    .magnet-popup .pdf-mock { max-width: 180px; }
+    .magnet-popup-close { width: 32px; height: 32px; top: 12px; right: 12px; }
     .container { padding: 0 24px; }
   }
 
@@ -2185,6 +2371,66 @@
   </div>
 </footer>
 
+<!-- ============ POPUP LEAD MAGNET ============ -->
+<div class="magnet-popup-overlay" id="magnetPopup">
+  <div class="magnet-popup">
+    <button class="magnet-popup-close" id="magnetPopupClose" aria-label="Fermer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <div class="magnet-popup-content">
+      <div class="magnet-popup-eyebrow">Ressource gratuite</div>
+      <h2>La checklist AMLR <em>pour cabinets d'avocats.</em></h2>
+      <p>12 pages synthétiques pour évaluer la conformité de votre cabinet au nouveau cadre AML européen — sans jargon, actionnable, immédiat.</p>
+
+      <ul class="magnet-popup-bullets">
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Les 7 obligations clés de l'AMLR pour les avocats</span>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Grille d'auto-évaluation de votre dispositif</span>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Calendrier d'application & modèles types</span>
+        </li>
+      </ul>
+
+      <form class="hero-form" id="magnetPopupForm" style="max-width: 100%; margin-bottom: 0;">
+        <input type="email" placeholder="votre@cabinet.lu" required />
+        <button type="submit">Recevoir la checklist</button>
+      </form>
+      <div class="success-msg" id="magnetPopupSuccessMsg" style="margin-top: 12px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 7"/></svg>
+        Parfait. Votre téléchargement va démarrer.
+      </div>
+      <div class="magnet-popup-trust">PDF · 12 pages · Aucun spam</div>
+    </div>
+
+    <div class="magnet-popup-visual">
+      <div class="pdf-mock">
+        <div class="pdf-tag">Norvy · Ressource AML</div>
+        <h4>
+          Checklist AMLR
+          <span>2024/1624</span>
+        </h4>
+        <div class="pdf-divider"></div>
+        <ul class="pdf-checklist">
+          <li><div class="pdf-check done"></div><span>Politique AML formalisée</span></li>
+          <li><div class="pdf-check done"></div><span>Cartographie des risques</span></li>
+          <li><div class="pdf-check"></div><span>Identification du BE</span></li>
+          <li><div class="pdf-check"></div><span>Screening PEP & sanctions</span></li>
+          <li><div class="pdf-check"></div><span>Vigilance renforcée</span></li>
+          <li><div class="pdf-check"></div><span>Registre AML auditable</span></li>
+        </ul>
+        <div class="pdf-footer">12 pages · PDF · Mai 2026</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   // === CONFIGURATION WEB3FORMS ===
   const WEB3FORMS_KEY = 'c5f749fc-eb96-485f-9697-c47e7a9cc406';
@@ -2375,6 +2621,125 @@
       }
     });
   });
+
+  // === LEAD MAGNET POPUP ===
+  // Apparition au scroll (50%), une seule fois par session, fermable, mémorisée 7 jours
+  (function() {
+    const popup = document.getElementById('magnetPopup');
+    const closeBtn = document.getElementById('magnetPopupClose');
+    const popupForm = document.getElementById('magnetPopupForm');
+    const popupSuccess = document.getElementById('magnetPopupSuccessMsg');
+
+    if (!popup) return;
+
+    // Vérifier si déjà fermé/soumis dans les 7 derniers jours
+    const STORAGE_KEY = 'norvy_magnet_popup_seen';
+    const COOLDOWN_DAYS = 7;
+    const lastSeen = localStorage.getItem(STORAGE_KEY);
+    if (lastSeen) {
+      const daysSince = (Date.now() - parseInt(lastSeen)) / (1000 * 60 * 60 * 24);
+      if (daysSince < COOLDOWN_DAYS) return;
+    }
+
+    let triggered = false;
+
+    function showPopup() {
+      if (triggered) return;
+      triggered = true;
+      popup.classList.add('visible');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function hidePopup() {
+      popup.classList.remove('visible');
+      document.body.style.overflow = '';
+      localStorage.setItem(STORAGE_KEY, Date.now().toString());
+    }
+
+    // Trigger au scroll (50% de la page)
+    function checkScroll() {
+      const scrolled = window.scrollY + window.innerHeight;
+      const totalHeight = document.documentElement.scrollHeight;
+      const scrollPercent = (scrolled / totalHeight) * 100;
+
+      if (scrollPercent >= 50) {
+        showPopup();
+        window.removeEventListener('scroll', checkScroll);
+      }
+    }
+    window.addEventListener('scroll', checkScroll, { passive: true });
+
+    // Fermeture : croix
+    closeBtn.addEventListener('click', hidePopup);
+
+    // Fermeture : clic sur l'overlay
+    popup.addEventListener('click', function(e) {
+      if (e.target === popup) hidePopup();
+    });
+
+    // Fermeture : touche Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && popup.classList.contains('visible')) hidePopup();
+    });
+
+    // Soumission du formulaire popup
+    if (popupForm) {
+      popupForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const emailInput = popupForm.querySelector('input[type="email"]');
+        const submitBtn = popupForm.querySelector('button');
+        const email = emailInput.value;
+        const originalText = submitBtn.textContent;
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Envoi…';
+
+        let success = false;
+        try {
+          const response = await fetch(WEB3FORMS_ENDPOINT, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              access_key: WEB3FORMS_KEY,
+              subject: `[Norvy Lead Magnet] Nouvelle demande de checklist AMLR (popup)`,
+              from_name: 'Norvy',
+              email: email,
+              source: 'lead-magnet-popup',
+              message: `Nouvelle demande de checklist AMLR depuis le popup.\n\nEmail : ${email}\nDate : ${new Date().toLocaleString('fr-FR')}`
+            })
+          });
+          const data = await response.json();
+          success = data.success === true;
+        } catch (err) {
+          console.error('Erreur Web3Forms popup :', err);
+        }
+
+        if (success) {
+          // Téléchargement du PDF
+          const link = document.createElement('a');
+          link.href = 'Norvy-Checklist-AMLR-2024-1624.pdf';
+          link.download = 'Norvy-Checklist-AMLR-2024-1624.pdf';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+
+          popupSuccess.classList.add('visible');
+          submitBtn.textContent = '✓ Téléchargement lancé';
+          emailInput.value = '';
+          // Marquer comme vu et fermer après 2,5s
+          localStorage.setItem(STORAGE_KEY, Date.now().toString());
+          setTimeout(hidePopup, 2500);
+        } else {
+          submitBtn.textContent = '⚠ Erreur, réessayez';
+          setTimeout(() => { submitBtn.textContent = originalText; }, 3000);
+        }
+        submitBtn.disabled = false;
+      });
+    }
+  })();
 </script>
 
 </body>
