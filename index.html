@@ -3129,1182 +3129,1053 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 })();
 
 // ══════════════════════════════════════════════════════════════
-/**
- * NORVY — AUDIT AML — GÉNÉRATEUR PDF EXHAUSTIF (15+ pages)
- * ══════════════════════════════════════════════════════════
- * À remplacer dans index.html : la fonction generateAndDownload()
- * + la variable DIMS dans le bloc IIFE de l'audit
- *
- * Dépendance : jsPDF (déjà chargé dans le <head>)
- *
- * STRUCTURE DU PDF :
- *  Page 1  — Couverture avec score global et identité cabinet
- *  Page 2  — Dashboard 6 jauges (une par dimension)
- *  Page 3  — Tableau récapitulatif + verdict exécutif
- *  Pages 4-9 — Une page par dimension : score + mockup Norvy + actions
- *  Page 10+ — Plan d'action priorisé (tableau)
- *  Dernière page — Présentation Norvy + CTA
- *
- * USAGE :
- *  Remplacer l'appel à generateAndDownload() par generatePDFExhaustif()
- *  Passer les variables : score, dimScores, firmName, DIMS
- */
+// ═══════════════════════════════════════════════════════════════════
+// NORVY — RAPPORT PDF AUDIT AML — VERSION CORRIGÉE
+// Correction principale : encodage Latin-1 pour jsPDF Helvetica
+// Tous les textes passent par la fonction s() avant d'être dessinés
+// ═══════════════════════════════════════════════════════════════════
 
 function generatePDFExhaustif(score, dimScores, firmName, grade) {
   const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+  const doc = new jsPDF({ unit: 'mm', format: 'a4' });
 
-  // ═══════════ PALETTE ═══════════
-  const C = {
-    accent:    [26, 77, 62],
-    accentHL:  [45, 122, 99],
-    accentSoft:[232, 240, 236],
-    dark:      [14, 16, 19],
-    text:      [20, 22, 26],
-    dim:       [92, 100, 112],
-    faint:     [139, 146, 160],
-    border:    [229, 226, 218],
-    bg:        [251, 250, 247],
-    bgElev:    [255, 255, 255],
-    warn:      [184, 130, 28],
-    warnSoft:  [251, 243, 223],
-    danger:    [184, 56, 56],
-    dangerSoft:[252, 232, 232],
-    white:     [255, 255, 255],
-  };
+  // ─── ENCODEUR LATIN-1 ──────────────────────────────────────────
+  // jsPDF/Helvetica = Latin-1. On remplace les caractères hors-charset.
+  function s(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/\u2019/g, "'").replace(/\u2018/g, "'")
+      .replace(/\u201C/g, '"').replace(/\u201D/g, '"')
+      .replace(/\u2013/g, '-').replace(/\u2014/g, '--')
+      .replace(/\u2026/g, '...')
+      .replace(/\u00e0/g, 'a').replace(/\u00e1/g, 'a').replace(/\u00e2/g, 'a').replace(/\u00e3/g, 'a').replace(/\u00e4/g, 'a')
+      .replace(/\u00e8/g, 'e').replace(/\u00e9/g, 'e').replace(/\u00ea/g, 'e').replace(/\u00eb/g, 'e')
+      .replace(/\u00ee/g, 'i').replace(/\u00ef/g, 'i').replace(/\u00ec/g, 'i').replace(/\u00ed/g, 'i')
+      .replace(/\u00f4/g, 'o').replace(/\u00f6/g, 'o').replace(/\u00f2/g, 'o').replace(/\u00f3/g, 'o')
+      .replace(/\u00f9/g, 'u').replace(/\u00fb/g, 'u').replace(/\u00fc/g, 'u').replace(/\u00fa/g, 'u')
+      .replace(/\u00c0/g, 'A').replace(/\u00c1/g, 'A').replace(/\u00c2/g, 'A').replace(/\u00c4/g, 'A')
+      .replace(/\u00c8/g, 'E').replace(/\u00c9/g, 'E').replace(/\u00ca/g, 'E').replace(/\u00cb/g, 'E')
+      .replace(/\u00ce/g, 'I').replace(/\u00cf/g, 'I')
+      .replace(/\u00d4/g, 'O').replace(/\u00d6/g, 'O')
+      .replace(/\u00d9/g, 'U').replace(/\u00db/g, 'U').replace(/\u00dc/g, 'U')
+      .replace(/\u00e7/g, 'c').replace(/\u00c7/g, 'C')
+      .replace(/\u00e6/g, 'ae').replace(/\u0153/g, 'oe').replace(/\u0152/g, 'OE')
+      .replace(/\u00f1/g, 'n').replace(/\u00d1/g, 'N')
+      .replace(/[^\x00-\xFF]/g, '?');
+  }
 
-  const W = 210, H = 297, M = 20, CX = W / 2;
-  const today = new Date().toLocaleDateString('fr-FR', { day:'2-digit', month:'long', year:'numeric' });
+  // ─── DIMENSIONS ────────────────────────────────────────────────
+  const W = 210, H = 297, M = 18, RW = W - 2 * M;
+  const today = new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' });
 
-  // ═══════════ HELPERS ═══════════
-  function rgb(c) { return c; }
+  // ─── PALETTE ───────────────────────────────────────────────────
+  const ACCENT   = [26, 77, 62];
+  const ACCENT_S = [232, 240, 236];
+  const DARK     = [14, 16, 19];
+  const TEXT     = [20, 22, 26];
+  const DIM      = [92, 100, 112];
+  const FAINT    = [160, 165, 175];
+  const BORDER   = [229, 226, 218];
+  const BG       = [251, 250, 247];
+  const WHITE    = [255, 255, 255];
+  const WARN     = [184, 130, 28];
+  const WARN_S   = [251, 243, 223];
+  const DANGER   = [184, 56, 56];
+  const DANGER_S = [252, 232, 232];
+  const GREEN_L  = [111, 207, 171];
 
-  function fill(c)   { doc.setFillColor(...c); }
-  function stroke(c) { doc.setDrawColor(...c); }
-  function color(c)  { doc.setTextColor(...c); }
-  function font(f='helvetica', s='normal', sz=10) { doc.setFont(f, s); doc.setFontSize(sz); }
+  // ─── HELPERS ───────────────────────────────────────────────────
+  function fc(c) { doc.setFillColor(...c); }
+  function sc(c) { doc.setDrawColor(...c); }
+  function tc(c) { doc.setTextColor(...c); }
   function lw(w) { doc.setLineWidth(w); }
+  function ff(style = 'normal', size = 10) { doc.setFont('helvetica', style); doc.setFontSize(size); }
 
-  function rect(x, y, w, h, r=0, mode='F') {
+  function txt(str, x, y, opts) { doc.text(s(str), x, y, opts); }
+  function splitTxt(str, maxW) { return doc.splitTextToSize(s(str), maxW); }
+
+  function rr(x, y, w, h, r = 0, mode = 'F') {
     if (r > 0) doc.roundedRect(x, y, w, h, r, r, mode);
     else doc.rect(x, y, w, h, mode);
   }
 
-  function text(str, x, y, opts={}) {
-    doc.text(String(str), x, y, opts);
+  function line(x1, y1, x2, y2) { doc.line(x1, y1, x2, y2); }
+
+  // Score → couleur
+  function sCol(score) {
+    if (score >= 75) return ACCENT;
+    if (score >= 50) return WARN;
+    return DANGER;
   }
-
-  function splitText(str, maxW) { return doc.splitTextToSize(String(str), maxW); }
-
-  function textBlock(str, x, y, maxW, lineH=5) {
-    const lines = splitText(str, maxW);
-    lines.forEach((l, i) => text(l, x, y + i * lineH));
-    return y + lines.length * lineH;
+  function sBg(score) {
+    if (score >= 75) return ACCENT_S;
+    if (score >= 50) return WARN_S;
+    return DANGER_S;
   }
-
-  function pageFooter(pageNum, total) {
-    stroke(C.border); lw(0.3);
-    doc.line(M, 283, W-M, 283);
-    font('helvetica','normal',8); color(C.faint);
-    text('Norvy — Rapport d\'audit AML & Conformité AMLR 2024/1624', M, 290);
-    text(`${pageNum} / ${total}`, W-M, 290, { align:'right' });
-    text('norvy.lu', CX, 290, { align:'center' });
-  }
-
-  function sectionChip(label, x, y, bgColor, txtColor) {
-    fill(bgColor); rect(x, y-4, doc.getTextWidth(label)+8, 6, 2);
-    color(txtColor); font('helvetica','bold',7);
-    text(label, x+4, y);
-  }
-
-  function scoreColor(s) {
-    if (s >= 75) return C.accent;
-    if (s >= 50) return C.warn;
-    return C.danger;
-  }
-
-  function scoreBg(s) {
-    if (s >= 75) return C.accentSoft;
-    if (s >= 50) return C.warnSoft;
-    return C.dangerSoft;
-  }
-
-  function gradeLabel(s) {
-    if (s >= 75) return 'CONFORME';
-    if (s >= 50) return 'PARTIEL';
+  function sLabel(score) {
+    if (score >= 75) return 'CONFORME';
+    if (score >= 50) return 'PARTIEL';
     return 'INSUFFISANT';
   }
 
-  // Barre de progression horizontale
-  function progressBar(x, y, w, h, pct, color_fg, r=1) {
-    fill(C.border); rect(x, y, w, h, r);
-    fill(color_fg); rect(x, y, w * Math.min(pct/100, 1), h, r);
+  // Barre horizontale
+  function bar(x, y, w, h, pct, col, r = 1) {
+    fc(BORDER); rr(x, y, w, h, r);
+    fc(col);    rr(x, y, Math.max(w * Math.min(pct / 100, 1), 0.5), h, r);
   }
 
-  // Jauge circulaire dessinée à la main (segments)
-  function gaugeCircle(cx, cy, radius, pct, colorFg) {
-    // Fond
-    stroke(C.border); lw(2); fill([0,0,0,0]);
-    doc.circle(cx, cy, radius, 'S');
-    // Arc plein
-    const segs = 72;
-    const fillSegs = Math.round(pct / 100 * segs);
-    stroke(colorFg); lw(3);
-    for (let i = 0; i < fillSegs; i++) {
-      const a1 = -Math.PI/2 + (i / segs) * 2 * Math.PI;
-      const a2 = -Math.PI/2 + ((i+1) / segs) * 2 * Math.PI;
-      doc.line(cx + radius*Math.cos(a1), cy + radius*Math.sin(a1),
-               cx + radius*Math.cos(a2), cy + radius*Math.sin(a2));
+  // Chip (badge texte)
+  function chip(label, x, y, bg, fg, padX = 4, padY = 2.5) {
+    fc(bg); sc(fg); lw(0.2);
+    const tw = doc.getTextWidth(s(label));
+    rr(x, y - padY, tw + padX * 2, padY * 2 + 2, 1.5, 'FD');
+    tc(fg); ff('bold', 6);
+    txt(label, x + padX, y + 1);
+  }
+
+  // Jauge circulaire (arc via segments)
+  function gauge(cx, cy, r, pct, col) {
+    sc(BORDER); lw(1.5); fc([0, 0, 0, 0]);
+    doc.circle(cx, cy, r, 'S');
+    if (pct <= 0) return;
+    sc(col); lw(2.5);
+    const segs = 60;
+    const fill = Math.round(pct / 100 * segs);
+    for (let i = 0; i < fill; i++) {
+      const a1 = -Math.PI / 2 + (i / segs) * 2 * Math.PI;
+      const a2 = -Math.PI / 2 + ((i + 1) / segs) * 2 * Math.PI;
+      line(cx + r * Math.cos(a1), cy + r * Math.sin(a1),
+           cx + r * Math.cos(a2), cy + r * Math.sin(a2));
     }
   }
 
-  // ═══════════════════════════════════════════════════════════════
-  // DONNÉES DES DIMENSIONS (recommandations + mockups)
-  // ═══════════════════════════════════════════════════════════════
-  const DIMS_DATA = [
+  // Footer commun à toutes les pages
+  const TOTAL = 11;
+  let pg = 0;
+  function footer() {
+    sc(BORDER); lw(0.3);
+    line(M, 284, W - M, 284);
+    ff('normal', 7.5); tc(FAINT);
+    txt('Norvy -- Rapport d\'audit AML & Conformite AMLR 2024/1624', M, 291);
+    txt(`Page ${pg} / ${TOTAL}`, W - M, 291, { align: 'right' });
+    txt('norvy.lu', W / 2, 291, { align: 'center' });
+  }
+
+  // Bande colorée latérale gauche
+  function leftStripe(col) {
+    fc(col); rr(0, 0, 7, H, 0);
+  }
+
+  // ─── DONNÉES ───────────────────────────────────────────────────
+  const DIMS = [
     {
-      name: 'Gouvernance',
-      shortName: 'Gouvernance',
-      icon: '🏛',
-      desc: 'Politique AML, désignation du Compliance Officer, évaluation des risques et intégration de l\'AMLR.',
+      name: 'Gouvernance', short: 'Gouvernance',
+      desc: 'Politique AML, Compliance Officer, evaluation des risques, integration AMLR.',
       actions: {
         low: [
-          'Rédiger une politique AML écrite et datée, validée par les associés',
-          'Désigner formellement un Compliance Officer et le déclarer auprès du Barreau',
-          'Établir une cartographie des risques adaptée à vos typologies de clientèle',
-          'Intégrer le cadre AMLR 2024/1624 dans toutes vos procédures internes',
+          'Rediger une politique AML ecrite, datee et validee par les associes',
+          'Designer formellement un Compliance Officer et le declarer aupres du Barreau',
+          'Etablir une cartographie des risques par typologies de clientele',
+          'Integrer le cadre AMLR 2024/1624 dans toutes vos procedures internes',
         ],
         medium: [
-          'Mettre à jour la politique AML (< 12 mois)',
-          'Formaliser la déclaration du Compliance Officer auprès de l\'Ordre',
-          'Enrichir l\'évaluation des risques avec les nouvelles typologies AMLR',
-          'Documenter le processus de révision annuelle des procédures',
+          'Mettre a jour la politique AML (< 12 mois)',
+          'Formaliser la declaration du CO aupres de l\'Ordre',
+          'Enrichir l\'evaluation des risques avec les typologies AMLR',
+          'Documenter le processus de revision annuelle des procedures',
         ],
         high: [
           'Maintenir la revue annuelle de la politique AML',
-          'Documenter les mises à jour AMLR au fil des publications réglementaires',
+          'Documenter les mises a jour AMLR au fil des publications',
         ],
       },
-      norvyFeatures: [
-        { title: 'Tableau de bord Gouvernance', desc: 'Vue centralisée de votre dispositif AML : statut de la politique, échéance de révision, responsable désigné.' },
-        { title: 'Alertes réglementaires', desc: 'Norvy surveille les publications AMLA/AMLR et vous alerte automatiquement des mises à jour impactant votre cabinet.' },
-        { title: 'Workflow de validation', desc: 'Circuit de validation numérique des politiques et procédures entre associés, avec horodatage et signature.' },
+      features: [
+        { t: 'Tableau de bord Gouvernance', d: 'Vue centralisee de votre dispositif AML : statut de la politique, echeance de revision, responsable designe.' },
+        { t: 'Alertes reglementaires', d: 'Norvy surveille les publications AMLA et vous alerte automatiquement des mises a jour impactant votre cabinet.' },
+        { t: 'Workflow de validation', d: 'Circuit de validation numerique des politiques entre associes, avec horodatage et historique complet.' },
       ],
-      // Mockup SVG (dessiné dans drawMockup)
-      mockupType: 'dashboard-gouvernance',
+      mockup: 'gouvernance',
     },
     {
-      name: 'KYC & Vigilance',
-      shortName: 'KYC',
-      icon: '👤',
-      desc: 'Identification clients, bénéficiaires effectifs, vigilance renforcée et conservation des pièces.',
+      name: 'KYC & Vigilance', short: 'KYC',
+      desc: 'Identification clients, beneficiaires effectifs, vigilance renforcee, conservation des pieces.',
       actions: {
         low: [
-          'Déployer une procédure KYC standardisée pour chaque entrée en relation',
-          'Identifier systématiquement les bénéficiaires effectifs (> 25%) avec recoupement RBE',
-          'Formaliser des critères de vigilance renforcée (PEP, géographies à risque, montages complexes)',
-          'Mettre en place un archivage électronique horodaté sur 5 ans minimum',
+          'Deployer une procedure KYC standardisee pour chaque entree en relation',
+          'Identifier systematiquement les beneficiaires effectifs (> 25%) avec recoupement RBE',
+          'Formaliser des criteres de vigilance renforcee (PEP, geographies a risque)',
+          'Mettre en place un archivage electronique horodate sur 5 ans minimum',
         ],
         medium: [
-          'Automatiser la mise à jour périodique des KYC selon une matrice de risque',
-          'Renforcer le recoupement avec le Registre des Bénéficiaires Effectifs',
-          'Documenter systématiquement les décisions de vigilance renforcée',
-          'Structurer l\'archivage avec purge automatique à l\'échéance légale',
+          'Automatiser la mise a jour periodique des KYC selon une matrice de risque',
+          'Renforcer le recoupement avec le Registre des Beneficiaires Effectifs',
+          'Documenter systematiquement les decisions de vigilance renforcee',
         ],
         high: [
-          'Affiner la matrice de révision KYC par niveau de risque',
+          'Affiner la matrice de revision KYC par niveau de risque',
           'Maintenir le recoupement RBE pour tous les clients actifs',
         ],
       },
-      norvyFeatures: [
-        { title: 'Dossier KYC numérique', desc: 'Collecte guidée des pièces d\'identité, statuts, RBE. OCR automatique et extraction des données clés.' },
-        { title: 'Identification BE automatisée', desc: 'Croisement automatique avec le Registre des Bénéficiaires Effectifs luxembourgeois et les bases européennes.' },
-        { title: 'Matrice de révision intelligente', desc: 'Calendrier de revue automatique selon le niveau de risque. Alertes avant expiration des diligences.' },
+      features: [
+        { t: 'Dossier KYC numerique', d: 'Collecte guidee des pieces d\'identite, statuts, RBE. OCR automatique et extraction des donnees cles.' },
+        { t: 'Identification BE automatisee', d: 'Croisement automatique avec le Registre des Beneficiaires Effectifs luxembourgeois et les bases europeennes.' },
+        { t: 'Matrice de revision intelligente', d: 'Calendrier de revue automatique selon le niveau de risque. Alertes avant expiration des diligences.' },
       ],
-      mockupType: 'kyc-dossier',
+      mockup: 'kyc',
     },
     {
-      name: 'Screening',
-      shortName: 'Screening',
-      icon: '🔍',
-      desc: 'Vérification listes de sanctions UE/OFAC/ONU, détection PEP et surveillance continue.',
+      name: 'Screening', short: 'Screening',
+      desc: 'Verification listes sanctions UE/OFAC/ONU, detection PEP, surveillance continue.',
       actions: {
         low: [
-          'Mettre en place un screening automatisé à l\'entrée contre les listes UE/OFAC/ONU',
-          'Souscrire à une base PEP professionnelle (fini les recherches Google)',
+          'Mettre en place un screening automatise contre les listes UE/OFAC/ONU',
+          'Souscrire a une base PEP professionnelle',
           'Activer la surveillance continue avec alertes sur nouvelles correspondances',
-          'Documenter chaque résultat de screening dans le dossier KYC',
+          'Documenter chaque resultat de screening dans le dossier KYC',
         ],
         medium: [
-          'Passer du screening manuel ponctuel à la surveillance continue automatisée',
-          'Étendre le périmètre aux proches des PEP (famille, associés)',
-          'Intégrer les résultats de screening dans le scoring de risque global',
+          'Passer du screening manuel a la surveillance continue automatisee',
+          'Etendre le perimetre aux proches des PEP (famille, associes)',
+          'Integrer les resultats dans le scoring de risque global',
         ],
         high: [
-          'Maintenir la couverture des listes et la fréquence des mises à jour',
-          'Documenter les faux positifs et affiner les règles de matching',
+          'Maintenir la couverture des listes et la frequence des mises a jour',
+          'Documenter les faux positifs et affiner les regles de matching',
         ],
       },
-      norvyFeatures: [
-        { title: 'Screening temps réel', desc: 'Croisement instantané avec listes UE, OFAC, ONU, Tresor.gouv. Mise à jour quotidienne des bases.' },
-        { title: 'Détection PEP avancée', desc: 'Base PEP professionnelle couvrant 220+ pays. Détection des proches et des entités associées.' },
-        { title: 'Alertes continues', desc: 'Surveillance 24/7 : notification immédiate si un client ou un BE entre sur une liste de sanctions après l\'ouverture.' },
+      features: [
+        { t: 'Screening temps reel', d: 'Croisement instantane avec listes UE, OFAC, ONU. Mise a jour quotidienne des bases.' },
+        { t: 'Detection PEP avancee', d: 'Base PEP professionnelle couvrant 220+ pays. Detection des proches et des entites associees.' },
+        { t: 'Alertes continues', d: 'Surveillance 24/7 : notification immediate si un client entre sur une liste de sanctions apres l\'ouverture.' },
       ],
-      mockupType: 'screening',
+      mockup: 'screening',
     },
     {
-      name: 'Formation',
-      shortName: 'Formation',
-      icon: '📚',
-      desc: 'Formation AML annuelle obligatoire des collaborateurs et traçabilité du plan de formation.',
+      name: 'Formation', short: 'Formation',
+      desc: 'Formation AML annuelle obligatoire, registre des formations, plan certifiant.',
       actions: {
         low: [
           'Instaurer un plan de formation AML annuel obligatoire pour tous les collaborateurs',
-          'Tenir un registre numérique des formations suivies (date, contenu, participants)',
-          'Désigner un référent formation AML au sein du cabinet',
-          'Programmer les prochaines sessions avant le 31 décembre',
+          'Tenir un registre numerique des formations (date, contenu, participants)',
+          'Designer un referent formation AML au sein du cabinet',
+          'Programmer les prochaines sessions avant le 31 decembre',
         ],
         medium: [
-          'Standardiser le rythme annuel et améliorer la traçabilité',
-          'Différencier les formations selon les profils (associés, collaborateurs, secrétariat)',
+          'Standardiser le rythme annuel et ameliorer la tracabilite',
+          'Differencier les formations selon les profils (associes, collaborateurs)',
           'Ajouter un module AMLR 2024/1624 au plan de formation existant',
         ],
         high: [
-          'Maintenir la cadence annuelle et mettre à jour les contenus AMLR',
-          'Documenter les évaluations post-formation',
+          'Maintenir la cadence annuelle et mettre a jour les contenus AMLR',
+          'Documenter les evaluations post-formation',
         ],
       },
-      norvyFeatures: [
-        { title: 'Module formation intégré', desc: 'Bibliothèque de formations AML adaptées aux avocats. Suivi de complétion par collaborateur.' },
-        { title: 'Registre de formation automatique', desc: 'Chaque formation complétée est enregistrée avec date et certificat. Export direct pour le questionnaire Barreau.' },
-        { title: 'Rappels automatiques', desc: 'Alertes avant expiration du cycle annuel de formation. Relance individuelle des collaborateurs en retard.' },
+      features: [
+        { t: 'Module formation integre', d: 'Bibliotheque de formations AML adaptees aux avocats. Suivi de completion par collaborateur.' },
+        { t: 'Registre de formation automatique', d: 'Chaque formation completee est enregistree avec date et certificat. Export direct pour le questionnaire Barreau.' },
+        { t: 'Rappels automatiques', d: 'Alertes avant expiration du cycle annuel. Relance individuelle des collaborateurs en retard.' },
       ],
-      mockupType: 'formation',
+      mockup: 'formation',
     },
     {
-      name: 'Registre & Traçabilité',
-      shortName: 'Registre',
-      icon: '📋',
-      desc: 'Registre AML horodaté, documentation des analyses de risque et préparation au questionnaire Barreau.',
+      name: 'Registre & Tracabilite', short: 'Registre',
+      desc: 'Registre AML horodate, documentation des analyses de risque, questionnaire Barreau.',
       actions: {
         low: [
-          'Migrer vers un registre numérique horodaté et immuable',
-          'Documenter systématiquement les analyses de risque par dossier',
-          'Préparer un plan d\'urgence pour répondre au questionnaire ordinal en < 1 jour',
-          'Définir une procédure documentée pour les contrôles CRF',
+          'Migrer vers un registre numerique horodate et immuable',
+          'Documenter systematiquement les analyses de risque par dossier',
+          'Preparer un plan d\'urgence pour repondre au questionnaire ordinal en < 1 jour',
+          'Definir une procedure documentee pour les controles CRF',
         ],
         medium: [
-          'Renforcer la justification écrite de chaque décision de risque',
-          'Automatiser la génération du questionnaire annuel Barreau',
-          'Tester la procédure de contrôle avant tout besoin réel',
+          'Renforcer la justification ecrite de chaque decision de risque',
+          'Automatiser la generation du questionnaire annuel Barreau',
+          'Tester la procedure de controle avant tout besoin reel',
         ],
         high: [
-          'Maintenir la qualité et la complétude du registre',
-          'Affiner les modèles de justification de risque',
+          'Maintenir la qualite et la completude du registre',
+          'Affiner les modeles de justification de risque',
         ],
       },
-      norvyFeatures: [
-        { title: 'Registre AML immuable', desc: 'Horodatage certifié de chaque action. Historique complet non modifiable. Prêt pour tout contrôle ordinal ou CRF.' },
-        { title: 'Questionnaire Barreau auto-généré', desc: 'Toutes les données agrégées en temps réel. Un clic pour générer le questionnaire annuel pré-rempli, adapté à votre Barreau.' },
-        { title: 'Dashboard de traçabilité', desc: 'Vue globale sur l\'état de conformité du cabinet : dossiers complets, en attente, à revoir. Exportable en PDF.' },
+      features: [
+        { t: 'Registre AML immuable', d: 'Horodatage certifie de chaque action. Historique complet non modifiable. Pret pour tout controle ordinal ou CRF.' },
+        { t: 'Questionnaire Barreau auto-genere', d: 'Toutes les donnees agregees en temps reel. Un clic pour generer le questionnaire annuel pre-rempli.' },
+        { t: 'Dashboard de tracabilite', d: 'Vue globale sur l\'etat de conformite : dossiers complets, en attente, a revoir. Exportable en PDF.' },
       ],
-      mockupType: 'registre',
+      mockup: 'registre',
     },
     {
-      name: 'Déclaration & Soupçon',
-      shortName: 'DOS',
-      icon: '⚠️',
-      desc: 'Procédure de déclaration de soupçon à la CRF, typologies de red flags et canaux d\'escalade.',
+      name: 'Declaration & Soupcon', short: 'DOS',
+      desc: 'Procedure de declaration a la CRF, typologies de red flags, canaux d\'escalade.',
       actions: {
         low: [
-          'Formaliser la procédure de déclaration de soupçon (DOS) à la CRF',
-          'Établir une liste interne de red flags adaptée à vos typologies de clientèle',
-          'Former tous les collaborateurs aux signaux d\'alerte et aux canaux d\'escalade',
-          'Désigner et documenter le canal d\'escalade interne (→ Compliance Officer)',
+          'Formaliser la procedure de declaration de soupcon (DOS) a la CRF',
+          'Etablir une liste interne de red flags adaptee a vos typologies de clientele',
+          'Former tous les collaborateurs aux signaux d\'alerte et canaux d\'escalade',
+          'Designer et documenter le canal d\'escalade interne',
         ],
         medium: [
-          'Documenter formellement les typologies de soupçon (liste de red flags)',
-          'Tester la procédure CRF avec un exercice pratique',
-          'Tracer les escalades internes même non suivies de DOS',
+          'Documenter formellement les typologies de soupcon',
+          'Tester la procedure CRF avec un exercice pratique',
+          'Tracer les escalades internes meme non suivies de DOS',
         ],
         high: [
-          'Maintenir la liste de red flags à jour avec les typologies AMLA',
-          'Documenter les décisions de non-déclaration motivées',
+          'Maintenir la liste de red flags a jour avec les typologies AMLA',
+          'Documenter les decisions de non-declaration motivees',
         ],
       },
-      norvyFeatures: [
-        { title: 'Workflow de signalement', desc: 'Circuit structuré d\'escalade interne : collaborateur → Compliance Officer → décision DOS. Tout est tracé et horodaté.' },
-        { title: 'Bibliothèque de red flags', desc: 'Typologies de soupçon préchargées et adaptables à votre cabinet. Aide à la détection pour vos collaborateurs.' },
-        { title: 'Dossier DOS documenté', desc: 'Préparation guidée de la déclaration de soupçon avec les éléments requis par la CRF. Export sécurisé.' },
+      features: [
+        { t: 'Workflow de signalement', d: 'Circuit structure d\'escalade interne : collaborateur vers CO vers decision DOS. Tout est trace et horodate.' },
+        { t: 'Bibliotheque de red flags', d: 'Typologies de soupcon prechargees et adaptables. Aide a la detection pour vos collaborateurs.' },
+        { t: 'Dossier DOS documente', d: 'Preparation guidee de la declaration de soupcon avec les elements requis par la CRF. Export securise.' },
       ],
-      mockupType: 'dos',
+      mockup: 'dos',
     },
   ];
 
-  // ═══════════════════════════════════════════════════════════════
-  // MOCKUPS SVG en jsPDF (dessinés manuellement)
-  // ═══════════════════════════════════════════════════════════════
+  // ─── MOCKUPS ───────────────────────────────────────────────────
+  // Chaque mockup est dessiné dans une boite (x, y, w, h)
+  // avec une sidebar mini + contenu structuré
 
-  function drawMockup(type, x, y, w, h, dimScore) {
-    // Cadre général du mockup
-    fill(C.bgElev); stroke(C.border); lw(0.3);
-    rect(x, y, w, h, 3, 'FD');
-
-    // Barre de titre du mockup
-    fill([246, 244, 238]); rect(x, y, w, 8, 0, 'F');
-    // Points déco
-    fill([203, 203, 203]); doc.circle(x+4, y+4, 1.2, 'F');
-    fill([203, 203, 203]); doc.circle(x+8, y+4, 1.2, 'F');
-    fill([203, 203, 203]); doc.circle(x+12, y+4, 1.2, 'F');
-    // URL fictive
-    fill(C.bgElev); rect(x+18, y+1.5, w-36, 5, 1, 'F');
-    font('helvetica','normal',5); color(C.faint);
-    text('app.norvy.lu', x+w/2, y+5, { align:'center' });
-
-    const cx = x, cy = y+10, cw = w, ch = h-10;
-
-    if (type === 'dashboard-gouvernance') drawMockupGouvernance(cx, cy, cw, ch);
-    else if (type === 'kyc-dossier') drawMockupKYC(cx, cy, cw, ch);
-    else if (type === 'screening') drawMockupScreening(cx, cy, cw, ch);
-    else if (type === 'formation') drawMockupFormation(cx, cy, cw, ch);
-    else if (type === 'registre') drawMockupRegistre(cx, cy, cw, ch);
-    else if (type === 'dos') drawMockupDOS(cx, cy, cw, ch);
-  }
-
-  function chip(x, y, label, bg, fg, padX=3) {
-    const tw = doc.getTextWidth(label);
-    fill(bg); rect(x, y-3, tw+padX*2, 5, 1.5);
-    color(fg); font('helvetica','bold',5);
-    text(label, x+padX, y);
-  }
-
-  function miniIcon(x, y, type) {
-    // Petites icônes vectorielles simplifiées
-    stroke(C.accent); lw(0.5); fill([0,0,0,0]);
-    if (type === 'check') {
-      doc.line(x, y+1, x+2, y+3); doc.line(x+2, y+3, x+5, y-1);
-    } else if (type === 'alert') {
-      doc.triangle(x+2.5, y-1, x, y+4, x+5, y+4, 'S');
-      doc.line(x+2.5, y+1, x+2.5, y+2.5); doc.circle(x+2.5, y+3.5, 0.4, 'F');
-    } else if (type === 'user') {
-      doc.circle(x+2.5, y+1, 1.5, 'S');
-      doc.ellipse(x+2.5, y+5, 2.5, 1.5, 'S');
-    } else if (type === 'shield') {
-      doc.lines([[5,0],[2.5,3],[-2.5,3],[-5,0],[0,-4]], x, y+4, [1,1], 'S');
-    } else if (type === 'doc') {
-      rect(x+0.5, y, 4, 5, 0.5, 'S');
-      doc.line(x+1.5, y+1.5, x+4, y+1.5);
-      doc.line(x+1.5, y+2.5, x+4, y+2.5);
-      doc.line(x+1.5, y+3.5, x+3, y+3.5);
-    }
-  }
-
-  // Sidebar commune
-  function drawSidebar(x, y, w, h, activeItem) {
-    fill([246, 244, 238]); stroke(C.border); lw(0.2);
-    rect(x, y, w, h, 0, 'FD');
-
-    const items = ['Tableau de bord', 'Dossiers', 'Clients', 'Facturation', '— Conformité —', 'KYC / Diligences', 'Registre AML', 'Sanctions / PEP', 'Formation'];
-    let iy = y + 4;
-    items.forEach(item => {
-      if (item.startsWith('—')) {
-        color(C.faint); font('helvetica','normal',4.5);
-        text(item, x+3, iy); iy += 5; return;
-      }
-      const isActive = item === activeItem;
-      if (isActive) { fill(C.bgElev); rect(x+1, iy-3, w-2, 5, 1); }
-      color(isActive ? C.accent : C.dim); font('helvetica', isActive ? 'bold' : 'normal', 5);
-      text(item, x+5, iy); iy += 5.5;
+  function drawMockupFrame(x, y, w, h, url) {
+    // Cadre
+    fc(WHITE); sc(BORDER); lw(0.3);
+    rr(x, y, w, h, 3, 'FD');
+    // Barre titre
+    fc(BG); rr(x, y, w, 9, 0, 'F');
+    // Dots
+    [[4],[8],[12]].forEach(([dx]) => {
+      fc(BORDER); doc.circle(x + dx, y + 4.5, 1.2, 'F');
     });
+    // URL
+    fc(WHITE); sc(BORDER); lw(0.2); rr(x + 18, y + 1.5, w - 36, 6, 1);
+    ff('normal', 5); tc(FAINT);
+    txt(url || 'app.norvy.lu', x + w / 2, y + 5.8, { align: 'center' });
+    return { cx: x, cy: y + 9, cw: w, ch: h - 9 };
   }
 
-  function drawMockupGouvernance(x, y, w, h) {
-    const sbW = 28;
-    drawSidebar(x, y, sbW, h, 'Tableau de bord');
-    const cx = x+sbW, cw = w-sbW;
-
-    fill(C.bgElev); rect(cx, y, cw, h, 0, 'F');
-
-    // Header
-    font('helvetica','bold',7); color(C.text);
-    text('Tableau de bord AML', cx+4, y+7);
-    chip(cx+cw-30, y+3, 'EXERCICE 2026', C.accentSoft, C.accent);
-
-    // Stats cards row
-    const cards = [
-      { label: 'Politique AML', val: 'À jour', sub: 'Révisée jan. 2026', ok: true },
-      { label: 'Compliance Officer', val: 'Désigné', sub: 'Me. Martin, Assoc.', ok: true },
-      { label: 'Évaluation risques', val: 'À réviser', sub: 'Expire dans 45j', ok: false },
+  function drawSidebar(x, y, h, active) {
+    const sw = 30;
+    fc(BG); sc(BORDER); lw(0.15);
+    doc.rect(x, y, sw, h);
+    const items = [
+      'Tableau de bord', 'Dossiers', 'Clients', 'Facturation',
+      '-- Conformite --',
+      'KYC / Diligences', 'Registre AML', 'Sanctions / PEP', 'Formation',
     ];
-    const cCardW = (cw-8)/3, cCardH = 18;
-    cards.forEach((c, i) => {
-      const cx2 = cx+4 + i*(cCardW+2), cy2 = y+12;
-      fill(C.bgElev); stroke(C.border); lw(0.2); rect(cx2, cy2, cCardW, cCardH, 1.5, 'FD');
-      font('helvetica','normal',4.5); color(C.faint); text(c.label, cx2+3, cy2+5);
-      font('helvetica','bold',6.5); color(c.ok ? C.accent : C.warn); text(c.val, cx2+3, cy2+11);
-      font('helvetica','normal',4.5); color(C.dim); text(c.sub, cx2+3, cy2+15.5);
-      // Pastille
-      fill(c.ok ? C.accent : C.warn); doc.circle(cx2+cCardW-4, cy2+4, 1.8, 'F');
-      color(C.white); font('helvetica','bold',5); text(c.ok ? '✓' : '!', cx2+cCardW-5.2, cy2+5);
+    let iy = y + 5;
+    items.forEach(item => {
+      if (item.startsWith('--')) {
+        ff('normal', 4); tc(FAINT);
+        txt('-- CONFORMITE --', x + 3, iy);
+        iy += 5; return;
+      }
+      const isActive = item === active;
+      if (isActive) {
+        fc(WHITE); sc(BORDER); lw(0.1);
+        rr(x + 1, iy - 3, sw - 2, 6, 1, 'FD');
+      }
+      tc(isActive ? ACCENT : DIM);
+      ff(isActive ? 'bold' : 'normal', 5);
+      txt(item, x + 5, iy);
+      iy += 6;
+    });
+    return sw;
+  }
+
+  function mockupGouvernance(x, y, w, h) {
+    const F = drawMockupFrame(x, y, w, h, 'app.norvy.lu / gouvernance');
+    const sw = drawSidebar(F.cx, F.cy, F.ch, 'Tableau de bord');
+    const cx = F.cx + sw, cy = F.cy, cw = F.cw - sw;
+
+    ff('bold', 7); tc(TEXT); txt('Tableau de bord AML', cx + 4, cy + 8);
+    chip('EXERCICE 2026', cx + cw - 34, cy + 3, ACCENT_S, ACCENT);
+
+    // 3 stats
+    const cw3 = (cw - 10) / 3;
+    [
+      { l: 'Politique AML', v: 'A jour', ok: true },
+      { l: 'Compliance Officer', v: 'Designe', ok: true },
+      { l: 'Evaluation risques', v: 'A revoir', ok: false },
+    ].forEach((c, i) => {
+      const sx = cx + 3 + i * (cw3 + 1.5), sy = cy + 12;
+      fc(WHITE); sc(BORDER); lw(0.2); rr(sx, sy, cw3, 14, 1.5, 'FD');
+      ff('normal', 4); tc(FAINT); txt(c.l, sx + 3, sy + 5);
+      ff('bold', 6.5); tc(c.ok ? ACCENT : WARN); txt(c.v, sx + 3, sy + 11);
     });
 
-    // Politique AML timeline
-    font('helvetica','bold',5.5); color(C.text);
-    text('Cycle de vie de la politique AML', cx+4, y+36);
-    const milestones = ['Jan 2025\nRédaction', 'Mar 2025\nValidation', 'Jan 2026\nRévision', 'Jan 2027\nProchaine'];
-    const mY = y+48, mSpacing = (cw-8)/4;
-    stroke(C.border); lw(0.5);
-    doc.line(cx+6, mY, cx+cw-6, mY);
-    milestones.forEach((m, i) => {
-      const mx = cx+6 + i*mSpacing;
-      const isDone = i < 3;
-      fill(isDone ? C.accent : C.border);
-      doc.circle(mx, mY, 2, 'F');
-      if (isDone) { color(C.white); font('helvetica','bold',4); text('✓', mx-1.2, mY+1); }
-      const lines = m.split('\n');
-      font('helvetica', i===2?'bold':'normal', 4); color(i===2 ? C.accent : C.dim);
-      text(lines[0], mx, mY+6, { align:'center' });
-      text(lines[1], mx, mY+10, { align:'center' });
+    // Timeline
+    ff('bold', 5.5); tc(TEXT); txt('Cycle de vie - Politique AML', cx + 3, cy + 32);
+    const pts = ['Jan 2025 - Redaction', 'Mar 2025 - Validation', 'Jan 2026 - Revision', 'Jan 2027 - Prochaine'];
+    const sp = (cw - 8) / 4;
+    sc(BORDER); lw(0.4); line(cx + 4, cy + 42, cx + cw - 4, cy + 42);
+    pts.forEach((p, i) => {
+      const mx = cx + 4 + i * sp;
+      fc(i < 3 ? ACCENT : BORDER); doc.circle(mx, cy + 42, 2.2, 'F');
+      if (i < 3) { ff('bold', 5); tc(WHITE); txt('V', mx - 1.5, cy + 43.5); }
+      ff(i === 2 ? 'bold' : 'normal', 4); tc(i === 2 ? ACCENT : FAINT);
+      const parts = p.split(' - ');
+      txt(parts[0], mx, cy + 48, { align: 'center' });
+      txt(parts[1], mx, cy + 52, { align: 'center' });
     });
 
     // Checklist AMLR
-    font('helvetica','bold',5.5); color(C.text);
-    text('Conformité AMLR 2024/1624', cx+4, y+65);
-    const checks = [
-      { l: 'Politique AML formalisée', done: true },
-      { l: 'Compliance Officer désigné', done: true },
-      { l: 'Évaluation risques mise à jour', done: false },
-      { l: 'Procédures AMLR intégrées', done: false },
-    ];
-    checks.forEach((c, i) => {
-      const cy3 = y+70+i*6;
-      fill(c.done ? C.accent : C.bgElev); stroke(c.done ? C.accent : C.border); lw(0.4);
-      rect(cx+4, cy3-3, 4, 4, 0.8, 'FD');
-      if (c.done) { color(C.white); font('helvetica','bold',5); text('✓', cx+4.8, cy3); }
-      color(c.done ? C.text : C.dim); font('helvetica', c.done ? 'normal' : 'normal', 5);
-      text(c.l, cx+10, cy3);
-      chip(cx+cw-22, cy3-3, c.done ? 'FAIT' : 'À FAIRE', c.done ? C.accentSoft : C.warnSoft, c.done ? C.accent : C.warn);
+    ff('bold', 5.5); tc(TEXT); txt('Conformite AMLR 2024/1624', cx + 3, cy + 60);
+    [
+      { l: 'Politique AML formalisee', done: true },
+      { l: 'Compliance Officer designe', done: true },
+      { l: 'Evaluation risques mise a jour', done: false },
+      { l: 'Procedures AMLR integrees', done: false },
+    ].forEach((c, i) => {
+      const ry = cy + 65 + i * 6.5;
+      fc(c.done ? ACCENT : WHITE); sc(c.done ? ACCENT : BORDER); lw(0.4);
+      rr(cx + 4, ry - 3, 4.5, 4.5, 0.8, 'FD');
+      if (c.done) { ff('bold', 5); tc(WHITE); txt('V', cx + 5, ry); }
+      ff('normal', 5); tc(c.done ? TEXT : DIM);
+      txt(c.l, cx + 11, ry);
     });
   }
 
-  function drawMockupKYC(x, y, w, h) {
-    const sbW = 28;
-    drawSidebar(x, y, sbW, h, 'KYC / Diligences');
-    const cx = x+sbW, cw = w-sbW;
-    fill(C.bgElev); rect(cx, y, cw, h, 0, 'F');
+  function mockupKYC(x, y, w, h) {
+    const F = drawMockupFrame(x, y, w, h, 'app.norvy.lu / kyc / dossier');
+    const sw = drawSidebar(F.cx, F.cy, F.ch, 'KYC / Diligences');
+    const cx = F.cx + sw, cy = F.cy, cw = F.cw - sw;
 
-    font('helvetica','bold',7); color(C.text);
-    text('Dossier KYC — Société Alpha SARL', cx+4, y+7);
-    chip(cx+cw-24, y+3, 'CONFORME', C.accentSoft, C.accent);
+    ff('bold', 7); tc(TEXT); txt('Dossier KYC - Societe Alpha SARL', cx + 3, cy + 8);
+    chip('CONFORME', cx + cw - 26, cy + 3, ACCENT_S, ACCENT);
 
     // Stats
-    const stats = [{ l:'Risque', v:'Modéré'}, {l:'Sources',v:'11/12'}, {l:'Revue',v:'Mar 2027'}];
-    stats.forEach((s, i) => {
-      const sx = cx+4+i*((cw-8)/3+1), sy = y+12;
-      fill(C.bg); stroke(C.border); lw(0.2); rect(sx, sy, (cw-10)/3, 10, 1, 'FD');
-      font('helvetica','normal',4); color(C.faint); text(s.l, sx+2, sy+4);
-      font('helvetica','bold',6); color(C.text); text(s.v, sx+2, sy+9);
+    const cw3 = (cw - 9) / 3;
+    [{ l: 'Risque', v: 'Modere' }, { l: 'Sources', v: '11/12' }, { l: 'Revue', v: 'Mar 2027' }].forEach((s2, i) => {
+      const sx = cx + 3 + i * (cw3 + 1.5), sy = cy + 12;
+      fc(BG); sc(BORDER); lw(0.2); rr(sx, sy, cw3, 11, 1, 'FD');
+      ff('normal', 4); tc(FAINT); txt(s2.l, sx + 2, sy + 4.5);
+      ff('bold', 6.5); tc(TEXT); txt(s2.v, sx + 2, sy + 9.5);
     });
 
-    // Liste diligences
-    font('helvetica','bold',5.5); color(C.text); text('Diligences requises', cx+4, y+28);
-    const rows = [
-      { l: 'Bénéficiaire effectif — M. Laurent, 65%', tag:'Vérifié', ok:true },
-      { l: 'Screening sanctions UE/OFAC/ONU', tag:'Clair', ok:true },
-      { l: 'Pièce d\'identité dirigeant', tag:'Reçu', ok:true },
-      { l: 'Statuts à jour (requis)', tag:'En attente', ok:false },
-    ];
-    rows.forEach((r, i) => {
-      const ry = y+32+i*8;
-      fill(C.bg); stroke(C.border); lw(0.2); rect(cx+4, ry, cw-8, 7, 1, 'FD');
-      color(C.text); font('helvetica','normal',5); text(r.l, cx+7, ry+4.5);
-      chip(cx+cw-20, ry+1, r.tag, r.ok ? C.accentSoft : C.warnSoft, r.ok ? C.accent : C.warn);
+    // Diligences
+    ff('bold', 5.5); tc(TEXT); txt('Diligences requises', cx + 3, cy + 29);
+    [
+      { l: 'Beneficiaire effectif - M. Laurent, 65%', ok: true, tag: 'Verifie' },
+      { l: 'Screening sanctions UE/OFAC/ONU', ok: true, tag: 'Clair' },
+      { l: 'Piece d\'identite dirigeant', ok: true, tag: 'Recu' },
+      { l: 'Statuts a jour (requis)', ok: false, tag: 'En attente' },
+    ].forEach((r, i) => {
+      const ry = cy + 33 + i * 8;
+      fc(BG); sc(BORDER); lw(0.2); rr(cx + 3, ry, cw - 6, 7, 1, 'FD');
+      ff('normal', 5); tc(TEXT);
+      txt(r.l.length > 34 ? r.l.substring(0, 34) + '...' : r.l, cx + 6, ry + 5);
+      chip(r.tag, cx + cw - 22, ry + 1, r.ok ? ACCENT_S : WARN_S, r.ok ? ACCENT : WARN);
     });
 
-    // OCR / upload
-    font('helvetica','bold',5.5); color(C.text); text('Documents reçus', cx+4, y+68);
-    const docs = ['CNI_Laurent_2024.pdf', 'Statuts_Alpha_2022.pdf'];
-    docs.forEach((d, i) => {
-      const dy = y+73+i*7;
-      fill(C.bg); stroke(C.border); lw(0.2); rect(cx+4, dy, cw-8, 6, 1, 'FD');
-      stroke(C.accent); fill(C.accentSoft); rect(cx+6, dy+1, 6, 4, 0.5, 'FD');
-      color(C.accent); font('helvetica','bold',4); text('PDF', cx+7, dy+3.8);
-      color(C.text); font('helvetica','normal',5); text(d, cx+14, dy+4);
-      chip(cx+cw-20, dy+1, 'OCR ✓', C.accentSoft, C.accent);
+    // Documents
+    ff('bold', 5.5); tc(TEXT); txt('Documents (OCR)', cx + 3, cy + 67);
+    ['CNI Laurent 2024.pdf', 'Statuts Alpha 2022.pdf'].forEach((d, i) => {
+      const dy = cy + 71 + i * 8;
+      fc(BG); sc(BORDER); lw(0.2); rr(cx + 3, dy, cw - 6, 7, 1, 'FD');
+      fc(ACCENT_S); rr(cx + 5, dy + 1.5, 7, 4, 0.5, 'F');
+      ff('bold', 4); tc(ACCENT); txt('PDF', cx + 6, dy + 4.5);
+      ff('normal', 5); tc(TEXT); txt(d, cx + 14, dy + 5);
+      chip('OCR OK', cx + cw - 18, dy + 1.5, ACCENT_S, ACCENT);
     });
   }
 
-  function drawMockupScreening(x, y, w, h) {
-    const sbW = 28;
-    drawSidebar(x, y, sbW, h, 'Sanctions / PEP');
-    const cx = x+sbW, cw = w-sbW;
-    fill(C.bgElev); rect(cx, y, cw, h, 0, 'F');
+  function mockupScreening(x, y, w, h) {
+    const F = drawMockupFrame(x, y, w, h, 'app.norvy.lu / sanctions-pep');
+    const sw = drawSidebar(F.cx, F.cy, F.ch, 'Sanctions / PEP');
+    const cx = F.cx + sw, cy = F.cy, cw = F.cw - sw;
 
-    font('helvetica','bold',7); color(C.text);
-    text('Screening — M. Bernard Dumont', cx+4, y+7);
-    chip(cx+cw-18, y+3, 'CLAIR', C.accentSoft, C.accent);
+    ff('bold', 7); tc(TEXT); txt('Screening - M. Bernard Dumont', cx + 3, cy + 8);
+    chip('CLAIR', cx + cw - 20, cy + 3, ACCENT_S, ACCENT);
 
-    // Sources scannées
-    font('helvetica','bold',5.5); color(C.text); text('Sources vérifiées', cx+4, y+14);
-    const sources = [
-      { l:'Liste sanctions UE', res:'0 correspondance', ok:true },
-      { l:'OFAC SDN List', res:'0 correspondance', ok:true },
-      { l:'Listes ONU', res:'0 correspondance', ok:true },
-      { l:'Trésor.gouv', res:'0 correspondance', ok:true },
-      { l:'Registres PEP', res:'Non PEP confirmé', ok:true },
-      { l:'Adverse Media', res:'Aucun article négatif', ok:true },
-    ];
-    sources.forEach((s, i) => {
-      const ry = y+18+i*7;
-      fill(C.bg); stroke(C.border); lw(0.2); rect(cx+4, ry, cw-8, 6, 1, 'FD');
-      // Icône coche
-      fill(C.accentSoft); rect(cx+5.5, ry+1, 5, 4, 1, 'F');
-      color(C.accent); font('helvetica','bold',5); text('✓', cx+6.5, ry+4);
-      color(C.text); font('helvetica','normal',5); text(s.l, cx+12.5, ry+4);
-      color(C.dim); font('helvetica','normal',4.5); text(s.res, cx+cw-5-doc.getTextWidth(s.res)*0.55, ry+4);
+    ff('bold', 5.5); tc(TEXT); txt('Sources verifiees', cx + 3, cy + 15);
+    [
+      'Liste sanctions UE - 0 correspondance',
+      'OFAC SDN List - 0 correspondance',
+      'Listes ONU - 0 correspondance',
+      'Tresor.gouv - 0 correspondance',
+      'Registres PEP - Non PEP confirme',
+      'Adverse Media - Aucun article negatif',
+    ].forEach((s2, i) => {
+      const ry = cy + 20 + i * 8;
+      fc(BG); sc(BORDER); lw(0.2); rr(cx + 3, ry, cw - 6, 7, 1, 'FD');
+      fc(ACCENT_S); rr(cx + 5, ry + 1.5, 5, 4, 1, 'F');
+      ff('bold', 5); tc(ACCENT); txt('V', cx + 6.5, ry + 5);
+      ff('normal', 5); tc(TEXT);
+      const parts = s2.split(' - ');
+      txt(parts[0], cx + 12, ry + 5);
+      ff('normal', 4.5); tc(FAINT); txt(parts[1], cx + cw - 5, ry + 5, { align: 'right' });
     });
 
-    // Dernière vérification
-    font('helvetica','bold',5.5); color(C.text); text('Surveillance continue', cx+4, y+63);
-    fill(C.bg); stroke(C.border); lw(0.2); rect(cx+4, y+67, cw-8, 12, 1.5, 'FD');
-    color(C.accent); font('helvetica','bold',5);
-    text('● Surveillance active', cx+7, y+72);
-    color(C.dim); font('helvetica','normal',4.5);
-    text('Dernière vérification : aujourd\'hui 08h15', cx+7, y+76.5);
-    text('Prochaine : demain 08h15 (automatique)', cx+7, y+80);
+    ff('bold', 5.5); tc(TEXT); txt('Surveillance continue', cx + 3, cy + 70);
+    fc(BG); sc(BORDER); lw(0.2); rr(cx + 3, cy + 74, cw - 6, 14, 1.5, 'FD');
+    fc(ACCENT); doc.circle(cx + 8, cy + 79, 2, 'F');
+    ff('bold', 5.5); tc(ACCENT); txt('Active', cx + 12, cy + 80);
+    ff('normal', 4.5); tc(DIM);
+    txt('Derniere verification : aujourd\'hui 08h15', cx + 12, cy + 84.5);
   }
 
-  function drawMockupFormation(x, y, w, h) {
-    const sbW = 28;
-    drawSidebar(x, y, sbW, h, 'Formation');
-    const cx = x+sbW, cw = w-sbW;
-    fill(C.bgElev); rect(cx, y, cw, h, 0, 'F');
+  function mockupFormation(x, y, w, h) {
+    const F = drawMockupFrame(x, y, w, h, 'app.norvy.lu / formation');
+    const sw = drawSidebar(F.cx, F.cy, F.ch, 'Formation');
+    const cx = F.cx + sw, cy = F.cy, cw = F.cw - sw;
 
-    font('helvetica','bold',7); color(C.text);
-    text('Registre de formation AML', cx+4, y+7);
-    chip(cx+cw-32, y+3, 'PLAN 2026', C.accentSoft, C.accent);
+    ff('bold', 7); tc(TEXT); txt('Registre de formation AML', cx + 3, cy + 8);
+    chip('PLAN 2026', cx + cw - 30, cy + 3, ACCENT_S, ACCENT);
 
-    // Barre de progression globale
-    font('helvetica','bold',5.5); color(C.text); text('Avancement plan annuel', cx+4, y+14);
-    progressBar(cx+4, y+18, cw-8, 4, 75, C.accent);
-    color(C.dim); font('helvetica','normal',5); text('75% — 3 collaborateurs sur 4 formés', cx+4, y+26);
+    ff('bold', 5.5); tc(TEXT); txt('Avancement plan annuel', cx + 3, cy + 15);
+    bar(cx + 3, cy + 18, cw - 6, 5, 75, ACCENT);
+    ff('normal', 5); tc(DIM); txt('75% -- 3 collaborateurs sur 4 formes', cx + 3, cy + 27);
 
-    // Collaborateurs
-    font('helvetica','bold',5.5); color(C.text); text('Suivi par collaborateur', cx+4, y+32);
-    const collab = [
-      { n: 'Me. Martin (Associé)', d: 'Formé — 12 jan. 2026', pct: 100 },
-      { n: 'Me. Dupont (Collab.)', d: 'Formé — 15 fév. 2026', pct: 100 },
-      { n: 'Me. Bernard (Collab.)', d: 'Formé — 3 mar. 2026', pct: 100 },
-      { n: 'Mme Leclerc (Assist.)', d: 'Session prévue 20 juin', pct: 0 },
-    ];
-    collab.forEach((c, i) => {
-      const ry = y+37+i*9;
-      fill(C.bg); stroke(C.border); lw(0.2); rect(cx+4, ry, cw-8, 8, 1, 'FD');
-      color(C.text); font('helvetica','bold',5); text(c.n, cx+7, ry+4);
-      color(C.dim); font('helvetica','normal',4.5); text(c.d, cx+7, ry+7);
-      progressBar(cx+cw-30, ry+2, 22, 3, c.pct, c.pct===100 ? C.accent : C.warn);
-      color(c.pct===100 ? C.accent : C.warn); font('helvetica','bold',5);
-      text(c.pct+'%', cx+cw-6, ry+5, { align:'right' });
+    ff('bold', 5.5); tc(TEXT); txt('Suivi par collaborateur', cx + 3, cy + 34);
+    [
+      { n: 'Me. Martin (Associe)', d: 'Forme -- 12 jan. 2026', pct: 100 },
+      { n: 'Me. Dupont (Collab.)', d: 'Forme -- 15 fev. 2026', pct: 100 },
+      { n: 'Me. Bernard (Collab.)', d: 'Forme -- 3 mar. 2026', pct: 100 },
+      { n: 'Mme Leclerc (Assist.)', d: 'Session prevue 20 juin', pct: 0 },
+    ].forEach((c, i) => {
+      const ry = cy + 38 + i * 10;
+      fc(BG); sc(BORDER); lw(0.2); rr(cx + 3, ry, cw - 6, 9, 1, 'FD');
+      ff('bold', 5); tc(TEXT); txt(c.n, cx + 5, ry + 5);
+      ff('normal', 4.5); tc(DIM); txt(c.d, cx + 5, ry + 8.5);
+      bar(cx + cw - 32, ry + 3, 24, 3, c.pct, c.pct === 100 ? ACCENT : WARN);
+      ff('bold', 5.5); tc(c.pct === 100 ? ACCENT : WARN);
+      txt(c.pct + '%', cx + cw - 4, ry + 6, { align: 'right' });
     });
 
-    // Prochain module
-    font('helvetica','bold',5.5); color(C.text); text('Prochain module recommandé', cx+4, y+75);
-    fill(C.accentSoft); stroke(C.accent); lw(0.3); rect(cx+4, y+79, cw-8, 10, 1.5, 'FD');
-    color(C.accent); font('helvetica','bold',5.5);
-    text('AMLR 2024/1624 — Obligations avocats', cx+7, y+84);
-    color(C.dim); font('helvetica','normal',4.5);
-    text('Durée : 45 min · Certificat inclus · Valable questionnaire Barreau', cx+7, y+88);
+    ff('bold', 5.5); tc(TEXT); txt('Prochain module recommande', cx + 3, cy + 80);
+    fc(ACCENT_S); sc(ACCENT); lw(0.3); rr(cx + 3, cy + 84, cw - 6, 12, 1.5, 'FD');
+    ff('bold', 5.5); tc(ACCENT); txt('AMLR 2024/1624 -- Obligations avocats', cx + 6, cy + 90);
+    ff('normal', 4.5); tc(DIM); txt('Duree : 45 min -- Certificat inclus -- Valable questionnaire Barreau', cx + 6, cy + 94.5);
   }
 
-  function drawMockupRegistre(x, y, w, h) {
-    const sbW = 28;
-    drawSidebar(x, y, sbW, h, 'Registre AML');
-    const cx = x+sbW, cw = w-sbW;
-    fill(C.bgElev); rect(cx, y, cw, h, 0, 'F');
+  function mockupRegistre(x, y, w, h) {
+    const F = drawMockupFrame(x, y, w, h, 'app.norvy.lu / registre-aml');
+    const sw = drawSidebar(F.cx, F.cy, F.ch, 'Registre AML');
+    const cx = F.cx + sw, cy = F.cy, cw = F.cw - sw;
 
-    font('helvetica','bold',7); color(C.text);
-    text('Registre AML — Exercice 2026', cx+4, y+7);
-    chip(cx+cw-30, y+3, 'AUDITABLE', C.accentSoft, C.accent);
+    ff('bold', 7); tc(TEXT); txt('Registre AML -- Exercice 2026', cx + 3, cy + 8);
+    chip('AUDITABLE', cx + cw - 28, cy + 3, ACCENT_S, ACCENT);
 
-    // Chiffres clés
-    const stats2 = [{l:'Dossiers KYC', v:'142'}, {l:'Revues effectuées', v:'38'}, {l:'À risque élevé', v:'7'}];
-    stats2.forEach((s, i) => {
-      const sw = (cw-10)/3, sx = cx+4+i*(sw+1);
-      fill(C.bg); stroke(C.border); lw(0.2); rect(sx, y+11, sw, 11, 1, 'FD');
-      font('helvetica','normal',4); color(C.faint); text(s.l, sx+2, y+15);
-      font('helvetica','bold',9); color(C.accent); text(s.v, sx+2, y+20.5);
+    // Stats
+    const cw3 = (cw - 9) / 3;
+    [{ l: 'Dossiers KYC', v: '142' }, { l: 'Revues', v: '38' }, { l: 'Risque eleve', v: '7' }].forEach((s2, i) => {
+      const sx = cx + 3 + i * (cw3 + 1.5), sy = cy + 12;
+      fc(BG); sc(BORDER); lw(0.2); rr(sx, sy, cw3, 12, 1, 'FD');
+      ff('normal', 4); tc(FAINT); txt(s2.l, sx + 2, sy + 5);
+      ff('bold', 9); tc(ACCENT); txt(s2.v, sx + 2, sy + 11.5);
     });
 
-    // Registre liste
-    font('helvetica','bold',5.5); color(C.text); text('Dernières entrées', cx+4, y+27);
-    // En-tête tableau
-    fill([240,238,232]); rect(cx+4, y+30, cw-8, 5.5, 0, 'F');
+    // Tableau
+    ff('bold', 5.5); tc(TEXT); txt('Dernieres entrees', cx + 3, cy + 30);
+    fc([240, 238, 232]); rr(cx + 3, cy + 33, cw - 6, 6, 0, 'F');
+    ff('bold', 4.5); tc(FAINT);
     ['Client', 'Type', 'Date', 'Statut'].forEach((h2, i) => {
-      const xOff = [0, 36, 54, 70];
-      color(C.faint); font('helvetica','bold',4.5); text(h2, cx+6+xOff[i], y+34);
+      txt(h2, cx + 5 + [0, 36, 58, 78][i], cy + 37.5);
     });
-    const rows2 = [
-      ['Alpha SARL', 'Entrée', '12 mai 2026', 'Complet'],
-      ['M. Fontaine', 'Révision', '10 mai 2026', 'Complet'],
-      ['Holding BV', 'Renforcée', '8 mai 2026', 'En cours'],
-      ['Mme Laurent', 'Entrée', '5 mai 2026', 'Complet'],
-    ];
-    rows2.forEach((r, i) => {
-      const ry = y+38+i*7;
-      fill(i%2===0 ? C.bgElev : C.bg); rect(cx+4, ry-4, cw-8, 7, 0, 'F');
-      stroke(C.border); lw(0.1); doc.line(cx+4, ry+3, cx+cw-4, ry+3);
-      const xOff = [0, 36, 54, 70];
-      r.forEach((cell, j) => {
-        color(j===3 ? (cell==='Complet' ? C.accent : C.warn) : C.text);
-        font('helvetica', j===3 ? 'bold' : 'normal', 5);
-        text(cell, cx+6+xOff[j], ry);
+    [
+      ['Alpha SARL', 'Entree', '12 mai 2026', 'Complet'],
+      ['M. Fontaine', 'Revision', '10 mai 2026', 'Complet'],
+      ['Holding BV', 'Renforcee', '8 mai 2026', 'En cours'],
+      ['Mme Laurent', 'Entree', '5 mai 2026', 'Complet'],
+    ].forEach((r, i) => {
+      const ry = cy + 42 + i * 7;
+      fc(i % 2 === 0 ? WHITE : BG); rr(cx + 3, ry - 4, cw - 6, 7, 0, 'F');
+      sc(BORDER); lw(0.1); line(cx + 3, ry + 3, cx + cw - 3, ry + 3);
+      [0, 36, 58, 78].forEach((xo, j) => {
+        tc(j === 3 ? (r[3] === 'Complet' ? ACCENT : WARN) : TEXT);
+        ff(j === 3 ? 'bold' : 'normal', 5);
+        txt(r[j], cx + 5 + xo, ry);
       });
     });
 
-    // Questionnaire Barreau
-    font('helvetica','bold',5.5); color(C.text); text('Questionnaire Barreau — Auto-généré', cx+4, y+69);
-    fill(C.accentSoft); stroke(C.accent); lw(0.3); rect(cx+4, y+73, cw-8, 14, 1.5, 'FD');
-    const qItems = ['Relations d\'affaires : 142', 'Nouveaux clients : 38', 'Risque élevé : 7', 'DOS effectuées : 2'];
-    qItems.forEach((q, i) => {
-      color(C.accent); font('helvetica','bold',4); text('✓', cx+7, y+78+i*2.8);
-      color(C.text); font('helvetica','normal',4.5); text(q, cx+10, y+78+i*2.8);
+    // Questionnaire
+    ff('bold', 5.5); tc(TEXT); txt('Questionnaire Barreau -- Auto-genere', cx + 3, cy + 72);
+    fc(ACCENT_S); sc(ACCENT); lw(0.3); rr(cx + 3, cy + 76, cw - 6, 16, 1.5, 'FD');
+    ['Relations d\'affaires : 142', 'Nouveaux clients : 38', 'Risque eleve : 7', 'DOS effectuees : 2'].forEach((q, i) => {
+      ff('bold', 5); tc(ACCENT); txt('V', cx + 6, cy + 81 + i * 3.5);
+      ff('normal', 5); tc(TEXT); txt(q, cx + 10, cy + 81 + i * 3.5);
     });
-    fill(C.accent); rect(cx+cw-30, y+78, 26, 7, 2, 'F');
-    color(C.white); font('helvetica','bold',5.5); text('Exporter PDF →', cx+cw-29, y+82.5);
+    fc(ACCENT); rr(cx + cw - 32, cy + 84, 28, 7, 2, 'F');
+    ff('bold', 5.5); tc(WHITE); txt('Exporter PDF', cx + cw - 18, cy + 88.5, { align: 'center' });
   }
 
-  function drawMockupDOS(x, y, w, h) {
-    const sbW = 28;
-    drawSidebar(x, y, sbW, h, 'Registre AML');
-    const cx = x+sbW, cw = w-sbW;
-    fill(C.bgElev); rect(cx, y, cw, h, 0, 'F');
+  function mockupDOS(x, y, w, h) {
+    const F = drawMockupFrame(x, y, w, h, 'app.norvy.lu / declaration-soupcon');
+    const sw = drawSidebar(F.cx, F.cy, F.ch, 'Registre AML');
+    const cx = F.cx + sw, cy = F.cy, cw = F.cw - sw;
 
-    font('helvetica','bold',7); color(C.text);
-    text('Signalement & Déclaration de soupçon', cx+4, y+7);
+    ff('bold', 7); tc(TEXT); txt('Declaration de Soupcon (DOS)', cx + 3, cy + 8);
 
-    // Workflow DOS
-    font('helvetica','bold',5.5); color(C.text); text('Circuit d\'escalade', cx+4, y+14);
-    const steps = ['Collaborateur\ndétecte', 'Compliance\nOfficer', 'Analyse\net décision', 'DOS → CRF\n(si retenu)'];
-    const stepW = (cw-12)/4;
-    steps.forEach((s, i) => {
-      const sx = cx+4+i*(stepW+1.5), sy = y+18;
-      fill(i<2 ? C.accentSoft : i===2 ? C.warnSoft : C.accentSoft);
-      stroke(i<2 ? C.accent : i===2 ? C.warn : C.accent); lw(0.3);
-      rect(sx, sy, stepW, 12, 1.5, 'FD');
-      color(i===2 ? C.warn : C.accent); font('helvetica','bold',4.5);
-      const ls = s.split('\n');
-      text(ls[0], sx+stepW/2, sy+5, { align:'center' });
-      text(ls[1], sx+stepW/2, sy+9, { align:'center' });
-      // Flèche
-      if (i < 3) { stroke(C.border); lw(0.5); doc.line(sx+stepW+0.3, sy+6, sx+stepW+1.2, sy+6); }
+    // Circuit d'escalade
+    ff('bold', 5.5); tc(TEXT); txt('Circuit d\'escalade interne', cx + 3, cy + 16);
+    const steps = [
+      { l: 'Detecte', c: ACCENT_S, bc: ACCENT },
+      { l: 'CO analyse', c: WARN_S, bc: WARN },
+      { l: 'Decision', c: WARN_S, bc: WARN },
+      { l: 'DOS a CRF', c: ACCENT_S, bc: ACCENT },
+    ];
+    const sw2 = (cw - 9) / 4;
+    steps.forEach((st, i) => {
+      const sx = cx + 3 + i * (sw2 + 1);
+      fc(st.c); sc(st.bc); lw(0.3);
+      rr(sx, cy + 20, sw2, 12, 1.5, 'FD');
+      ff('bold', 5); tc(st.bc);
+      txt(st.l, sx + sw2 / 2, cy + 27.5, { align: 'center' });
+      if (i < 3) { sc(BORDER); lw(0.5); line(sx + sw2 + 0.5, cy + 26, sx + sw2 + 1, cy + 26); }
     });
 
     // Red flags
-    font('helvetica','bold',5.5); color(C.text); text('Red flags détectés récemment', cx+4, y+36);
-    const flags = [
-      { l: 'Paiement cash > 10 000 €', sev: 'Moyen', col: C.warn, bg: C.warnSoft },
-      { l: 'Structure juridique complexe non justifiée', sev: 'Élevé', col: C.danger, bg: C.dangerSoft },
+    ff('bold', 5.5); tc(TEXT); txt('Red flags detectes', cx + 3, cy + 38);
+    [
+      { l: 'Paiement cash > 10 000 EUR', sev: 'Moyen', dc: WARN, db: WARN_S },
+      { l: 'Structure juridique complexe non justifiee', sev: 'Eleve', dc: DANGER, db: DANGER_S },
+    ].forEach((f, i) => {
+      const fy = cy + 43 + i * 10;
+      fc(f.db); sc(f.dc); lw(0.3); rr(cx + 3, fy, cw - 6, 9, 1, 'FD');
+      ff('bold', 6); tc(f.dc); txt('!', cx + 7, fy + 6.5);
+      ff('normal', 5); tc(TEXT);
+      txt(f.l.length > 38 ? f.l.substring(0, 38) + '...' : f.l, cx + 12, fy + 6.5);
+      chip(f.sev, cx + cw - 18, fy + 2, f.db, f.dc);
+    });
+
+    // DOS en cours
+    ff('bold', 5.5); tc(TEXT); txt('Declaration en cours', cx + 3, cy + 66);
+    fc(BG); sc(BORDER); lw(0.3); rr(cx + 3, cy + 70, cw - 6, 20, 1.5, 'FD');
+    const dosLines = [
+      'Client : Holding BV Luxembourg',
+      'Motif : Flux inhabituels detectes',
+      'Responsable : Me. Martin',
+      'Statut : Brouillon -- en validation CO',
     ];
-    flags.forEach((f, i) => {
-      const fy = y+40+i*9;
-      fill(f.bg); stroke(f.col); lw(0.3); rect(cx+4, fy, cw-8, 8, 1, 'FD');
-      color(f.col); font('helvetica','bold',5); text('⚠', cx+7, fy+5);
-      color(C.text); font('helvetica','normal',5); text(f.l, cx+12, fy+5);
-      chip(cx+cw-18, fy+2, f.sev, f.bg, f.col);
-    });
-
-    // DOS ouverte
-    font('helvetica','bold',5.5); color(C.text); text('Déclaration en cours', cx+4, y+60);
-    fill(C.bg); stroke(C.border); lw(0.3); rect(cx+4, y+64, cw-8, 20, 1.5, 'FD');
-    const dosLines = ['Client : Holding BV Luxembourg', 'Motif : Structure opaque, flux inhabituel', 'Responsable : Me. Martin', 'Statut : Brouillon — en validation'];
     dosLines.forEach((l, i) => {
-      color(i===3 ? C.warn : C.dim); font('helvetica', i===3?'bold':'normal', 4.8);
-      text(l, cx+7, y+69+i*4);
+      ff(i === 3 ? 'bold' : 'normal', 5); tc(i === 3 ? WARN : DIM);
+      txt(l, cx + 6, cy + 76 + i * 4);
     });
-    fill(C.accent); rect(cx+cw-30, y+80, 26, 7, 2, 'F');
-    color(C.white); font('helvetica','bold',5.5); text('Finaliser DOS →', cx+cw-29, y+84.5);
+    fc(ACCENT); rr(cx + cw - 30, cy + 83, 26, 7, 2, 'F');
+    ff('bold', 5.5); tc(WHITE); txt('Finaliser DOS', cx + cw - 17, cy + 87.5, { align: 'center' });
   }
 
-  // ═══════════════════════════════════════════════════════════════
-  // PLAN D'ACTION
-  // ═══════════════════════════════════════════════════════════════
-  function getActionPlan() {
-    const plan = [];
-    DIMS_DATA.forEach(d => {
-      const s = dimScores[d.name] ?? 0;
-      const level = s >= 75 ? 'high' : s >= 50 ? 'medium' : 'low';
-      const priority = s >= 75 ? 3 : s >= 50 ? 2 : 1;
-      const actions = d.actions[level];
-      actions.forEach(a => plan.push({ dim: d.name, action: a, priority, score: s, level }));
-    });
-    return plan.sort((a, b) => a.priority - b.priority);
+  function drawMockup(type, x, y, w, h) {
+    if (type === 'gouvernance') return mockupGouvernance(x, y, w, h);
+    if (type === 'kyc')         return mockupKYC(x, y, w, h);
+    if (type === 'screening')   return mockupScreening(x, y, w, h);
+    if (type === 'formation')   return mockupFormation(x, y, w, h);
+    if (type === 'registre')    return mockupRegistre(x, y, w, h);
+    if (type === 'dos')         return mockupDOS(x, y, w, h);
   }
 
-  // ═══════════════════════════════════════════════════════════════
-  // CALCUL DU NOMBRE DE PAGES
-  // ═══════════════════════════════════════════════════════════════
-  // Page 1: couverture, Page 2: dashboard, Page 3: tableau récap
-  // Pages 4-9: une par dimension
-  // Page 10: plan d'action
-  // Page 11: Norvy final
-  const TOTAL_PAGES = 11;
+  // ─── PLAN D'ACTION ────────────────────────────────────────────
+  function actionPlan() {
+    const rows = [];
+    DIMS.forEach(d => {
+      const sc2 = dimScores[d.name] ?? 0;
+      const level = sc2 >= 75 ? 'high' : sc2 >= 50 ? 'medium' : 'low';
+      const prio = sc2 >= 75 ? 3 : sc2 >= 50 ? 2 : 1;
+      d.actions[level].forEach(a => rows.push({ dim: d.name, action: a, prio, score: sc2 }));
+    });
+    return rows.sort((a, b) => a.prio - b.prio);
+  }
 
   // ═══════════════════════════════════════════════════════════════
   // PAGE 1 — COUVERTURE
   // ═══════════════════════════════════════════════════════════════
-  let pg = 1;
+  pg = 1;
+  fc(WHITE); rr(0, 0, W, H, 0);
+  leftStripe(ACCENT);
 
-  // Fond blanc propre
-  fill(C.bgElev); rect(0, 0, W, H, 0, 'F');
+  // Entete Norvy
+  ff('bold', 26); tc(ACCENT); txt('norvy', M + 4, 28);
+  ff('normal', 8.5); tc(DIM); txt('Rapport d\'audit AML & Conformite AMLR 2024/1624', M + 4, 36);
+  sc(BORDER); lw(0.3); line(M + 4, 42, W - M, 42);
 
-  // Bande verte gauche
-  fill(C.accent); rect(0, 0, 8, H, 0, 'F');
+  // Titre
+  ff('bold', 20); tc(TEXT); txt('Rapport d\'audit', M + 4, 57);
+  ff('bold', 20); tc(ACCENT); txt('Conformite AML', M + 4, 70);
+  ff('normal', 9); tc(DIM);
+  txt('Evaluation de votre dispositif de lutte contre le', M + 4, 82);
+  txt('blanchiment et le financement du terrorisme.', M + 4, 89);
 
-  // Logo / marque
-  font('helvetica','bold',28); color(C.accent);
-  text('norvy', M+4, 28);
-  font('helvetica','normal',9); color(C.dim);
-  text('Logiciel de gestion de cabinet · AML natif', M+4, 36);
-
-  // Titre rapport
-  stroke(C.border); lw(0.3); doc.line(M+4, 48, W-M, 48);
-
-  font('helvetica','bold',22); color(C.text);
-  text('Rapport d\'audit', M+4, 63);
-  font('helvetica','bold',22); color(C.accent);
-  text('AML & Conformité AMLR', M+4, 76);
-
-  font('helvetica','normal',10); color(C.dim);
-  text('Évaluation indépendante de votre dispositif de lutte', M+4, 90);
-  text('contre le blanchiment et le financement du terrorisme.', M+4, 97);
-
-  // Bloc cabinet + date
-  fill(C.bg); stroke(C.border); lw(0.3);
-  rect(M+4, 108, W-M-12, 28, 3, 'FD');
-  font('helvetica','bold',8); color(C.faint); text('CABINET', M+10, 116);
-  font('helvetica','bold',13); color(C.text);
-  text(firmName || 'Cabinet d\'avocats', M+10, 124);
-  font('helvetica','normal',8); color(C.dim); text('Confidentiel · ' + today, M+10, 130);
+  // Bloc cabinet
+  fc(BG); sc(BORDER); lw(0.3);
+  rr(M + 4, 98, RW, 26, 3, 'FD');
+  ff('bold', 7); tc(FAINT); txt('CABINET', M + 10, 107);
+  ff('bold', 12); tc(TEXT);
+  const cabName = firmName ? s(firmName) : 'Cabinet d\'avocats';
+  txt(cabName, M + 10, 117);
+  ff('normal', 8); tc(DIM); txt('Confidentiel -- ' + s(today), M + 10, 123);
 
   // Score central
-  const scoreC = scoreColor(score);
-  gaugeCircle(CX+20, 175, 30, score, scoreC);
-  font('helvetica','bold',36); color(scoreC);
-  text(String(score), CX+20, 180, { align:'center' });
-  font('helvetica','normal',10); color(C.dim);
-  text('/ 100', CX+20, 189, { align:'center' });
+  const CX = M + 4 + RW * 0.65;
+  const scCol = sCol(score);
+  gauge(CX, 170, 28, score, scCol);
+  ff('bold', 34); tc(scCol); txt(String(score), CX, 174, { align: 'center' });
+  ff('normal', 9); tc(DIM); txt('/ 100', CX, 182, { align: 'center' });
 
-  // Grade
-  fill(scoreBg(score)); stroke(scoreC); lw(0.3);
-  rect(CX-12, 196, 64, 10, 3, 'FD');
-  color(scoreC); font('helvetica','bold',9);
-  text(gradeLabel(score), CX+20, 203, { align:'center' });
+  // Grade badge
+  fc(sBg(score)); sc(scCol); lw(0.3);
+  rr(CX - 22, 187, 44, 10, 3, 'FD');
+  ff('bold', 8); tc(scCol); txt(sLabel(score), CX, 194, { align: 'center' });
 
-  // Légende score
-  font('helvetica','italic',8); color(C.dim);
-  const verdictStr = score >= 75
-    ? 'Votre dispositif AML est mature. Norvy vous permettra de l\'automatiser et de l\'optimiser.'
+  // Verdict page de garde
+  ff('italic', 8); tc(DIM);
+  const v0 = score >= 75
+    ? 'Dispositif AML mature. Norvy automatisera et optimisera votre conformite.'
     : score >= 50
-    ? 'Des lacunes existent. Ce rapport identifie les actions prioritaires avant juillet 2027.'
-    : 'Des lacunes importantes menacent la conformité de votre cabinet. Agir maintenant est urgent.';
-  const vls = splitText(verdictStr, W-M-24);
-  vls.forEach((l, i) => text(l, CX+20, 214+i*5, { align:'center' }));
+    ? 'Des lacunes ciblees a corriger avant juillet 2027. Ce rapport vous guide.'
+    : 'Des lacunes importantes menacent la conformite de votre cabinet. Agir maintenant.';
+  const v0lines = splitTxt(v0, RW * 0.65);
+  v0lines.forEach((l, i) => txt(l, CX, 204 + i * 5.5, { align: 'center' }));
 
-  // Dimensions mini-résumé
-  const dimY = 238;
-  font('helvetica','bold',7); color(C.faint); text('RÉSUMÉ PAR DIMENSION', M+4, dimY-2);
-  DIMS_DATA.forEach((d, i) => {
-    const dx = M+4 + i*(((W-M-12))/6), dy = dimY+2;
-    const s = dimScores[d.name] ?? 0;
-    const sc = scoreColor(s);
-    progressBar(dx, dy, ((W-M-12))/6-2, 3, s, sc);
-    font('helvetica','normal',4.5); color(C.dim);
-    text(d.shortName, dx, dy+7);
-    font('helvetica','bold',5); color(sc);
-    text(s+'%', dx, dy+12);
+  // Mini dashboard 6 dims
+  ff('bold', 7); tc(FAINT); txt('RESUME PAR DIMENSION', M + 4, 236);
+  const dimBarW = RW / 6 - 3;
+  DIMS.forEach((d, i) => {
+    const dx = M + 4 + i * (dimBarW + 3);
+    const sc2 = dimScores[d.name] ?? 0;
+    bar(dx, 240, dimBarW, 4, sc2, sCol(sc2));
+    ff('normal', 4.5); tc(DIM); txt(d.short, dx, 248);
+    ff('bold', 5); tc(sCol(sc2)); txt(sc2 + '%', dx, 253);
   });
 
   // AMLR deadline
-  fill(C.accentSoft); stroke(C.accent); lw(0.3); rect(M+4, 258, W-M-12, 12, 2, 'FD');
-  color(C.accent); font('helvetica','bold',7);
-  text('AMLR 2024/1624 — Applicable le 10 juillet 2027', CX, 265, { align:'center' });
-  color(C.dim); font('helvetica','normal',6);
-  text('Ce rapport vous aide à vous y préparer sereinement.', CX, 270, { align:'center' });
+  fc(ACCENT_S); sc(ACCENT); lw(0.3);
+  rr(M + 4, 260, RW, 12, 2.5, 'FD');
+  ff('bold', 7.5); tc(ACCENT);
+  txt('AMLR 2024/1624 -- Applicable le 10 juillet 2027', W / 2, 267.5, { align: 'center' });
+  ff('normal', 7); tc(DIM);
+  txt('Ce rapport vous aide a vous y preparer sereinement.', W / 2, 272.5, { align: 'center' });
 
-  pageFooter(pg, TOTAL_PAGES);
+  footer();
 
   // ═══════════════════════════════════════════════════════════════
   // PAGE 2 — DASHBOARD 6 DIMENSIONS
   // ═══════════════════════════════════════════════════════════════
-  doc.addPage(); pg++;
-  fill(C.bgElev); rect(0, 0, W, H, 0, 'F');
-  fill(C.accent); rect(0, 0, 8, H, 0, 'F');
+  doc.addPage(); pg = 2;
+  fc(WHITE); rr(0, 0, W, H, 0);
+  leftStripe(ACCENT);
 
-  font('helvetica','bold',18); color(C.text);
-  text('Tableau de bord — Vue d\'ensemble', M+4, 24);
-  font('helvetica','normal',9); color(C.dim);
-  text('Score de conformité par dimension · ' + today, M+4, 32);
-  stroke(C.border); lw(0.3); doc.line(M+4, 36, W-M, 36);
+  ff('bold', 18); tc(TEXT); txt('Tableau de bord -- Vue d\'ensemble', M + 4, 24);
+  ff('normal', 9); tc(DIM); txt('Score de conformite par dimension -- ' + s(today), M + 4, 31);
+  sc(BORDER); lw(0.3); line(M + 4, 35, W - M, 35);
 
   // 6 jauges en grille 3x2
-  const gaugeData = DIMS_DATA.map(d => ({ name: d.name, shortName: d.shortName, score: dimScores[d.name] ?? 0 }));
-  const gW = (W-M-12)/3, gH = 66;
-  gaugeData.forEach((g, i) => {
+  const gW = (RW - 4) / 3, gH = 65;
+  DIMS.forEach((d, i) => {
     const col = i % 3, row = Math.floor(i / 3);
-    const gx = M+4 + col*(gW+2), gy = 44 + row*(gH+4);
-    const sc = scoreColor(g.score), bg2 = scoreBg(g.score);
+    const gx = M + 4 + col * (gW + 2), gy = 41 + row * (gH + 4);
+    const sc2 = dimScores[d.name] ?? 0;
 
-    fill(C.bgElev); stroke(C.border); lw(0.3); rect(gx, gy, gW, gH, 2, 'FD');
+    fc(WHITE); sc(BORDER); lw(0.3); rr(gx, gy, gW, gH, 2.5, 'FD');
+    ff('bold', 7); tc(TEXT); txt(s(d.name), gx + 4, gy + 9);
 
-    // Titre
-    font('helvetica','bold',7); color(C.text); text(g.name, gx+4, gy+8);
-
-    // Jauge grande
-    gaugeCircle(gx+gW/2, gy+36, 16, g.score, sc);
-    font('helvetica','bold',14); color(sc);
-    text(String(g.score), gx+gW/2, gy+39, { align:'center' });
-    font('helvetica','normal',6); color(C.dim);
-    text('/ 100', gx+gW/2, gy+45, { align:'center' });
+    gauge(gx + gW / 2, gy + 34, 15, sc2, sCol(sc2));
+    ff('bold', 14); tc(sCol(sc2)); txt(String(sc2), gx + gW / 2, gy + 37.5, { align: 'center' });
+    ff('normal', 6); tc(DIM); txt('/ 100', gx + gW / 2, gy + 43.5, { align: 'center' });
 
     // Badge
-    fill(bg2); stroke(sc); lw(0.3);
-    rect(gx+(gW-28)/2, gy+50, 28, 7, 2, 'FD');
-    color(sc); font('helvetica','bold',6);
-    text(gradeLabel(g.score), gx+gW/2, gy+55, { align:'center' });
+    const gl = sLabel(sc2);
+    fc(sBg(sc2)); sc(sCol(sc2)); lw(0.3);
+    rr(gx + (gW - 28) / 2, gy + 49, 28, 7, 2, 'FD');
+    ff('bold', 5.5); tc(sCol(sc2)); txt(gl, gx + gW / 2, gy + 54, { align: 'center' });
   });
 
-  // Score global en dessous
-  const globalY = 44 + 2*gH + 12;
-  fill(C.bg); stroke(C.border); lw(0.3); rect(M+4, globalY, W-M-12, 26, 3, 'FD');
-  font('helvetica','bold',9); color(C.faint); text('SCORE GLOBAL', M+12, globalY+8);
-  font('helvetica','bold',24); color(scoreColor(score)); text(String(score)+' / 100', M+12, globalY+20);
-  fill(scoreBg(score)); rect(M+50, globalY+13, 40, 8, 2, 'F');
-  color(scoreColor(score)); font('helvetica','bold',7); text(gradeLabel(score), M+70, globalY+19, { align:'center' });
+  // Score global
+  const gy2 = 41 + 2 * gH + 10;
+  fc(BG); sc(BORDER); lw(0.3); rr(M + 4, gy2, RW, 28, 3, 'FD');
+  ff('bold', 8.5); tc(FAINT); txt('SCORE GLOBAL', M + 12, gy2 + 9);
+  ff('bold', 22); tc(sCol(score)); txt(score + ' / 100', M + 12, gy2 + 21);
+  chip(sLabel(score), M + 65, gy2 + 14, sBg(score), sCol(score));
 
-  font('helvetica','normal',8); color(C.dim);
   const sumStr = score >= 75
-    ? 'Votre cabinet démontre une maturité AML avancée. Continuez à maintenir et automatiser votre dispositif.'
+    ? 'Dispositif AML avance. Continuez a maintenir et automatiser.'
     : score >= 50
-    ? 'Des progrès significatifs ont été accomplis. Des actions ciblées permettront d\'atteindre la pleine conformité AMLR.'
-    : 'Des lacunes importantes persistent. Ce rapport détaille les actions prioritaires à engager immédiatement.';
-  const sumLines = splitText(sumStr, W-M-75);
-  sumLines.forEach((l, i) => text(l, W-M-8, globalY+8+i*5, { align:'right' }));
+    ? 'Des progres accomplis. Des actions ciblees pour la pleine conformite AMLR.'
+    : 'Des lacunes importantes persistent. Ce rapport detaille les actions prioritaires.';
+  ff('normal', 8); tc(DIM);
+  splitTxt(sumStr, RW - 80).forEach((l, i) => txt(l, W - M - 4, gy2 + 8 + i * 5.5, { align: 'right' }));
 
-  // Barre visuelle globale
-  progressBar(M+4, globalY+30, W-M-12, 5, score, scoreColor(score), 2);
+  bar(M + 4, gy2 + 31, RW, 5, score, sCol(score), 2);
 
-  pageFooter(pg, TOTAL_PAGES);
+  footer();
 
   // ═══════════════════════════════════════════════════════════════
-  // PAGE 3 — TABLEAU RÉCAPITULATIF + VERDICT
+  // PAGE 3 — SYNTHÈSE & VERDICT
   // ═══════════════════════════════════════════════════════════════
-  doc.addPage(); pg++;
-  fill(C.bgElev); rect(0, 0, W, H, 0, 'F');
-  fill(C.accent); rect(0, 0, 8, H, 0, 'F');
+  doc.addPage(); pg = 3;
+  fc(WHITE); rr(0, 0, W, H, 0);
+  leftStripe(ACCENT);
 
-  font('helvetica','bold',18); color(C.text);
-  text('Synthèse & Verdict exécutif', M+4, 24);
-  stroke(C.border); lw(0.3); doc.line(M+4, 30, W-M, 30);
-
-  // Tableau récap
-  font('helvetica','bold',8); color(C.faint); text('ÉVALUATION PAR PILIER AMLR', M+4, 40);
+  ff('bold', 18); tc(TEXT); txt('Synthese & Verdict executif', M + 4, 24);
+  sc(BORDER); lw(0.3); line(M + 4, 30, W - M, 30);
 
   // En-tête tableau
-  fill(C.accent); rect(M+4, 44, W-M-12, 9, 0, 'F');
-  ['DIMENSION', 'SCORE', 'NIVEAU', 'PRIORITÉ', 'NB. ACTIONS'].forEach((h2, i) => {
-    const xOff = [0, 65, 85, 110, 140];
-    color(C.white); font('helvetica','bold',7); text(h2, M+8+xOff[i], 50);
+  ff('bold', 8); tc(FAINT); txt('EVALUATION PAR PILIER AMLR', M + 4, 40);
+  fc(ACCENT); rr(M + 4, 43, RW, 8, 0, 'F');
+  ff('bold', 6.5); tc(WHITE);
+  ['DIMENSION', 'SCORE', 'NIVEAU', 'PRIORITE', 'NB. ACTIONS'].forEach((h2, i) => {
+    txt(h2, M + 6 + [0, 64, 82, 110, 140][i], 48.5);
   });
 
-  DIMS_DATA.forEach((d, i) => {
-    const s = dimScores[d.name] ?? 0;
-    const sc = scoreColor(s), bg2 = scoreBg(s);
-    const level = s >= 75 ? 'high' : s >= 50 ? 'medium' : 'low';
-    const prio = s >= 75 ? 'Faible' : s >= 50 ? 'Moyenne' : 'Haute';
-    const nActions = d.actions[level].length;
-    const ry = 55+i*11;
+  let ty = 53;
+  DIMS.forEach((d, i) => {
+    const sc2 = dimScores[d.name] ?? 0;
+    const level = sc2 >= 75 ? 'high' : sc2 >= 50 ? 'medium' : 'low';
+    const prio = sc2 >= 75 ? 'Faible' : sc2 >= 50 ? 'Moyenne' : 'Haute';
+    const prioC = prio === 'Haute' ? DANGER : prio === 'Moyenne' ? WARN : ACCENT;
+    const nA = d.actions[level].length;
 
-    fill(i%2===0 ? C.bgElev : C.bg); rect(M+4, ry, W-M-12, 10, 0, 'F');
-    stroke(C.border); lw(0.1); doc.line(M+4, ry+10, M+W-M-12, ry+10);
+    fc(i % 2 === 0 ? WHITE : BG); rr(M + 4, ty, RW, 10, 0, 'F');
+    sc(BORDER); lw(0.1); line(M + 4, ty + 10, M + 4 + RW, ty + 10);
 
-    color(C.text); font('helvetica','bold',7); text(d.name, M+8, ry+6.5);
-
-    // Score
-    color(sc); font('helvetica','bold',9); text(String(s), M+73, ry+6.5);
-
-    // Badge niveau
-    fill(bg2); rect(M+83, ry+2, 22, 6, 1.5, 'F');
-    color(sc); font('helvetica','bold',6); text(gradeLabel(s), M+94, ry+6.5, { align:'center' });
-
-    // Priorité
-    const prioC = prio==='Haute' ? C.danger : prio==='Moyenne' ? C.warn : C.accent;
-    color(prioC); font('helvetica','bold',7); text(prio, M+114, ry+6.5);
-
-    // Nb actions
-    color(C.dim); font('helvetica','normal',7); text(String(nActions)+' actions', M+144, ry+6.5);
+    ff('bold', 7); tc(TEXT); txt(s(d.name), M + 6, ty + 7);
+    ff('bold', 9); tc(sCol(sc2)); txt(String(sc2), M + 70, ty + 7);
+    chip(sLabel(sc2), M + 82, ty + 3, sBg(sc2), sCol(sc2));
+    ff('bold', 7); tc(prioC); txt(prio, M + 114, ty + 7);
+    ff('normal', 7); tc(DIM); txt(nA + ' actions', M + 142, ty + 7);
+    ty += 10;
   });
 
   // Verdict exécutif
-  const verdY = 55+6*11+16;
-  font('helvetica','bold',11); color(C.text); text('Verdict exécutif', M+4, verdY);
-  fill(scoreBg(score)); stroke(scoreColor(score)); lw(0.5);
-  rect(M+4, verdY+4, W-M-12, 38, 3, 'FD');
+  ty += 8;
+  ff('bold', 11); tc(TEXT); txt('Verdict executif', M + 4, ty);
+  ty += 6;
 
-  const verdicts = {
+  const VD = {
     high: {
-      title: 'Votre cabinet est en bonne posture AML.',
-      body: 'Votre dispositif démontre une maturité réelle. Les bases sont posées : politique formalisée, diligences structurées, registre tenu. L\'enjeu est désormais l\'efficience : automatiser les processus manuels restants, industrialiser le suivi et préparer l\'alignement avec le règlement AMLR 2024/1624 qui entrera en vigueur le 10 juillet 2027. Norvy peut vous faire passer de la conformité à l\'excellence opérationnelle.',
+      t: 'Votre cabinet est en bonne posture AML.',
+      b: 'Votre dispositif demontre une maturite reelle. Les bases sont posees : politique formalisee, diligences structurees, registre tenu. L\'enjeu est desormais l\'efficience : automatiser les processus manuels restants et preparer l\'alignement avec le reglement AMLR 2024/1624 applicable en juillet 2027. Norvy vous fait passer de la conformite a l\'excellence operationnelle.',
     },
     medium: {
-      title: 'Des lacunes ciblées à corriger avant juillet 2027.',
-      body: 'Votre cabinet a engagé une démarche AML mais certains piliers restent insuffisamment formalisés. Les risques de non-conformité existent et pourraient exposer le cabinet à des sanctions lors d\'un contrôle ordinal ou d\'une intervention de la CRF. Ce rapport identifie précisément les dimensions à renforcer. Agir maintenant vous laisse le temps d\'une mise en conformité sereine avant l\'échéance AMLR.',
+      t: 'Des lacunes ciblees a corriger avant juillet 2027.',
+      b: 'Votre cabinet a engage une demarche AML mais certains piliers restent insuffisamment formalises. Les risques de non-conformite existent et pourraient exposer le cabinet lors d\'un controle ordinal ou d\'une intervention de la CRF. Ce rapport identifie precisement les dimensions a renforcer. Agir maintenant vous laisse le temps d\'une mise en conformite sereine avant l\'echeance AMLR.',
     },
     low: {
-      title: 'Action urgente requise — l\'exposition réglementaire est significative.',
-      body: 'Le dispositif AML actuel de votre cabinet présente des insuffisances majeures au regard des obligations applicables et du cadre AMLR 2024/1624 qui entrera en vigueur en juillet 2027. Cette situation crée une exposition directe aux sanctions pour le cabinet et personnellement pour les associés désignés compliance. Ce rapport détaille un plan d\'action priorisé. Norvy peut vous permettre de rattraper ce retard en quelques semaines.',
+      t: 'Action urgente requise -- l\'exposition reglementaire est significative.',
+      b: 'Le dispositif AML actuel de votre cabinet presente des insuffisances majeures au regard des obligations applicables et du cadre AMLR 2024/1624 applicable en juillet 2027. Cette situation cree une exposition directe aux sanctions pour le cabinet et personnellement pour les associes. Ce rapport detaille un plan d\'action priorise. Norvy peut vous permettre de rattraper ce retard en quelques semaines.',
     },
   };
-  const vKey = score >= 75 ? 'high' : score >= 50 ? 'medium' : 'low';
-  const vd = verdicts[vKey];
-
-  color(scoreColor(score)); font('helvetica','bold',10); text(vd.title, M+8, verdY+12);
-  color(C.text); font('helvetica','normal',8);
-  const vBLines = splitText(vd.body, W-M-24);
-  vBLines.forEach((l, i) => text(l, M+8, verdY+20+i*5));
+  const vk = score >= 75 ? 'high' : score >= 50 ? 'medium' : 'low';
+  const vd = VD[vk];
+  const vBoxH = 42;
+  fc(sBg(score)); sc(sCol(score)); lw(0.4);
+  rr(M + 4, ty, RW, vBoxH, 3, 'FD');
+  ff('bold', 10); tc(sCol(score)); txt(s(vd.t), M + 8, ty + 9);
+  ff('normal', 8); tc(TEXT);
+  const vLines = splitTxt(vd.b, RW - 12);
+  let vy = ty + 17;
+  vLines.forEach(l => { if (vy < ty + vBoxH - 3) { txt(l, M + 8, vy); vy += 5; } });
 
   // Note AMLR
-  const noteY = verdY+4+38+8;
-  fill(C.accentSoft); stroke(C.accent); lw(0.3); rect(M+4, noteY, W-M-12, 16, 2, 'FD');
-  color(C.accent); font('helvetica','bold',8); text('Rappel AMLR 2024/1624', M+8, noteY+7);
-  color(C.text); font('helvetica','normal',7.5);
-  text('Le règlement (UE) 2024/1624 est directement applicable à tous les avocats UE depuis le 10 juillet 2024.', M+8, noteY+12.5);
+  ty += vBoxH + 8;
+  if (ty < 270) {
+    fc(ACCENT_S); sc(ACCENT); lw(0.3); rr(M + 4, ty, RW, 16, 2.5, 'FD');
+    ff('bold', 8); tc(ACCENT); txt('Rappel AMLR 2024/1624', M + 8, ty + 7);
+    ff('normal', 7.5); tc(TEXT);
+    txt('Le reglement (UE) 2024/1624 est directement applicable a tous les avocats UE depuis le 10 juillet 2024.', M + 8, ty + 13);
+  }
 
-  pageFooter(pg, TOTAL_PAGES);
+  footer();
 
   // ═══════════════════════════════════════════════════════════════
-  // PAGES 4-9 — UNE PAGE PAR DIMENSION
+  // PAGES 4-9 — UNE PAR DIMENSION
   // ═══════════════════════════════════════════════════════════════
-  DIMS_DATA.forEach((dimData, idx) => {
-    doc.addPage(); pg++;
-    fill(C.bgElev); rect(0, 0, W, H, 0, 'F');
+  DIMS.forEach((dim, idx) => {
+    doc.addPage(); pg = 4 + idx;
+    fc(WHITE); rr(0, 0, W, H, 0);
+    leftStripe(sCol(dimScores[dim.name] ?? 0));
 
-    const s = dimScores[dimData.name] ?? 0;
-    const sc = scoreColor(s), bg2 = scoreBg(s);
-    const level = s >= 75 ? 'high' : s >= 50 ? 'medium' : 'low';
+    const sc2 = dimScores[dim.name] ?? 0;
+    const level = sc2 >= 75 ? 'high' : sc2 >= 50 ? 'medium' : 'low';
 
-    // Bande latérale colorée selon score
-    fill(sc); rect(0, 0, 8, H, 0, 'F');
+    // En-tête
+    ff('bold', 8); tc(FAINT); txt('DIMENSION ' + (idx + 1) + ' / 6', M + 4, 14);
+    ff('bold', 19); tc(TEXT); txt(s(dim.name), M + 4, 26);
+    ff('normal', 8.5); tc(DIM);
+    const descL = splitTxt(dim.desc, RW * 0.65);
+    descL.forEach((l, i) => txt(l, M + 4, 33 + i * 5));
 
-    // En-tête dimension
-    font('helvetica','bold',8); color(C.faint); text(`DIMENSION ${idx+1} / 6`, M+4, 14);
-    font('helvetica','bold',20); color(C.text); text(dimData.name, M+4, 26);
-    font('helvetica','normal',9); color(C.dim);
-    const descLines = splitText(dimData.desc, 100);
-    descLines.forEach((l, i) => text(l, M+4, 34+i*5));
+    // Score coin droit
+    gauge(W - M - 14, 20, 13, sc2, sCol(sc2));
+    ff('bold', 16); tc(sCol(sc2)); txt(String(sc2), W - M - 14, 24, { align: 'center' });
+    ff('normal', 6); tc(DIM); txt('/ 100', W - M - 14, 29.5, { align: 'center' });
+    chip(sLabel(sc2), W - M - 28, 33, sBg(sc2), sCol(sc2));
 
-    // Score dimension
-    gaugeCircle(W-M-18, 22, 14, s, sc);
-    font('helvetica','bold',18); color(sc); text(String(s), W-M-18, 26, { align:'center' });
-    font('helvetica','normal',7); color(C.dim); text('/ 100', W-M-18, 32, { align:'center' });
-    fill(bg2); stroke(sc); lw(0.3); rect(W-M-32, 35, 28, 7, 2, 'FD');
-    color(sc); font('helvetica','bold',7); text(gradeLabel(s), W-M-18, 40, { align:'center' });
+    sc(BORDER); lw(0.3); line(M + 4, 50, W - M, 50);
 
-    stroke(C.border); lw(0.3); doc.line(M+4, 50, W-M, 50);
-
-    // Mockup (colonne gauche)
-    const mockW = 90, mockH = 100, mockX = M+4, mockY = 54;
-    drawMockup(dimData.mockupType, mockX, mockY, mockW, mockH, s);
+    // Mockup colonne gauche
+    const mW = 88, mH = 103, mX = M + 4, mY = 54;
+    drawMockup(dim.mockup, mX, mY, mW, mH);
 
     // Légende mockup
-    fill(C.accentSoft); rect(mockX, mockY+mockH+3, mockW, 7, 1, 'F');
-    color(C.accent); font('helvetica','bold',5.5);
-    text('Norvy — Interface ' + dimData.name, mockX+mockW/2, mockY+mockH+7.5, { align:'center' });
+    fc(ACCENT_S); rr(mX, mY + mH + 2, mW, 6.5, 1, 'F');
+    ff('bold', 5.5); tc(ACCENT);
+    txt('Norvy -- Interface ' + s(dim.name), mX + mW / 2, mY + mH + 6.5, { align: 'center' });
 
-    // Colonne droite : actions + features Norvy
-    const rX = mockX+mockW+8, rW = W-M-rX;
+    // Colonne droite
+    const rX = mX + mW + 8, rW2 = W - M - rX;
 
-    // Actions recommandées
-    font('helvetica','bold',8); color(C.text); text('Actions recommandées', rX, 58);
-    const actions = dimData.actions[level];
-    actions.forEach((a, i) => {
-      const ay = 64+i*16;
-      // Numéro
-      fill(sc); doc.circle(rX+3, ay+1, 3.5, 'F');
-      color(C.white); font('helvetica','bold',6); text(String(i+1), rX+3, ay+2.5, { align:'center' });
-      // Texte
-      color(C.text); font('helvetica','normal',6.5);
-      const aLines = splitText(a, rW-12);
-      aLines.forEach((l, j) => text(l, rX+9, ay+j*4.5));
+    // Actions
+    ff('bold', 8); tc(TEXT); txt('Actions recommandees', rX, 56);
+    const acts = dim.actions[level];
+    acts.forEach((a, i) => {
+      const ay = 63 + i * 16;
+      fc(sCol(sc2)); doc.circle(rX + 3.5, ay, 3.5, 'F');
+      ff('bold', 6); tc(WHITE); txt(String(i + 1), rX + 3.5, ay + 2, { align: 'center' });
+      ff('normal', 6.5); tc(TEXT);
+      const aL = splitTxt(a, rW2 - 12);
+      aL.forEach((l, j) => txt(l, rX + 9, ay + j * 4.5));
     });
 
     // Features Norvy
-    const featY = 64 + actions.length*16 + 8;
-    fill(C.accentSoft); stroke(C.accent); lw(0.3);
-    rect(rX, featY-3, rW, 4, 0, 'F');
-    color(C.accent); font('helvetica','bold',7); text('Comment Norvy corrige ce point', rX, featY+0.5);
+    const featY = 63 + acts.length * 16 + 6;
+    if (featY < 240) {
+      fc(ACCENT_S); rr(rX, featY - 2, rW2, 5, 0, 'F');
+      ff('bold', 7); tc(ACCENT); txt('Comment Norvy corrige ce point', rX, featY + 2);
 
-    dimData.norvyFeatures.forEach((f, i) => {
-      const fy = featY+8+i*18;
-      fill(C.bgElev); stroke(C.border); lw(0.2); rect(rX, fy, rW, 16, 2, 'FD');
-      // Puce Norvy
-      fill(C.accent); rect(rX+2, fy+2, 3, 12, 1, 'F');
-      color(C.white); font('helvetica','bold',5);
-      text('N', rX+2.8, fy+9);
-      // Titre feature
-      color(C.accent); font('helvetica','bold',6.5); text(f.title, rX+7, fy+6);
-      // Description
-      color(C.dim); font('helvetica','normal',6);
-      const fLines = splitText(f.desc, rW-10);
-      fLines.forEach((l, j) => text(l, rX+7, fy+11+j*4));
-    });
+      dim.features.forEach((f, i) => {
+        const fy = featY + 9 + i * 18;
+        if (fy + 18 > 278) return;
+        fc(WHITE); sc(BORDER); lw(0.2); rr(rX, fy, rW2, 16, 2, 'FD');
+        fc(ACCENT); rr(rX + 2, fy + 2, 3, 12, 1, 'F');
+        ff('bold', 5); tc(WHITE); txt('N', rX + 2.8, fy + 8.5);
+        ff('bold', 6.5); tc(ACCENT); txt(s(f.t), rX + 7, fy + 6);
+        ff('normal', 6); tc(DIM);
+        const fl = splitTxt(f.d, rW2 - 12);
+        fl.forEach((l, j) => { if (j < 2) txt(l, rX + 7, fy + 11 + j * 4); });
+      });
+    }
 
-    // Barre de progression en bas de page
-    const barY = H-26;
-    stroke(C.border); lw(0.3); doc.line(M+4, barY, W-M, barY);
-    font('helvetica','normal',7); color(C.faint); text('Progression sur cette dimension', M+4, barY+6);
-    progressBar(M+4, barY+8, W-M-12-28, 5, s, sc);
-    color(sc); font('helvetica','bold',8); text(s+'%', W-M-12-24+5, barY+12);
+    // Barre progression bas
+    sc(BORDER); lw(0.3); line(M + 4, 277, W - M, 277);
+    ff('normal', 7); tc(FAINT); txt('Score pour cette dimension', M + 4, 283);
+    bar(M + 4, 284, RW - 28, 4, sc2, sCol(sc2));
+    ff('bold', 8); tc(sCol(sc2)); txt(sc2 + '%', W - M - 22, 287.5);
 
-    pageFooter(pg, TOTAL_PAGES);
+    footer();
   });
 
   // ═══════════════════════════════════════════════════════════════
-  // PAGE 10 — PLAN D'ACTION PRIORISÉ
+  // PAGE 10 — PLAN D'ACTION
   // ═══════════════════════════════════════════════════════════════
-  doc.addPage(); pg++;
-  fill(C.bgElev); rect(0, 0, W, H, 0, 'F');
-  fill(C.accent); rect(0, 0, 8, H, 0, 'F');
+  doc.addPage(); pg = 10;
+  fc(WHITE); rr(0, 0, W, H, 0);
+  leftStripe(ACCENT);
 
-  font('helvetica','bold',18); color(C.text); text('Plan d\'action priorisé', M+4, 24);
-  font('helvetica','normal',9); color(C.dim);
-  text('Actions classées par priorité et dimension — Objectif : conformité AMLR juillet 2027', M+4, 32);
-  stroke(C.border); lw(0.3); doc.line(M+4, 36, W-M, 36);
+  ff('bold', 18); tc(TEXT); txt('Plan d\'action priorise', M + 4, 24);
+  ff('normal', 9); tc(DIM); txt('Actions classees par priorite -- Objectif : conformite AMLR juillet 2027', M + 4, 31);
+  sc(BORDER); lw(0.3); line(M + 4, 35, W - M, 35);
 
-  // Légende priorités
-  const legendY = 42;
-  [[C.danger, 'Priorité haute — à engager immédiatement'], [C.warn, 'Priorité moyenne — à planifier d\'ici 6 mois'], [C.accent, 'Priorité faible — maintien et amélioration continue']].forEach(([c, l], i) => {
-    fill(c); doc.circle(M+8+i*65, legendY, 2, 'F');
-    color(C.dim); font('helvetica','normal',6.5); text(l, M+12+i*65, legendY+1);
+  // Légende
+  [[DANGER, 'Priorite haute'], [WARN, 'Priorite moyenne'], [ACCENT, 'Priorite faible']].forEach(([c, l], i) => {
+    fc(c); doc.circle(M + 8 + i * 58, 42, 2, 'F');
+    ff('normal', 6.5); tc(DIM); txt(l, M + 12 + i * 58, 43);
   });
 
   // En-tête tableau
-  const planY = 50;
-  fill(C.accent); rect(M+4, planY, W-M-12, 8, 0, 'F');
-  ['#', 'DIMENSION', 'ACTION', 'PRIORITÉ'].forEach((h2, i) => {
-    const xOff = [0, 8, 30, 165];
-    color(C.white); font('helvetica','bold',6.5); text(h2, M+6+xOff[i], planY+5.5);
+  fc(ACCENT); rr(M + 4, 48, RW, 7, 0, 'F');
+  ff('bold', 6.5); tc(WHITE);
+  ['#', 'DIMENSION', 'ACTION', 'PRIORITE'].forEach((h2, i) => {
+    txt(h2, M + 5 + [0, 7, 28, 163][i], 53);
   });
 
-  const plan = getActionPlan();
-  let rowY = planY+9;
-  plan.forEach((item, idx2) => {
-    if (rowY > 268) return; // Sécurité
-    const prioC = item.priority===1 ? C.danger : item.priority===2 ? C.warn : C.accent;
-    const prioBg = item.priority===1 ? C.dangerSoft : item.priority===2 ? C.warnSoft : C.accentSoft;
-    const prioLabel = item.priority===1 ? 'HAUTE' : item.priority===2 ? 'MOYENNE' : 'FAIBLE';
+  const plan = actionPlan();
+  let py = 57;
+  plan.forEach((item, i) => {
+    if (py > 270) return;
+    const pC = item.prio === 1 ? DANGER : item.prio === 2 ? WARN : ACCENT;
+    const pB = item.prio === 1 ? DANGER_S : item.prio === 2 ? WARN_S : ACCENT_S;
+    const pL = item.prio === 1 ? 'HAUTE' : item.prio === 2 ? 'MOYENNE' : 'FAIBLE';
 
-    fill(idx2%2===0 ? C.bgElev : C.bg); rect(M+4, rowY, W-M-12, 11, 0, 'F');
-    stroke(C.border); lw(0.1); doc.line(M+4, rowY+11, M+W-M-12, rowY+11);
+    const aLines = splitTxt(item.action, 130);
+    const rh = Math.max(11, aLines.length * 4.5 + 4);
 
-    // Numéro
-    fill(prioC); doc.circle(M+8, rowY+5.5, 3, 'F');
-    color(C.white); font('helvetica','bold',6); text(String(idx2+1), M+8, rowY+7, { align:'center' });
+    fc(i % 2 === 0 ? WHITE : BG); rr(M + 4, py, RW, rh, 0, 'F');
+    sc(BORDER); lw(0.1); line(M + 4, py + rh, M + 4 + RW, py + rh);
 
-    // Dimension
-    color(C.dim); font('helvetica','normal',6); text(item.dim, M+14, rowY+4);
+    fc(pC); doc.circle(M + 8, py + rh / 2, 3, 'F');
+    ff('bold', 6); tc(WHITE); txt(String(i + 1), M + 8, py + rh / 2 + 2, { align: 'center' });
 
-    // Action
-    color(C.text); font('helvetica','normal',6.5);
-    const aLines = splitText(item.action, 132);
-    aLines.forEach((l, i) => text(l, M+14, rowY+8.5+i*4));
+    ff('normal', 6); tc(DIM); txt(s(item.dim), M + 13, py + rh / 2 - 1);
+    ff('normal', 6.5); tc(TEXT);
+    aLines.forEach((l, j) => txt(l, M + 13, py + rh / 2 + 3 + j * 4.5));
 
-    // Badge priorité
-    fill(prioBg); rect(M+172, rowY+3, 22, 6, 1.5, 'F');
-    color(prioC); font('helvetica','bold',6); text(prioLabel, M+183, rowY+7.5, { align:'center' });
-
-    rowY += 11+(aLines.length>1 ? (aLines.length-1)*4 : 0);
+    chip(pL, M + 168, py + (rh - 6) / 2, pB, pC);
+    py += rh;
   });
 
-  pageFooter(pg, TOTAL_PAGES);
+  footer();
 
   // ═══════════════════════════════════════════════════════════════
-  // PAGE 11 — NORVY : LA SOLUTION
+  // PAGE 11 — NORVY LA SOLUTION
   // ═══════════════════════════════════════════════════════════════
-  doc.addPage(); pg++;
-  fill(C.bgElev); rect(0, 0, W, H, 0, 'F');
-  fill(C.accent); rect(0, 0, 8, H, 0, 'F');
+  doc.addPage(); pg = 11;
+  fc(WHITE); rr(0, 0, W, H, 0);
+  leftStripe(ACCENT);
 
-  font('helvetica','bold',18); color(C.text); text('La solution recommandée', M+4, 24);
-  stroke(C.border); lw(0.3); doc.line(M+4, 30, W-M, 30);
+  ff('bold', 18); tc(TEXT); txt('La solution recommandee', M + 4, 24);
+  sc(BORDER); lw(0.3); line(M + 4, 30, W - M, 30);
 
   // Pitch Norvy
-  fill(C.dark); rect(M+4, 36, W-M-12, 32, 3, 'F');
-  font('helvetica','bold',22); color(C.white); text('norvy', M+12, 54);
-  font('helvetica','normal',10); color([180,180,175]);
-  text('Le logiciel de gestion de cabinet d\'avocats avec l\'AML dans son ADN.', M+12, 62);
-  font('helvetica','bold',8); color([111,207,171]);
-  text('norvy.lu', W-M-12, 57, { align:'right' });
+  fc(DARK); rr(M + 4, 36, RW, 28, 3, 'F');
+  ff('bold', 20); tc(WHITE); txt('norvy', M + 10, 53);
+  ff('normal', 9); tc([180, 180, 175]);
+  txt('Le logiciel de gestion de cabinet avec l\'AML dans son ADN.', M + 10, 61);
+  ff('bold', 8); tc(GREEN_L); txt('norvy.lu', W - M, 55, { align: 'right' });
 
-  // Features adaptées aux lacunes
-  font('helvetica','bold',10); color(C.text); text('Comment Norvy corrige votre audit', M+4, 80);
-  font('helvetica','normal',8); color(C.dim); text('Les modules Norvy correspondant à vos lacunes identifiées', M+4, 87);
+  // 3 dimensions les plus faibles
+  ff('bold', 10); tc(TEXT); txt('Comment Norvy corrige votre audit', M + 4, 78);
+  ff('normal', 8); tc(DIM); txt('Les modules Norvy correspondant a vos lacunes identifies', M + 4, 84);
 
-  // Sélection des 3 dimensions les plus faibles
-  const weakDims = DIMS_DATA
-    .map(d => ({ ...d, score: dimScores[d.name] ?? 0 }))
-    .sort((a, b) => a.score - b.score)
+  const weakest = DIMS
+    .map(d => ({ ...d, sc2: dimScores[d.name] ?? 0 }))
+    .sort((a, b) => a.sc2 - b.sc2)
     .slice(0, 3);
 
-  weakDims.forEach((d, i) => {
-    const s = d.score, sc = scoreColor(s), bg2 = scoreBg(s);
-    const bY = 93+i*42;
-    fill(C.bg); stroke(C.border); lw(0.3); rect(M+4, bY, W-M-12, 40, 2, 'FD');
+  weakest.forEach((d, i) => {
+    const by = 90 + i * 44;
+    if (by + 44 > 250) return;
+    fc(BG); sc(BORDER); lw(0.3); rr(M + 4, by, RW, 42, 2, 'FD');
 
     // Badge score
-    fill(bg2); rect(M+7, bY+3, 18, 8, 1.5, 'F');
-    color(sc); font('helvetica','bold',7); text(s+'%', M+16, bY+8.5, { align:'center' });
+    fc(sBg(d.sc2)); rr(M + 7, by + 4, 20, 9, 1.5, 'F');
+    ff('bold', 8); tc(sCol(d.sc2)); txt(d.sc2 + '%', M + 17, by + 10, { align: 'center' });
 
-    // Titre dimension
-    color(C.text); font('helvetica','bold',9); text(d.name, M+28, bY+8.5);
+    ff('bold', 9); tc(TEXT); txt(s(d.name), M + 30, by + 10);
 
-    // Features Norvy pour cette dimension
-    d.norvyFeatures.forEach((f, j) => {
-      const fY = bY+16+j*8;
-      fill(C.accent); doc.circle(M+10, fY, 2, 'F');
-      color(C.white); font('helvetica','bold',4.5); text('N', M+9, fY+1.5);
-      color(C.accent); font('helvetica','bold',6.5); text(f.title, M+14, fY+2);
-      color(C.dim); font('helvetica','normal',6);
-      const fl = splitText(f.desc, W-M-30);
-      text(fl[0], M+14, fY+6.5);
+    d.features.forEach((f, j) => {
+      const fy = by + 18 + j * 8;
+      if (fy + 8 > by + 40) return;
+      fc(ACCENT); doc.circle(M + 10, fy, 2, 'F');
+      ff('bold', 5); tc(WHITE); txt('N', M + 8.8, fy + 1.5);
+      ff('bold', 6.5); tc(ACCENT); txt(s(f.t), M + 14, fy + 2);
+      ff('normal', 6); tc(DIM);
+      const fl = splitTxt(f.d, RW - 22);
+      if (fl.length) txt(fl[0], M + 14, fy + 6.5);
     });
   });
 
   // CTA final
-  const ctaY = 93+3*42+8;
-  fill(C.accent); rect(M+4, ctaY, W-M-12, 36, 3, 'F');
+  const ctaY = 90 + 3 * 44 + 8;
+  if (ctaY + 36 < 280) {
+    fc(ACCENT); rr(M + 4, ctaY, RW, 36, 3, 'F');
+    ff('bold', 14); tc(WHITE); txt('Pret a corriger votre dispositif AML ?', W / 2, ctaY + 12, { align: 'center' });
+    ff('normal', 9); tc([200, 220, 215]);
+    txt('Rejoignez les premiers cabinets equipes Norvy.', W / 2, ctaY + 20, { align: 'center' });
+    txt('Migration accompagnee incluse. Acces beta prioritaire.', W / 2, ctaY + 26, { align: 'center' });
+    fc(WHITE); rr(W / 2 - 35, ctaY + 29, 70, 8, 2, 'F');
+    ff('bold', 8); tc(ACCENT); txt('Demander un acces : norvy.lu', W / 2, ctaY + 34.5, { align: 'center' });
+  }
 
-  font('helvetica','bold',14); color(C.white);
-  text('Prêt à corriger votre dispositif AML ?', CX, ctaY+11, { align:'center' });
+  footer();
 
-  font('helvetica','normal',9); color([200,220,215]);
-  text('Rejoignez les premiers cabinets équipés Norvy.', CX, ctaY+19, { align:'center' });
-  text('Migration accompagnée incluse. Accès bêta prioritaire.', CX, ctaY+25, { align:'center' });
-
-  // Bloc blanc CTA
-  fill(C.white); rect(CX-35, ctaY+28, 70, 8, 2, 'F');
-  color(C.accent); font('helvetica','bold',8);
-  text('Demander un accès → norvy.lu', CX, ctaY+33.5, { align:'center' });
-
-  pageFooter(pg, TOTAL_PAGES);
-
-  // ═══════════════════════════════════════════════════════════════
-  // TÉLÉCHARGEMENT
-  // ═══════════════════════════════════════════════════════════════
+  // ─── TÉLÉCHARGEMENT ────────────────────────────────────────────
   const fname = firmName
-    ? `Norvy-Audit-AML-${firmName.replace(/[^a-z0-9]/gi, '-')}.pdf`
-    : `Norvy-Audit-AML-${new Date().toISOString().slice(0,10)}.pdf`;
+    ? 'Norvy-Audit-AML-' + firmName.replace(/[^a-z0-9]/gi, '-') + '.pdf'
+    : 'Norvy-Audit-AML-' + new Date().toISOString().slice(0, 10) + '.pdf';
   doc.save(fname);
 }
+
 // AUDIT AML
 // ══════════════════════════════════════════════════════════════
 (function() {
