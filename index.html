@@ -1790,6 +1790,391 @@
     .a-breakdown-panel { padding: 36px 28px; }
     .a-score-big { font-size: 72px; }
   }
+
+  /* ═══════════════════════════════════════════════════
+     AUDIT TEASER — Section 2 pleine page
+  ═══════════════════════════════════════════════════ */
+  .audit-teaser {
+    padding: 100px 0 80px;
+    border-top: 1px solid var(--border-soft);
+    background: var(--bg-dark);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .audit-teaser::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    left: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(45,122,99,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .audit-teaser::after {
+    content: '';
+    position: absolute;
+    bottom: -20%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(26,77,62,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .audit-teaser .container { position: relative; z-index: 1; }
+  .audit-teaser .section-eyebrow { color: #6FCFAB; }
+  .audit-teaser .section-title { color: #F5F5F2; max-width: 520px; }
+  .audit-teaser .section-title em { color: #6FCFAB; }
+
+  /* Top : stat + headline */
+  .at-top {
+    display: grid;
+    grid-template-columns: auto 1px 1fr;
+    gap: 48px;
+    align-items: center;
+    margin-bottom: 64px;
+    padding-bottom: 64px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .at-stat-wrap { text-align: center; flex-shrink: 0; }
+
+  .at-stat-big {
+    font-size: 120px;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    color: #F5F5F2;
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+  }
+
+  .at-stat-big span {
+    font-size: 60px;
+    color: #6FCFAB;
+    margin-top: 12px;
+    font-weight: 500;
+  }
+
+  .at-stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: rgba(245,245,242,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    line-height: 1.6;
+    margin-top: 12px;
+    max-width: 180px;
+  }
+
+  .at-divider {
+    width: 1px;
+    height: 100px;
+    background: rgba(255,255,255,0.1);
+    flex-shrink: 0;
+  }
+
+  /* CTA principal */
+  .at-start-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #6FCFAB;
+    color: var(--bg-dark);
+    border: none;
+    padding: 15px 28px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: transform 0.15s, background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 0 0 rgba(111,207,171,0.4);
+    text-decoration: none;
+  }
+
+  .at-start-cta:hover {
+    transform: translateY(-2px);
+    background: #7FDBB5;
+    box-shadow: 0 8px 24px -8px rgba(111,207,171,0.5);
+  }
+
+  .at-start-cta.secondary {
+    background: transparent;
+    color: #6FCFAB;
+    border: 1.5px solid rgba(111,207,171,0.4);
+    padding: 12px 24px;
+    font-size: 14px;
+    width: 100%;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .at-start-cta.secondary:hover {
+    background: rgba(111,207,171,0.08);
+    border-color: #6FCFAB;
+  }
+
+  .at-start-cta svg { width: 18px; height: 18px; }
+
+  /* Trust badges */
+  .at-trust {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .at-trust span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: rgba(245,245,242,0.5);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .at-trust svg { width: 14px; height: 14px; color: #6FCFAB; flex-shrink: 0; }
+
+  /* Bottom : rapport + pilliers */
+  .at-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  /* Rapport PDF mockup */
+  .at-report-preview {
+    background: var(--bg-elev);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 32px 64px -24px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06);
+    transform: rotate(-1deg);
+    transition: transform 0.3s ease;
+  }
+
+  .at-report-preview:hover { transform: rotate(0deg) translateY(-4px); }
+
+  .at-report-header {
+    background: var(--bg-elev-2);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .at-report-dots { display: flex; gap: 5px; }
+  .at-report-dots span { width: 9px; height: 9px; border-radius: 50%; background: var(--border); }
+
+  .at-report-title {
+    flex: 1;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-faint);
+    text-align: center;
+  }
+
+  .at-report-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  .at-report-body { padding: 20px 20px 16px; }
+
+  .at-report-score-row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  .at-report-score-block { text-align: center; }
+
+  .at-report-score-num {
+    font-size: 52px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--warn);
+  }
+
+  .at-report-score-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-faint);
+    margin-bottom: 8px;
+  }
+
+  .at-report-score-grade {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 3px 8px;
+    border-radius: 100px;
+    display: inline-block;
+  }
+
+  .at-report-score-grade.warn { background: var(--warn-soft); color: var(--warn); border: 1px solid rgba(184,130,28,0.2); }
+
+  .at-report-dim-row {
+    display: grid;
+    grid-template-columns: 90px 1fr 24px;
+    gap: 8px;
+    align-items: center;
+    padding: 4px 0;
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+
+  .at-report-bar {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .at-report-bar-fill { height: 100%; border-radius: 2px; }
+
+  .at-report-actions { }
+
+  .at-report-action-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-faint);
+    margin-bottom: 8px;
+  }
+
+  .at-report-action-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 11.5px;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+    line-height: 1.4;
+    background: var(--bg);
+    border: 1px solid var(--border-soft);
+  }
+
+  .at-report-action-item.norvy { background: var(--accent-soft); border-color: rgba(26,77,62,0.2); }
+
+  .at-prio {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+    background: #FCE8E8;
+    color: #B83838;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .at-prio.medium { background: var(--warn-soft); color: var(--warn); }
+  .at-prio.norvy { background: var(--accent-soft); color: var(--accent); }
+
+  .at-report-footer {
+    padding: 10px 16px;
+    background: var(--bg-elev-2);
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--text-faint);
+    font-style: italic;
+  }
+
+  /* 6 pilliers */
+  .at-pillars { display: flex; flex-direction: column; }
+
+  .at-pillars-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(245,245,242,0.4);
+    margin-bottom: 16px;
+  }
+
+  .at-pillars-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .at-pillar {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 16px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .at-pillar:hover {
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(111,207,171,0.25);
+  }
+
+  .at-pillar-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: rgba(111,207,171,0.12);
+    border: 1px solid rgba(111,207,171,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6FCFAB;
+    margin-bottom: 10px;
+  }
+
+  .at-pillar-icon svg { width: 16px; height: 16px; }
+
+  .at-pillar-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #F5F5F2;
+    margin-bottom: 4px;
+  }
+
+  .at-pillar-desc {
+    font-size: 12px;
+    color: rgba(245,245,242,0.45);
+    line-height: 1.5;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .at-top { grid-template-columns: 1fr; gap: 32px; }
+    .at-divider { display: none; }
+    .at-stat-big { font-size: 80px; }
+    .at-stat-big span { font-size: 40px; }
+    .at-bottom { grid-template-columns: 1fr; }
+    .at-report-preview { transform: none; }
+    .at-pillars-grid { grid-template-columns: 1fr; }
+  }
+
 </style>
 </head>
 <body>
@@ -1800,8 +2185,8 @@
     <ul class="nav-links">
       <li><a href="#produit">Produit</a></li>
       <li><a href="#amlr">AMLR</a></li>
+      <li><a href="#audit-teaser">Audit gratuit</a></li>
       <li><a href="#pricing">Tarifs</a></li>
-      <li><a href="#audit">Audit gratuit</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
     <a href="#waitlist" class="nav-cta">
@@ -1829,7 +2214,12 @@
       Bienvenue. Vous êtes sur la liste — nous reviendrons vers vous très vite.
     </div>
 
-    <div class="hero-meta fade-up delay-4">
+    <a href="#audit" class="fade-up delay-4" style="display:inline-flex;align-items:center;gap:8px;color:var(--text-dim);font-size:14px;text-decoration:none;margin-bottom:24px;transition:color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-dim)'">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      Ou tester ma conformité AML gratuitement — 8 min, rapport PDF
+    </a>
+
+    <div class="hero-meta fade-up delay-5">
       <span><strong style="color: var(--accent); font-weight: 600;">Inscriptions ouvertes</strong></span>
       <span>·</span>
       <span>Bootstrappé depuis le Luxembourg</span>
@@ -1879,6 +2269,156 @@
     </div>
   </div>
 </section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION AUDIT — TEASER PLEINE PAGE (Option 3)
+     Positionnée en 2e section, juste après le hero
+═══════════════════════════════════════════════════ -->
+<section class="audit-teaser" id="audit-teaser">
+  <div class="container">
+
+    <!-- Accroche chiffrée -->
+    <div class="at-top">
+      <div class="at-stat-wrap">
+        <div class="at-stat-big">67<span>%</span></div>
+        <div class="at-stat-label">des cabinets d'avocats<br>ne sont pas conformes<br>aux exigences AMLR 2024/1624</div>
+      </div>
+      <div class="at-divider"></div>
+      <div class="at-headline">
+        <div class="section-eyebrow">Audit de conformité AML — Gratuit</div>
+        <h2 class="section-title" style="max-width:520px;margin-bottom:16px;">Où en est <em>votre cabinet</em> ?</h2>
+        <p style="color:var(--text-dim);font-size:17px;line-height:1.6;max-width:460px;margin-bottom:28px;">22 questions. 8 minutes. Un rapport PDF personnalisé avec votre score, vos lacunes et les actions prioritaires avant juillet 2027.</p>
+        <button class="at-start-cta" id="atStartCta" type="button">
+          Commencer mon audit gratuit
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+        <div class="at-trust">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>100% confidentiel</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Rapport PDF inclus</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>8 minutes</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Aperçu du rapport + dimensions -->
+    <div class="at-bottom">
+
+      <!-- Faux rapport PDF stylisé -->
+      <div class="at-report-preview">
+        <div class="at-report-header">
+          <div class="at-report-dots"><span></span><span></span><span></span></div>
+          <div class="at-report-title">Rapport d'audit AML · Norvy</div>
+          <div class="at-report-badge">PDF</div>
+        </div>
+        <div class="at-report-body">
+          <!-- Score fictif illustratif -->
+          <div class="at-report-score-row">
+            <div class="at-report-score-block">
+              <div class="at-report-score-num">58</div>
+              <div class="at-report-score-sub">/ 100</div>
+              <div class="at-report-score-grade warn">CONFORMITÉ PARTIELLE</div>
+            </div>
+            <div class="at-report-bars">
+              <div class="at-report-dim-row">
+                <span>Gouvernance</span>
+                <div class="at-report-bar"><div class="at-report-bar-fill" style="width:75%;background:var(--accent)"></div></div>
+                <b style="color:var(--accent)">75</b>
+              </div>
+              <div class="at-report-dim-row">
+                <span>KYC & Vigilance</span>
+                <div class="at-report-bar"><div class="at-report-bar-fill" style="width:60%;background:var(--warn)"></div></div>
+                <b style="color:var(--warn)">60</b>
+              </div>
+              <div class="at-report-dim-row">
+                <span>Screening</span>
+                <div class="at-report-bar"><div class="at-report-bar-fill" style="width:40%;background:#B83838"></div></div>
+                <b style="color:#B83838">40</b>
+              </div>
+              <div class="at-report-dim-row">
+                <span>Formation</span>
+                <div class="at-report-bar"><div class="at-report-bar-fill" style="width:80%;background:var(--accent)"></div></div>
+                <b style="color:var(--accent)">80</b>
+              </div>
+              <div class="at-report-dim-row">
+                <span>Registre</span>
+                <div class="at-report-bar"><div class="at-report-bar-fill" style="width:45%;background:var(--warn)"></div></div>
+                <b style="color:var(--warn)">45</b>
+              </div>
+              <div class="at-report-dim-row">
+                <span>Déclaration</span>
+                <div class="at-report-bar"><div class="at-report-bar-fill" style="width:35%;background:#B83838"></div></div>
+                <b style="color:#B83838">35</b>
+              </div>
+            </div>
+          </div>
+          <!-- Actions prioritaires fictives -->
+          <div class="at-report-actions">
+            <div class="at-report-action-title">Actions prioritaires</div>
+            <div class="at-report-action-item danger">
+              <span class="at-prio">HAUTE</span>
+              <span>Mettre en place un screening automatisé contre les listes de sanctions UE/OFAC/ONU</span>
+            </div>
+            <div class="at-report-action-item warn">
+              <span class="at-prio medium">MOYENNE</span>
+              <span>Automatiser la mise à jour périodique des dossiers KYC selon une matrice de risque</span>
+            </div>
+            <div class="at-report-action-item norvy">
+              <span class="at-prio norvy">NORVY</span>
+              <span>Screening temps réel intégré · Surveillance continue · Alertes automatiques</span>
+            </div>
+          </div>
+        </div>
+        <div class="at-report-footer">
+          <span>Exemple de rapport · Le vôtre sera personnalisé</span>
+          <span>norvy.lu</span>
+        </div>
+      </div>
+
+      <!-- 6 pilliers -->
+      <div class="at-pillars">
+        <div class="at-pillars-title">Les 6 piliers évalués</div>
+        <div class="at-pillars-grid">
+          <div class="at-pillar">
+            <div class="at-pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <div class="at-pillar-name">Gouvernance</div>
+            <div class="at-pillar-desc">Politique AML, CO désigné, évaluation des risques</div>
+          </div>
+          <div class="at-pillar">
+            <div class="at-pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+            <div class="at-pillar-name">KYC & Vigilance</div>
+            <div class="at-pillar-desc">Identification clients, BE, vigilance renforcée</div>
+          </div>
+          <div class="at-pillar">
+            <div class="at-pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+            <div class="at-pillar-name">Screening</div>
+            <div class="at-pillar-desc">Sanctions UE/OFAC/ONU, PEP, surveillance continue</div>
+          </div>
+          <div class="at-pillar">
+            <div class="at-pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+            <div class="at-pillar-name">Formation</div>
+            <div class="at-pillar-desc">Plan annuel, registre, formations certifiantes</div>
+          </div>
+          <div class="at-pillar">
+            <div class="at-pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+            <div class="at-pillar-name">Registre</div>
+            <div class="at-pillar-desc">Traçabilité, questionnaire Barreau, plan d'urgence</div>
+          </div>
+          <div class="at-pillar">
+            <div class="at-pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 9v2m0 4h.01M5 19h14a2 2 0 0 0 1.84-2.75L13.74 4a2 2 0 0 0-3.48 0L3.16 16.25A2 2 0 0 0 5 19z"/></svg></div>
+            <div class="at-pillar-name">Déclaration</div>
+            <div class="at-pillar-desc">DOS, red flags, escalade interne, CRF</div>
+          </div>
+        </div>
+        <button class="at-start-cta secondary" id="atStartCta2" type="button">
+          Démarrer l'audit — 8 min, gratuit
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 
 <section class="amlr" id="amlr">
   <div class="container">
@@ -2035,9 +2575,125 @@
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════
-     SECTION PRICING — intégrée dans la charte Norvy
-═══════════════════════════════════════════════════ -->
+<section class="audit" id="audit">
+  <div class="container">
+    <div class="audit-header-row">
+      <div>
+        <div class="section-eyebrow">Audit gratuit</div>
+        <h2 class="section-title" style="max-width:580px;margin-bottom:12px;">Êtes-vous prêt pour <em>l'AMLR 2027 ?</em></h2>
+        <p class="section-lead">22 questions, 8 minutes. Recevez votre score de conformité AML et un rapport PDF personnalisé avec les actions prioritaires.</p>
+      </div>
+      <div class="audit-pills">
+        <div class="audit-pill">22 questions</div>
+        <div class="audit-pill">8 min</div>
+        <div class="audit-pill">Rapport PDF</div>
+        <div class="audit-pill">100% confidentiel</div>
+      </div>
+    </div>
+
+    <div class="audit-card" id="auditCard">
+
+      <!-- ÉCRAN 1 : INTRO -->
+      <div class="a-screen active" id="aScreenIntro">
+        <div class="a-intro">
+          <div class="a-intro-left">
+            <h3>Diagnostiquez votre dispositif <em>AML en 8 minutes.</em></h3>
+            <p>Cet audit évalue la maturité de votre cabinet sur les 6 piliers exigés par l'AMLR 2024/1624. À l'issue, vous recevez un rapport PDF avec votre score et des recommandations actionnables.</p>
+            <button class="a-start-btn" id="aStartBtn" type="button">
+              Commencer l'audit
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+          <div class="a-intro-right" id="aDimsRight">
+            <!-- Rempli par JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- ÉCRAN 2 : QUESTIONS -->
+      <div class="a-screen" id="aScreenQuestions">
+        <div class="a-questions">
+          <div class="a-q-top">
+            <div class="a-q-counter">Question <strong id="aQNum">1</strong> / 22</div>
+            <div class="a-q-dim" id="aQDim">Gouvernance</div>
+          </div>
+          <div class="a-progress"><div class="a-progress-fill" id="aProgressFill"></div></div>
+          <h3 class="a-question-text" id="aQText"></h3>
+          <p class="a-question-help" id="aQHelp"></p>
+          <div class="a-options" id="aOptions"></div>
+          <div class="a-nav">
+            <button class="a-btn" id="aPrevBtn" type="button" disabled>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+              Précédent
+            </button>
+            <button class="a-btn primary" id="aNextBtn" type="button" disabled>
+              Suivant
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ÉCRAN 3 : EMAIL -->
+      <div class="a-screen" id="aScreenEmail">
+        <div class="a-email">
+          <div class="a-email-left">
+            <h3>Votre audit est <em>terminé.</em></h3>
+            <p>Indiquez votre email pour recevoir votre rapport PDF personnalisé. Il se télécharge immédiatement.</p>
+            <form class="a-email-form" id="aEmailForm">
+              <input type="text" class="a-input" id="aFirmName" placeholder="Nom du cabinet (optionnel)" />
+              <input type="email" class="a-input" id="aEmail" placeholder="votre@cabinet.lu" required />
+              <button type="submit" class="a-submit" id="aSubmitBtn">
+                Recevoir mon rapport PDF
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </button>
+              <div class="a-consent">Nous vous recontacterons. Désinscription en un clic, aucun spam.</div>
+              <div class="a-success" id="aSuccess">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 7"/></svg>
+                Téléchargement lancé — vérifiez vos téléchargements.
+              </div>
+            </form>
+          </div>
+          <div class="a-email-right">
+            <div class="a-what-label">Votre rapport contient</div>
+            <div class="a-what-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg><span>Votre score global de conformité AML</span></div>
+            <div class="a-what-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Votre note pour chacune des 6 dimensions</span></div>
+            <div class="a-what-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/></svg><span>Les actions prioritaires avant juillet 2027</span></div>
+            <div class="a-what-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Une évaluation Norvy pour votre cabinet</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ÉCRAN 4 : RÉSULTATS -->
+      <div class="a-screen" id="aScreenResults">
+        <div class="a-results">
+          <div class="a-score-panel">
+            <div class="a-score-big" id="aScoreBig">–</div>
+            <div class="a-score-sub">/ 100</div>
+            <div class="a-grade" id="aGrade">–</div>
+            <p class="a-verdict" id="aVerdict"></p>
+            <div class="a-panel-actions">
+              <button class="a-btn" id="aRedownload" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                Re-télécharger le PDF
+              </button>
+              <a href="#waitlist" class="a-btn primary">
+                Rejoindre la waitlist
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="a-breakdown-panel">
+            <div class="a-breakdown-title">Score par dimension</div>
+            <div id="aBreakdown"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <section class="pricing" id="pricing">
   <div class="container">
     <div class="pricing-top">
@@ -2161,128 +2817,6 @@
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════
-     SECTION AUDIT AML
-═══════════════════════════════════════════════════ -->
-<section class="audit" id="audit">
-  <div class="container">
-    <div class="audit-header-row">
-      <div>
-        <div class="section-eyebrow">Audit gratuit</div>
-        <h2 class="section-title" style="max-width:580px;margin-bottom:12px;">Êtes-vous prêt pour <em>l'AMLR 2027 ?</em></h2>
-        <p class="section-lead">22 questions, 8 minutes. Recevez votre score de conformité AML et un rapport PDF personnalisé avec les actions prioritaires.</p>
-      </div>
-      <div class="audit-pills">
-        <div class="audit-pill">22 questions</div>
-        <div class="audit-pill">8 min</div>
-        <div class="audit-pill">Rapport PDF</div>
-        <div class="audit-pill">100% confidentiel</div>
-      </div>
-    </div>
-
-    <div class="audit-card" id="auditCard">
-
-      <!-- ÉCRAN 1 : INTRO -->
-      <div class="a-screen active" id="aScreenIntro">
-        <div class="a-intro">
-          <div class="a-intro-left">
-            <h3>Diagnostiquez votre dispositif <em>AML en 8 minutes.</em></h3>
-            <p>Cet audit évalue la maturité de votre cabinet sur les 6 piliers exigés par l'AMLR 2024/1624. À l'issue, vous recevez un rapport PDF avec votre score et des recommandations actionnables.</p>
-            <button class="a-start-btn" id="aStartBtn" type="button">
-              Commencer l'audit
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </button>
-          </div>
-          <div class="a-intro-right" id="aDimsRight">
-            <!-- Rempli par JS -->
-          </div>
-        </div>
-      </div>
-
-      <!-- ÉCRAN 2 : QUESTIONS -->
-      <div class="a-screen" id="aScreenQuestions">
-        <div class="a-questions">
-          <div class="a-q-top">
-            <div class="a-q-counter">Question <strong id="aQNum">1</strong> / 22</div>
-            <div class="a-q-dim" id="aQDim">Gouvernance</div>
-          </div>
-          <div class="a-progress"><div class="a-progress-fill" id="aProgressFill"></div></div>
-          <h3 class="a-question-text" id="aQText"></h3>
-          <p class="a-question-help" id="aQHelp"></p>
-          <div class="a-options" id="aOptions"></div>
-          <div class="a-nav">
-            <button class="a-btn" id="aPrevBtn" type="button" disabled>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
-              Précédent
-            </button>
-            <button class="a-btn primary" id="aNextBtn" type="button" disabled>
-              Suivant
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- ÉCRAN 3 : EMAIL -->
-      <div class="a-screen" id="aScreenEmail">
-        <div class="a-email">
-          <div class="a-email-left">
-            <h3>Votre audit est <em>terminé.</em></h3>
-            <p>Indiquez votre email pour recevoir votre rapport PDF personnalisé. Il se télécharge immédiatement.</p>
-            <form class="a-email-form" id="aEmailForm">
-              <input type="text" class="a-input" id="aFirmName" placeholder="Nom du cabinet (optionnel)" />
-              <input type="email" class="a-input" id="aEmail" placeholder="votre@cabinet.lu" required />
-              <button type="submit" class="a-submit" id="aSubmitBtn">
-                Recevoir mon rapport PDF
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              </button>
-              <div class="a-consent">Nous vous recontacterons. Désinscription en un clic, aucun spam.</div>
-              <div class="a-success" id="aSuccess">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 7"/></svg>
-                Téléchargement lancé — vérifiez vos téléchargements.
-              </div>
-            </form>
-          </div>
-          <div class="a-email-right">
-            <div class="a-what-label">Votre rapport contient</div>
-            <div class="a-what-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg><span>Votre score global de conformité AML</span></div>
-            <div class="a-what-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Votre note pour chacune des 6 dimensions</span></div>
-            <div class="a-what-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/></svg><span>Les actions prioritaires avant juillet 2027</span></div>
-            <div class="a-what-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Une évaluation Norvy pour votre cabinet</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ÉCRAN 4 : RÉSULTATS -->
-      <div class="a-screen" id="aScreenResults">
-        <div class="a-results">
-          <div class="a-score-panel">
-            <div class="a-score-big" id="aScoreBig">–</div>
-            <div class="a-score-sub">/ 100</div>
-            <div class="a-grade" id="aGrade">–</div>
-            <p class="a-verdict" id="aVerdict"></p>
-            <div class="a-panel-actions">
-              <button class="a-btn" id="aRedownload" type="button">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-                Re-télécharger le PDF
-              </button>
-              <a href="#waitlist" class="a-btn primary">
-                Rejoindre la waitlist
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              </a>
-            </div>
-          </div>
-          <div class="a-breakdown-panel">
-            <div class="a-breakdown-title">Score par dimension</div>
-            <div id="aBreakdown"></div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
 <section class="faq" id="faq">
   <div class="container">
     <div class="section-eyebrow">Questions fréquentes</div>
@@ -2340,6 +2874,7 @@
     </div>
   </div>
 </section>
+
 
 <section class="final-cta" id="waitlist">
   <div class="container">
@@ -2486,6 +3021,19 @@ function handleWaitlist(formId, successId, source) {
 handleWaitlist('waitlistForm', 'successMsg', 'hero-waitlist');
 handleWaitlist('waitlistForm2', null, 'cta-final-waitlist');
 
+// Boutons teaser audit → scroll vers #audit puis démarrer
+function scrollToAuditAndStart() {
+  const auditSection = document.getElementById('audit');
+  if (auditSection) {
+    auditSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(() => {
+      document.getElementById('aStartBtn')?.click();
+    }, 800);
+  }
+}
+document.getElementById('atStartCta')?.addEventListener('click', scrollToAuditAndStart);
+document.getElementById('atStartCta2')?.addEventListener('click', scrollToAuditAndStart);
+
 // Lead magnet forms
 async function handleMagnet(formId, successId) {
   const form = document.getElementById(formId);
@@ -2581,6 +3129,1182 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 })();
 
 // ══════════════════════════════════════════════════════════════
+/**
+ * NORVY — AUDIT AML — GÉNÉRATEUR PDF EXHAUSTIF (15+ pages)
+ * ══════════════════════════════════════════════════════════
+ * À remplacer dans index.html : la fonction generateAndDownload()
+ * + la variable DIMS dans le bloc IIFE de l'audit
+ *
+ * Dépendance : jsPDF (déjà chargé dans le <head>)
+ *
+ * STRUCTURE DU PDF :
+ *  Page 1  — Couverture avec score global et identité cabinet
+ *  Page 2  — Dashboard 6 jauges (une par dimension)
+ *  Page 3  — Tableau récapitulatif + verdict exécutif
+ *  Pages 4-9 — Une page par dimension : score + mockup Norvy + actions
+ *  Page 10+ — Plan d'action priorisé (tableau)
+ *  Dernière page — Présentation Norvy + CTA
+ *
+ * USAGE :
+ *  Remplacer l'appel à generateAndDownload() par generatePDFExhaustif()
+ *  Passer les variables : score, dimScores, firmName, DIMS
+ */
+
+function generatePDFExhaustif(score, dimScores, firmName, grade) {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+
+  // ═══════════ PALETTE ═══════════
+  const C = {
+    accent:    [26, 77, 62],
+    accentHL:  [45, 122, 99],
+    accentSoft:[232, 240, 236],
+    dark:      [14, 16, 19],
+    text:      [20, 22, 26],
+    dim:       [92, 100, 112],
+    faint:     [139, 146, 160],
+    border:    [229, 226, 218],
+    bg:        [251, 250, 247],
+    bgElev:    [255, 255, 255],
+    warn:      [184, 130, 28],
+    warnSoft:  [251, 243, 223],
+    danger:    [184, 56, 56],
+    dangerSoft:[252, 232, 232],
+    white:     [255, 255, 255],
+  };
+
+  const W = 210, H = 297, M = 20, CX = W / 2;
+  const today = new Date().toLocaleDateString('fr-FR', { day:'2-digit', month:'long', year:'numeric' });
+
+  // ═══════════ HELPERS ═══════════
+  function rgb(c) { return c; }
+
+  function fill(c)   { doc.setFillColor(...c); }
+  function stroke(c) { doc.setDrawColor(...c); }
+  function color(c)  { doc.setTextColor(...c); }
+  function font(f='helvetica', s='normal', sz=10) { doc.setFont(f, s); doc.setFontSize(sz); }
+  function lw(w) { doc.setLineWidth(w); }
+
+  function rect(x, y, w, h, r=0, mode='F') {
+    if (r > 0) doc.roundedRect(x, y, w, h, r, r, mode);
+    else doc.rect(x, y, w, h, mode);
+  }
+
+  function text(str, x, y, opts={}) {
+    doc.text(String(str), x, y, opts);
+  }
+
+  function splitText(str, maxW) { return doc.splitTextToSize(String(str), maxW); }
+
+  function textBlock(str, x, y, maxW, lineH=5) {
+    const lines = splitText(str, maxW);
+    lines.forEach((l, i) => text(l, x, y + i * lineH));
+    return y + lines.length * lineH;
+  }
+
+  function pageFooter(pageNum, total) {
+    stroke(C.border); lw(0.3);
+    doc.line(M, 283, W-M, 283);
+    font('helvetica','normal',8); color(C.faint);
+    text('Norvy — Rapport d\'audit AML & Conformité AMLR 2024/1624', M, 290);
+    text(`${pageNum} / ${total}`, W-M, 290, { align:'right' });
+    text('norvy.lu', CX, 290, { align:'center' });
+  }
+
+  function sectionChip(label, x, y, bgColor, txtColor) {
+    fill(bgColor); rect(x, y-4, doc.getTextWidth(label)+8, 6, 2);
+    color(txtColor); font('helvetica','bold',7);
+    text(label, x+4, y);
+  }
+
+  function scoreColor(s) {
+    if (s >= 75) return C.accent;
+    if (s >= 50) return C.warn;
+    return C.danger;
+  }
+
+  function scoreBg(s) {
+    if (s >= 75) return C.accentSoft;
+    if (s >= 50) return C.warnSoft;
+    return C.dangerSoft;
+  }
+
+  function gradeLabel(s) {
+    if (s >= 75) return 'CONFORME';
+    if (s >= 50) return 'PARTIEL';
+    return 'INSUFFISANT';
+  }
+
+  // Barre de progression horizontale
+  function progressBar(x, y, w, h, pct, color_fg, r=1) {
+    fill(C.border); rect(x, y, w, h, r);
+    fill(color_fg); rect(x, y, w * Math.min(pct/100, 1), h, r);
+  }
+
+  // Jauge circulaire dessinée à la main (segments)
+  function gaugeCircle(cx, cy, radius, pct, colorFg) {
+    // Fond
+    stroke(C.border); lw(2); fill([0,0,0,0]);
+    doc.circle(cx, cy, radius, 'S');
+    // Arc plein
+    const segs = 72;
+    const fillSegs = Math.round(pct / 100 * segs);
+    stroke(colorFg); lw(3);
+    for (let i = 0; i < fillSegs; i++) {
+      const a1 = -Math.PI/2 + (i / segs) * 2 * Math.PI;
+      const a2 = -Math.PI/2 + ((i+1) / segs) * 2 * Math.PI;
+      doc.line(cx + radius*Math.cos(a1), cy + radius*Math.sin(a1),
+               cx + radius*Math.cos(a2), cy + radius*Math.sin(a2));
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  // DONNÉES DES DIMENSIONS (recommandations + mockups)
+  // ═══════════════════════════════════════════════════════════════
+  const DIMS_DATA = [
+    {
+      name: 'Gouvernance',
+      shortName: 'Gouvernance',
+      icon: '🏛',
+      desc: 'Politique AML, désignation du Compliance Officer, évaluation des risques et intégration de l\'AMLR.',
+      actions: {
+        low: [
+          'Rédiger une politique AML écrite et datée, validée par les associés',
+          'Désigner formellement un Compliance Officer et le déclarer auprès du Barreau',
+          'Établir une cartographie des risques adaptée à vos typologies de clientèle',
+          'Intégrer le cadre AMLR 2024/1624 dans toutes vos procédures internes',
+        ],
+        medium: [
+          'Mettre à jour la politique AML (< 12 mois)',
+          'Formaliser la déclaration du Compliance Officer auprès de l\'Ordre',
+          'Enrichir l\'évaluation des risques avec les nouvelles typologies AMLR',
+          'Documenter le processus de révision annuelle des procédures',
+        ],
+        high: [
+          'Maintenir la revue annuelle de la politique AML',
+          'Documenter les mises à jour AMLR au fil des publications réglementaires',
+        ],
+      },
+      norvyFeatures: [
+        { title: 'Tableau de bord Gouvernance', desc: 'Vue centralisée de votre dispositif AML : statut de la politique, échéance de révision, responsable désigné.' },
+        { title: 'Alertes réglementaires', desc: 'Norvy surveille les publications AMLA/AMLR et vous alerte automatiquement des mises à jour impactant votre cabinet.' },
+        { title: 'Workflow de validation', desc: 'Circuit de validation numérique des politiques et procédures entre associés, avec horodatage et signature.' },
+      ],
+      // Mockup SVG (dessiné dans drawMockup)
+      mockupType: 'dashboard-gouvernance',
+    },
+    {
+      name: 'KYC & Vigilance',
+      shortName: 'KYC',
+      icon: '👤',
+      desc: 'Identification clients, bénéficiaires effectifs, vigilance renforcée et conservation des pièces.',
+      actions: {
+        low: [
+          'Déployer une procédure KYC standardisée pour chaque entrée en relation',
+          'Identifier systématiquement les bénéficiaires effectifs (> 25%) avec recoupement RBE',
+          'Formaliser des critères de vigilance renforcée (PEP, géographies à risque, montages complexes)',
+          'Mettre en place un archivage électronique horodaté sur 5 ans minimum',
+        ],
+        medium: [
+          'Automatiser la mise à jour périodique des KYC selon une matrice de risque',
+          'Renforcer le recoupement avec le Registre des Bénéficiaires Effectifs',
+          'Documenter systématiquement les décisions de vigilance renforcée',
+          'Structurer l\'archivage avec purge automatique à l\'échéance légale',
+        ],
+        high: [
+          'Affiner la matrice de révision KYC par niveau de risque',
+          'Maintenir le recoupement RBE pour tous les clients actifs',
+        ],
+      },
+      norvyFeatures: [
+        { title: 'Dossier KYC numérique', desc: 'Collecte guidée des pièces d\'identité, statuts, RBE. OCR automatique et extraction des données clés.' },
+        { title: 'Identification BE automatisée', desc: 'Croisement automatique avec le Registre des Bénéficiaires Effectifs luxembourgeois et les bases européennes.' },
+        { title: 'Matrice de révision intelligente', desc: 'Calendrier de revue automatique selon le niveau de risque. Alertes avant expiration des diligences.' },
+      ],
+      mockupType: 'kyc-dossier',
+    },
+    {
+      name: 'Screening',
+      shortName: 'Screening',
+      icon: '🔍',
+      desc: 'Vérification listes de sanctions UE/OFAC/ONU, détection PEP et surveillance continue.',
+      actions: {
+        low: [
+          'Mettre en place un screening automatisé à l\'entrée contre les listes UE/OFAC/ONU',
+          'Souscrire à une base PEP professionnelle (fini les recherches Google)',
+          'Activer la surveillance continue avec alertes sur nouvelles correspondances',
+          'Documenter chaque résultat de screening dans le dossier KYC',
+        ],
+        medium: [
+          'Passer du screening manuel ponctuel à la surveillance continue automatisée',
+          'Étendre le périmètre aux proches des PEP (famille, associés)',
+          'Intégrer les résultats de screening dans le scoring de risque global',
+        ],
+        high: [
+          'Maintenir la couverture des listes et la fréquence des mises à jour',
+          'Documenter les faux positifs et affiner les règles de matching',
+        ],
+      },
+      norvyFeatures: [
+        { title: 'Screening temps réel', desc: 'Croisement instantané avec listes UE, OFAC, ONU, Tresor.gouv. Mise à jour quotidienne des bases.' },
+        { title: 'Détection PEP avancée', desc: 'Base PEP professionnelle couvrant 220+ pays. Détection des proches et des entités associées.' },
+        { title: 'Alertes continues', desc: 'Surveillance 24/7 : notification immédiate si un client ou un BE entre sur une liste de sanctions après l\'ouverture.' },
+      ],
+      mockupType: 'screening',
+    },
+    {
+      name: 'Formation',
+      shortName: 'Formation',
+      icon: '📚',
+      desc: 'Formation AML annuelle obligatoire des collaborateurs et traçabilité du plan de formation.',
+      actions: {
+        low: [
+          'Instaurer un plan de formation AML annuel obligatoire pour tous les collaborateurs',
+          'Tenir un registre numérique des formations suivies (date, contenu, participants)',
+          'Désigner un référent formation AML au sein du cabinet',
+          'Programmer les prochaines sessions avant le 31 décembre',
+        ],
+        medium: [
+          'Standardiser le rythme annuel et améliorer la traçabilité',
+          'Différencier les formations selon les profils (associés, collaborateurs, secrétariat)',
+          'Ajouter un module AMLR 2024/1624 au plan de formation existant',
+        ],
+        high: [
+          'Maintenir la cadence annuelle et mettre à jour les contenus AMLR',
+          'Documenter les évaluations post-formation',
+        ],
+      },
+      norvyFeatures: [
+        { title: 'Module formation intégré', desc: 'Bibliothèque de formations AML adaptées aux avocats. Suivi de complétion par collaborateur.' },
+        { title: 'Registre de formation automatique', desc: 'Chaque formation complétée est enregistrée avec date et certificat. Export direct pour le questionnaire Barreau.' },
+        { title: 'Rappels automatiques', desc: 'Alertes avant expiration du cycle annuel de formation. Relance individuelle des collaborateurs en retard.' },
+      ],
+      mockupType: 'formation',
+    },
+    {
+      name: 'Registre & Traçabilité',
+      shortName: 'Registre',
+      icon: '📋',
+      desc: 'Registre AML horodaté, documentation des analyses de risque et préparation au questionnaire Barreau.',
+      actions: {
+        low: [
+          'Migrer vers un registre numérique horodaté et immuable',
+          'Documenter systématiquement les analyses de risque par dossier',
+          'Préparer un plan d\'urgence pour répondre au questionnaire ordinal en < 1 jour',
+          'Définir une procédure documentée pour les contrôles CRF',
+        ],
+        medium: [
+          'Renforcer la justification écrite de chaque décision de risque',
+          'Automatiser la génération du questionnaire annuel Barreau',
+          'Tester la procédure de contrôle avant tout besoin réel',
+        ],
+        high: [
+          'Maintenir la qualité et la complétude du registre',
+          'Affiner les modèles de justification de risque',
+        ],
+      },
+      norvyFeatures: [
+        { title: 'Registre AML immuable', desc: 'Horodatage certifié de chaque action. Historique complet non modifiable. Prêt pour tout contrôle ordinal ou CRF.' },
+        { title: 'Questionnaire Barreau auto-généré', desc: 'Toutes les données agrégées en temps réel. Un clic pour générer le questionnaire annuel pré-rempli, adapté à votre Barreau.' },
+        { title: 'Dashboard de traçabilité', desc: 'Vue globale sur l\'état de conformité du cabinet : dossiers complets, en attente, à revoir. Exportable en PDF.' },
+      ],
+      mockupType: 'registre',
+    },
+    {
+      name: 'Déclaration & Soupçon',
+      shortName: 'DOS',
+      icon: '⚠️',
+      desc: 'Procédure de déclaration de soupçon à la CRF, typologies de red flags et canaux d\'escalade.',
+      actions: {
+        low: [
+          'Formaliser la procédure de déclaration de soupçon (DOS) à la CRF',
+          'Établir une liste interne de red flags adaptée à vos typologies de clientèle',
+          'Former tous les collaborateurs aux signaux d\'alerte et aux canaux d\'escalade',
+          'Désigner et documenter le canal d\'escalade interne (→ Compliance Officer)',
+        ],
+        medium: [
+          'Documenter formellement les typologies de soupçon (liste de red flags)',
+          'Tester la procédure CRF avec un exercice pratique',
+          'Tracer les escalades internes même non suivies de DOS',
+        ],
+        high: [
+          'Maintenir la liste de red flags à jour avec les typologies AMLA',
+          'Documenter les décisions de non-déclaration motivées',
+        ],
+      },
+      norvyFeatures: [
+        { title: 'Workflow de signalement', desc: 'Circuit structuré d\'escalade interne : collaborateur → Compliance Officer → décision DOS. Tout est tracé et horodaté.' },
+        { title: 'Bibliothèque de red flags', desc: 'Typologies de soupçon préchargées et adaptables à votre cabinet. Aide à la détection pour vos collaborateurs.' },
+        { title: 'Dossier DOS documenté', desc: 'Préparation guidée de la déclaration de soupçon avec les éléments requis par la CRF. Export sécurisé.' },
+      ],
+      mockupType: 'dos',
+    },
+  ];
+
+  // ═══════════════════════════════════════════════════════════════
+  // MOCKUPS SVG en jsPDF (dessinés manuellement)
+  // ═══════════════════════════════════════════════════════════════
+
+  function drawMockup(type, x, y, w, h, dimScore) {
+    // Cadre général du mockup
+    fill(C.bgElev); stroke(C.border); lw(0.3);
+    rect(x, y, w, h, 3, 'FD');
+
+    // Barre de titre du mockup
+    fill([246, 244, 238]); rect(x, y, w, 8, 0, 'F');
+    // Points déco
+    fill([203, 203, 203]); doc.circle(x+4, y+4, 1.2, 'F');
+    fill([203, 203, 203]); doc.circle(x+8, y+4, 1.2, 'F');
+    fill([203, 203, 203]); doc.circle(x+12, y+4, 1.2, 'F');
+    // URL fictive
+    fill(C.bgElev); rect(x+18, y+1.5, w-36, 5, 1, 'F');
+    font('helvetica','normal',5); color(C.faint);
+    text('app.norvy.lu', x+w/2, y+5, { align:'center' });
+
+    const cx = x, cy = y+10, cw = w, ch = h-10;
+
+    if (type === 'dashboard-gouvernance') drawMockupGouvernance(cx, cy, cw, ch);
+    else if (type === 'kyc-dossier') drawMockupKYC(cx, cy, cw, ch);
+    else if (type === 'screening') drawMockupScreening(cx, cy, cw, ch);
+    else if (type === 'formation') drawMockupFormation(cx, cy, cw, ch);
+    else if (type === 'registre') drawMockupRegistre(cx, cy, cw, ch);
+    else if (type === 'dos') drawMockupDOS(cx, cy, cw, ch);
+  }
+
+  function chip(x, y, label, bg, fg, padX=3) {
+    const tw = doc.getTextWidth(label);
+    fill(bg); rect(x, y-3, tw+padX*2, 5, 1.5);
+    color(fg); font('helvetica','bold',5);
+    text(label, x+padX, y);
+  }
+
+  function miniIcon(x, y, type) {
+    // Petites icônes vectorielles simplifiées
+    stroke(C.accent); lw(0.5); fill([0,0,0,0]);
+    if (type === 'check') {
+      doc.line(x, y+1, x+2, y+3); doc.line(x+2, y+3, x+5, y-1);
+    } else if (type === 'alert') {
+      doc.triangle(x+2.5, y-1, x, y+4, x+5, y+4, 'S');
+      doc.line(x+2.5, y+1, x+2.5, y+2.5); doc.circle(x+2.5, y+3.5, 0.4, 'F');
+    } else if (type === 'user') {
+      doc.circle(x+2.5, y+1, 1.5, 'S');
+      doc.ellipse(x+2.5, y+5, 2.5, 1.5, 'S');
+    } else if (type === 'shield') {
+      doc.lines([[5,0],[2.5,3],[-2.5,3],[-5,0],[0,-4]], x, y+4, [1,1], 'S');
+    } else if (type === 'doc') {
+      rect(x+0.5, y, 4, 5, 0.5, 'S');
+      doc.line(x+1.5, y+1.5, x+4, y+1.5);
+      doc.line(x+1.5, y+2.5, x+4, y+2.5);
+      doc.line(x+1.5, y+3.5, x+3, y+3.5);
+    }
+  }
+
+  // Sidebar commune
+  function drawSidebar(x, y, w, h, activeItem) {
+    fill([246, 244, 238]); stroke(C.border); lw(0.2);
+    rect(x, y, w, h, 0, 'FD');
+
+    const items = ['Tableau de bord', 'Dossiers', 'Clients', 'Facturation', '— Conformité —', 'KYC / Diligences', 'Registre AML', 'Sanctions / PEP', 'Formation'];
+    let iy = y + 4;
+    items.forEach(item => {
+      if (item.startsWith('—')) {
+        color(C.faint); font('helvetica','normal',4.5);
+        text(item, x+3, iy); iy += 5; return;
+      }
+      const isActive = item === activeItem;
+      if (isActive) { fill(C.bgElev); rect(x+1, iy-3, w-2, 5, 1); }
+      color(isActive ? C.accent : C.dim); font('helvetica', isActive ? 'bold' : 'normal', 5);
+      text(item, x+5, iy); iy += 5.5;
+    });
+  }
+
+  function drawMockupGouvernance(x, y, w, h) {
+    const sbW = 28;
+    drawSidebar(x, y, sbW, h, 'Tableau de bord');
+    const cx = x+sbW, cw = w-sbW;
+
+    fill(C.bgElev); rect(cx, y, cw, h, 0, 'F');
+
+    // Header
+    font('helvetica','bold',7); color(C.text);
+    text('Tableau de bord AML', cx+4, y+7);
+    chip(cx+cw-30, y+3, 'EXERCICE 2026', C.accentSoft, C.accent);
+
+    // Stats cards row
+    const cards = [
+      { label: 'Politique AML', val: 'À jour', sub: 'Révisée jan. 2026', ok: true },
+      { label: 'Compliance Officer', val: 'Désigné', sub: 'Me. Martin, Assoc.', ok: true },
+      { label: 'Évaluation risques', val: 'À réviser', sub: 'Expire dans 45j', ok: false },
+    ];
+    const cCardW = (cw-8)/3, cCardH = 18;
+    cards.forEach((c, i) => {
+      const cx2 = cx+4 + i*(cCardW+2), cy2 = y+12;
+      fill(C.bgElev); stroke(C.border); lw(0.2); rect(cx2, cy2, cCardW, cCardH, 1.5, 'FD');
+      font('helvetica','normal',4.5); color(C.faint); text(c.label, cx2+3, cy2+5);
+      font('helvetica','bold',6.5); color(c.ok ? C.accent : C.warn); text(c.val, cx2+3, cy2+11);
+      font('helvetica','normal',4.5); color(C.dim); text(c.sub, cx2+3, cy2+15.5);
+      // Pastille
+      fill(c.ok ? C.accent : C.warn); doc.circle(cx2+cCardW-4, cy2+4, 1.8, 'F');
+      color(C.white); font('helvetica','bold',5); text(c.ok ? '✓' : '!', cx2+cCardW-5.2, cy2+5);
+    });
+
+    // Politique AML timeline
+    font('helvetica','bold',5.5); color(C.text);
+    text('Cycle de vie de la politique AML', cx+4, y+36);
+    const milestones = ['Jan 2025\nRédaction', 'Mar 2025\nValidation', 'Jan 2026\nRévision', 'Jan 2027\nProchaine'];
+    const mY = y+48, mSpacing = (cw-8)/4;
+    stroke(C.border); lw(0.5);
+    doc.line(cx+6, mY, cx+cw-6, mY);
+    milestones.forEach((m, i) => {
+      const mx = cx+6 + i*mSpacing;
+      const isDone = i < 3;
+      fill(isDone ? C.accent : C.border);
+      doc.circle(mx, mY, 2, 'F');
+      if (isDone) { color(C.white); font('helvetica','bold',4); text('✓', mx-1.2, mY+1); }
+      const lines = m.split('\n');
+      font('helvetica', i===2?'bold':'normal', 4); color(i===2 ? C.accent : C.dim);
+      text(lines[0], mx, mY+6, { align:'center' });
+      text(lines[1], mx, mY+10, { align:'center' });
+    });
+
+    // Checklist AMLR
+    font('helvetica','bold',5.5); color(C.text);
+    text('Conformité AMLR 2024/1624', cx+4, y+65);
+    const checks = [
+      { l: 'Politique AML formalisée', done: true },
+      { l: 'Compliance Officer désigné', done: true },
+      { l: 'Évaluation risques mise à jour', done: false },
+      { l: 'Procédures AMLR intégrées', done: false },
+    ];
+    checks.forEach((c, i) => {
+      const cy3 = y+70+i*6;
+      fill(c.done ? C.accent : C.bgElev); stroke(c.done ? C.accent : C.border); lw(0.4);
+      rect(cx+4, cy3-3, 4, 4, 0.8, 'FD');
+      if (c.done) { color(C.white); font('helvetica','bold',5); text('✓', cx+4.8, cy3); }
+      color(c.done ? C.text : C.dim); font('helvetica', c.done ? 'normal' : 'normal', 5);
+      text(c.l, cx+10, cy3);
+      chip(cx+cw-22, cy3-3, c.done ? 'FAIT' : 'À FAIRE', c.done ? C.accentSoft : C.warnSoft, c.done ? C.accent : C.warn);
+    });
+  }
+
+  function drawMockupKYC(x, y, w, h) {
+    const sbW = 28;
+    drawSidebar(x, y, sbW, h, 'KYC / Diligences');
+    const cx = x+sbW, cw = w-sbW;
+    fill(C.bgElev); rect(cx, y, cw, h, 0, 'F');
+
+    font('helvetica','bold',7); color(C.text);
+    text('Dossier KYC — Société Alpha SARL', cx+4, y+7);
+    chip(cx+cw-24, y+3, 'CONFORME', C.accentSoft, C.accent);
+
+    // Stats
+    const stats = [{ l:'Risque', v:'Modéré'}, {l:'Sources',v:'11/12'}, {l:'Revue',v:'Mar 2027'}];
+    stats.forEach((s, i) => {
+      const sx = cx+4+i*((cw-8)/3+1), sy = y+12;
+      fill(C.bg); stroke(C.border); lw(0.2); rect(sx, sy, (cw-10)/3, 10, 1, 'FD');
+      font('helvetica','normal',4); color(C.faint); text(s.l, sx+2, sy+4);
+      font('helvetica','bold',6); color(C.text); text(s.v, sx+2, sy+9);
+    });
+
+    // Liste diligences
+    font('helvetica','bold',5.5); color(C.text); text('Diligences requises', cx+4, y+28);
+    const rows = [
+      { l: 'Bénéficiaire effectif — M. Laurent, 65%', tag:'Vérifié', ok:true },
+      { l: 'Screening sanctions UE/OFAC/ONU', tag:'Clair', ok:true },
+      { l: 'Pièce d\'identité dirigeant', tag:'Reçu', ok:true },
+      { l: 'Statuts à jour (requis)', tag:'En attente', ok:false },
+    ];
+    rows.forEach((r, i) => {
+      const ry = y+32+i*8;
+      fill(C.bg); stroke(C.border); lw(0.2); rect(cx+4, ry, cw-8, 7, 1, 'FD');
+      color(C.text); font('helvetica','normal',5); text(r.l, cx+7, ry+4.5);
+      chip(cx+cw-20, ry+1, r.tag, r.ok ? C.accentSoft : C.warnSoft, r.ok ? C.accent : C.warn);
+    });
+
+    // OCR / upload
+    font('helvetica','bold',5.5); color(C.text); text('Documents reçus', cx+4, y+68);
+    const docs = ['CNI_Laurent_2024.pdf', 'Statuts_Alpha_2022.pdf'];
+    docs.forEach((d, i) => {
+      const dy = y+73+i*7;
+      fill(C.bg); stroke(C.border); lw(0.2); rect(cx+4, dy, cw-8, 6, 1, 'FD');
+      stroke(C.accent); fill(C.accentSoft); rect(cx+6, dy+1, 6, 4, 0.5, 'FD');
+      color(C.accent); font('helvetica','bold',4); text('PDF', cx+7, dy+3.8);
+      color(C.text); font('helvetica','normal',5); text(d, cx+14, dy+4);
+      chip(cx+cw-20, dy+1, 'OCR ✓', C.accentSoft, C.accent);
+    });
+  }
+
+  function drawMockupScreening(x, y, w, h) {
+    const sbW = 28;
+    drawSidebar(x, y, sbW, h, 'Sanctions / PEP');
+    const cx = x+sbW, cw = w-sbW;
+    fill(C.bgElev); rect(cx, y, cw, h, 0, 'F');
+
+    font('helvetica','bold',7); color(C.text);
+    text('Screening — M. Bernard Dumont', cx+4, y+7);
+    chip(cx+cw-18, y+3, 'CLAIR', C.accentSoft, C.accent);
+
+    // Sources scannées
+    font('helvetica','bold',5.5); color(C.text); text('Sources vérifiées', cx+4, y+14);
+    const sources = [
+      { l:'Liste sanctions UE', res:'0 correspondance', ok:true },
+      { l:'OFAC SDN List', res:'0 correspondance', ok:true },
+      { l:'Listes ONU', res:'0 correspondance', ok:true },
+      { l:'Trésor.gouv', res:'0 correspondance', ok:true },
+      { l:'Registres PEP', res:'Non PEP confirmé', ok:true },
+      { l:'Adverse Media', res:'Aucun article négatif', ok:true },
+    ];
+    sources.forEach((s, i) => {
+      const ry = y+18+i*7;
+      fill(C.bg); stroke(C.border); lw(0.2); rect(cx+4, ry, cw-8, 6, 1, 'FD');
+      // Icône coche
+      fill(C.accentSoft); rect(cx+5.5, ry+1, 5, 4, 1, 'F');
+      color(C.accent); font('helvetica','bold',5); text('✓', cx+6.5, ry+4);
+      color(C.text); font('helvetica','normal',5); text(s.l, cx+12.5, ry+4);
+      color(C.dim); font('helvetica','normal',4.5); text(s.res, cx+cw-5-doc.getTextWidth(s.res)*0.55, ry+4);
+    });
+
+    // Dernière vérification
+    font('helvetica','bold',5.5); color(C.text); text('Surveillance continue', cx+4, y+63);
+    fill(C.bg); stroke(C.border); lw(0.2); rect(cx+4, y+67, cw-8, 12, 1.5, 'FD');
+    color(C.accent); font('helvetica','bold',5);
+    text('● Surveillance active', cx+7, y+72);
+    color(C.dim); font('helvetica','normal',4.5);
+    text('Dernière vérification : aujourd\'hui 08h15', cx+7, y+76.5);
+    text('Prochaine : demain 08h15 (automatique)', cx+7, y+80);
+  }
+
+  function drawMockupFormation(x, y, w, h) {
+    const sbW = 28;
+    drawSidebar(x, y, sbW, h, 'Formation');
+    const cx = x+sbW, cw = w-sbW;
+    fill(C.bgElev); rect(cx, y, cw, h, 0, 'F');
+
+    font('helvetica','bold',7); color(C.text);
+    text('Registre de formation AML', cx+4, y+7);
+    chip(cx+cw-32, y+3, 'PLAN 2026', C.accentSoft, C.accent);
+
+    // Barre de progression globale
+    font('helvetica','bold',5.5); color(C.text); text('Avancement plan annuel', cx+4, y+14);
+    progressBar(cx+4, y+18, cw-8, 4, 75, C.accent);
+    color(C.dim); font('helvetica','normal',5); text('75% — 3 collaborateurs sur 4 formés', cx+4, y+26);
+
+    // Collaborateurs
+    font('helvetica','bold',5.5); color(C.text); text('Suivi par collaborateur', cx+4, y+32);
+    const collab = [
+      { n: 'Me. Martin (Associé)', d: 'Formé — 12 jan. 2026', pct: 100 },
+      { n: 'Me. Dupont (Collab.)', d: 'Formé — 15 fév. 2026', pct: 100 },
+      { n: 'Me. Bernard (Collab.)', d: 'Formé — 3 mar. 2026', pct: 100 },
+      { n: 'Mme Leclerc (Assist.)', d: 'Session prévue 20 juin', pct: 0 },
+    ];
+    collab.forEach((c, i) => {
+      const ry = y+37+i*9;
+      fill(C.bg); stroke(C.border); lw(0.2); rect(cx+4, ry, cw-8, 8, 1, 'FD');
+      color(C.text); font('helvetica','bold',5); text(c.n, cx+7, ry+4);
+      color(C.dim); font('helvetica','normal',4.5); text(c.d, cx+7, ry+7);
+      progressBar(cx+cw-30, ry+2, 22, 3, c.pct, c.pct===100 ? C.accent : C.warn);
+      color(c.pct===100 ? C.accent : C.warn); font('helvetica','bold',5);
+      text(c.pct+'%', cx+cw-6, ry+5, { align:'right' });
+    });
+
+    // Prochain module
+    font('helvetica','bold',5.5); color(C.text); text('Prochain module recommandé', cx+4, y+75);
+    fill(C.accentSoft); stroke(C.accent); lw(0.3); rect(cx+4, y+79, cw-8, 10, 1.5, 'FD');
+    color(C.accent); font('helvetica','bold',5.5);
+    text('AMLR 2024/1624 — Obligations avocats', cx+7, y+84);
+    color(C.dim); font('helvetica','normal',4.5);
+    text('Durée : 45 min · Certificat inclus · Valable questionnaire Barreau', cx+7, y+88);
+  }
+
+  function drawMockupRegistre(x, y, w, h) {
+    const sbW = 28;
+    drawSidebar(x, y, sbW, h, 'Registre AML');
+    const cx = x+sbW, cw = w-sbW;
+    fill(C.bgElev); rect(cx, y, cw, h, 0, 'F');
+
+    font('helvetica','bold',7); color(C.text);
+    text('Registre AML — Exercice 2026', cx+4, y+7);
+    chip(cx+cw-30, y+3, 'AUDITABLE', C.accentSoft, C.accent);
+
+    // Chiffres clés
+    const stats2 = [{l:'Dossiers KYC', v:'142'}, {l:'Revues effectuées', v:'38'}, {l:'À risque élevé', v:'7'}];
+    stats2.forEach((s, i) => {
+      const sw = (cw-10)/3, sx = cx+4+i*(sw+1);
+      fill(C.bg); stroke(C.border); lw(0.2); rect(sx, y+11, sw, 11, 1, 'FD');
+      font('helvetica','normal',4); color(C.faint); text(s.l, sx+2, y+15);
+      font('helvetica','bold',9); color(C.accent); text(s.v, sx+2, y+20.5);
+    });
+
+    // Registre liste
+    font('helvetica','bold',5.5); color(C.text); text('Dernières entrées', cx+4, y+27);
+    // En-tête tableau
+    fill([240,238,232]); rect(cx+4, y+30, cw-8, 5.5, 0, 'F');
+    ['Client', 'Type', 'Date', 'Statut'].forEach((h2, i) => {
+      const xOff = [0, 36, 54, 70];
+      color(C.faint); font('helvetica','bold',4.5); text(h2, cx+6+xOff[i], y+34);
+    });
+    const rows2 = [
+      ['Alpha SARL', 'Entrée', '12 mai 2026', 'Complet'],
+      ['M. Fontaine', 'Révision', '10 mai 2026', 'Complet'],
+      ['Holding BV', 'Renforcée', '8 mai 2026', 'En cours'],
+      ['Mme Laurent', 'Entrée', '5 mai 2026', 'Complet'],
+    ];
+    rows2.forEach((r, i) => {
+      const ry = y+38+i*7;
+      fill(i%2===0 ? C.bgElev : C.bg); rect(cx+4, ry-4, cw-8, 7, 0, 'F');
+      stroke(C.border); lw(0.1); doc.line(cx+4, ry+3, cx+cw-4, ry+3);
+      const xOff = [0, 36, 54, 70];
+      r.forEach((cell, j) => {
+        color(j===3 ? (cell==='Complet' ? C.accent : C.warn) : C.text);
+        font('helvetica', j===3 ? 'bold' : 'normal', 5);
+        text(cell, cx+6+xOff[j], ry);
+      });
+    });
+
+    // Questionnaire Barreau
+    font('helvetica','bold',5.5); color(C.text); text('Questionnaire Barreau — Auto-généré', cx+4, y+69);
+    fill(C.accentSoft); stroke(C.accent); lw(0.3); rect(cx+4, y+73, cw-8, 14, 1.5, 'FD');
+    const qItems = ['Relations d\'affaires : 142', 'Nouveaux clients : 38', 'Risque élevé : 7', 'DOS effectuées : 2'];
+    qItems.forEach((q, i) => {
+      color(C.accent); font('helvetica','bold',4); text('✓', cx+7, y+78+i*2.8);
+      color(C.text); font('helvetica','normal',4.5); text(q, cx+10, y+78+i*2.8);
+    });
+    fill(C.accent); rect(cx+cw-30, y+78, 26, 7, 2, 'F');
+    color(C.white); font('helvetica','bold',5.5); text('Exporter PDF →', cx+cw-29, y+82.5);
+  }
+
+  function drawMockupDOS(x, y, w, h) {
+    const sbW = 28;
+    drawSidebar(x, y, sbW, h, 'Registre AML');
+    const cx = x+sbW, cw = w-sbW;
+    fill(C.bgElev); rect(cx, y, cw, h, 0, 'F');
+
+    font('helvetica','bold',7); color(C.text);
+    text('Signalement & Déclaration de soupçon', cx+4, y+7);
+
+    // Workflow DOS
+    font('helvetica','bold',5.5); color(C.text); text('Circuit d\'escalade', cx+4, y+14);
+    const steps = ['Collaborateur\ndétecte', 'Compliance\nOfficer', 'Analyse\net décision', 'DOS → CRF\n(si retenu)'];
+    const stepW = (cw-12)/4;
+    steps.forEach((s, i) => {
+      const sx = cx+4+i*(stepW+1.5), sy = y+18;
+      fill(i<2 ? C.accentSoft : i===2 ? C.warnSoft : C.accentSoft);
+      stroke(i<2 ? C.accent : i===2 ? C.warn : C.accent); lw(0.3);
+      rect(sx, sy, stepW, 12, 1.5, 'FD');
+      color(i===2 ? C.warn : C.accent); font('helvetica','bold',4.5);
+      const ls = s.split('\n');
+      text(ls[0], sx+stepW/2, sy+5, { align:'center' });
+      text(ls[1], sx+stepW/2, sy+9, { align:'center' });
+      // Flèche
+      if (i < 3) { stroke(C.border); lw(0.5); doc.line(sx+stepW+0.3, sy+6, sx+stepW+1.2, sy+6); }
+    });
+
+    // Red flags
+    font('helvetica','bold',5.5); color(C.text); text('Red flags détectés récemment', cx+4, y+36);
+    const flags = [
+      { l: 'Paiement cash > 10 000 €', sev: 'Moyen', col: C.warn, bg: C.warnSoft },
+      { l: 'Structure juridique complexe non justifiée', sev: 'Élevé', col: C.danger, bg: C.dangerSoft },
+    ];
+    flags.forEach((f, i) => {
+      const fy = y+40+i*9;
+      fill(f.bg); stroke(f.col); lw(0.3); rect(cx+4, fy, cw-8, 8, 1, 'FD');
+      color(f.col); font('helvetica','bold',5); text('⚠', cx+7, fy+5);
+      color(C.text); font('helvetica','normal',5); text(f.l, cx+12, fy+5);
+      chip(cx+cw-18, fy+2, f.sev, f.bg, f.col);
+    });
+
+    // DOS ouverte
+    font('helvetica','bold',5.5); color(C.text); text('Déclaration en cours', cx+4, y+60);
+    fill(C.bg); stroke(C.border); lw(0.3); rect(cx+4, y+64, cw-8, 20, 1.5, 'FD');
+    const dosLines = ['Client : Holding BV Luxembourg', 'Motif : Structure opaque, flux inhabituel', 'Responsable : Me. Martin', 'Statut : Brouillon — en validation'];
+    dosLines.forEach((l, i) => {
+      color(i===3 ? C.warn : C.dim); font('helvetica', i===3?'bold':'normal', 4.8);
+      text(l, cx+7, y+69+i*4);
+    });
+    fill(C.accent); rect(cx+cw-30, y+80, 26, 7, 2, 'F');
+    color(C.white); font('helvetica','bold',5.5); text('Finaliser DOS →', cx+cw-29, y+84.5);
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  // PLAN D'ACTION
+  // ═══════════════════════════════════════════════════════════════
+  function getActionPlan() {
+    const plan = [];
+    DIMS_DATA.forEach(d => {
+      const s = dimScores[d.name] ?? 0;
+      const level = s >= 75 ? 'high' : s >= 50 ? 'medium' : 'low';
+      const priority = s >= 75 ? 3 : s >= 50 ? 2 : 1;
+      const actions = d.actions[level];
+      actions.forEach(a => plan.push({ dim: d.name, action: a, priority, score: s, level }));
+    });
+    return plan.sort((a, b) => a.priority - b.priority);
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  // CALCUL DU NOMBRE DE PAGES
+  // ═══════════════════════════════════════════════════════════════
+  // Page 1: couverture, Page 2: dashboard, Page 3: tableau récap
+  // Pages 4-9: une par dimension
+  // Page 10: plan d'action
+  // Page 11: Norvy final
+  const TOTAL_PAGES = 11;
+
+  // ═══════════════════════════════════════════════════════════════
+  // PAGE 1 — COUVERTURE
+  // ═══════════════════════════════════════════════════════════════
+  let pg = 1;
+
+  // Fond blanc propre
+  fill(C.bgElev); rect(0, 0, W, H, 0, 'F');
+
+  // Bande verte gauche
+  fill(C.accent); rect(0, 0, 8, H, 0, 'F');
+
+  // Logo / marque
+  font('helvetica','bold',28); color(C.accent);
+  text('norvy', M+4, 28);
+  font('helvetica','normal',9); color(C.dim);
+  text('Logiciel de gestion de cabinet · AML natif', M+4, 36);
+
+  // Titre rapport
+  stroke(C.border); lw(0.3); doc.line(M+4, 48, W-M, 48);
+
+  font('helvetica','bold',22); color(C.text);
+  text('Rapport d\'audit', M+4, 63);
+  font('helvetica','bold',22); color(C.accent);
+  text('AML & Conformité AMLR', M+4, 76);
+
+  font('helvetica','normal',10); color(C.dim);
+  text('Évaluation indépendante de votre dispositif de lutte', M+4, 90);
+  text('contre le blanchiment et le financement du terrorisme.', M+4, 97);
+
+  // Bloc cabinet + date
+  fill(C.bg); stroke(C.border); lw(0.3);
+  rect(M+4, 108, W-M-12, 28, 3, 'FD');
+  font('helvetica','bold',8); color(C.faint); text('CABINET', M+10, 116);
+  font('helvetica','bold',13); color(C.text);
+  text(firmName || 'Cabinet d\'avocats', M+10, 124);
+  font('helvetica','normal',8); color(C.dim); text('Confidentiel · ' + today, M+10, 130);
+
+  // Score central
+  const scoreC = scoreColor(score);
+  gaugeCircle(CX+20, 175, 30, score, scoreC);
+  font('helvetica','bold',36); color(scoreC);
+  text(String(score), CX+20, 180, { align:'center' });
+  font('helvetica','normal',10); color(C.dim);
+  text('/ 100', CX+20, 189, { align:'center' });
+
+  // Grade
+  fill(scoreBg(score)); stroke(scoreC); lw(0.3);
+  rect(CX-12, 196, 64, 10, 3, 'FD');
+  color(scoreC); font('helvetica','bold',9);
+  text(gradeLabel(score), CX+20, 203, { align:'center' });
+
+  // Légende score
+  font('helvetica','italic',8); color(C.dim);
+  const verdictStr = score >= 75
+    ? 'Votre dispositif AML est mature. Norvy vous permettra de l\'automatiser et de l\'optimiser.'
+    : score >= 50
+    ? 'Des lacunes existent. Ce rapport identifie les actions prioritaires avant juillet 2027.'
+    : 'Des lacunes importantes menacent la conformité de votre cabinet. Agir maintenant est urgent.';
+  const vls = splitText(verdictStr, W-M-24);
+  vls.forEach((l, i) => text(l, CX+20, 214+i*5, { align:'center' }));
+
+  // Dimensions mini-résumé
+  const dimY = 238;
+  font('helvetica','bold',7); color(C.faint); text('RÉSUMÉ PAR DIMENSION', M+4, dimY-2);
+  DIMS_DATA.forEach((d, i) => {
+    const dx = M+4 + i*(((W-M-12))/6), dy = dimY+2;
+    const s = dimScores[d.name] ?? 0;
+    const sc = scoreColor(s);
+    progressBar(dx, dy, ((W-M-12))/6-2, 3, s, sc);
+    font('helvetica','normal',4.5); color(C.dim);
+    text(d.shortName, dx, dy+7);
+    font('helvetica','bold',5); color(sc);
+    text(s+'%', dx, dy+12);
+  });
+
+  // AMLR deadline
+  fill(C.accentSoft); stroke(C.accent); lw(0.3); rect(M+4, 258, W-M-12, 12, 2, 'FD');
+  color(C.accent); font('helvetica','bold',7);
+  text('AMLR 2024/1624 — Applicable le 10 juillet 2027', CX, 265, { align:'center' });
+  color(C.dim); font('helvetica','normal',6);
+  text('Ce rapport vous aide à vous y préparer sereinement.', CX, 270, { align:'center' });
+
+  pageFooter(pg, TOTAL_PAGES);
+
+  // ═══════════════════════════════════════════════════════════════
+  // PAGE 2 — DASHBOARD 6 DIMENSIONS
+  // ═══════════════════════════════════════════════════════════════
+  doc.addPage(); pg++;
+  fill(C.bgElev); rect(0, 0, W, H, 0, 'F');
+  fill(C.accent); rect(0, 0, 8, H, 0, 'F');
+
+  font('helvetica','bold',18); color(C.text);
+  text('Tableau de bord — Vue d\'ensemble', M+4, 24);
+  font('helvetica','normal',9); color(C.dim);
+  text('Score de conformité par dimension · ' + today, M+4, 32);
+  stroke(C.border); lw(0.3); doc.line(M+4, 36, W-M, 36);
+
+  // 6 jauges en grille 3x2
+  const gaugeData = DIMS_DATA.map(d => ({ name: d.name, shortName: d.shortName, score: dimScores[d.name] ?? 0 }));
+  const gW = (W-M-12)/3, gH = 66;
+  gaugeData.forEach((g, i) => {
+    const col = i % 3, row = Math.floor(i / 3);
+    const gx = M+4 + col*(gW+2), gy = 44 + row*(gH+4);
+    const sc = scoreColor(g.score), bg2 = scoreBg(g.score);
+
+    fill(C.bgElev); stroke(C.border); lw(0.3); rect(gx, gy, gW, gH, 2, 'FD');
+
+    // Titre
+    font('helvetica','bold',7); color(C.text); text(g.name, gx+4, gy+8);
+
+    // Jauge grande
+    gaugeCircle(gx+gW/2, gy+36, 16, g.score, sc);
+    font('helvetica','bold',14); color(sc);
+    text(String(g.score), gx+gW/2, gy+39, { align:'center' });
+    font('helvetica','normal',6); color(C.dim);
+    text('/ 100', gx+gW/2, gy+45, { align:'center' });
+
+    // Badge
+    fill(bg2); stroke(sc); lw(0.3);
+    rect(gx+(gW-28)/2, gy+50, 28, 7, 2, 'FD');
+    color(sc); font('helvetica','bold',6);
+    text(gradeLabel(g.score), gx+gW/2, gy+55, { align:'center' });
+  });
+
+  // Score global en dessous
+  const globalY = 44 + 2*gH + 12;
+  fill(C.bg); stroke(C.border); lw(0.3); rect(M+4, globalY, W-M-12, 26, 3, 'FD');
+  font('helvetica','bold',9); color(C.faint); text('SCORE GLOBAL', M+12, globalY+8);
+  font('helvetica','bold',24); color(scoreColor(score)); text(String(score)+' / 100', M+12, globalY+20);
+  fill(scoreBg(score)); rect(M+50, globalY+13, 40, 8, 2, 'F');
+  color(scoreColor(score)); font('helvetica','bold',7); text(gradeLabel(score), M+70, globalY+19, { align:'center' });
+
+  font('helvetica','normal',8); color(C.dim);
+  const sumStr = score >= 75
+    ? 'Votre cabinet démontre une maturité AML avancée. Continuez à maintenir et automatiser votre dispositif.'
+    : score >= 50
+    ? 'Des progrès significatifs ont été accomplis. Des actions ciblées permettront d\'atteindre la pleine conformité AMLR.'
+    : 'Des lacunes importantes persistent. Ce rapport détaille les actions prioritaires à engager immédiatement.';
+  const sumLines = splitText(sumStr, W-M-75);
+  sumLines.forEach((l, i) => text(l, W-M-8, globalY+8+i*5, { align:'right' }));
+
+  // Barre visuelle globale
+  progressBar(M+4, globalY+30, W-M-12, 5, score, scoreColor(score), 2);
+
+  pageFooter(pg, TOTAL_PAGES);
+
+  // ═══════════════════════════════════════════════════════════════
+  // PAGE 3 — TABLEAU RÉCAPITULATIF + VERDICT
+  // ═══════════════════════════════════════════════════════════════
+  doc.addPage(); pg++;
+  fill(C.bgElev); rect(0, 0, W, H, 0, 'F');
+  fill(C.accent); rect(0, 0, 8, H, 0, 'F');
+
+  font('helvetica','bold',18); color(C.text);
+  text('Synthèse & Verdict exécutif', M+4, 24);
+  stroke(C.border); lw(0.3); doc.line(M+4, 30, W-M, 30);
+
+  // Tableau récap
+  font('helvetica','bold',8); color(C.faint); text('ÉVALUATION PAR PILIER AMLR', M+4, 40);
+
+  // En-tête tableau
+  fill(C.accent); rect(M+4, 44, W-M-12, 9, 0, 'F');
+  ['DIMENSION', 'SCORE', 'NIVEAU', 'PRIORITÉ', 'NB. ACTIONS'].forEach((h2, i) => {
+    const xOff = [0, 65, 85, 110, 140];
+    color(C.white); font('helvetica','bold',7); text(h2, M+8+xOff[i], 50);
+  });
+
+  DIMS_DATA.forEach((d, i) => {
+    const s = dimScores[d.name] ?? 0;
+    const sc = scoreColor(s), bg2 = scoreBg(s);
+    const level = s >= 75 ? 'high' : s >= 50 ? 'medium' : 'low';
+    const prio = s >= 75 ? 'Faible' : s >= 50 ? 'Moyenne' : 'Haute';
+    const nActions = d.actions[level].length;
+    const ry = 55+i*11;
+
+    fill(i%2===0 ? C.bgElev : C.bg); rect(M+4, ry, W-M-12, 10, 0, 'F');
+    stroke(C.border); lw(0.1); doc.line(M+4, ry+10, M+W-M-12, ry+10);
+
+    color(C.text); font('helvetica','bold',7); text(d.name, M+8, ry+6.5);
+
+    // Score
+    color(sc); font('helvetica','bold',9); text(String(s), M+73, ry+6.5);
+
+    // Badge niveau
+    fill(bg2); rect(M+83, ry+2, 22, 6, 1.5, 'F');
+    color(sc); font('helvetica','bold',6); text(gradeLabel(s), M+94, ry+6.5, { align:'center' });
+
+    // Priorité
+    const prioC = prio==='Haute' ? C.danger : prio==='Moyenne' ? C.warn : C.accent;
+    color(prioC); font('helvetica','bold',7); text(prio, M+114, ry+6.5);
+
+    // Nb actions
+    color(C.dim); font('helvetica','normal',7); text(String(nActions)+' actions', M+144, ry+6.5);
+  });
+
+  // Verdict exécutif
+  const verdY = 55+6*11+16;
+  font('helvetica','bold',11); color(C.text); text('Verdict exécutif', M+4, verdY);
+  fill(scoreBg(score)); stroke(scoreColor(score)); lw(0.5);
+  rect(M+4, verdY+4, W-M-12, 38, 3, 'FD');
+
+  const verdicts = {
+    high: {
+      title: 'Votre cabinet est en bonne posture AML.',
+      body: 'Votre dispositif démontre une maturité réelle. Les bases sont posées : politique formalisée, diligences structurées, registre tenu. L\'enjeu est désormais l\'efficience : automatiser les processus manuels restants, industrialiser le suivi et préparer l\'alignement avec le règlement AMLR 2024/1624 qui entrera en vigueur le 10 juillet 2027. Norvy peut vous faire passer de la conformité à l\'excellence opérationnelle.',
+    },
+    medium: {
+      title: 'Des lacunes ciblées à corriger avant juillet 2027.',
+      body: 'Votre cabinet a engagé une démarche AML mais certains piliers restent insuffisamment formalisés. Les risques de non-conformité existent et pourraient exposer le cabinet à des sanctions lors d\'un contrôle ordinal ou d\'une intervention de la CRF. Ce rapport identifie précisément les dimensions à renforcer. Agir maintenant vous laisse le temps d\'une mise en conformité sereine avant l\'échéance AMLR.',
+    },
+    low: {
+      title: 'Action urgente requise — l\'exposition réglementaire est significative.',
+      body: 'Le dispositif AML actuel de votre cabinet présente des insuffisances majeures au regard des obligations applicables et du cadre AMLR 2024/1624 qui entrera en vigueur en juillet 2027. Cette situation crée une exposition directe aux sanctions pour le cabinet et personnellement pour les associés désignés compliance. Ce rapport détaille un plan d\'action priorisé. Norvy peut vous permettre de rattraper ce retard en quelques semaines.',
+    },
+  };
+  const vKey = score >= 75 ? 'high' : score >= 50 ? 'medium' : 'low';
+  const vd = verdicts[vKey];
+
+  color(scoreColor(score)); font('helvetica','bold',10); text(vd.title, M+8, verdY+12);
+  color(C.text); font('helvetica','normal',8);
+  const vBLines = splitText(vd.body, W-M-24);
+  vBLines.forEach((l, i) => text(l, M+8, verdY+20+i*5));
+
+  // Note AMLR
+  const noteY = verdY+4+38+8;
+  fill(C.accentSoft); stroke(C.accent); lw(0.3); rect(M+4, noteY, W-M-12, 16, 2, 'FD');
+  color(C.accent); font('helvetica','bold',8); text('Rappel AMLR 2024/1624', M+8, noteY+7);
+  color(C.text); font('helvetica','normal',7.5);
+  text('Le règlement (UE) 2024/1624 est directement applicable à tous les avocats UE depuis le 10 juillet 2024.', M+8, noteY+12.5);
+
+  pageFooter(pg, TOTAL_PAGES);
+
+  // ═══════════════════════════════════════════════════════════════
+  // PAGES 4-9 — UNE PAGE PAR DIMENSION
+  // ═══════════════════════════════════════════════════════════════
+  DIMS_DATA.forEach((dimData, idx) => {
+    doc.addPage(); pg++;
+    fill(C.bgElev); rect(0, 0, W, H, 0, 'F');
+
+    const s = dimScores[dimData.name] ?? 0;
+    const sc = scoreColor(s), bg2 = scoreBg(s);
+    const level = s >= 75 ? 'high' : s >= 50 ? 'medium' : 'low';
+
+    // Bande latérale colorée selon score
+    fill(sc); rect(0, 0, 8, H, 0, 'F');
+
+    // En-tête dimension
+    font('helvetica','bold',8); color(C.faint); text(`DIMENSION ${idx+1} / 6`, M+4, 14);
+    font('helvetica','bold',20); color(C.text); text(dimData.name, M+4, 26);
+    font('helvetica','normal',9); color(C.dim);
+    const descLines = splitText(dimData.desc, 100);
+    descLines.forEach((l, i) => text(l, M+4, 34+i*5));
+
+    // Score dimension
+    gaugeCircle(W-M-18, 22, 14, s, sc);
+    font('helvetica','bold',18); color(sc); text(String(s), W-M-18, 26, { align:'center' });
+    font('helvetica','normal',7); color(C.dim); text('/ 100', W-M-18, 32, { align:'center' });
+    fill(bg2); stroke(sc); lw(0.3); rect(W-M-32, 35, 28, 7, 2, 'FD');
+    color(sc); font('helvetica','bold',7); text(gradeLabel(s), W-M-18, 40, { align:'center' });
+
+    stroke(C.border); lw(0.3); doc.line(M+4, 50, W-M, 50);
+
+    // Mockup (colonne gauche)
+    const mockW = 90, mockH = 100, mockX = M+4, mockY = 54;
+    drawMockup(dimData.mockupType, mockX, mockY, mockW, mockH, s);
+
+    // Légende mockup
+    fill(C.accentSoft); rect(mockX, mockY+mockH+3, mockW, 7, 1, 'F');
+    color(C.accent); font('helvetica','bold',5.5);
+    text('Norvy — Interface ' + dimData.name, mockX+mockW/2, mockY+mockH+7.5, { align:'center' });
+
+    // Colonne droite : actions + features Norvy
+    const rX = mockX+mockW+8, rW = W-M-rX;
+
+    // Actions recommandées
+    font('helvetica','bold',8); color(C.text); text('Actions recommandées', rX, 58);
+    const actions = dimData.actions[level];
+    actions.forEach((a, i) => {
+      const ay = 64+i*16;
+      // Numéro
+      fill(sc); doc.circle(rX+3, ay+1, 3.5, 'F');
+      color(C.white); font('helvetica','bold',6); text(String(i+1), rX+3, ay+2.5, { align:'center' });
+      // Texte
+      color(C.text); font('helvetica','normal',6.5);
+      const aLines = splitText(a, rW-12);
+      aLines.forEach((l, j) => text(l, rX+9, ay+j*4.5));
+    });
+
+    // Features Norvy
+    const featY = 64 + actions.length*16 + 8;
+    fill(C.accentSoft); stroke(C.accent); lw(0.3);
+    rect(rX, featY-3, rW, 4, 0, 'F');
+    color(C.accent); font('helvetica','bold',7); text('Comment Norvy corrige ce point', rX, featY+0.5);
+
+    dimData.norvyFeatures.forEach((f, i) => {
+      const fy = featY+8+i*18;
+      fill(C.bgElev); stroke(C.border); lw(0.2); rect(rX, fy, rW, 16, 2, 'FD');
+      // Puce Norvy
+      fill(C.accent); rect(rX+2, fy+2, 3, 12, 1, 'F');
+      color(C.white); font('helvetica','bold',5);
+      text('N', rX+2.8, fy+9);
+      // Titre feature
+      color(C.accent); font('helvetica','bold',6.5); text(f.title, rX+7, fy+6);
+      // Description
+      color(C.dim); font('helvetica','normal',6);
+      const fLines = splitText(f.desc, rW-10);
+      fLines.forEach((l, j) => text(l, rX+7, fy+11+j*4));
+    });
+
+    // Barre de progression en bas de page
+    const barY = H-26;
+    stroke(C.border); lw(0.3); doc.line(M+4, barY, W-M, barY);
+    font('helvetica','normal',7); color(C.faint); text('Progression sur cette dimension', M+4, barY+6);
+    progressBar(M+4, barY+8, W-M-12-28, 5, s, sc);
+    color(sc); font('helvetica','bold',8); text(s+'%', W-M-12-24+5, barY+12);
+
+    pageFooter(pg, TOTAL_PAGES);
+  });
+
+  // ═══════════════════════════════════════════════════════════════
+  // PAGE 10 — PLAN D'ACTION PRIORISÉ
+  // ═══════════════════════════════════════════════════════════════
+  doc.addPage(); pg++;
+  fill(C.bgElev); rect(0, 0, W, H, 0, 'F');
+  fill(C.accent); rect(0, 0, 8, H, 0, 'F');
+
+  font('helvetica','bold',18); color(C.text); text('Plan d\'action priorisé', M+4, 24);
+  font('helvetica','normal',9); color(C.dim);
+  text('Actions classées par priorité et dimension — Objectif : conformité AMLR juillet 2027', M+4, 32);
+  stroke(C.border); lw(0.3); doc.line(M+4, 36, W-M, 36);
+
+  // Légende priorités
+  const legendY = 42;
+  [[C.danger, 'Priorité haute — à engager immédiatement'], [C.warn, 'Priorité moyenne — à planifier d\'ici 6 mois'], [C.accent, 'Priorité faible — maintien et amélioration continue']].forEach(([c, l], i) => {
+    fill(c); doc.circle(M+8+i*65, legendY, 2, 'F');
+    color(C.dim); font('helvetica','normal',6.5); text(l, M+12+i*65, legendY+1);
+  });
+
+  // En-tête tableau
+  const planY = 50;
+  fill(C.accent); rect(M+4, planY, W-M-12, 8, 0, 'F');
+  ['#', 'DIMENSION', 'ACTION', 'PRIORITÉ'].forEach((h2, i) => {
+    const xOff = [0, 8, 30, 165];
+    color(C.white); font('helvetica','bold',6.5); text(h2, M+6+xOff[i], planY+5.5);
+  });
+
+  const plan = getActionPlan();
+  let rowY = planY+9;
+  plan.forEach((item, idx2) => {
+    if (rowY > 268) return; // Sécurité
+    const prioC = item.priority===1 ? C.danger : item.priority===2 ? C.warn : C.accent;
+    const prioBg = item.priority===1 ? C.dangerSoft : item.priority===2 ? C.warnSoft : C.accentSoft;
+    const prioLabel = item.priority===1 ? 'HAUTE' : item.priority===2 ? 'MOYENNE' : 'FAIBLE';
+
+    fill(idx2%2===0 ? C.bgElev : C.bg); rect(M+4, rowY, W-M-12, 11, 0, 'F');
+    stroke(C.border); lw(0.1); doc.line(M+4, rowY+11, M+W-M-12, rowY+11);
+
+    // Numéro
+    fill(prioC); doc.circle(M+8, rowY+5.5, 3, 'F');
+    color(C.white); font('helvetica','bold',6); text(String(idx2+1), M+8, rowY+7, { align:'center' });
+
+    // Dimension
+    color(C.dim); font('helvetica','normal',6); text(item.dim, M+14, rowY+4);
+
+    // Action
+    color(C.text); font('helvetica','normal',6.5);
+    const aLines = splitText(item.action, 132);
+    aLines.forEach((l, i) => text(l, M+14, rowY+8.5+i*4));
+
+    // Badge priorité
+    fill(prioBg); rect(M+172, rowY+3, 22, 6, 1.5, 'F');
+    color(prioC); font('helvetica','bold',6); text(prioLabel, M+183, rowY+7.5, { align:'center' });
+
+    rowY += 11+(aLines.length>1 ? (aLines.length-1)*4 : 0);
+  });
+
+  pageFooter(pg, TOTAL_PAGES);
+
+  // ═══════════════════════════════════════════════════════════════
+  // PAGE 11 — NORVY : LA SOLUTION
+  // ═══════════════════════════════════════════════════════════════
+  doc.addPage(); pg++;
+  fill(C.bgElev); rect(0, 0, W, H, 0, 'F');
+  fill(C.accent); rect(0, 0, 8, H, 0, 'F');
+
+  font('helvetica','bold',18); color(C.text); text('La solution recommandée', M+4, 24);
+  stroke(C.border); lw(0.3); doc.line(M+4, 30, W-M, 30);
+
+  // Pitch Norvy
+  fill(C.dark); rect(M+4, 36, W-M-12, 32, 3, 'F');
+  font('helvetica','bold',22); color(C.white); text('norvy', M+12, 54);
+  font('helvetica','normal',10); color([180,180,175]);
+  text('Le logiciel de gestion de cabinet d\'avocats avec l\'AML dans son ADN.', M+12, 62);
+  font('helvetica','bold',8); color([111,207,171]);
+  text('norvy.lu', W-M-12, 57, { align:'right' });
+
+  // Features adaptées aux lacunes
+  font('helvetica','bold',10); color(C.text); text('Comment Norvy corrige votre audit', M+4, 80);
+  font('helvetica','normal',8); color(C.dim); text('Les modules Norvy correspondant à vos lacunes identifiées', M+4, 87);
+
+  // Sélection des 3 dimensions les plus faibles
+  const weakDims = DIMS_DATA
+    .map(d => ({ ...d, score: dimScores[d.name] ?? 0 }))
+    .sort((a, b) => a.score - b.score)
+    .slice(0, 3);
+
+  weakDims.forEach((d, i) => {
+    const s = d.score, sc = scoreColor(s), bg2 = scoreBg(s);
+    const bY = 93+i*42;
+    fill(C.bg); stroke(C.border); lw(0.3); rect(M+4, bY, W-M-12, 40, 2, 'FD');
+
+    // Badge score
+    fill(bg2); rect(M+7, bY+3, 18, 8, 1.5, 'F');
+    color(sc); font('helvetica','bold',7); text(s+'%', M+16, bY+8.5, { align:'center' });
+
+    // Titre dimension
+    color(C.text); font('helvetica','bold',9); text(d.name, M+28, bY+8.5);
+
+    // Features Norvy pour cette dimension
+    d.norvyFeatures.forEach((f, j) => {
+      const fY = bY+16+j*8;
+      fill(C.accent); doc.circle(M+10, fY, 2, 'F');
+      color(C.white); font('helvetica','bold',4.5); text('N', M+9, fY+1.5);
+      color(C.accent); font('helvetica','bold',6.5); text(f.title, M+14, fY+2);
+      color(C.dim); font('helvetica','normal',6);
+      const fl = splitText(f.desc, W-M-30);
+      text(fl[0], M+14, fY+6.5);
+    });
+  });
+
+  // CTA final
+  const ctaY = 93+3*42+8;
+  fill(C.accent); rect(M+4, ctaY, W-M-12, 36, 3, 'F');
+
+  font('helvetica','bold',14); color(C.white);
+  text('Prêt à corriger votre dispositif AML ?', CX, ctaY+11, { align:'center' });
+
+  font('helvetica','normal',9); color([200,220,215]);
+  text('Rejoignez les premiers cabinets équipés Norvy.', CX, ctaY+19, { align:'center' });
+  text('Migration accompagnée incluse. Accès bêta prioritaire.', CX, ctaY+25, { align:'center' });
+
+  // Bloc blanc CTA
+  fill(C.white); rect(CX-35, ctaY+28, 70, 8, 2, 'F');
+  color(C.accent); font('helvetica','bold',8);
+  text('Demander un accès → norvy.lu', CX, ctaY+33.5, { align:'center' });
+
+  pageFooter(pg, TOTAL_PAGES);
+
+  // ═══════════════════════════════════════════════════════════════
+  // TÉLÉCHARGEMENT
+  // ═══════════════════════════════════════════════════════════════
+  const fname = firmName
+    ? `Norvy-Audit-AML-${firmName.replace(/[^a-z0-9]/gi, '-')}.pdf`
+    : `Norvy-Audit-AML-${new Date().toISOString().slice(0,10)}.pdf`;
+  doc.save(fname);
+}
 // AUDIT AML
 // ══════════════════════════════════════════════════════════════
 (function() {
@@ -2773,165 +4497,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   // ── PDF ──
   function generateAndDownload() {
     if (!window.jspdf) { console.warn('jsPDF non chargé'); return; }
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({ unit: 'mm', format: 'a4' });
-    const W = 210, M = 20;
-    const grade = getGrade();
-    const today = new Date().toLocaleDateString('fr-FR', { day:'2-digit', month:'long', year:'numeric' });
-
-    // Couleurs
-    const dark = [14, 16, 19], accent = [26, 77, 62], dim = [92, 100, 112], warn = [184, 130, 28], danger = [184, 56, 56];
-    const scoreColor = grade.cls === 'high' ? accent : grade.cls === 'medium' ? warn : danger;
-
-    // — PAGE 1 —
-    // Bande d'en-tête
-    doc.setFillColor(...dark);
-    doc.rect(0, 0, W, 70, 'F');
-    doc.setTextColor(255, 255, 255);
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(22);
-    doc.text('Norvy', M, 28);
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(11);
-    doc.setTextColor(180, 180, 175);
-    doc.text('Rapport d\'audit AML — ' + today, M, 36);
-    if (firmName) doc.text('Cabinet : ' + firmName, M, 44);
-
-    // Score
-    doc.setTextColor(...scoreColor);
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(72);
-    doc.text(String(score), M, 115);
-    doc.setFontSize(18);
-    doc.setTextColor(...dim);
-    doc.setFont('helvetica', 'normal');
-    doc.text('/ 100', M + 48, 115);
-
-    // Badge grade
-    doc.setFillColor(grade.cls === 'high' ? 232 : grade.cls === 'medium' ? 251 : 252,
-                     grade.cls === 'high' ? 240 : grade.cls === 'medium' ? 243 : 232,
-                     grade.cls === 'high' ? 236 : grade.cls === 'medium' ? 223 : 232);
-    doc.roundedRect(M, 122, 100, 10, 3, 3, 'F');
-    doc.setTextColor(...scoreColor);
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(10);
-    doc.text(grade.label.toUpperCase(), M + 4, 129);
-
-    // Verdict
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(12);
-    doc.setTextColor(...dark);
-    const vLines = doc.splitTextToSize(grade.verdict, W - 2 * M);
-    doc.text(vLines, M, 145);
-
-    // — PAGE 2 : Détail par dimension —
-    doc.addPage();
-    doc.setTextColor(...dark);
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(18);
-    doc.text('Score par dimension', M, 28);
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(10);
-    doc.setTextColor(...dim);
-    doc.text('Évaluation des 6 piliers AMLR 2024/1624', M, 36);
-
-    let y = 52;
-    DIMS.forEach(d => {
-      const s = dimScores[d.name];
-      const c = s >= 75 ? accent : s >= 50 ? warn : danger;
-      doc.setTextColor(...dark);
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(11);
-      doc.text(d.name, M, y);
-      doc.setTextColor(...c);
-      const st = `${s} / 100`;
-      doc.text(st, W - M - doc.getTextWidth(st), y);
-      // Barre
-      const bw = W - 2 * M;
-      doc.setFillColor(240, 238, 232);
-      doc.roundedRect(M, y + 3, bw, 4, 2, 2, 'F');
-      doc.setFillColor(...c);
-      doc.roundedRect(M, y + 3, bw * s / 100, 4, 2, 2, 'F');
-      y += 20;
-    });
-
-    // — Recommandations sur page 2 —
-    y += 10;
-    if (y > 220) { doc.addPage(); y = 30; }
-    doc.setTextColor(...dark);
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(16);
-    doc.text('Actions prioritaires', M, y);
-    y += 10;
-
-    const recTexts = {
-      'Gouvernance': { low: 'Formaliser une politique AML écrite, désigner un Compliance Officer et établir une évaluation des risques propre au cabinet. Action prioritaire : rédiger la politique en s\'appuyant sur les modèles AMLR.', medium: 'Actualiser la politique AML (< 12 mois), renforcer la documentation de l\'évaluation des risques, vérifier l\'intégration de l\'AMLR 2024/1624.' },
-      'KYC & Vigilance': { low: 'Mettre en place une procédure KYC digitale standardisée. Identifier systématiquement les bénéficiaires effectifs avec recoupement RBE. Définir une matrice de vigilance renforcée.', medium: 'Automatiser la mise à jour périodique des KYC. Renforcer le recoupement RBE/RCS. Documenter les mesures de vigilance renforcée.' },
-      'Screening': { low: 'Mettre en place un screening automatisé contre les listes UE/OFAC/ONU et bases PEP professionnelles dès l\'entrée en relation. Activer la surveillance continue.', medium: 'Passer d\'un screening manuel à un screening automatisé continu. Investir dans une base PEP professionnelle.' },
-      'Formation': { low: 'Instaurer un plan de formation AML annuel obligatoire pour tous les collaborateurs. Documenter les formations dans un registre traçable.', medium: 'Standardiser le rythme annuel des formations et améliorer la traçabilité (registre numérique).' },
-      'Registre & Traçabilité': { low: 'Migrer vers un registre numérique horodaté et auditable. Documenter systématiquement les analyses de risque.', medium: 'Renforcer la documentation des analyses de risque. Standardiser l\'extraction du questionnaire ordinal annuel.' },
-      'Déclaration & Soupçon': { low: 'Formaliser la procédure de déclaration de soupçon à la CRF. Identifier les indicateurs de soupçon propres à votre activité. Former les collaborateurs aux canaux d\'escalade.', medium: 'Documenter formellement les typologies de soupçon et les canaux d\'escalade internes.' },
-    };
-
-    DIMS.forEach(d => {
-      const s = dimScores[d.name];
-      if (s >= 75) return;
-      if (y > 250) { doc.addPage(); y = 30; }
-      const level = s >= 50 ? 'medium' : 'low';
-      const c = level === 'medium' ? warn : danger;
-      doc.setFillColor(...c);
-      doc.roundedRect(M, y - 4, level === 'medium' ? 22 : 16, 7, 2, 2, 'F');
-      doc.setTextColor(255, 255, 255);
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(7);
-      doc.text(level === 'medium' ? 'MOYENNE' : 'HAUTE', M + 2, y);
-      doc.setTextColor(...dark);
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(11);
-      doc.text(d.name, M + (level === 'medium' ? 28 : 22), y);
-      y += 7;
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(10);
-      doc.setTextColor(...dim);
-      const lines = doc.splitTextToSize(recTexts[d.name][level], W - 2 * M);
-      lines.forEach(l => { if (y > 270) { doc.addPage(); y = 30; } doc.text(l, M, y); y += 5; });
-      y += 6;
-    });
-
-    // CTA final
-    if (y > 230) { doc.addPage(); y = 30; }
-    y += 8;
-    doc.setFillColor(232, 240, 236);
-    doc.roundedRect(M, y, W - 2 * M, 38, 4, 4, 'F');
-    doc.setTextColor(...accent);
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(13);
-    doc.text('Norvy automatise votre conformité AML', M + 6, y + 11);
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(10);
-    doc.setTextColor(...dark);
-    const ctaLines = doc.splitTextToSize('LPM complet + AML/KYC natif + questionnaire Barreau auto-généré. Hébergé au Luxembourg.', W - 2 * M - 12);
-    let cy = y + 20;
-    ctaLines.forEach(l => { doc.text(l, M + 6, cy); cy += 5; });
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(...accent);
-    doc.text('norvy.lu', M + 6, y + 33);
-
-    // Numéros de page
-    const total = doc.internal.getNumberOfPages();
-    for (let i = 1; i <= total; i++) {
-      doc.setPage(i);
-      doc.setDrawColor(230, 228, 222);
-      doc.line(M, 285, W - M, 285);
-      doc.setFontSize(8);
-      doc.setFont('helvetica', 'normal');
-      doc.setTextColor(...dim);
-      doc.text('Norvy — Audit AML', M, 292);
-      doc.text(`Page ${i} / ${total}`, W - M - 14, 292);
-    }
-
-    const fname = firmName ? `Norvy-Audit-AML-${firmName.replace(/[^a-z0-9]/gi,'-')}.pdf` : `Norvy-Audit-AML.pdf`;
-    doc.save(fname);
+    generatePDFExhaustif(score, dimScores, firmName, getGrade());
   }
 
 })();
