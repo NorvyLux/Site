@@ -6,31 +6,24 @@
 <title>Norvy — Logiciel de gestion de cabinet d'avocats avec AML natif</title>
 <meta name="description" content="Norvy est la plateforme de gestion de cabinet d'avocats — dossiers, temps, facturation, encaissements — avec un module AML/KYC nativement intégré." />
 
-<!-- ============ FAVICON ============ -->
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <meta name="theme-color" content="#0E1013">
 
-<!-- ============ OPEN GRAPH (Facebook, LinkedIn, Slack, etc.) ============ -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://norvy.lu/">
 <meta property="og:title" content="Norvy — Le logiciel de gestion de cabinet d'avocats avec l'AML dans son ADN">
 <meta property="og:description" content="Dossiers, temps, facturation, encaissements — avec un module AML/KYC nativement intégré. Conçu pour les avocats, hébergé au Luxembourg.">
 <meta property="og:image" content="https://norvy.lu/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Norvy — Logiciel de gestion de cabinet d'avocats avec AML natif">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:site_name" content="Norvy">
 
-<!-- ============ TWITTER CARD ============ -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:url" content="https://norvy.lu/">
 <meta name="twitter:title" content="Norvy — Le logiciel de gestion de cabinet d'avocats avec l'AML dans son ADN">
 <meta name="twitter:description" content="Dossiers, temps, facturation, encaissements — avec un module AML/KYC nativement intégré. Conçu pour les avocats, hébergé au Luxembourg.">
 <meta name="twitter:image" content="https://norvy.lu/og-image.png">
 
-<!-- ============ SEO additionnel ============ -->
 <meta name="author" content="Norvy">
 <meta name="keywords" content="AML, AMLR, KYC, cabinet avocats, LCB-FT, LPM, gestion cabinet, conformité, Luxembourg, AMLR 2024/1624, AMLA">
 <link rel="canonical" href="https://norvy.lu/">
@@ -38,6 +31,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- jsPDF pour génération PDF audit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <style>
   :root {
     --bg: #FBFAF7;
@@ -257,10 +254,7 @@
     white-space: nowrap;
   }
 
-  .hero-form button:hover {
-    transform: translateY(-1px);
-    background: var(--accent-hl);
-  }
+  .hero-form button:hover { transform: translateY(-1px); background: var(--accent-hl); }
 
   .hero-meta {
     display: flex;
@@ -271,20 +265,14 @@
     font-family: 'JetBrains Mono', monospace;
   }
 
-  /* MOCKUP */
-  .mockup-wrap {
-    margin-top: 80px;
-    perspective: 2000px;
-  }
+  .mockup-wrap { margin-top: 80px; perspective: 2000px; }
 
   .mockup {
     background: var(--bg-elev);
     border: 1px solid var(--border);
     border-radius: 16px;
     overflow: hidden;
-    box-shadow:
-      0 30px 60px -20px rgba(20,22,26,0.15),
-      0 18px 36px -18px rgba(20,22,26,0.1);
+    box-shadow: 0 30px 60px -20px rgba(20,22,26,0.15), 0 18px 36px -18px rgba(20,22,26,0.1);
     transform: rotateX(2deg);
   }
 
@@ -298,10 +286,7 @@
   }
 
   .mockup-dots { display: flex; gap: 6px; }
-  .mockup-dots span {
-    width: 11px; height: 11px; border-radius: 50%;
-    background: var(--border);
-  }
+  .mockup-dots span { width: 11px; height: 11px; border-radius: 50%; background: var(--border); }
 
   .mockup-url {
     flex: 1;
@@ -315,11 +300,7 @@
     text-align: center;
   }
 
-  .mockup-body {
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    min-height: 480px;
-  }
+  .mockup-body { display: grid; grid-template-columns: 220px 1fr; min-height: 480px; }
 
   .mockup-sidebar {
     background: var(--bg-elev-2);
@@ -357,25 +338,9 @@
 
   .mockup-content { padding: 28px 32px; background: var(--bg-elev); }
 
-  .mc-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 24px;
-  }
-
-  .mc-title {
-    font-size: 18px;
-    font-weight: 500;
-    letter-spacing: -0.01em;
-  }
-
-  .mc-subtitle {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--text-faint);
-    margin-top: 4px;
-  }
+  .mc-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
+  .mc-title { font-size: 18px; font-weight: 500; letter-spacing: -0.01em; }
+  .mc-subtitle { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-faint); margin-top: 4px; }
 
   .mc-status {
     display: inline-flex;
@@ -391,19 +356,9 @@
     font-weight: 500;
   }
 
-  .mc-status::before {
-    content: '';
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-  }
+  .mc-status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
 
-  .mc-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-bottom: 24px;
-  }
+  .mc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
 
   .mc-stat {
     background: var(--bg);
@@ -412,27 +367,9 @@
     padding: 14px;
   }
 
-  .mc-stat-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--text-faint);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
-  .mc-stat-value {
-    font-size: 22px;
-    font-weight: 500;
-    margin-top: 4px;
-    letter-spacing: -0.02em;
-  }
-
-  .mc-stat-delta {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--accent);
-    margin-top: 2px;
-  }
+  .mc-stat-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.08em; }
+  .mc-stat-value { font-size: 22px; font-weight: 500; margin-top: 4px; letter-spacing: -0.02em; }
+  .mc-stat-delta { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent); margin-top: 2px; }
 
   .mc-list { display: flex; flex-direction: column; gap: 8px; }
 
@@ -460,27 +397,13 @@
   }
 
   .mc-row-name { font-size: 13px; }
+  .mc-row-meta { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-faint); }
 
-  .mc-row-meta {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--text-faint);
-  }
-
-  .mc-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    padding: 3px 8px;
-    border-radius: 4px;
-    font-weight: 500;
-  }
-
+  .mc-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 500; }
   .mc-tag.green { background: var(--accent-soft); color: var(--accent); }
   .mc-tag.amber { background: var(--warn-soft); color: var(--warn); }
 
-  /* AMLR */
-  .amlr { padding: 120px 0 80px; }
-
+  /* SECTIONS COMMUNES */
   .section-eyebrow {
     font-family: 'JetBrains Mono', monospace;
     font-size: 12px;
@@ -507,19 +430,12 @@
     color: var(--text-dim);
   }
 
-  .section-lead {
-    font-size: 18px;
-    color: var(--text-dim);
-    max-width: 640px;
-    line-height: 1.55;
-  }
+  .section-lead { font-size: 18px; color: var(--text-dim); max-width: 640px; line-height: 1.55; }
 
-  .amlr-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    margin-top: 64px;
-  }
+  /* AMLR */
+  .amlr { padding: 120px 0 80px; }
+
+  .amlr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 64px; }
 
   .amlr-card {
     background: var(--bg-elev);
@@ -529,47 +445,13 @@
     box-shadow: 0 1px 2px rgba(0,0,0,0.02);
   }
 
-  .amlr-card-num {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--text-faint);
-    margin-bottom: 16px;
-  }
+  .amlr-card-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-faint); margin-bottom: 16px; }
+  .amlr-card h3 { font-size: 22px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .amlr-card p { color: var(--text-dim); font-size: 15px; line-height: 1.6; }
 
-  .amlr-card h3 {
-    font-size: 22px;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    margin-bottom: 12px;
-  }
-
-  .amlr-card p {
-    color: var(--text-dim);
-    font-size: 15px;
-    line-height: 1.6;
-  }
-
-  .amlr-card-stat {
-    margin-top: 24px;
-    padding-top: 24px;
-    border-top: 1px dashed var(--border);
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-  }
-
-  .amlr-card-stat strong {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 28px;
-    font-weight: 500;
-    color: var(--accent);
-    letter-spacing: -0.02em;
-  }
-
-  .amlr-card-stat span {
-    font-size: 13px;
-    color: var(--text-faint);
-  }
+  .amlr-card-stat { margin-top: 24px; padding-top: 24px; border-top: 1px dashed var(--border); display: flex; align-items: baseline; gap: 8px; }
+  .amlr-card-stat strong { font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 500; color: var(--accent); letter-spacing: -0.02em; }
+  .amlr-card-stat span { font-size: 13px; color: var(--text-faint); }
 
   /* FEATURES */
   .features { padding: 120px 0; }
@@ -585,12 +467,7 @@
     overflow: hidden;
   }
 
-  .feature {
-    background: var(--bg-elev);
-    padding: 36px 32px;
-    transition: background 0.2s;
-  }
-
+  .feature { background: var(--bg-elev); padding: 36px 32px; transition: background 0.2s; }
   .feature:hover { background: var(--bg-elev-2); }
 
   .feature-icon {
@@ -606,21 +483,10 @@
   }
 
   .feature-icon svg { width: 18px; height: 18px; }
+  .feature h3 { font-size: 16px; font-weight: 500; margin-bottom: 8px; letter-spacing: -0.01em; }
+  .feature p { color: var(--text-dim); font-size: 14px; line-height: 1.55; }
 
-  .feature h3 {
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 8px;
-    letter-spacing: -0.01em;
-  }
-
-  .feature p {
-    color: var(--text-dim);
-    font-size: 14px;
-    line-height: 1.55;
-  }
-
-  /* HIGHLIGHT — Questionnaire Barreau */
+  /* HIGHLIGHT */
   .highlight { padding: 120px 0; }
 
   .highlight-card {
@@ -647,63 +513,16 @@
     pointer-events: none;
   }
 
-  .highlight-eyebrow {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    color: #6FCFAB;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    margin-bottom: 20px;
-    font-weight: 500;
-    position: relative;
-  }
+  .highlight-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6FCFAB; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 20px; font-weight: 500; position: relative; }
 
-  .highlight-card h2 {
-    font-size: clamp(28px, 3.5vw, 42px);
-    font-weight: 500;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    margin-bottom: 20px;
-    position: relative;
-  }
+  .highlight-card h2 { font-size: clamp(28px, 3.5vw, 42px); font-weight: 500; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 20px; position: relative; }
+  .highlight-card h2 em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: #6FCFAB; }
+  .highlight-card p { color: rgba(245, 245, 242, 0.7); font-size: 16px; line-height: 1.6; margin-bottom: 24px; position: relative; }
 
-  .highlight-card h2 em {
-    font-family: 'Instrument Serif', serif;
-    font-style: italic;
-    font-weight: 400;
-    color: #6FCFAB;
-  }
+  .highlight-list { list-style: none; position: relative; }
+  .highlight-list li { display: flex; align-items: flex-start; gap: 12px; padding: 8px 0; font-size: 14px; color: rgba(245, 245, 242, 0.85); }
+  .highlight-list svg { width: 16px; height: 16px; color: #6FCFAB; flex-shrink: 0; margin-top: 2px; }
 
-  .highlight-card p {
-    color: rgba(245, 245, 242, 0.7);
-    font-size: 16px;
-    line-height: 1.6;
-    margin-bottom: 24px;
-    position: relative;
-  }
-
-  .highlight-list {
-    list-style: none;
-    position: relative;
-  }
-
-  .highlight-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 8px 0;
-    font-size: 14px;
-    color: rgba(245, 245, 242, 0.85);
-  }
-
-  .highlight-list svg {
-    width: 16px; height: 16px;
-    color: #6FCFAB;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
-  /* Questionnaire visual */
   .questionnaire-mock {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -713,75 +532,19 @@
     position: relative;
   }
 
-  .qm-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-  }
+  .qm-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .qm-title { font-size: 13px; font-weight: 500; color: #F5F5F2; }
+  .qm-sub { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(245, 245, 242, 0.5); margin-top: 2px; }
+  .qm-progress { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6FCFAB; }
 
-  .qm-title {
-    font-size: 13px;
-    font-weight: 500;
-    color: #F5F5F2;
-  }
-
-  .qm-sub {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: rgba(245, 245, 242, 0.5);
-    margin-top: 2px;
-  }
-
-  .qm-progress {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: #6FCFAB;
-  }
-
-  .qm-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    font-size: 12px;
-    border-bottom: 1px dashed rgba(255,255,255,0.06);
-  }
-
+  .qm-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; font-size: 12px; border-bottom: 1px dashed rgba(255,255,255,0.06); }
   .qm-row:last-child { border-bottom: none; }
-
   .qm-q { color: rgba(245, 245, 242, 0.8); }
-
-  .qm-a {
-    font-family: 'JetBrains Mono', monospace;
-    color: #6FCFAB;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
+  .qm-a { font-family: 'JetBrains Mono', monospace; color: #6FCFAB; display: flex; align-items: center; gap: 6px; }
   .qm-a svg { width: 12px; height: 12px; }
 
-  .qm-footer {
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px solid rgba(255,255,255,0.08);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .qm-export {
-    background: #6FCFAB;
-    color: var(--bg-dark);
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-size: 11px;
-    font-weight: 600;
-    font-family: 'JetBrains Mono', monospace;
-  }
+  .qm-footer { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center; }
+  .qm-export { background: #6FCFAB; color: var(--bg-dark); padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 600; font-family: 'JetBrains Mono', monospace; }
 
   /* COMPARISON */
   .comparison { padding: 120px 0; }
@@ -795,54 +558,18 @@
     box-shadow: 0 1px 2px rgba(0,0,0,0.02);
   }
 
-  .compare-row {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    border-bottom: 1px solid var(--border);
-  }
-
+  .compare-row { display: grid; grid-template-columns: 2fr 1fr 1fr; border-bottom: 1px solid var(--border); }
   .compare-row:last-child { border-bottom: none; }
-
   .compare-row.header { background: var(--bg-elev-2); }
 
-  .compare-cell {
-    padding: 18px 24px;
-    font-size: 14px;
-  }
-
-  .compare-cell.label {
-    color: var(--text-dim);
-    border-right: 1px solid var(--border);
-  }
-
-  .compare-row.header .compare-cell {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text-faint);
-  }
-
-  .compare-cell.norvy {
-    background: var(--accent-soft);
-    color: var(--text);
-    font-weight: 500;
-    border-right: 1px solid var(--border);
-  }
-
-  .compare-row.header .compare-cell.norvy {
-    background: rgba(26, 77, 62, 0.12);
-    color: var(--accent);
-  }
-
+  .compare-cell { padding: 18px 24px; font-size: 14px; }
+  .compare-cell.label { color: var(--text-dim); border-right: 1px solid var(--border); }
+  .compare-row.header .compare-cell { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-faint); }
+  .compare-cell.norvy { background: var(--accent-soft); color: var(--text); font-weight: 500; border-right: 1px solid var(--border); }
+  .compare-row.header .compare-cell.norvy { background: rgba(26, 77, 62, 0.12); color: var(--accent); }
   .compare-cell.legacy { color: var(--text-faint); }
 
-  .check {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-
+  .check { display: inline-flex; align-items: center; gap: 8px; }
   .check svg { width: 14px; height: 14px; }
   .check.yes { color: var(--accent); }
   .check.no { color: var(--text-faint); }
@@ -851,126 +578,20 @@
   /* PROBLEM */
   .problem { padding: 120px 0; }
 
-  .problem-flex {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-  }
+  .problem-flex { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
 
-  .problem-quote {
-    font-family: 'Instrument Serif', serif;
-    font-size: 32px;
-    font-style: italic;
-    line-height: 1.3;
-    color: var(--text);
-    letter-spacing: -0.01em;
-    margin-bottom: 24px;
-  }
+  .problem-quote { font-family: 'Instrument Serif', serif; font-size: 32px; font-style: italic; line-height: 1.3; color: var(--text); letter-spacing: -0.01em; margin-bottom: 24px; }
+  .problem-quote::before { content: '"'; color: var(--accent); font-size: 64px; line-height: 0; vertical-align: -0.4em; margin-right: 4px; }
+  .problem-cite { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-faint); }
 
-  .problem-quote::before {
-    content: '"';
-    color: var(--accent);
-    font-size: 64px;
-    line-height: 0;
-    vertical-align: -0.4em;
-    margin-right: 4px;
-  }
+  .problem-stats { display: flex; flex-direction: column; gap: 32px; }
+  .pstat { border-left: 2px solid var(--accent); padding-left: 24px; }
+  .pstat-num { font-size: 48px; font-weight: 500; letter-spacing: -0.03em; line-height: 1; margin-bottom: 8px; }
+  .pstat-num em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: var(--text-dim); font-size: 24px; }
+  .pstat-label { font-size: 14px; color: var(--text-dim); line-height: 1.5; }
 
-  .problem-cite {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    color: var(--text-faint);
-  }
-
-  .problem-stats {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-  }
-
-  .pstat {
-    border-left: 2px solid var(--accent);
-    padding-left: 24px;
-  }
-
-  .pstat-num {
-    font-size: 48px;
-    font-weight: 500;
-    letter-spacing: -0.03em;
-    line-height: 1;
-    margin-bottom: 8px;
-  }
-
-  .pstat-num em {
-    font-family: 'Instrument Serif', serif;
-    font-style: italic;
-    font-weight: 400;
-    color: var(--text-dim);
-    font-size: 24px;
-  }
-
-  .pstat-label {
-    font-size: 14px;
-    color: var(--text-dim);
-    line-height: 1.5;
-  }
-
-  /* FAQ */
-  .faq { padding: 120px 0; }
-
-  .faq-list {
-    margin-top: 64px;
-    max-width: 820px;
-  }
-
-  .faq-item {
-    border-top: 1px solid var(--border);
-    padding: 24px 0;
-  }
-
-  .faq-item:last-child { border-bottom: 1px solid var(--border); }
-
-  .faq-q {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    list-style: none;
-    font-size: 17px;
-    font-weight: 500;
-    letter-spacing: -0.01em;
-  }
-
-  .faq-q::-webkit-details-marker { display: none; }
-
-  .faq-q::after {
-    content: '+';
-    font-size: 24px;
-    color: var(--text-dim);
-    transition: transform 0.2s;
-    font-weight: 300;
-  }
-
-  .faq-item[open] .faq-q::after {
-    transform: rotate(45deg);
-    color: var(--accent);
-  }
-
-  .faq-a {
-    margin-top: 14px;
-    color: var(--text-dim);
-    font-size: 15px;
-    line-height: 1.6;
-    max-width: 720px;
-  }
-
-  /* ROI CALCULATOR */
-  .roi {
-    padding: 120px 0;
-    border-top: 1px solid var(--border-soft);
-    position: relative;
-  }
+  /* ROI */
+  .roi { padding: 120px 0; border-top: 1px solid var(--border-soft); position: relative; }
 
   .roi-card {
     margin-top: 64px;
@@ -985,97 +606,17 @@
     overflow: hidden;
   }
 
-  .roi-card::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -10%;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(197, 245, 116, 0.06) 0%, transparent 60%);
-    pointer-events: none;
-  }
+  .roi-inputs h3 { font-size: 22px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .roi-inputs > p { color: var(--text-dim); font-size: 14px; margin-bottom: 32px; font-weight: 300; }
 
-  .roi-inputs h3 {
-    font-size: 22px;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    margin-bottom: 8px;
-  }
+  .roi-input { margin-bottom: 24px; position: relative; z-index: 1; }
+  .roi-input label { display: block; font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-faint); margin-bottom: 12px; }
 
-  .roi-inputs > p {
-    color: var(--text-dim);
-    font-size: 14px;
-    margin-bottom: 32px;
-    font-weight: 300;
-  }
-
-  .roi-input {
-    margin-bottom: 24px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .roi-input label {
-    display: block;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-faint);
-    margin-bottom: 12px;
-  }
-
-  .roi-slider-wrap {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .roi-slider {
-    flex: 1;
-    -webkit-appearance: none;
-    appearance: none;
-    height: 4px;
-    background: var(--border);
-    border-radius: 2px;
-    outline: none;
-  }
-
-  .roi-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--accent);
-    cursor: pointer;
-    box-shadow: 0 0 0 4px rgba(197, 245, 116, 0.15);
-    transition: box-shadow 0.2s;
-  }
-
-  .roi-slider::-webkit-slider-thumb:hover {
-    box-shadow: 0 0 0 8px rgba(197, 245, 116, 0.2);
-  }
-
-  .roi-slider::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--accent);
-    cursor: pointer;
-    border: none;
-    box-shadow: 0 0 0 4px rgba(197, 245, 116, 0.15);
-  }
-
-  .roi-value {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 18px;
-    font-weight: 500;
-    color: var(--text);
-    min-width: 60px;
-    text-align: right;
-  }
+  .roi-slider-wrap { display: flex; align-items: center; gap: 16px; }
+  .roi-slider { flex: 1; -webkit-appearance: none; appearance: none; height: 4px; background: var(--border); border-radius: 2px; outline: none; }
+  .roi-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--accent); cursor: pointer; }
+  .roi-slider::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--accent); cursor: pointer; border: none; }
+  .roi-value { font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 500; color: var(--text); min-width: 60px; text-align: right; }
 
   .roi-output {
     background: var(--bg);
@@ -1089,44 +630,10 @@
     z-index: 1;
   }
 
-  .roi-output-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--text-faint);
-    margin-bottom: 12px;
-  }
-
-  .roi-amount {
-    font-size: 64px;
-    font-weight: 500;
-    letter-spacing: -0.04em;
-    line-height: 1;
-    color: var(--accent);
-    margin-bottom: 8px;
-    transition: opacity 0.15s;
-  }
-
-  .roi-amount em {
-    font-family: 'Instrument Serif', serif;
-    font-style: italic;
-    font-weight: 400;
-    font-size: 32px;
-    color: var(--text-dim);
-  }
-
-  .roi-detail {
-    color: var(--text-dim);
-    font-size: 14px;
-    line-height: 1.55;
-    font-weight: 300;
-    margin-bottom: 28px;
-    border-top: 1px dashed var(--border);
-    padding-top: 20px;
-    margin-top: 12px;
-  }
-
+  .roi-output-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-faint); margin-bottom: 12px; }
+  .roi-amount { font-size: 64px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; color: var(--accent); margin-bottom: 8px; }
+  .roi-amount em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; font-size: 32px; color: var(--text-dim); }
+  .roi-detail { color: var(--text-dim); font-size: 14px; line-height: 1.55; font-weight: 300; margin-bottom: 28px; border-top: 1px dashed var(--border); padding-top: 20px; margin-top: 12px; }
   .roi-detail strong { color: var(--text); font-weight: 500; }
 
   .roi-cta {
@@ -1147,15 +654,35 @@
     transition: transform 0.15s, background 0.2s;
   }
 
-  .roi-cta:hover { transform: translateY(-1px); background: #d6ff85; }
-
+  .roi-cta:hover { transform: translateY(-1px); background: var(--accent-hl); }
   .roi-cta svg { width: 14px; height: 14px; }
 
-  /* LEAD MAGNET */
-  .magnet {
-    padding: 120px 0;
-    border-top: 1px solid var(--border-soft);
+  /* FAQ */
+  .faq { padding: 120px 0; }
+
+  .faq-list { margin-top: 64px; max-width: 820px; }
+
+  .faq-item { border-top: 1px solid var(--border); padding: 24px 0; }
+  .faq-item:last-child { border-bottom: 1px solid var(--border); }
+
+  .faq-q {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    list-style: none;
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
   }
+
+  .faq-q::-webkit-details-marker { display: none; }
+  .faq-q::after { content: '+'; font-size: 24px; color: var(--text-dim); transition: transform 0.2s; font-weight: 300; }
+  .faq-item[open] .faq-q::after { transform: rotate(45deg); color: var(--accent); }
+  .faq-a { margin-top: 14px; color: var(--text-dim); font-size: 15px; line-height: 1.6; max-width: 720px; }
+
+  /* MAGNET */
+  .magnet { padding: 120px 0; border-top: 1px solid var(--border-soft); }
 
   .magnet-card {
     background: var(--bg-elev);
@@ -1170,517 +697,1056 @@
     overflow: hidden;
   }
 
-  .magnet-eyebrow {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    color: var(--accent);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    margin-bottom: 20px;
-  }
+  .magnet-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 20px; }
+  .magnet-card h2 { font-size: clamp(28px, 3.5vw, 40px); font-weight: 500; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 16px; }
+  .magnet-card h2 em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: var(--text-dim); }
+  .magnet-card > div > p { color: var(--text-dim); font-size: 15px; line-height: 1.6; margin-bottom: 24px; font-weight: 300; }
 
-  .magnet-card h2 {
-    font-size: clamp(28px, 3.5vw, 40px);
-    font-weight: 500;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    margin-bottom: 16px;
-  }
+  .magnet-bullets { list-style: none; margin-bottom: 28px; }
+  .magnet-bullets li { display: flex; align-items: flex-start; gap: 10px; padding: 6px 0; font-size: 14px; color: var(--text-dim); }
+  .magnet-bullets svg { width: 16px; height: 16px; color: var(--accent); flex-shrink: 0; margin-top: 3px; }
 
-  .magnet-card h2 em {
-    font-family: 'Instrument Serif', serif;
-    font-style: italic;
-    font-weight: 400;
-    color: var(--text-dim);
-  }
-
-  .magnet-card > div > p {
-    color: var(--text-dim);
-    font-size: 15px;
-    line-height: 1.6;
-    margin-bottom: 24px;
-    font-weight: 300;
-  }
-
-  .magnet-bullets {
-    list-style: none;
-    margin-bottom: 28px;
-  }
-
-  .magnet-bullets li {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 6px 0;
-    font-size: 14px;
-    color: var(--text-dim);
-  }
-
-  .magnet-bullets svg {
-    width: 16px;
-    height: 16px;
-    color: var(--accent);
-    flex-shrink: 0;
-    margin-top: 3px;
-  }
-
-  /* PDF visual */
   .pdf-mock {
     background: linear-gradient(135deg, #fafaf7 0%, #ebebe5 100%);
     border-radius: 12px;
     padding: 32px 28px;
     color: #1a1a1a;
     transform: rotate(-2deg);
-    box-shadow:
-      0 30px 60px -20px rgba(0,0,0,0.5),
-      0 20px 40px -25px rgba(0,0,0,0.6);
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.5), 0 20px 40px -25px rgba(0,0,0,0.6);
     position: relative;
     aspect-ratio: 0.77;
     display: flex;
     flex-direction: column;
   }
 
-  .pdf-mock::before {
-    content: '';
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 40px;
-    height: 4px;
-    background: var(--accent);
-    border-radius: 2px;
-  }
-
-  .pdf-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: #888;
-    margin-bottom: 16px;
-  }
-
-  .pdf-mock h4 {
-    font-size: 22px;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-    margin-bottom: 12px;
-    color: #0a0a0a;
-  }
-
-  .pdf-mock h4 span {
-    display: block;
-    font-style: italic;
-    color: #555;
-    font-weight: 400;
-    font-size: 17px;
-  }
-
-  .pdf-divider {
-    height: 1px;
-    background: #d4d4cc;
-    margin: 16px 0;
-  }
-
-  .pdf-checklist {
-    list-style: none;
-    flex: 1;
-  }
-
-  .pdf-checklist li {
-    display: flex;
-    gap: 8px;
-    padding: 4px 0;
-    font-size: 11px;
-    color: #2a2a2a;
-    line-height: 1.4;
-  }
-
-  .pdf-check {
-    width: 12px;
-    height: 12px;
-    border: 1.5px solid #888;
-    border-radius: 2px;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
-  .pdf-check.done {
-    background: var(--accent);
-    border-color: var(--accent);
-  }
-
-  .pdf-footer {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #888;
-    margin-top: 12px;
-  }
+  .pdf-mock::before { content: ''; position: absolute; top: 12px; right: 12px; width: 40px; height: 4px; background: var(--accent); border-radius: 2px; }
+  .pdf-tag { font-family: 'JetBrains Mono', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em; color: #888; margin-bottom: 16px; }
+  .pdf-mock h4 { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 12px; color: #0a0a0a; }
+  .pdf-mock h4 span { display: block; font-style: italic; color: #555; font-weight: 400; font-size: 17px; }
+  .pdf-divider { height: 1px; background: #d4d4cc; margin: 16px 0; }
+  .pdf-checklist { list-style: none; flex: 1; }
+  .pdf-checklist li { display: flex; gap: 8px; padding: 4px 0; font-size: 11px; color: #2a2a2a; line-height: 1.4; }
+  .pdf-check { width: 12px; height: 12px; border: 1.5px solid #888; border-radius: 2px; flex-shrink: 0; margin-top: 2px; }
+  .pdf-check.done { background: var(--accent); border-color: var(--accent); }
+  .pdf-footer { font-family: 'JetBrains Mono', monospace; font-size: 8px; text-transform: uppercase; letter-spacing: 0.1em; color: #888; margin-top: 12px; }
 
   /* PERSONAS */
-  .personas {
-    padding: 120px 0;
-    border-top: 1px solid var(--border-soft);
-  }
+  .personas { padding: 120px 0; border-top: 1px solid var(--border-soft); }
 
-  .personas-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-top: 64px;
-  }
+  .personas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 64px; }
 
-  .persona {
-    background: var(--bg-elev);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 32px;
-    transition: transform 0.2s, border-color 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
+  .persona { background: var(--bg-elev); border: 1px solid var(--border); border-radius: 16px; padding: 32px; transition: transform 0.2s, border-color 0.2s; position: relative; overflow: hidden; }
+  .persona:hover { transform: translateY(-4px); border-color: rgba(26, 77, 62, 0.3); }
 
-  .persona:hover {
-    transform: translateY(-4px);
-    border-color: rgba(197, 245, 116, 0.3);
-  }
+  .persona-tag { display: inline-flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-faint); background: var(--bg); border: 1px solid var(--border); padding: 4px 10px; border-radius: 100px; margin-bottom: 24px; }
+  .persona h3 { font-size: 20px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .persona-promise { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 18px; color: var(--accent); margin-bottom: 16px; line-height: 1.4; }
+  .persona p { color: var(--text-dim); font-size: 14px; line-height: 1.6; font-weight: 300; }
 
-  .persona-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--text-faint);
-    background: var(--bg);
-    border: 1px solid var(--border);
-    padding: 4px 10px;
-    border-radius: 100px;
-    margin-bottom: 24px;
-  }
-
-  .persona h3 {
-    font-size: 20px;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    margin-bottom: 8px;
-  }
-
-  .persona-promise {
-    font-family: 'Instrument Serif', serif;
-    font-style: italic;
-    font-size: 18px;
-    color: var(--accent);
-    margin-bottom: 16px;
-    line-height: 1.4;
-  }
-
-  .persona p {
-    color: var(--text-dim);
-    font-size: 14px;
-    line-height: 1.6;
-    font-weight: 300;
-  }
-
-  /* === LEAD MAGNET POPUP === */
+  /* POPUP */
   .magnet-popup-overlay {
-    position: fixed;
-    inset: 0;
+    position: fixed; inset: 0;
     background: rgba(14, 16, 19, 0.75);
     backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
     z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     padding: 24px;
-    opacity: 0;
-    pointer-events: none;
+    opacity: 0; pointer-events: none;
     transition: opacity 0.3s ease;
   }
 
-  .magnet-popup-overlay.visible {
-    opacity: 1;
-    pointer-events: auto;
-  }
+  .magnet-popup-overlay.visible { opacity: 1; pointer-events: auto; }
 
   .magnet-popup {
     background: var(--bg-elev);
     border: 1px solid var(--border);
     border-radius: 20px;
-    max-width: 920px;
-    width: 100%;
-    max-height: 92vh;
+    max-width: 920px; width: 100%; max-height: 92vh;
     overflow-y: auto;
     display: grid;
     grid-template-columns: 1.1fr 1fr;
     position: relative;
     transform: translateY(20px) scale(0.97);
     transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-    box-shadow:
-      0 50px 100px -20px rgba(0,0,0,0.7),
-      0 30px 60px -30px rgba(0,0,0,0.6);
+    box-shadow: 0 50px 100px -20px rgba(0,0,0,0.7);
   }
 
-  .magnet-popup-overlay.visible .magnet-popup {
-    transform: translateY(0) scale(1);
-  }
+  .magnet-popup-overlay.visible .magnet-popup { transform: translateY(0) scale(1); }
 
   .magnet-popup-close {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: var(--bg);
-    border: 1px solid var(--border);
+    position: absolute; top: 16px; right: 16px;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--bg); border: 1px solid var(--border);
     color: var(--text-dim);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 2;
-    transition: all 0.2s;
-    font-family: inherit;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; z-index: 2; transition: all 0.2s; font-family: inherit;
   }
 
-  .magnet-popup-close:hover {
-    background: var(--bg-elev-2);
-    color: var(--text);
-    transform: rotate(90deg);
-  }
-
+  .magnet-popup-close:hover { background: var(--bg-elev-2); color: var(--text); transform: rotate(90deg); }
   .magnet-popup-close svg { width: 16px; height: 16px; }
 
-  .magnet-popup-content {
-    padding: 48px 40px;
-  }
+  .magnet-popup-content { padding: 48px 40px; }
 
   .magnet-popup-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--accent);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    margin-bottom: 16px;
-    padding: 4px 10px;
-    background: rgba(197, 245, 116, 0.08);
-    border: 1px solid rgba(197, 245, 116, 0.2);
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em;
+    margin-bottom: 16px; padding: 4px 10px;
+    background: rgba(26, 77, 62, 0.08); border: 1px solid rgba(26, 77, 62, 0.2);
     border-radius: 100px;
   }
 
-  .magnet-popup-eyebrow::before {
-    content: '';
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-  }
+  .magnet-popup-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  .magnet-popup-content h2 { font-size: clamp(24px, 3vw, 32px); font-weight: 500; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 14px; }
+  .magnet-popup-content h2 em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: var(--text-dim); }
+  .magnet-popup-content > p { color: var(--text-dim); font-size: 14px; line-height: 1.55; margin-bottom: 20px; font-weight: 300; }
 
-  .magnet-popup-content h2 {
-    font-size: clamp(24px, 3vw, 32px);
-    font-weight: 500;
-    letter-spacing: -0.03em;
-    line-height: 1.15;
-    margin-bottom: 14px;
-  }
-
-  .magnet-popup-content h2 em {
-    font-family: 'Instrument Serif', serif;
-    font-style: italic;
-    font-weight: 400;
-    color: var(--text-dim);
-  }
-
-  .magnet-popup-content > p {
-    color: var(--text-dim);
-    font-size: 14px;
-    line-height: 1.55;
-    margin-bottom: 20px;
-    font-weight: 300;
-  }
-
-  .magnet-popup-bullets {
-    list-style: none;
-    margin-bottom: 24px;
-  }
-
-  .magnet-popup-bullets li {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 5px 0;
-    font-size: 13.5px;
-    color: var(--text-dim);
-    line-height: 1.4;
-  }
-
-  .magnet-popup-bullets svg {
-    width: 14px;
-    height: 14px;
-    color: var(--accent);
-    flex-shrink: 0;
-    margin-top: 4px;
-  }
-
-  .magnet-popup .hero-form {
-    margin-bottom: 8px;
-  }
-
-  .magnet-popup-trust {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--text-faint);
-    letter-spacing: 0.05em;
-    margin-top: 12px;
-  }
+  .magnet-popup-bullets { list-style: none; margin-bottom: 24px; }
+  .magnet-popup-bullets li { display: flex; align-items: flex-start; gap: 10px; padding: 5px 0; font-size: 13.5px; color: var(--text-dim); line-height: 1.4; }
+  .magnet-popup-bullets svg { width: 14px; height: 14px; color: var(--accent); flex-shrink: 0; margin-top: 4px; }
+  .magnet-popup .hero-form { margin-bottom: 8px; }
+  .magnet-popup-trust { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-faint); letter-spacing: 0.05em; margin-top: 12px; }
 
   .magnet-popup-visual {
     background: linear-gradient(135deg, var(--bg-elev-2) 0%, var(--bg) 100%);
     border-left: 1px solid var(--border);
     padding: 48px 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; position: relative;
   }
 
-  .magnet-popup-visual::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at center, rgba(197, 245, 116, 0.06) 0%, transparent 60%);
-  }
-
-  .magnet-popup .pdf-mock {
-    transform: rotate(-3deg) scale(0.95);
-    max-width: 240px;
-    margin: 0 auto;
-  }
+  .magnet-popup-visual::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(26, 77, 62, 0.06) 0%, transparent 60%); }
+  .magnet-popup .pdf-mock { transform: rotate(-3deg) scale(0.95); max-width: 240px; margin: 0 auto; }
 
   /* FINAL CTA */
   .final-cta {
-    padding: 140px 0;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    background: var(--bg-elev-2);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
+    padding: 140px 0; text-align: center; position: relative; overflow: hidden;
+    background: var(--bg-elev-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
   }
 
-  .final-cta::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at center, rgba(26, 77, 62, 0.06) 0%, transparent 60%);
-    pointer-events: none;
-  }
-
-  .final-cta h2 {
-    font-size: clamp(40px, 6vw, 72px);
-    font-weight: 500;
-    letter-spacing: -0.04em;
-    line-height: 1;
-    margin-bottom: 24px;
-    position: relative;
-  }
-
-  .final-cta h2 em {
-    font-family: 'Instrument Serif', serif;
-    font-style: italic;
-    font-weight: 400;
-    color: var(--accent);
-  }
-
-  .final-cta p {
-    font-size: 19px;
-    color: var(--text-dim);
-    max-width: 580px;
-    margin: 0 auto 48px;
-    position: relative;
-  }
-
+  .final-cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(26, 77, 62, 0.06) 0%, transparent 60%); pointer-events: none; }
+  .final-cta h2 { font-size: clamp(40px, 6vw, 72px); font-weight: 500; letter-spacing: -0.04em; line-height: 1; margin-bottom: 24px; position: relative; }
+  .final-cta h2 em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: var(--accent); }
+  .final-cta p { font-size: 19px; color: var(--text-dim); max-width: 580px; margin: 0 auto 48px; position: relative; }
   .final-cta .hero-form { margin: 0 auto 20px; }
 
   /* FOOTER */
   footer { padding: 64px 0 40px; background: var(--bg); }
 
-  .footer-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 48px;
-    margin-bottom: 48px;
-  }
-
-  .footer-brand {
-    font-size: 24px;
-    font-weight: 700;
-    letter-spacing: -0.04em;
-    margin-bottom: 12px;
-  }
-
-  .footer-tag {
-    color: var(--text-dim);
-    font-size: 14px;
-    line-height: 1.55;
-    max-width: 320px;
-  }
-
-  .footer-col h5 {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--text-faint);
-    margin-bottom: 18px;
-    font-weight: 500;
-  }
-
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+  .footer-brand { font-size: 24px; font-weight: 700; letter-spacing: -0.04em; margin-bottom: 12px; }
+  .footer-tag { color: var(--text-dim); font-size: 14px; line-height: 1.55; max-width: 320px; }
+  .footer-col h5 { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-faint); margin-bottom: 18px; font-weight: 500; }
   .footer-col ul { list-style: none; }
   .footer-col li { margin-bottom: 10px; }
-  .footer-col a {
-    color: var(--text-dim);
-    text-decoration: none;
-    font-size: 14px;
-    transition: color 0.2s;
-  }
+  .footer-col a { color: var(--text-dim); text-decoration: none; font-size: 14px; transition: color 0.2s; }
   .footer-col a:hover { color: var(--text); }
 
-  .footer-bottom {
-    border-top: 1px solid var(--border);
-    padding-top: 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--text-faint);
-  }
+  .footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-faint); }
 
   /* ANIMATIONS */
   .fade-up { animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) backwards; }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   .delay-1 { animation-delay: 0.1s; }
   .delay-2 { animation-delay: 0.2s; }
   .delay-3 { animation-delay: 0.3s; }
   .delay-4 { animation-delay: 0.4s; }
   .delay-5 { animation-delay: 0.5s; }
 
+  /* SUCCESS */
+  .success-msg {
+    display: none;
+    background: var(--accent-soft);
+    border: 1px solid rgba(26, 77, 62, 0.25);
+    color: var(--accent);
+    padding: 14px 18px;
+    border-radius: 12px;
+    font-size: 14px;
+    margin-bottom: 12px;
+    align-items: center;
+    gap: 10px;
+    max-width: 480px;
+    font-weight: 500;
+  }
+  .success-msg.visible { display: flex; }
+  .success-msg svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+  /* ═══════════════════════════════════════════════════
+     PRICING — format épuré dans la charte Norvy
+  ═══════════════════════════════════════════════════ */
+  .pricing { padding: 120px 0; border-top: 1px solid var(--border-soft); }
+
+  .pricing-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 64px;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .pricing-top .section-title { margin-bottom: 0; }
+
+  /* Toggle billing sobre */
+  .billing-toggle {
+    display: inline-flex;
+    align-items: center;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 3px;
+    flex-shrink: 0;
+  }
+
+  .billing-opt {
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: var(--text-dim);
+    font-family: inherit;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .billing-opt.active {
+    background: var(--text);
+    color: var(--bg);
+  }
+
+  .billing-save {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 2px 6px;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+  }
+
+  .billing-opt.active .billing-save {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+  }
+
+  /* Grille 3 cartes + 1 card "sur devis" */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) 280px;
+    gap: 16px;
+    align-items: start;
+  }
+
+  .price-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  }
+
+  .price-card:hover {
+    border-color: rgba(26, 77, 62, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px -12px rgba(20,22,26,0.12);
+  }
+
+  /* Carte centrale mise en avant : fond sombre */
+  .price-card.featured {
+    background: var(--bg-dark);
+    border-color: var(--bg-dark);
+    color: #F5F5F2;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .price-card.featured::before {
+    content: '';
+    position: absolute;
+    top: -60%;
+    right: -30%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(45, 122, 99, 0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .price-card.featured:hover { border-color: var(--bg-dark); }
+
+  /* Carte "sur devis" : style différencié */
+  .price-card.enterprise {
+    background: var(--bg-elev-2);
+    border-style: dashed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    min-height: 300px;
+  }
+
+  /* Tag "Le plus populaire" — sobre, pas de ruban */
+  .popular-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #6FCFAB;
+    background: rgba(111, 207, 171, 0.12);
+    border: 1px solid rgba(111, 207, 171, 0.25);
+    padding: 4px 10px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+    width: fit-content;
+    position: relative;
+  }
+
+  .popular-tag::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: #6FCFAB; }
+
+  .price-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-faint);
+    margin-bottom: 6px;
+    position: relative;
+  }
+
+  .price-card.featured .price-label { color: rgba(245, 245, 242, 0.45); }
+
+  .price-name {
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .price-amount {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin-bottom: 6px;
+    position: relative;
+  }
+
+  .price-num {
+    font-size: 52px;
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    transition: opacity 0.2s;
+  }
+
+  .price-cur { font-size: 28px; font-weight: 500; letter-spacing: -0.02em; }
+
+  .price-per {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-left: 2px;
+    line-height: 1.3;
+  }
+
+  .price-card.featured .price-per { color: rgba(245, 245, 242, 0.5); }
+
+  .price-note {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-faint);
+    margin-bottom: 28px;
+    line-height: 1.5;
+    position: relative;
+  }
+
+  .price-card.featured .price-note { color: rgba(245, 245, 242, 0.4); }
+
+  .price-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    text-decoration: none;
+    transition: transform 0.15s, background 0.2s, border-color 0.2s;
+    border: 1px solid var(--accent);
+    background: transparent;
+    color: var(--accent);
+    margin-bottom: 28px;
+    position: relative;
+  }
+
+  .price-btn:hover { background: var(--accent-soft); transform: translateY(-1px); }
+
+  .price-btn.dark {
+    background: #fff;
+    color: var(--bg-dark);
+    border-color: #fff;
+  }
+
+  .price-btn.dark:hover { background: #F5F5F2; }
+
+  .price-btn svg { width: 14px; height: 14px; }
+
+  .price-migration {
+    font-size: 12px;
+    color: var(--text-faint);
+    text-align: center;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    position: relative;
+  }
+
+  .price-card.featured .price-migration { color: rgba(245, 245, 242, 0.35); }
+
+  .price-migration svg { width: 12px; height: 12px; color: var(--accent); flex-shrink: 0; }
+  .price-card.featured .price-migration svg { color: #6FCFAB; }
+
+  .price-divider {
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .price-card.featured .price-divider { background: rgba(255,255,255,0.1); }
+
+  .price-features {
+    list-style: none;
+    flex: 1;
+    position: relative;
+  }
+
+  .price-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 7px 0;
+    font-size: 13.5px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .price-card.featured .price-features li { color: rgba(245, 245, 242, 0.8); }
+
+  .price-features svg {
+    width: 14px; height: 14px;
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  .price-card.featured .price-features svg { color: #6FCFAB; }
+
+  /* Card enterprise */
+  .enterprise-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px;
+    color: var(--accent);
+  }
+
+  .enterprise-icon svg { width: 22px; height: 22px; }
+
+  .enterprise-name {
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .enterprise-desc {
+    color: var(--text-dim);
+    font-size: 13.5px;
+    line-height: 1.55;
+    margin-bottom: 24px;
+  }
+
+  .enterprise-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: var(--text);
+    color: var(--bg);
+    padding: 11px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: inherit;
+    border: none;
+    transition: transform 0.15s, background 0.2s;
+    width: 100%;
+  }
+
+  .enterprise-btn:hover { transform: translateY(-1px); background: #000; }
+  .enterprise-btn svg { width: 13px; height: 13px; }
+
+  /* ═══════════════════════════════════════════════════
+     AUDIT AML — dans la continuité esthétique du site
+  ═══════════════════════════════════════════════════ */
+  .audit { padding: 120px 0; border-top: 1px solid var(--border-soft); }
+
+  .audit-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 64px;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .audit-header-row .section-lead { max-width: 540px; }
+
+  .audit-pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+  }
+
+  .audit-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-faint);
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    padding: 5px 12px;
+    border-radius: 100px;
+  }
+
+  /* Conteneur principal de l'audit */
+  .audit-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    min-height: 520px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+  }
+
+  /* Écrans */
+  .a-screen { display: none; }
+  .a-screen.active { display: block; }
+
+  /* ÉCRAN 1 : intro */
+  .a-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 520px;
+  }
+
+  .a-intro-left {
+    padding: 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid var(--border);
+  }
+
+  .a-intro-left h3 {
+    font-size: clamp(26px, 3vw, 38px);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .a-intro-left h3 em {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--text-dim);
+  }
+
+  .a-intro-left p {
+    color: var(--text-dim);
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 36px;
+    max-width: 440px;
+  }
+
+  .a-start-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 13px 24px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: transform 0.15s, background 0.2s;
+    width: fit-content;
+  }
+
+  .a-start-btn:hover { transform: translateY(-1px); background: var(--accent-hl); }
+  .a-start-btn svg { width: 15px; height: 15px; }
+
+  .a-intro-right {
+    padding: 48px;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .a-dim-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+
+  .a-dim-icon {
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    background: var(--accent-soft);
+    border: 1px solid rgba(26, 77, 62, 0.15);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .a-dim-icon svg { width: 16px; height: 16px; }
+
+  .a-dim-name { font-size: 14px; font-weight: 500; color: var(--text); }
+  .a-dim-q { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-faint); margin-top: 2px; }
+
+  /* ÉCRAN 2 : questions */
+  .a-questions {
+    padding: 48px 56px;
+    display: flex;
+    flex-direction: column;
+    min-height: 520px;
+  }
+
+  .a-q-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .a-q-counter {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-faint);
+  }
+
+  .a-q-counter strong { color: var(--accent); }
+
+  .a-q-dim {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+
+  .a-progress {
+    height: 3px;
+    background: var(--bg-elev-2);
+    border-radius: 2px;
+    margin-bottom: 48px;
+    overflow: hidden;
+  }
+
+  .a-progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    width: 0%;
+  }
+
+  .a-question-text {
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.35;
+    margin-bottom: 8px;
+    max-width: 680px;
+  }
+
+  .a-question-help {
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.55;
+    margin-bottom: 36px;
+    max-width: 640px;
+  }
+
+  .a-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 48px;
+    flex: 1;
+  }
+
+  .a-option {
+    padding: 16px 20px;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    font-size: 14px;
+    color: var(--text-dim);
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    transition: all 0.2s;
+    line-height: 1.45;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .a-option:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--text);
+  }
+
+  .a-option.selected {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--text);
+  }
+
+  .a-option-dot {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    flex-shrink: 0;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .a-option:hover .a-option-dot,
+  .a-option.selected .a-option-dot { border-color: var(--accent); }
+
+  .a-option.selected .a-option-dot { background: var(--accent); }
+  .a-option.selected .a-option-dot::after { content: ''; position: absolute; inset: 3px; background: #fff; border-radius: 50%; }
+
+  .a-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .a-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-dim);
+    transition: all 0.2s;
+  }
+
+  .a-btn:hover:not(:disabled) { border-color: var(--text); color: var(--text); }
+  .a-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  .a-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .a-btn.primary:hover:not(:disabled) { background: var(--accent-hl); border-color: var(--accent-hl); }
+  .a-btn svg { width: 14px; height: 14px; }
+
+  /* ÉCRAN 3 : email */
+  .a-email {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 520px;
+  }
+
+  .a-email-left {
+    padding: 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid var(--border);
+  }
+
+  .a-email-left h3 {
+    font-size: 30px;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+
+  .a-email-left h3 em {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--text-dim);
+  }
+
+  .a-email-left > p {
+    color: var(--text-dim);
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+  }
+
+  .a-email-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 400px;
+  }
+
+  .a-input {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 13px 16px;
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .a-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .a-input::placeholder { color: var(--text-faint); }
+
+  .a-submit {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 13px 20px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: transform 0.15s, background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .a-submit:hover:not(:disabled) { transform: translateY(-1px); background: var(--accent-hl); }
+  .a-submit:disabled { opacity: 0.7; cursor: not-allowed; }
+  .a-submit svg { width: 15px; height: 15px; }
+
+  .a-consent { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-faint); margin-top: 10px; line-height: 1.6; }
+
+  .a-email-right {
+    padding: 48px;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .a-what-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-faint);
+    margin-bottom: 4px;
+  }
+
+  .a-what-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 14px;
+    color: var(--text-dim);
+  }
+
+  .a-what-item svg { width: 15px; height: 15px; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+
+  /* ÉCRAN 4 : résultats */
+  .a-results {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    min-height: 520px;
+  }
+
+  .a-score-panel {
+    padding: 56px 40px;
+    background: var(--bg);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .a-score-big {
+    font-size: 96px;
+    font-weight: 500;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    color: var(--accent);
+    margin-bottom: 4px;
+    transition: color 0.3s;
+  }
+
+  .a-score-big.warn { color: var(--warn); }
+  .a-score-big.danger { color: #B83838; }
+
+  .a-score-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-faint);
+    margin-bottom: 24px;
+  }
+
+  .a-grade {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+  }
+
+  .a-grade.high { background: var(--accent-soft); color: var(--accent); border: 1px solid rgba(26,77,62,0.2); }
+  .a-grade.medium { background: var(--warn-soft); color: var(--warn); border: 1px solid rgba(184,130,28,0.2); }
+  .a-grade.danger { background: #FCE8E8; color: #B83838; border: 1px solid rgba(184,56,56,0.2); }
+
+  .a-verdict {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--text-dim);
+    line-height: 1.5;
+    margin-bottom: 32px;
+  }
+
+  .a-panel-actions { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+
+  .a-breakdown-panel {
+    padding: 48px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .a-breakdown-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-faint);
+    margin-bottom: 32px;
+  }
+
+  .a-dim-row {
+    display: grid;
+    grid-template-columns: 1fr 56px;
+    gap: 12px;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  .a-dim-row:last-child { border-bottom: none; }
+
+  .a-dim-info { display: flex; flex-direction: column; gap: 6px; }
+  .a-dim-label { font-size: 14px; font-weight: 500; color: var(--text); }
+
+  .a-dim-bar { height: 4px; background: var(--bg-elev-2); border-radius: 2px; overflow: hidden; }
+  .a-dim-bar-fill { height: 100%; border-radius: 2px; transition: width 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); background: var(--accent); }
+  .a-dim-bar-fill.warn { background: var(--warn); }
+  .a-dim-bar-fill.danger { background: #B83838; }
+
+  .a-dim-score {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-dim);
+    text-align: right;
+  }
+
+  /* Messages success audit */
+  .a-success {
+    display: none;
+    background: var(--accent-soft);
+    border: 1px solid rgba(26, 77, 62, 0.25);
+    color: var(--accent);
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-top: 10px;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+  }
+
+  .a-success.visible { display: flex; }
+  .a-success svg { width: 16px; height: 16px; flex-shrink: 0; }
+
   /* RESPONSIVE */
+  @media (max-width: 1100px) {
+    .pricing-grid { grid-template-columns: repeat(3, 1fr); }
+    .price-card.enterprise { display: none; }
+  }
+
   @media (max-width: 900px) {
     .nav-links { display: none; }
     .mockup-body { grid-template-columns: 1fr; }
@@ -1705,26 +1771,25 @@
     .magnet-popup .pdf-mock { max-width: 180px; }
     .magnet-popup-close { width: 32px; height: 32px; top: 12px; right: 12px; }
     .container { padding: 0 24px; }
-  }
 
-  /* Success state */
-  .success-msg {
-    display: none;
-    background: var(--accent-soft);
-    border: 1px solid rgba(26, 77, 62, 0.25);
-    color: var(--accent);
-    padding: 14px 18px;
-    border-radius: 12px;
-    font-size: 14px;
-    margin-bottom: 12px;
-    align-items: center;
-    gap: 10px;
-    max-width: 480px;
-    font-weight: 500;
-  }
+    .pricing-top { flex-direction: column; align-items: flex-start; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .price-card.enterprise { display: flex; }
 
-  .success-msg.visible { display: flex; }
-  .success-msg svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .audit-header-row { flex-direction: column; align-items: flex-start; }
+    .a-intro { grid-template-columns: 1fr; }
+    .a-intro-right { display: none; }
+    .a-intro-left { padding: 36px 28px; }
+    .a-questions { padding: 36px 28px; }
+    .a-options { grid-template-columns: 1fr; }
+    .a-email { grid-template-columns: 1fr; }
+    .a-email-right { display: none; }
+    .a-email-left { padding: 36px 28px; }
+    .a-results { grid-template-columns: 1fr; }
+    .a-score-panel { border-right: none; border-bottom: 1px solid var(--border); padding: 40px 28px; }
+    .a-breakdown-panel { padding: 36px 28px; }
+    .a-score-big { font-size: 72px; }
+  }
 </style>
 </head>
 <body>
@@ -1735,8 +1800,8 @@
     <ul class="nav-links">
       <li><a href="#produit">Produit</a></li>
       <li><a href="#amlr">AMLR</a></li>
-      <li><a href="#roi">Calculateur</a></li>
-      <li><a href="#ressources">Ressources</a></li>
+      <li><a href="#pricing">Tarifs</a></li>
+      <li><a href="#audit">Audit gratuit</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
     <a href="#waitlist" class="nav-cta">
@@ -1752,12 +1817,8 @@
       <span class="badge-dot"></span>
       <span>EN COURS DE DÉVELOPPEMENT — ACCÈS ANTICIPÉ</span>
     </div>
-    <h1 class="fade-up delay-1">
-      Le logiciel de gestion de cabinet <em>avec l'AML dans son ADN.</em>
-    </h1>
-    <p class="hero-sub fade-up delay-2">
-      Norvy est la première plateforme de gestion de cabinet d'avocats — dossiers, temps, facturation, encaissements — avec un module AML/KYC nativement intégré. Pensé pour les avocats, point.
-    </p>
+    <h1 class="fade-up delay-1">Le logiciel de gestion de cabinet <em>avec l'AML dans son ADN.</em></h1>
+    <p class="hero-sub fade-up delay-2">Norvy est la première plateforme de gestion de cabinet d'avocats — dossiers, temps, facturation, encaissements — avec un module AML/KYC nativement intégré. Pensé pour les avocats, point.</p>
 
     <form class="hero-form fade-up delay-3" id="waitlistForm">
       <input type="email" placeholder="votre@cabinet.lu" required />
@@ -1785,37 +1846,15 @@
         <div class="mockup-body">
           <aside class="mockup-sidebar">
             <div class="sidebar-section">Cabinet</div>
-            <div class="sidebar-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-              Tableau de bord
-            </div>
-            <div class="sidebar-item active">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              Dossiers
-            </div>
-            <div class="sidebar-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-              Clients
-            </div>
-            <div class="sidebar-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              Facturation
-            </div>
+            <div class="sidebar-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Tableau de bord</div>
+            <div class="sidebar-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Dossiers</div>
+            <div class="sidebar-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Clients</div>
+            <div class="sidebar-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Facturation</div>
             <div class="sidebar-section">Conformité</div>
-            <div class="sidebar-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              KYC / Diligences
-            </div>
-            <div class="sidebar-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-              Registre AML
-            </div>
-            <div class="sidebar-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M9 9h6v6H9z"/></svg>
-              Sanctions / PEP
-            </div>
+            <div class="sidebar-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>KYC / Diligences</div>
+            <div class="sidebar-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Registre AML</div>
+            <div class="sidebar-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M9 9h6v6H9z"/></svg>Sanctions / PEP</div>
           </aside>
-
           <div class="mockup-content">
             <div class="mc-header">
               <div>
@@ -1824,44 +1863,15 @@
               </div>
               <div class="mc-status">Conforme</div>
             </div>
-
             <div class="mc-grid">
-              <div class="mc-stat">
-                <div class="mc-stat-label">Niveau de risque</div>
-                <div class="mc-stat-value">Modéré</div>
-                <div class="mc-stat-delta">↓ Réévalué auto.</div>
-              </div>
-              <div class="mc-stat">
-                <div class="mc-stat-label">Sources vérifiées</div>
-                <div class="mc-stat-value">12 / 12</div>
-                <div class="mc-stat-delta">100% complet</div>
-              </div>
-              <div class="mc-stat">
-                <div class="mc-stat-label">Prochaine revue</div>
-                <div class="mc-stat-value">Mars 2027</div>
-                <div class="mc-stat-delta">Dans 10 mois</div>
-              </div>
+              <div class="mc-stat"><div class="mc-stat-label">Niveau de risque</div><div class="mc-stat-value">Modéré</div><div class="mc-stat-delta">↓ Réévalué auto.</div></div>
+              <div class="mc-stat"><div class="mc-stat-label">Sources vérifiées</div><div class="mc-stat-value">12 / 12</div><div class="mc-stat-delta">100% complet</div></div>
+              <div class="mc-stat"><div class="mc-stat-label">Prochaine revue</div><div class="mc-stat-value">Mars 2027</div><div class="mc-stat-delta">Dans 10 mois</div></div>
             </div>
-
             <div class="mc-list">
-              <div class="mc-row">
-                <div class="mc-row-icon">BO</div>
-                <div class="mc-row-name">Bénéficiaire effectif identifié — Jean Dupont</div>
-                <div class="mc-row-meta">RBE-LU · 65%</div>
-                <div class="mc-tag green">Vérifié</div>
-              </div>
-              <div class="mc-row">
-                <div class="mc-row-icon">PEP</div>
-                <div class="mc-row-name">Screening listes sanctions UE / OFAC / ONU</div>
-                <div class="mc-row-meta">0 correspondance</div>
-                <div class="mc-tag green">Clair</div>
-              </div>
-              <div class="mc-row">
-                <div class="mc-row-icon">DOC</div>
-                <div class="mc-row-name">Statuts mis à jour requis</div>
-                <div class="mc-row-meta">Échéance 14 jours</div>
-                <div class="mc-tag amber">En attente</div>
-              </div>
+              <div class="mc-row"><div class="mc-row-icon">BO</div><div class="mc-row-name">Bénéficiaire effectif identifié — Jean Dupont</div><div class="mc-row-meta">RBE-LU · 65%</div><div class="mc-tag green">Vérifié</div></div>
+              <div class="mc-row"><div class="mc-row-icon">PEP</div><div class="mc-row-name">Screening listes sanctions UE / OFAC / ONU</div><div class="mc-row-meta">0 correspondance</div><div class="mc-tag green">Clair</div></div>
+              <div class="mc-row"><div class="mc-row-icon">DOC</div><div class="mc-row-name">Statuts mis à jour requis</div><div class="mc-row-meta">Échéance 14 jours</div><div class="mc-tag amber">En attente</div></div>
             </div>
           </div>
         </div>
@@ -1874,28 +1884,19 @@
   <div class="container">
     <div class="section-eyebrow">Le catalyseur réglementaire</div>
     <h2 class="section-title">Le règlement <em>AMLR</em> change tout pour votre cabinet.</h2>
-    <p class="section-lead">
-      L'Autorité européenne de lutte anti-blanchiment (AMLA) entre en activité. Les obligations AML des avocats deviennent directement applicables, harmonisées et auditables. Les outils legacy ne suffisent plus.
-    </p>
-
+    <p class="section-lead">L'Autorité européenne de lutte anti-blanchiment (AMLA) entre en activité. Les obligations AML des avocats deviennent directement applicables, harmonisées et auditables. Les outils legacy ne suffisent plus.</p>
     <div class="amlr-grid">
       <div class="amlr-card">
         <div class="amlr-card-num">01 / OBLIGATION</div>
         <h3>Vigilance renforcée systématique</h3>
         <p>Identification du bénéficiaire effectif, screening PEP/sanctions en continu, conservation horodatée de chaque pièce. Plus aucun dossier ne peut s'ouvrir sans diligence formalisée et traçable.</p>
-        <div class="amlr-card-stat">
-          <strong>5 ans</strong>
-          <span>de conservation des pièces KYC après fin de la relation</span>
-        </div>
+        <div class="amlr-card-stat"><strong>5 ans</strong><span>de conservation des pièces KYC après fin de la relation</span></div>
       </div>
       <div class="amlr-card">
         <div class="amlr-card-num">02 / RISQUE</div>
         <h3>Sanctions personnelles pour l'avocat</h3>
         <p>Au-delà des amendes administratives, le cadre AMLR introduit des responsabilités directes pour les associés et compliance officers. Un dossier mal documenté expose le cabinet et l'avocat lui-même.</p>
-        <div class="amlr-card-stat">
-          <strong>10 M€</strong>
-          <span>amende maximale ou 10% du CA annuel</span>
-        </div>
+        <div class="amlr-card-stat"><strong>10 M€</strong><span>amende maximale ou 10% du CA annuel</span></div>
       </div>
     </div>
   </div>
@@ -1905,114 +1906,44 @@
   <div class="container">
     <div class="section-eyebrow">Un LPM complet. Avec l'AML intégré.</div>
     <h2 class="section-title">Tout ce qu'un cabinet pilote au quotidien. <em>Plus la conformité, sans rien faire.</em></h2>
-    <p class="section-lead">
-      Dossiers, temps, facturation, encaissements, relances : Norvy couvre l'ensemble du cycle de vie d'un cabinet. Et pendant que vous travaillez, le module AML/KYC tourne en arrière-plan, sans manipulation supplémentaire.
-    </p>
-
+    <p class="section-lead">Dossiers, temps, facturation, encaissements, relances : Norvy couvre l'ensemble du cycle de vie d'un cabinet. Et pendant que vous travaillez, le module AML/KYC tourne en arrière-plan, sans manipulation supplémentaire.</p>
     <div class="feature-grid">
-      <div class="feature">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
-        </div>
-        <h3>Gestion de dossiers</h3>
-        <p>Cycle de vie complet : matters, échéances, parties, documents. Lien automatique entre chaque mandat ouvert et la diligence client correspondante.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        </div>
-        <h3>Suivi des temps</h3>
-        <p>Saisie en un clic depuis n'importe quel dossier, chronomètre intégré, ventilation par associé et matter, validation hebdomadaire fluide.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-        </div>
-        <h3>Facturation, encaissements & relances</h3>
-        <p>Conventions d'honoraires électroniques signées, factures conformes à votre juridiction, suivi des paiements en temps réel, relances automatiques paramétrables.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-        </div>
-        <h3>Paramétrage assisté pas à pas</h3>
-        <p>Onboarding cabinet guidé : configuration des modèles, des seuils de risque, des barèmes de facturation et des workflows ordinaux. Pas besoin de consultant externe.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <h3>KYC natif & continu</h3>
-        <p>Onboarding client guidé, vérification d'identité, registre des bénéficiaires effectifs, mise à jour permanente de la diligence.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg>
-        </div>
-        <h3>Scoring de risque automatisé</h3>
-        <p>Évaluation continue du risque client, réévaluation déclenchée par événement, justification traçable. Le scoring devient un livrable, pas une intuition.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        </div>
-        <h3>Screening PEP & sanctions</h3>
-        <p>Croisement avec listes UE, OFAC, ONU et registres de personnes politiquement exposées, mis à jour quotidiennement. Alertes en temps réel.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-        </div>
-        <h3>Registre AML auditable</h3>
-        <p>Traçabilité immuable des décisions de diligence, motivation des analyses de risque, prêt pour un contrôle CRF ou ordinal en quelques clics.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        </div>
-        <h3>Souveraineté des données</h3>
-        <p>Hébergement au Luxembourg, chiffrement de bout en bout, contrôle d'accès granulaire, conformité RGPD et secret professionnel par construction.</p>
-      </div>
+      <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg></div><h3>Gestion de dossiers</h3><p>Cycle de vie complet : matters, échéances, parties, documents. Lien automatique entre chaque mandat ouvert et la diligence client correspondante.</p></div>
+      <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><h3>Suivi des temps</h3><p>Saisie en un clic depuis n'importe quel dossier, chronomètre intégré, ventilation par associé et matter, validation hebdomadaire fluide.</p></div>
+      <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><h3>Facturation & encaissements</h3><p>Conventions d'honoraires électroniques signées, factures conformes à votre juridiction, suivi des paiements en temps réel, relances automatiques.</p></div>
+      <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>KYC natif & continu</h3><p>Onboarding client guidé, vérification d'identité, registre des bénéficiaires effectifs, mise à jour permanente de la diligence.</p></div>
+      <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg></div><h3>Scoring de risque automatisé</h3><p>Évaluation continue du risque client, réévaluation déclenchée par événement, justification traçable. Le scoring devient un livrable, pas une intuition.</p></div>
+      <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><h3>Screening PEP & sanctions</h3><p>Croisement avec listes UE, OFAC, ONU et registres de personnes politiquement exposées, mis à jour quotidiennement. Alertes en temps réel.</p></div>
+      <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h3>Registre AML auditable</h3><p>Traçabilité immuable des décisions de diligence, motivation des analyses de risque, prêt pour un contrôle CRF ou ordinal en quelques clics.</p></div>
+      <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3>Souveraineté des données</h3><p>Hébergement au Luxembourg, chiffrement de bout en bout, contrôle d'accès granulaire, conformité RGPD et secret professionnel par construction.</p></div>
+      <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div><h3>Paramétrage assisté</h3><p>Onboarding cabinet guidé : configuration des modèles, des seuils de risque, des barèmes de facturation et des workflows ordinaux. Pas besoin de consultant.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ============ PERSONAS ============ -->
 <section class="personas">
   <div class="container">
     <div class="section-eyebrow">Pour qui Norvy est conçu</div>
     <h2 class="section-title">Une promesse <em>par profil de cabinet.</em></h2>
-    <p class="section-lead">
-      Que vous soyez seul à votre compte ou à la tête d'une structure d'affaires, Norvy s'adapte à votre réalité. Les bénéfices, eux, sont distincts.
-    </p>
-
+    <p class="section-lead">Que vous soyez seul à votre compte ou à la tête d'une structure d'affaires, Norvy s'adapte à votre réalité.</p>
     <div class="personas-grid">
       <div class="persona">
-        <div class="persona-tag">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="4"/><path d="M5 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2"/></svg>
-          Praticien individuel
-        </div>
+        <div class="persona-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="4"/><path d="M5 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2"/></svg>Praticien individuel</div>
         <h3>L'avocat seul à son compte</h3>
         <div class="persona-promise">"Reprenez 2 jours par mois sur l'admin."</div>
-        <p>Pas de DSI, pas de compliance officer. Vous portez tout. Norvy automatise vos diligences KYC, votre time-tracking, votre facturation et vos relances. Le paramétrage assisté vous met opérationnel en quelques heures, sans consultant.</p>
+        <p>Pas de DSI, pas de compliance officer. Vous portez tout. Norvy automatise vos diligences KYC, votre time-tracking, votre facturation et vos relances.</p>
       </div>
       <div class="persona">
-        <div class="persona-tag">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          Cabinet 5–30 avocats
-        </div>
+        <div class="persona-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Cabinet 5–30 avocats</div>
         <h3>La structure en croissance</h3>
         <div class="persona-promise">"Industrialisez sans alourdir."</div>
-        <p>Votre cabinet grandit, vos process aussi. Norvy unifie KYC, dossiers, facturation et pilotage dans une seule plateforme. Workflow par associé, validation hiérarchique, registre AML auditable, questionnaire ordinal pré-rempli. Un changement structurel, pas un outil de plus.</p>
+        <p>Votre cabinet grandit, vos process aussi. Norvy unifie KYC, dossiers, facturation et pilotage dans une seule plateforme. Workflow par associé, validation hiérarchique, registre AML auditable.</p>
       </div>
       <div class="persona">
-        <div class="persona-tag">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M15 9h.01M9 13h.01M15 13h.01M9 17h.01M15 17h.01"/></svg>
-          Cabinet d'affaires
-        </div>
+        <div class="persona-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14"/></svg>Cabinet d'affaires</div>
         <h3>Le cabinet d'affaires international</h3>
         <div class="persona-promise">"L'auditabilité by design pour vos clients corporate."</div>
-        <p>Vos clients sont des holdings, des fonds, des grands groupes. La traçabilité de vos diligences est un argument commercial. Norvy livre un registre AML immuable, un screening continu sur listes UE/OFAC/ONU, et une exportabilité instantanée pour tout contrôle ou due diligence cabinet.</p>
+        <p>Vos clients sont des holdings, des fonds, des grands groupes. La traçabilité de vos diligences est un argument commercial. Norvy livre un registre AML immuable.</p>
       </div>
     </div>
   </div>
@@ -2024,68 +1955,24 @@
       <div>
         <div class="highlight-eyebrow">FONCTIONNALITÉ SIGNATURE</div>
         <h2>Le questionnaire annuel de votre Barreau, <em>pré-rempli automatiquement.</em></h2>
-        <p>
-          Chaque année, le même rituel : reconstituer manuellement les chiffres de conformité AML, ressortir les dossiers, recompter les diligences. Plusieurs jours de travail pour quelques pages de formulaire.
-        </p>
-        <p>
-          Avec Norvy, votre questionnaire annuel se génère tout seul. Toutes les données exigées par votre ordre — nombre de diligences, profils de risque, déclarations effectuées, formations AML — sont déjà dans la plateforme. Un clic suffit.
-        </p>
+        <p>Chaque année, le même rituel : reconstituer manuellement les chiffres de conformité AML, ressortir les dossiers, recompter les diligences. Plusieurs jours de travail pour quelques pages de formulaire.</p>
+        <p>Avec Norvy, votre questionnaire annuel se génère tout seul. Un clic suffit.</p>
         <ul class="highlight-list">
-          <li>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Données agrégées en temps réel sur l'année écoulée
-          </li>
-          <li>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Format adapté à votre Barreau, quel qu'il soit
-          </li>
-          <li>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Export PDF prêt à transmettre, ou pré-remplissage du formulaire en ligne
-          </li>
-          <li>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Traçabilité complète : chaque chiffre déclaré est justifiable
-          </li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Données agrégées en temps réel sur l'année écoulée</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Format adapté à votre Barreau, quel qu'il soit</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Export PDF prêt à transmettre</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Traçabilité complète : chaque chiffre déclaré est justifiable</li>
         </ul>
       </div>
-
       <div class="questionnaire-mock">
-        <div class="qm-header">
-          <div>
-            <div class="qm-title">Questionnaire annuel AML</div>
-            <div class="qm-sub">EXERCICE 2026 · Auto-généré</div>
-          </div>
-          <div class="qm-progress">14 / 14 ✓</div>
-        </div>
-        <div class="qm-row">
-          <span class="qm-q">Nb. relations d'affaires en cours</span>
-          <span class="qm-a">142 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
-        </div>
-        <div class="qm-row">
-          <span class="qm-q">Nb. nouveaux clients (vigilance entrée)</span>
-          <span class="qm-a">38 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
-        </div>
-        <div class="qm-row">
-          <span class="qm-q">Clients à risque élevé</span>
-          <span class="qm-a">7 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
-        </div>
-        <div class="qm-row">
-          <span class="qm-q">Vigilance renforcée appliquée</span>
-          <span class="qm-a">7 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
-        </div>
-        <div class="qm-row">
-          <span class="qm-q">Déclarations à la CRF</span>
-          <span class="qm-a">2 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
-        </div>
-        <div class="qm-row">
-          <span class="qm-q">Formations AML suivies</span>
-          <span class="qm-a">5 / 5 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
-        </div>
-        <div class="qm-footer">
-          <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(245,245,242,0.5);">Temps économisé · ~2 jours</span>
-          <span class="qm-export">Exporter PDF →</span>
-        </div>
+        <div class="qm-header"><div><div class="qm-title">Questionnaire annuel AML</div><div class="qm-sub">EXERCICE 2026 · Auto-généré</div></div><div class="qm-progress">14 / 14 ✓</div></div>
+        <div class="qm-row"><span class="qm-q">Nb. relations d'affaires en cours</span><span class="qm-a">142 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="qm-row"><span class="qm-q">Nb. nouveaux clients (vigilance entrée)</span><span class="qm-a">38 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="qm-row"><span class="qm-q">Clients à risque élevé</span><span class="qm-a">7 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="qm-row"><span class="qm-q">Vigilance renforcée appliquée</span><span class="qm-a">7 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="qm-row"><span class="qm-q">Déclarations à la CRF</span><span class="qm-a">2 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="qm-row"><span class="qm-q">Formations AML suivies</span><span class="qm-a">5 / 5 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="qm-footer"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(245,245,242,0.5);">Temps économisé · ~2 jours</span><span class="qm-export">Exporter PDF →</span></div>
       </div>
     </div>
   </div>
@@ -2096,78 +1983,36 @@
     <div class="problem-flex">
       <div>
         <div class="section-eyebrow">Le coût caché de l'inaction</div>
-        <p class="problem-quote">
-          On passe deux après-midis par semaine à compiler des dossiers KYC sur Excel. Et on n'est jamais sûrs d'être à jour.
-        </p>
+        <p class="problem-quote">On passe deux après-midis par semaine à compiler des dossiers KYC sur Excel. Et on n'est jamais sûrs d'être à jour.</p>
         <div class="problem-cite">— Témoignage récurrent en cabinet (3 à 5 avocats)</div>
       </div>
       <div class="problem-stats">
-        <div class="pstat">
-          <div class="pstat-num">~18 750<em> €/an</em></div>
-          <div class="pstat-label">de temps facturable perdu en diligences manuelles dans un cabinet de 3 avocats.</div>
-        </div>
-        <div class="pstat">
-          <div class="pstat-num">2<em> jours</em></div>
-          <div class="pstat-label">de travail économisés chaque année rien que sur le questionnaire annuel du Barreau.</div>
-        </div>
-        <div class="pstat">
-          <div class="pstat-num">5 ans</div>
-          <div class="pstat-label">d'archivage obligatoire après fin de relation. Vos pièces sont-elles toutes retrouvables ?</div>
-        </div>
+        <div class="pstat"><div class="pstat-num">~18 750<em> €/an</em></div><div class="pstat-label">de temps facturable perdu en diligences manuelles dans un cabinet de 3 avocats.</div></div>
+        <div class="pstat"><div class="pstat-num">2<em> jours</em></div><div class="pstat-label">de travail économisés chaque année rien que sur le questionnaire annuel du Barreau.</div></div>
+        <div class="pstat"><div class="pstat-num">5 ans</div><div class="pstat-label">d'archivage obligatoire après fin de relation. Vos pièces sont-elles toutes retrouvables ?</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ ROI CALCULATOR ============ -->
 <section class="roi" id="roi">
   <div class="container">
     <div class="section-eyebrow">Calculateur</div>
     <h2 class="section-title">Combien votre cabinet <em>perd-il chaque année ?</em></h2>
-    <p class="section-lead">
-      Faites bouger les curseurs. Le coût caché de la conformité manuelle dans votre cabinet apparaît en temps réel.
-    </p>
-
+    <p class="section-lead">Faites bouger les curseurs. Le coût caché de la conformité manuelle dans votre cabinet apparaît en temps réel.</p>
     <div class="roi-card">
       <div class="roi-inputs">
         <h3>Votre cabinet</h3>
         <p>Estimation basée sur des données observées chez les cabinets pré-Norvy.</p>
-
-        <div class="roi-input">
-          <label>Nombre d'avocats</label>
-          <div class="roi-slider-wrap">
-            <input type="range" id="roi-lawyers" class="roi-slider" min="1" max="50" value="3" />
-            <div class="roi-value" id="roi-lawyers-val">3</div>
-          </div>
-        </div>
-
-        <div class="roi-input">
-          <label>Nouveaux clients par an</label>
-          <div class="roi-slider-wrap">
-            <input type="range" id="roi-clients" class="roi-slider" min="5" max="500" value="40" step="5" />
-            <div class="roi-value" id="roi-clients-val">40</div>
-          </div>
-        </div>
-
-        <div class="roi-input">
-          <label>Taux horaire moyen (€)</label>
-          <div class="roi-slider-wrap">
-            <input type="range" id="roi-rate" class="roi-slider" min="100" max="500" value="250" step="10" />
-            <div class="roi-value" id="roi-rate-val">250 €</div>
-          </div>
-        </div>
+        <div class="roi-input"><label>Nombre d'avocats</label><div class="roi-slider-wrap"><input type="range" id="roi-lawyers" class="roi-slider" min="1" max="50" value="3" /><div class="roi-value" id="roi-lawyers-val">3</div></div></div>
+        <div class="roi-input"><label>Nouveaux clients par an</label><div class="roi-slider-wrap"><input type="range" id="roi-clients" class="roi-slider" min="5" max="500" value="40" step="5" /><div class="roi-value" id="roi-clients-val">40</div></div></div>
+        <div class="roi-input"><label>Taux horaire moyen (€)</label><div class="roi-slider-wrap"><input type="range" id="roi-rate" class="roi-slider" min="100" max="500" value="250" step="10" /><div class="roi-value" id="roi-rate-val">250 €</div></div></div>
       </div>
-
       <div class="roi-output">
         <div class="roi-output-label">Coût annuel estimé</div>
         <div class="roi-amount" id="roi-amount">~ 18 750<em> €/an</em></div>
-        <div class="roi-detail" id="roi-detail">
-          Soit <strong>~75 heures facturables/an</strong> consacrées à des tâches AML manuelles, multiplié par votre taux horaire moyen. Sans compter les 2 jours/an du questionnaire annuel ordinal et le risque de non-conformité.
-        </div>
-        <a href="#waitlist" class="roi-cta">
-          Récupérer ce temps avec Norvy
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
+        <div class="roi-detail" id="roi-detail">Soit <strong>~75 heures facturables/an</strong> consacrées à des tâches AML manuelles, multiplié par votre taux horaire moyen.</div>
+        <a href="#waitlist" class="roi-cta">Récupérer ce temps avec Norvy <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
     </div>
   </div>
@@ -2177,70 +2022,263 @@
   <div class="container">
     <div class="section-eyebrow">Pourquoi Norvy</div>
     <h2 class="section-title">Pas un outil de plus. <em>Un changement d'architecture.</em></h2>
-    <p class="section-lead">
-      Les solutions historiques ont été conçues avant l'AMLR. La conformité y est un module ajouté. Chez Norvy, c'est le cœur du produit.
-    </p>
-
+    <p class="section-lead">Les solutions historiques ont été conçues avant l'AMLR. La conformité y est un module ajouté. Chez Norvy, c'est le cœur du produit.</p>
     <div class="compare-table">
-      <div class="compare-row header">
-        <div class="compare-cell label">&nbsp;</div>
-        <div class="compare-cell norvy">Norvy</div>
-        <div class="compare-cell">Solutions legacy</div>
+      <div class="compare-row header"><div class="compare-cell label">&nbsp;</div><div class="compare-cell norvy">Norvy</div><div class="compare-cell">Solutions legacy</div></div>
+      <div class="compare-row"><div class="compare-cell label">KYC / AML natif</div><div class="compare-cell norvy"><span class="check yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> By design</span></div><div class="compare-cell legacy"><span class="check partial"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/></svg> Module add-on</span></div></div>
+      <div class="compare-row"><div class="compare-cell label">Questionnaire Barreau auto.</div><div class="compare-cell norvy"><span class="check yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Pré-rempli</span></div><div class="compare-cell legacy"><span class="check no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Manuel</span></div></div>
+      <div class="compare-row"><div class="compare-cell label">UX moderne (mobile, web)</div><div class="compare-cell norvy"><span class="check yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span></div><div class="compare-cell legacy"><span class="check no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Interface années 2010</span></div></div>
+      <div class="compare-row"><div class="compare-cell label">Mise à jour réglementaire auto.</div><div class="compare-cell norvy"><span class="check yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Continu</span></div><div class="compare-cell legacy"><span class="check no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Versions annuelles</span></div></div>
+      <div class="compare-row"><div class="compare-cell label">Tarif transparent</div><div class="compare-cell norvy"><span class="check yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Par utilisateur</span></div><div class="compare-cell legacy"><span class="check no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Devis sur demande</span></div></div>
+      <div class="compare-row"><div class="compare-cell label">Migration depuis l'existant</div><div class="compare-cell norvy"><span class="check yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Accompagnée</span></div><div class="compare-cell legacy"><span class="check partial"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/></svg> Coût additionnel</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION PRICING — intégrée dans la charte Norvy
+═══════════════════════════════════════════════════ -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="pricing-top">
+      <div>
+        <div class="section-eyebrow">Tarifs</div>
+        <h2 class="section-title" style="max-width:600px; margin-bottom:12px;">Un prix par utilisateur. <em>Dégressif.</em></h2>
+        <p style="color:var(--text-dim);font-size:16px;line-height:1.6;max-width:520px;">Engagement 12 mois, mensualisé. Paiement annuel : <strong style="color:var(--accent);">−15%</strong> sur l'ensemble. Migration accompagnée incluse pour tous.</p>
       </div>
-      <div class="compare-row">
-        <div class="compare-cell label">KYC / AML natif</div>
-        <div class="compare-cell norvy">
-          <span class="check yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> By design</span>
+      <div class="billing-toggle" role="group" aria-label="Mode de paiement">
+        <button class="billing-opt active" data-mode="monthly" type="button">Mensuel</button>
+        <button class="billing-opt" data-mode="yearly" type="button">
+          Annuel <span class="billing-save">−15%</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="pricing-grid">
+
+      <!-- Carte 1 : Cabinet -->
+      <div class="price-card">
+        <div class="price-label">1 – 5 UTILISATEURS</div>
+        <div class="price-name">Cabinet</div>
+        <div class="price-amount">
+          <span class="price-cur">€</span>
+          <span class="price-num" data-monthly="149" data-yearly="127">149</span>
+          <span class="price-per">/utilisateur<br>/mois HT</span>
         </div>
-        <div class="compare-cell legacy">
-          <span class="check partial"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/></svg> Module add-on</span>
+        <div class="price-note">Engagement 12 mois · Mensualisé</div>
+        <a href="#waitlist" class="price-btn">
+          Demander l'accès
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <div class="price-migration">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Migration accompagnée offerte
+        </div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>LPM complet — dossiers, temps, facturation, relances</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Module AML/KYC natif — screening, BE, scoring</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Questionnaire Barreau auto-généré</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Registre AML auditable</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Hébergement Luxembourg</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Support email</span></li>
+        </ul>
+      </div>
+
+      <!-- Carte 2 : Structure (mise en avant) -->
+      <div class="price-card featured">
+        <div class="popular-tag">Le plus populaire</div>
+        <div class="price-label">6 – 10 UTILISATEURS</div>
+        <div class="price-name">Structure</div>
+        <div class="price-amount">
+          <span class="price-cur">€</span>
+          <span class="price-num" data-monthly="139" data-yearly="118">139</span>
+          <span class="price-per">/utilisateur<br>/mois HT</span>
+        </div>
+        <div class="price-note">Tarif appliqué à tout l'effectif</div>
+        <a href="#waitlist" class="price-btn dark">
+          Demander l'accès
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <div class="price-migration">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Migration accompagnée offerte
+        </div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Tout ce qui est dans Cabinet</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Workflow par associé et validation hiérarchique</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Gestion multi-sites et multi-juridictions</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Reporting de rentabilité avancé</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Mises à jour réglementaires en continu</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Support prioritaire</span></li>
+        </ul>
+      </div>
+
+      <!-- Carte 3 : Firm -->
+      <div class="price-card">
+        <div class="price-label">11 – 50 UTILISATEURS</div>
+        <div class="price-name">Firm</div>
+        <div class="price-amount">
+          <span class="price-cur">€</span>
+          <span class="price-num" data-monthly="129" data-yearly="110">129</span>
+          <span class="price-per">/utilisateur<br>/mois HT</span>
+        </div>
+        <div class="price-note">Tarif appliqué à tout l'effectif</div>
+        <a href="#waitlist" class="price-btn">
+          Demander l'accès
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <div class="price-migration">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Migration accompagnée offerte
+        </div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Tout ce qui est dans Structure</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Customer Success dédié</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>API d'intégration personnalisée</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>SSO entreprise</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>SLA contractuel</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Audit de migration personnalisé</span></li>
+        </ul>
+      </div>
+
+      <!-- Carte 4 : Sur devis -->
+      <div class="price-card enterprise">
+        <div class="enterprise-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M15 9h.01M9 13h.01M15 13h.01M9 17h.01M15 17h.01"/></svg>
+        </div>
+        <div class="enterprise-name">Grand Cabinet</div>
+        <p class="enterprise-desc">Plus de 50 utilisateurs. Tarification et accompagnement sur mesure.</p>
+        <a href="mailto:contact@norvy.lu" class="enterprise-btn">
+          Nous consulter
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION AUDIT AML
+═══════════════════════════════════════════════════ -->
+<section class="audit" id="audit">
+  <div class="container">
+    <div class="audit-header-row">
+      <div>
+        <div class="section-eyebrow">Audit gratuit</div>
+        <h2 class="section-title" style="max-width:580px;margin-bottom:12px;">Êtes-vous prêt pour <em>l'AMLR 2027 ?</em></h2>
+        <p class="section-lead">22 questions, 8 minutes. Recevez votre score de conformité AML et un rapport PDF personnalisé avec les actions prioritaires.</p>
+      </div>
+      <div class="audit-pills">
+        <div class="audit-pill">22 questions</div>
+        <div class="audit-pill">8 min</div>
+        <div class="audit-pill">Rapport PDF</div>
+        <div class="audit-pill">100% confidentiel</div>
+      </div>
+    </div>
+
+    <div class="audit-card" id="auditCard">
+
+      <!-- ÉCRAN 1 : INTRO -->
+      <div class="a-screen active" id="aScreenIntro">
+        <div class="a-intro">
+          <div class="a-intro-left">
+            <h3>Diagnostiquez votre dispositif <em>AML en 8 minutes.</em></h3>
+            <p>Cet audit évalue la maturité de votre cabinet sur les 6 piliers exigés par l'AMLR 2024/1624. À l'issue, vous recevez un rapport PDF avec votre score et des recommandations actionnables.</p>
+            <button class="a-start-btn" id="aStartBtn" type="button">
+              Commencer l'audit
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+          <div class="a-intro-right" id="aDimsRight">
+            <!-- Rempli par JS -->
+          </div>
         </div>
       </div>
-      <div class="compare-row">
-        <div class="compare-cell label">Questionnaire Barreau auto.</div>
-        <div class="compare-cell norvy">
-          <span class="check yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Pré-rempli</span>
-        </div>
-        <div class="compare-cell legacy">
-          <span class="check no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Manuel</span>
-        </div>
-      </div>
-      <div class="compare-row">
-        <div class="compare-cell label">UX moderne (mobile, web)</div>
-        <div class="compare-cell norvy">
-          <span class="check yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
-        </div>
-        <div class="compare-cell legacy">
-          <span class="check no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Interface années 2010</span>
-        </div>
-      </div>
-      <div class="compare-row">
-        <div class="compare-cell label">Mise à jour réglementaire auto.</div>
-        <div class="compare-cell norvy">
-          <span class="check yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Continu</span>
-        </div>
-        <div class="compare-cell legacy">
-          <span class="check no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Versions annuelles</span>
+
+      <!-- ÉCRAN 2 : QUESTIONS -->
+      <div class="a-screen" id="aScreenQuestions">
+        <div class="a-questions">
+          <div class="a-q-top">
+            <div class="a-q-counter">Question <strong id="aQNum">1</strong> / 22</div>
+            <div class="a-q-dim" id="aQDim">Gouvernance</div>
+          </div>
+          <div class="a-progress"><div class="a-progress-fill" id="aProgressFill"></div></div>
+          <h3 class="a-question-text" id="aQText"></h3>
+          <p class="a-question-help" id="aQHelp"></p>
+          <div class="a-options" id="aOptions"></div>
+          <div class="a-nav">
+            <button class="a-btn" id="aPrevBtn" type="button" disabled>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+              Précédent
+            </button>
+            <button class="a-btn primary" id="aNextBtn" type="button" disabled>
+              Suivant
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
         </div>
       </div>
-      <div class="compare-row">
-        <div class="compare-cell label">Tarif transparent</div>
-        <div class="compare-cell norvy">
-          <span class="check yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Par utilisateur</span>
-        </div>
-        <div class="compare-cell legacy">
-          <span class="check no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Devis sur demande</span>
+
+      <!-- ÉCRAN 3 : EMAIL -->
+      <div class="a-screen" id="aScreenEmail">
+        <div class="a-email">
+          <div class="a-email-left">
+            <h3>Votre audit est <em>terminé.</em></h3>
+            <p>Indiquez votre email pour recevoir votre rapport PDF personnalisé. Il se télécharge immédiatement.</p>
+            <form class="a-email-form" id="aEmailForm">
+              <input type="text" class="a-input" id="aFirmName" placeholder="Nom du cabinet (optionnel)" />
+              <input type="email" class="a-input" id="aEmail" placeholder="votre@cabinet.lu" required />
+              <button type="submit" class="a-submit" id="aSubmitBtn">
+                Recevoir mon rapport PDF
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </button>
+              <div class="a-consent">Nous vous recontacterons. Désinscription en un clic, aucun spam.</div>
+              <div class="a-success" id="aSuccess">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 7"/></svg>
+                Téléchargement lancé — vérifiez vos téléchargements.
+              </div>
+            </form>
+          </div>
+          <div class="a-email-right">
+            <div class="a-what-label">Votre rapport contient</div>
+            <div class="a-what-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg><span>Votre score global de conformité AML</span></div>
+            <div class="a-what-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Votre note pour chacune des 6 dimensions</span></div>
+            <div class="a-what-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/></svg><span>Les actions prioritaires avant juillet 2027</span></div>
+            <div class="a-what-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Une évaluation Norvy pour votre cabinet</span></div>
+          </div>
         </div>
       </div>
-      <div class="compare-row">
-        <div class="compare-cell label">Migration depuis l'existant</div>
-        <div class="compare-cell norvy">
-          <span class="check yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Accompagnée</span>
-        </div>
-        <div class="compare-cell legacy">
-          <span class="check partial"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/></svg> Coût additionnel</span>
+
+      <!-- ÉCRAN 4 : RÉSULTATS -->
+      <div class="a-screen" id="aScreenResults">
+        <div class="a-results">
+          <div class="a-score-panel">
+            <div class="a-score-big" id="aScoreBig">–</div>
+            <div class="a-score-sub">/ 100</div>
+            <div class="a-grade" id="aGrade">–</div>
+            <p class="a-verdict" id="aVerdict"></p>
+            <div class="a-panel-actions">
+              <button class="a-btn" id="aRedownload" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                Re-télécharger le PDF
+              </button>
+              <a href="#waitlist" class="a-btn primary">
+                Rejoindre la waitlist
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="a-breakdown-panel">
+            <div class="a-breakdown-title">Score par dimension</div>
+            <div id="aBreakdown"></div>
+          </div>
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -2249,45 +2287,18 @@
   <div class="container">
     <div class="section-eyebrow">Questions fréquentes</div>
     <h2 class="section-title">Ce que les avocats nous demandent <em>en premier.</em></h2>
-
     <div class="faq-list">
-      <details class="faq-item">
-        <summary class="faq-q">Norvy est-il déjà disponible ?</summary>
-        <div class="faq-a">Pas encore. Nous sommes en développement actif. Les inscrits à la waitlist accèdent à la bêta privée en priorité et bénéficient d'une migration accompagnée incluse.</div>
-      </details>
-      <details class="faq-item">
-        <summary class="faq-q">À quels cabinets s'adresse Norvy ?</summary>
-        <div class="faq-a">Norvy est conçu pour les avocats. Tous les avocats. Du praticien individuel au cabinet d'affaires international, quelle que soit la juridiction. La plateforme s'adapte aux structures simples comme aux organisations multi-sites avec dizaines de collaborateurs.</div>
-      </details>
-      <details class="faq-item">
-        <summary class="faq-q">Comment fonctionne le questionnaire annuel pré-rempli ?</summary>
-        <div class="faq-a">Toutes les données nécessaires au questionnaire annuel AML exigé par votre Barreau sont collectées automatiquement par Norvy au fil de l'année : nombre de relations d'affaires, profils de risque, vigilance renforcée, déclarations, formations. Au moment de répondre, Norvy génère un PDF pré-rempli — il ne vous reste qu'à vérifier et transmettre.</div>
-      </details>
-      <details class="faq-item">
-        <summary class="faq-q">Quelle est la différence avec les solutions historiques du marché ?</summary>
-        <div class="faq-a">Les solutions historiques ont été conçues comme des outils de gestion de cabinet auxquels une couche de conformité a été ajoutée tardivement. Norvy inverse l'équation : la conformité AML/KYC est l'épine dorsale du produit, et la gestion s'articule autour. C'est un changement structurel — particulièrement pertinent à l'entrée en vigueur de l'AMLR.</div>
-      </details>
-      <details class="faq-item">
-        <summary class="faq-q">Comment se déroule la migration depuis nos outils actuels ?</summary>
-        <div class="faq-a">L'équipe Norvy assure une migration accompagnée des dossiers actifs et de l'historique KYC, incluse sans surcoût. Nous avons cartographié les exports possibles depuis les principales solutions du marché.</div>
-      </details>
-      <details class="faq-item">
-        <summary class="faq-q">Combien de temps les pièces KYC sont-elles conservées ?</summary>
-        <div class="faq-a">Norvy applique par défaut les durées de conservation imposées par votre juridiction (généralement 5 à 10 ans après la fin de la relation d'affaires), avec horodatage et purge automatique à l'échéance. Les paramètres peuvent être ajustés au moment du paramétrage du cabinet.</div>
-      </details>
-      <details class="faq-item">
-        <summary class="faq-q">Où sont hébergées les données ?</summary>
-        <div class="faq-a">Exclusivement au Luxembourg, sur infrastructure souveraine. Chiffrement de bout en bout, contrôle d'accès granulaire, conformité RGPD et secret professionnel par construction. Aucun transfert hors Luxembourg.</div>
-      </details>
-      <details class="faq-item">
-        <summary class="faq-q">Quel sera le tarif ?</summary>
-        <div class="faq-a">Le tarif sera transparent et par utilisateur. Les détails seront communiqués aux inscrits de la waitlist en priorité.</div>
-      </details>
+      <details class="faq-item"><summary class="faq-q">Norvy est-il déjà disponible ?</summary><div class="faq-a">Pas encore. Nous sommes en développement actif. Les inscrits à la waitlist accèdent à la bêta privée en priorité et bénéficient d'une migration accompagnée incluse.</div></details>
+      <details class="faq-item"><summary class="faq-q">À quels cabinets s'adresse Norvy ?</summary><div class="faq-a">Norvy est conçu pour les avocats. Tous les avocats. Du praticien individuel au cabinet d'affaires international, quelle que soit la juridiction.</div></details>
+      <details class="faq-item"><summary class="faq-q">Comment fonctionne le questionnaire annuel pré-rempli ?</summary><div class="faq-a">Toutes les données nécessaires au questionnaire annuel AML exigé par votre Barreau sont collectées automatiquement par Norvy au fil de l'année. Au moment de répondre, Norvy génère un PDF pré-rempli — il ne vous reste qu'à vérifier et transmettre.</div></details>
+      <details class="faq-item"><summary class="faq-q">Quelle est la différence avec les solutions historiques du marché ?</summary><div class="faq-a">Les solutions historiques ont été conçues comme des outils de gestion de cabinet auxquels une couche de conformité a été ajoutée tardivement. Norvy inverse l'équation : la conformité AML/KYC est l'épine dorsale du produit.</div></details>
+      <details class="faq-item"><summary class="faq-q">Comment se déroule la migration depuis nos outils actuels ?</summary><div class="faq-a">L'équipe Norvy assure une migration accompagnée des dossiers actifs et de l'historique KYC, incluse sans surcoût pour tous les plans.</div></details>
+      <details class="faq-item"><summary class="faq-q">Où sont hébergées les données ?</summary><div class="faq-a">Exclusivement au Luxembourg, sur infrastructure souveraine. Chiffrement de bout en bout, contrôle d'accès granulaire, conformité RGPD et secret professionnel par construction. Aucun transfert hors Luxembourg.</div></details>
+      <details class="faq-item"><summary class="faq-q">Comment fonctionne le paiement annuel avec -15% ?</summary><div class="faq-a">Vous choisissez entre deux options : paiement annuel en une fois (avec -15%) ou mensualisation avec engagement 12 mois (avec -15% également). Dans les deux cas, la remise est appliquée. La mensualisation permet de lisser la charge budgétaire tout en bénéficiant de la remise annuelle.</div></details>
     </div>
   </div>
 </section>
 
-<!-- ============ LEAD MAGNET ============ -->
 <section class="magnet" id="ressources">
   <div class="container">
     <div class="magnet-card">
@@ -2295,43 +2306,24 @@
         <div class="magnet-eyebrow">Ressource gratuite</div>
         <h2>La checklist AMLR 2024/1624 <em>pour cabinets d'avocats.</em></h2>
         <p>Un document de 12 pages qui couvre exactement ce que votre cabinet doit avoir en place pour être conforme au nouveau cadre AML européen. Synthétique, actionnable, sans jargon.</p>
-
         <ul class="magnet-bullets">
-          <li>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>Les 7 obligations clés de l'AMLR pour les avocats</span>
-          </li>
-          <li>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>Grille d'auto-évaluation de votre dispositif actuel</span>
-          </li>
-          <li>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>Calendrier d'application : ce qui change, et quand</span>
-          </li>
-          <li>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>Modèles types : politique AML, fiche de vigilance</span>
-          </li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Les 7 obligations clés de l'AMLR pour les avocats</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Grille d'auto-évaluation de votre dispositif actuel</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Calendrier d'application : ce qui change, et quand</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Modèles types : politique AML, fiche de vigilance</span></li>
         </ul>
-
-        <form class="hero-form" id="magnetForm" style="max-width: 100%;">
+        <form class="hero-form" id="magnetForm" style="max-width:100%;">
           <input type="email" placeholder="votre@cabinet.lu" required />
           <button type="submit">Recevoir la checklist</button>
         </form>
-        <div class="success-msg" id="magnetSuccessMsg" style="margin-top: 12px;">
+        <div class="success-msg" id="magnetSuccessMsg" style="margin-top:12px;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 7"/></svg>
           Parfait. Le téléchargement se lance — vérifiez votre dossier "Téléchargements".
         </div>
       </div>
-
-      <!-- PDF visual -->
       <div class="pdf-mock">
         <div class="pdf-tag">Norvy · Ressource AML</div>
-        <h4>
-          Checklist AMLR
-          <span>2024/1624</span>
-        </h4>
+        <h4>Checklist AMLR<span>2024/1624</span></h4>
         <div class="pdf-divider"></div>
         <ul class="pdf-checklist">
           <li><div class="pdf-check done"></div><span>Politique AML formalisée et datée</span></li>
@@ -2357,8 +2349,8 @@
       <input type="email" placeholder="votre@cabinet.lu" required />
       <button type="submit">Rejoindre la waitlist</button>
     </form>
-    <div class="hero-meta" style="justify-content: center;">
-      <span><strong style="color: var(--accent); font-weight: 600;">Inscriptions ouvertes</strong></span>
+    <div class="hero-meta" style="justify-content:center;">
+      <span><strong style="color:var(--accent);font-weight:600;">Inscriptions ouvertes</strong></span>
       <span>·</span>
       <span>Aucune carte de crédit requise</span>
     </div>
@@ -2377,8 +2369,8 @@
         <ul>
           <li><a href="#produit">Fonctionnalités</a></li>
           <li><a href="#amlr">AMLR</a></li>
-          <li><a href="#barreau">Questionnaire Barreau</a></li>
-          <li><a href="#waitlist">Waitlist</a></li>
+          <li><a href="#pricing">Tarifs</a></li>
+          <li><a href="#audit">Audit AML</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -2405,51 +2397,35 @@
   </div>
 </footer>
 
-<!-- ============ POPUP LEAD MAGNET ============ -->
+<!-- Popup lead magnet -->
 <div class="magnet-popup-overlay" id="magnetPopup">
   <div class="magnet-popup">
     <button class="magnet-popup-close" id="magnetPopupClose" aria-label="Fermer">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
-
     <div class="magnet-popup-content">
       <div class="magnet-popup-eyebrow">Ressource gratuite</div>
       <h2>La checklist AMLR <em>pour cabinets d'avocats.</em></h2>
       <p>12 pages synthétiques pour évaluer la conformité de votre cabinet au nouveau cadre AML européen — sans jargon, actionnable, immédiat.</p>
-
       <ul class="magnet-popup-bullets">
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          <span>Les 7 obligations clés de l'AMLR pour les avocats</span>
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          <span>Grille d'auto-évaluation de votre dispositif</span>
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          <span>Calendrier d'application & modèles types</span>
-        </li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Les 7 obligations clés de l'AMLR pour les avocats</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Grille d'auto-évaluation de votre dispositif</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Calendrier d'application & modèles types</span></li>
       </ul>
-
-      <form class="hero-form" id="magnetPopupForm" style="max-width: 100%; margin-bottom: 0;">
+      <form class="hero-form" id="magnetPopupForm" style="max-width:100%;margin-bottom:0;">
         <input type="email" placeholder="votre@cabinet.lu" required />
         <button type="submit">Recevoir la checklist</button>
       </form>
-      <div class="success-msg" id="magnetPopupSuccessMsg" style="margin-top: 12px;">
+      <div class="success-msg" id="magnetPopupSuccessMsg" style="margin-top:12px;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 7"/></svg>
         Parfait. Votre téléchargement va démarrer.
       </div>
       <div class="magnet-popup-trust">PDF · 12 pages · Aucun spam</div>
     </div>
-
     <div class="magnet-popup-visual">
       <div class="pdf-mock">
         <div class="pdf-tag">Norvy · Ressource AML</div>
-        <h4>
-          Checklist AMLR
-          <span>2024/1624</span>
-        </h4>
+        <h4>Checklist AMLR<span>2024/1624</span></h4>
         <div class="pdf-divider"></div>
         <ul class="pdf-checklist">
           <li><div class="pdf-check done"></div><span>Politique AML formalisée</span></li>
@@ -2466,315 +2442,499 @@
 </div>
 
 <script>
-  // === CONFIGURATION WEB3FORMS ===
-  const WEB3FORMS_KEY = 'c5f749fc-eb96-485f-9697-c47e7a9cc406';
-  const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+// ══════════════════════════════════════════════════════════════
+// CONFIG WEB3FORMS
+// ══════════════════════════════════════════════════════════════
+const W3F_KEY = 'c5f749fc-eb96-485f-9697-c47e7a9cc406';
+const W3F_URL = 'https://api.web3forms.com/submit';
 
-  // Envoie l'email à Web3Forms avec un identifiant de source
-  async function submitToBackend(email, source) {
-    try {
-      const response = await fetch(WEB3FORMS_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          access_key: WEB3FORMS_KEY,
-          subject: `[Norvy Waitlist] Nouvelle inscription — ${source}`,
-          from_name: 'Norvy Site',
-          email: email,
-          source: source,
-          message: `Nouvelle inscription sur le site Norvy.\n\nEmail : ${email}\nSource : ${source}\nDate : ${new Date().toLocaleString('fr-FR')}`
-        })
-      });
-      const data = await response.json();
-      return data.success === true;
-    } catch (err) {
-      console.error('Erreur Web3Forms :', err);
-      return false;
-    }
-  }
-
-  // Gestion des formulaires waitlist (hero + CTA final)
-  function handleWaitlist(formId, source) {
-    const form = document.getElementById(formId);
-    if (!form) return;
-    form.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const emailInput = form.querySelector('input[type="email"]');
-      const submitBtn = form.querySelector('button');
-      const email = emailInput.value;
-      const originalText = submitBtn.textContent;
-
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Envoi…';
-
-      const success = await submitToBackend(email, source);
-
-      if (success) {
-        if (formId === 'waitlistForm') {
-          document.getElementById('successMsg').classList.add('visible');
-          submitBtn.textContent = originalText;
-        } else {
-          submitBtn.textContent = '✓ Vous êtes sur la liste';
-          submitBtn.style.background = 'transparent';
-          submitBtn.style.color = 'var(--accent)';
-          submitBtn.style.border = '1px solid var(--accent)';
-        }
-        emailInput.value = '';
-      } else {
-        submitBtn.textContent = '⚠ Erreur, réessayez';
-        submitBtn.style.background = '#FF6B6B';
-        setTimeout(() => {
-          submitBtn.textContent = originalText;
-          submitBtn.style.background = '';
-        }, 3000);
-      }
-      submitBtn.disabled = false;
+async function w3fSubmit(subject, email, source, message) {
+  try {
+    const r = await fetch(W3F_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ access_key: W3F_KEY, subject, from_name: 'Norvy Site', email, source, message })
     });
-  }
+    const d = await r.json();
+    return d.success === true;
+  } catch { return false; }
+}
 
-  handleWaitlist('waitlistForm', 'hero-waitlist');
-  handleWaitlist('waitlistForm2', 'cta-final-waitlist');
+// ══════════════════════════════════════════════════════════════
+// WAITLISTS
+// ══════════════════════════════════════════════════════════════
+function handleWaitlist(formId, successId, source) {
+  const form = document.getElementById(formId);
+  if (!form) return;
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const inp = form.querySelector('input[type="email"]');
+    const btn = form.querySelector('button');
+    const email = inp.value;
+    const orig = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Envoi…';
+    const ok = await w3fSubmit(`[Norvy Waitlist] ${source}`, email, source, `Inscrit · ${email} · ${new Date().toLocaleString('fr-FR')}`);
+    if (ok) {
+      if (successId) document.getElementById(successId)?.classList.add('visible');
+      else { btn.textContent = '✓ Vous êtes sur la liste'; btn.style.background = 'transparent'; btn.style.color = 'var(--accent)'; btn.style.border = '1px solid var(--accent)'; }
+      inp.value = '';
+    } else { btn.textContent = '⚠ Erreur, réessayez'; btn.style.background = '#FF6B6B'; setTimeout(() => { btn.textContent = orig; btn.style.background = ''; }, 3000); }
+    btn.disabled = false;
+  });
+}
 
-  // Formulaire lead magnet (checklist AMLR)
-  // Action : (1) téléchargement immédiat du PDF, (2) email auto envoyé à l'avocat, (3) notification reçue
-  const magnetForm = document.getElementById('magnetForm');
-  if (magnetForm) {
-    magnetForm.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const emailInput = magnetForm.querySelector('input[type="email"]');
-      const submitBtn = magnetForm.querySelector('button');
-      const email = emailInput.value;
-      const originalText = submitBtn.textContent;
+handleWaitlist('waitlistForm', 'successMsg', 'hero-waitlist');
+handleWaitlist('waitlistForm2', null, 'cta-final-waitlist');
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Envoi…';
+// Lead magnet forms
+async function handleMagnet(formId, successId) {
+  const form = document.getElementById(formId);
+  if (!form) return;
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const inp = form.querySelector('input[type="email"]');
+    const btn = form.querySelector('button');
+    const email = inp.value;
+    const orig = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Envoi…';
+    const ok = await w3fSubmit(`[Norvy Lead Magnet] Checklist AMLR — ${email}`, email, 'lead-magnet', `Demande checklist AMLR\nEmail: ${email}\nDate: ${new Date().toLocaleString('fr-FR')}`);
+    if (ok) {
+      const link = document.createElement('a');
+      link.href = 'Norvy-Checklist-AMLR-2024-1624.pdf';
+      link.download = 'Norvy-Checklist-AMLR-2024-1624.pdf';
+      document.body.appendChild(link); link.click(); document.body.removeChild(link);
+      document.getElementById(successId)?.classList.add('visible');
+      btn.textContent = '✓ Téléchargement lancé';
+      inp.value = '';
+    } else { btn.textContent = '⚠ Erreur'; setTimeout(() => { btn.textContent = orig; }, 3000); }
+    btn.disabled = false;
+  });
+}
 
-      // Construire l'URL absolue du PDF (pour le footer email)
-      const baseUrl = window.location.origin + window.location.pathname.replace(/index\.html$/, '').replace(/\/$/, '');
-      const pdfUrl = baseUrl + '/Norvy-Checklist-AMLR-2024-1624.pdf';
+handleMagnet('magnetForm', 'magnetSuccessMsg');
 
-      let success = false;
-      try {
-        const response = await fetch(WEB3FORMS_ENDPOINT, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({
-            access_key: WEB3FORMS_KEY,
-            subject: `[Norvy Lead Magnet] Demande de checklist AMLR — ${email}`,
-            from_name: 'Norvy Site',
-            email: email,
-            source: 'lead-magnet-amlr',
-            message: `Nouvelle demande de la checklist AMLR.\n\n` +
-                     `Email du demandeur : ${email}\n` +
-                     `Source : lead-magnet-amlr\n` +
-                     `Date : ${new Date().toLocaleString('fr-FR')}\n\n` +
-                     `Lien du PDF : ${pdfUrl}\n\n` +
-                     `Le PDF a été téléchargé automatiquement dans le navigateur de l'avocat. ` +
-                     `Pensez à lui envoyer un email de suivi sous 24-48h pour entamer la relation commerciale.`
-          })
-        });
-        const data = await response.json();
-        success = data.success === true;
-      } catch (err) {
-        console.error('Erreur Web3Forms :', err);
-      }
+// ══════════════════════════════════════════════════════════════
+// ROI CALCULATOR
+// ══════════════════════════════════════════════════════════════
+const lawyersEl = document.getElementById('roi-lawyers');
+const clientsEl = document.getElementById('roi-clients');
+const rateEl = document.getElementById('roi-rate');
 
-      if (success) {
-        // Téléchargement immédiat du PDF dans le navigateur de l'avocat
-        const link = document.createElement('a');
-        link.href = 'Norvy-Checklist-AMLR-2024-1624.pdf';
-        link.download = 'Norvy-Checklist-AMLR-2024-1624.pdf';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+function calculateROI() {
+  if (!lawyersEl) return;
+  const lawyers = +lawyersEl.value, clients = +clientsEl.value, rate = +rateEl.value;
+  document.getElementById('roi-lawyers-val').textContent = lawyers;
+  document.getElementById('roi-clients-val').textContent = clients;
+  document.getElementById('roi-rate-val').textContent = rate + ' €';
+  const hours = clients * 1.5 + lawyers * 0.5 * 12 + 16;
+  const cost = Math.round(hours * rate);
+  document.getElementById('roi-amount').innerHTML = '~ ' + cost.toLocaleString('fr-FR') + '<em> €/an</em>';
+  document.getElementById('roi-detail').innerHTML = 'Soit <strong>~' + Math.round(hours) + ' heures facturables/an</strong> consacrées à des tâches AML manuelles, multiplié par votre taux horaire moyen.';
+}
 
-        document.getElementById('magnetSuccessMsg').classList.add('visible');
-        submitBtn.textContent = '✓ Téléchargement lancé';
-        emailInput.value = '';
-      } else {
-        submitBtn.textContent = '⚠ Erreur, réessayez';
-        setTimeout(() => { submitBtn.textContent = originalText; }, 3000);
-      }
-      submitBtn.disabled = false;
-    });
-  }
+[lawyersEl, clientsEl, rateEl].forEach(el => el?.addEventListener('input', calculateROI));
+calculateROI();
 
-  // ROI Calculator
-  const lawyersEl = document.getElementById('roi-lawyers');
-  const clientsEl = document.getElementById('roi-clients');
-  const rateEl = document.getElementById('roi-rate');
-  const lawyersValEl = document.getElementById('roi-lawyers-val');
-  const clientsValEl = document.getElementById('roi-clients-val');
-  const rateValEl = document.getElementById('roi-rate-val');
-  const amountEl = document.getElementById('roi-amount');
-  const detailEl = document.getElementById('roi-detail');
+// ══════════════════════════════════════════════════════════════
+// SMOOTH SCROLL
+// ══════════════════════════════════════════════════════════════
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
 
-  function formatNumber(n) {
-    return Math.round(n).toLocaleString('fr-FR').replace(/,/g, ' ');
-  }
+// ══════════════════════════════════════════════════════════════
+// POPUP LEAD MAGNET
+// ══════════════════════════════════════════════════════════════
+(function() {
+  const popup = document.getElementById('magnetPopup');
+  if (!popup) return;
+  const KEY = 'norvy_popup_seen';
+  const last = localStorage.getItem(KEY);
+  if (last && (Date.now() - +last) / 86400000 < 7) return;
+  let shown = false;
+  function show() { if (shown) return; shown = true; popup.classList.add('visible'); document.body.style.overflow = 'hidden'; }
+  function hide() { popup.classList.remove('visible'); document.body.style.overflow = ''; localStorage.setItem(KEY, Date.now()); }
+  window.addEventListener('scroll', function h() { if ((window.scrollY + window.innerHeight) / document.documentElement.scrollHeight > 0.3) { show(); window.removeEventListener('scroll', h); } }, { passive: true });
+  document.getElementById('magnetPopupClose')?.addEventListener('click', hide);
+  popup.addEventListener('click', e => { if (e.target === popup) hide(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') hide(); });
+  handleMagnet('magnetPopupForm', 'magnetPopupSuccessMsg');
+})();
 
-  function calculateROI() {
-    const lawyers = parseInt(lawyersEl.value);
-    const clients = parseInt(clientsEl.value);
-    const rate = parseInt(rateEl.value);
-
-    // Modèle : ~1.5h de KYC manuel par nouveau client + 0.5h/mois de maintenance par avocat + 16h/an pour le questionnaire ordinal
-    const kycHours = clients * 1.5;
-    const maintenanceHours = lawyers * 0.5 * 12;
-    const annualReportHours = 16;
-    const totalHours = kycHours + maintenanceHours + annualReportHours;
-    const totalCost = totalHours * rate;
-
-    lawyersValEl.textContent = lawyers;
-    clientsValEl.textContent = clients;
-    rateValEl.textContent = rate + ' €';
-
-    amountEl.innerHTML = '~ ' + formatNumber(totalCost) + '<em> €/an</em>';
-    detailEl.innerHTML = 'Soit <strong>~' + formatNumber(totalHours) + ' heures facturables/an</strong> consacrées à des tâches AML manuelles, multiplié par votre taux horaire moyen. Sans compter le risque de non-conformité et les redressements potentiels.';
-  }
-
-  if (lawyersEl && clientsEl && rateEl) {
-    [lawyersEl, clientsEl, rateEl].forEach(el => {
-      el.addEventListener('input', calculateROI);
-    });
-    calculateROI();
-  }
-
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+// ══════════════════════════════════════════════════════════════
+// PRICING TOGGLE
+// ══════════════════════════════════════════════════════════════
+(function() {
+  const opts = document.querySelectorAll('.billing-opt');
+  const nums = document.querySelectorAll('.price-num');
+  opts.forEach(btn => {
+    btn.addEventListener('click', () => {
+      opts.forEach(o => o.classList.remove('active'));
+      btn.classList.add('active');
+      const mode = btn.dataset.mode;
+      nums.forEach(n => { n.textContent = n.dataset[mode]; });
     });
   });
+})();
 
-  // === LEAD MAGNET POPUP ===
-  // Apparition au scroll (50%), une seule fois par session, fermable, mémorisée 7 jours
-  (function() {
-    const popup = document.getElementById('magnetPopup');
-    const closeBtn = document.getElementById('magnetPopupClose');
-    const popupForm = document.getElementById('magnetPopupForm');
-    const popupSuccess = document.getElementById('magnetPopupSuccessMsg');
+// ══════════════════════════════════════════════════════════════
+// AUDIT AML
+// ══════════════════════════════════════════════════════════════
+(function() {
 
-    if (!popup) return;
+  const DIMS = [
+    { name: 'Gouvernance', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>', count: 4 },
+    { name: 'KYC & Vigilance', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>', count: 5 },
+    { name: 'Screening', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>', count: 3 },
+    { name: 'Formation', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>', count: 2 },
+    { name: 'Registre & Traçabilité', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>', count: 4 },
+    { name: 'Déclaration & Soupçon', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v2m0 4h.01M5 19h14a2 2 0 0 0 1.84-2.75L13.74 4a2 2 0 0 0-3.48 0L3.16 16.25A2 2 0 0 0 5 19z"/></svg>', count: 4 },
+  ];
 
-    // Vérifier si déjà fermé/soumis dans les 7 derniers jours
-    const STORAGE_KEY = 'norvy_magnet_popup_seen';
-    const COOLDOWN_DAYS = 7;
-    const lastSeen = localStorage.getItem(STORAGE_KEY);
-    if (lastSeen) {
-      const daysSince = (Date.now() - parseInt(lastSeen)) / (1000 * 60 * 60 * 24);
-      if (daysSince < COOLDOWN_DAYS) return;
-    }
+  const QS = [
+    // Gouvernance
+    { d:0, q:"Votre cabinet dispose-t-il d'une politique AML écrite, datée et validée ?", h:"Politique formalisée couvrant l'évaluation des risques, les mesures de vigilance et les obligations de déclaration.", opts:[{l:"Oui, à jour (< 12 mois)",v:5},{l:"Oui, mais > 12 mois",v:3},{l:"En cours de rédaction",v:1},{l:"Non",v:0}] },
+    { d:0, q:"Un Responsable AML / Compliance Officer est-il désigné formellement ?", h:"Une personne clairement identifiée et déclarée auprès de l'Ordre / autorité compétente.", opts:[{l:"Oui, déclaré officiellement",v:5},{l:"Oui, mais en interne uniquement",v:3},{l:"Pas formellement désigné",v:1},{l:"Non",v:0}] },
+    { d:0, q:"Avez-vous formalisé une évaluation des risques AML propre à votre cabinet ?", h:"Cartographie des risques par typologie de clientèle, géographie, prestation et canal d'entrée en relation.", opts:[{l:"Oui, mise à jour annuelle",v:5},{l:"Oui, > 12 mois",v:3},{l:"Partiellement",v:1},{l:"Non",v:0}] },
+    { d:0, q:"Vos procédures AML intègrent-elles le cadre AMLR 2024/1624 ?", h:"Mise à jour de vos procédures pour intégrer le nouveau cadre européen applicable juillet 2027.", opts:[{l:"Oui, déjà en conformité",v:5},{l:"En cours de mise à jour",v:3},{l:"Veille initiée",v:1},{l:"Non / pas au courant",v:0}] },
+    // KYC
+    { d:1, q:"Comment identifiez-vous vos clients à l'entrée en relation ?", h:"Procédure d'identification et de vérification documentaire (pièce d'identité, RBE, justificatifs).", opts:[{l:"Procédure digitale standardisée",v:5},{l:"Procédure papier formalisée",v:3},{l:"Au cas par cas",v:1},{l:"Pas de procédure",v:0}] },
+    { d:1, q:"Identifiez-vous systématiquement les bénéficiaires effectifs (BE) ?", h:"Identification de toute personne physique détenant > 25% des droits ou exerçant un contrôle effectif.", opts:[{l:"Toujours, avec recoupement RBE/RCS",v:5},{l:"Toujours, sans recoupement",v:3},{l:"Parfois",v:1},{l:"Non",v:0}] },
+    { d:1, q:"Appliquez-vous des mesures de vigilance renforcée pour les clients à risque élevé ?", h:"PEPs, juridictions à haut risque, montages complexes, transactions inhabituelles.", opts:[{l:"Oui, critères formalisés",v:5},{l:"Oui, au cas par cas",v:3},{l:"Rarement",v:1},{l:"Non / pas conscient(e)",v:0}] },
+    { d:1, q:"À quelle fréquence mettez-vous à jour les éléments KYC de vos clients existants ?", h:"Revue périodique en fonction du risque (annuelle pour les risques élevés, jusqu'à 5 ans pour les faibles).", opts:[{l:"Selon une matrice de risque",v:5},{l:"Annuellement pour tous",v:3},{l:"À l'occasion",v:1},{l:"Jamais après ouverture",v:0}] },
+    { d:1, q:"Conservez-vous les pièces KYC pendant 5 ans après la fin de la relation ?", h:"Obligation européenne de conservation horodatée et accessible.", opts:[{l:"Oui, archivage électronique horodaté",v:5},{l:"Oui, archivage papier",v:3},{l:"Conservation partielle",v:1},{l:"Non / je ne sais pas",v:0}] },
+    // Screening
+    { d:2, q:"Effectuez-vous un screening contre les listes de sanctions (UE, OFAC, ONU) ?", h:"Vérification à l'entrée en relation et de manière continue contre les listes officielles.", opts:[{l:"Oui, automatisé et continu",v:5},{l:"Oui, manuellement à l'entrée",v:2},{l:"Rarement",v:1},{l:"Non",v:0}] },
+    { d:2, q:"Vérifiez-vous l'exposition politique (PEP) de vos clients et de leurs proches ?", h:"Identification des personnes politiquement exposées et des membres de leur famille.", opts:[{l:"Oui, base PEP professionnelle",v:5},{l:"Recherche manuelle (Google, presse)",v:2},{l:"Au cas par cas",v:1},{l:"Non",v:0}] },
+    { d:2, q:"Vos screenings sont-ils re-lancés en continu (alerte sur nouvelle correspondance) ?", h:"Surveillance continue pour détecter les changements de statut après l'ouverture de la relation.", opts:[{l:"Oui, alertes automatisées",v:5},{l:"Revue périodique",v:3},{l:"Jamais après l'entrée",v:1},{l:"Pas de screening",v:0}] },
+    // Formation
+    { d:3, q:"Vos collaborateurs reçoivent-ils une formation AML annuelle ?", h:"Obligation de formation initiale et continue pour tous les collaborateurs en contact avec la clientèle.", opts:[{l:"Oui, annuelle et tracée",v:5},{l:"Oui, mais ponctuelle",v:3},{l:"Onboarding uniquement",v:1},{l:"Pas de formation",v:0}] },
+    { d:3, q:"Tenez-vous un registre des formations AML suivies ?", h:"Justification documentaire en cas de contrôle ordinal ou de la CRF.", opts:[{l:"Oui, registre numérique",v:5},{l:"Oui, papier",v:3},{l:"Partiellement",v:1},{l:"Non",v:0}] },
+    // Registre
+    { d:4, q:"Tenez-vous un registre des diligences accomplies (dossiers KYC) ?", h:"Registre horodaté, immuable, exportable, accessible aux contrôles.", opts:[{l:"Oui, registre numérique horodaté",v:5},{l:"Oui, fichier Excel/papier",v:3},{l:"Partiellement",v:1},{l:"Non",v:0}] },
+    { d:4, q:"Documentez-vous les analyses de risque et les décisions prises ?", h:"Traçabilité écrite : pourquoi le risque a-t-il été qualifié faible/moyen/élevé.", opts:[{l:"Oui, justification écrite à chaque dossier",v:5},{l:"Oui, pour les risques élevés",v:3},{l:"Rarement",v:1},{l:"Non",v:0}] },
+    { d:4, q:"Pouvez-vous répondre au questionnaire annuel AML de votre Ordre en < 1 jour ?", h:"Capacité à extraire rapidement toutes les données agrégées requises par votre Barreau.", opts:[{l:"Oui, < 1 heure",v:5},{l:"Oui, < 1 jour",v:3},{l:"Cela prend 2-5 jours",v:1},{l:"> 1 semaine de travail",v:0}] },
+    { d:4, q:"Avez-vous un plan d'urgence en cas de contrôle ordinal ou CRF ?", h:"Procédure documentée d'extraction et de production des pièces dans les délais légaux.", opts:[{l:"Oui, procédure documentée",v:5},{l:"Oui, mais informel",v:3},{l:"À improviser",v:1},{l:"Non",v:0}] },
+    // Déclaration
+    { d:5, q:"Connaissez-vous la procédure de déclaration de soupçon à la CRF ?", h:"Identification des canaux, délais et contenu d'une déclaration auprès de la cellule de renseignement financier.", opts:[{l:"Oui, procédure interne formalisée",v:5},{l:"Oui, mais informelle",v:3},{l:"Vaguement",v:1},{l:"Non",v:0}] },
+    { d:5, q:"Avez-vous identifié les indicateurs de soupçon propres à votre activité ?", h:"Liste interne de red flags : montages atypiques, financement opaque, refus de fournir des pièces, etc.", opts:[{l:"Oui, typologies documentées",v:5},{l:"Oui, informellement",v:3},{l:"Partiellement",v:1},{l:"Non",v:0}] },
+    { d:5, q:"Vos collaborateurs savent-ils à qui escalader un soupçon en interne ?", h:"Procédure claire d'escalade vers le Compliance Officer ou les associés.", opts:[{l:"Oui, canal documenté",v:5},{l:"Oui, par tradition",v:3},{l:"Peu clair",v:1},{l:"Non / pas de canal",v:0}] },
+    { d:5, q:"Avez-vous déjà effectué une déclaration de soupçon (DOS) à la CRF ?", h:"Expérience pratique de la procédure de déclaration auprès de la cellule de renseignement financier.", opts:[{l:"Oui, et tracée",v:5},{l:"Non, mais je saurais le faire",v:3},{l:"Je ne suis pas sûr(e)",v:1},{l:"Non, et je ne saurais pas",v:0}] },
+  ];
 
-    let triggered = false;
+  const N = QS.length;
 
-    function showPopup() {
-      if (triggered) return;
-      triggered = true;
-      popup.classList.add('visible');
-      document.body.style.overflow = 'hidden';
-    }
+  // État
+  let cur = 0, answers = new Array(N).fill(null), email = '', firmName = '', score = 0, dimScores = {};
 
-    function hidePopup() {
-      popup.classList.remove('visible');
-      document.body.style.overflow = '';
-      localStorage.setItem(STORAGE_KEY, Date.now().toString());
-    }
+  // DOM
+  const screens = { intro: 'aScreenIntro', questions: 'aScreenQuestions', email: 'aScreenEmail', results: 'aScreenResults' };
 
-    // Trigger au scroll (50% de la page)
-    function checkScroll() {
-      const scrolled = window.scrollY + window.innerHeight;
-      const totalHeight = document.documentElement.scrollHeight;
-      const scrollPercent = (scrolled / totalHeight) * 100;
+  function showScreen(name) {
+    Object.values(screens).forEach(id => document.getElementById(id)?.classList.remove('active'));
+    document.getElementById(screens[name])?.classList.add('active');
+    document.getElementById('auditCard')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 
-      if (scrollPercent >= 30) {
-        showPopup();
-        window.removeEventListener('scroll', checkScroll);
-      }
-    }
-    window.addEventListener('scroll', checkScroll, { passive: true });
-
-    // Fermeture : croix
-    closeBtn.addEventListener('click', hidePopup);
-
-    // Fermeture : clic sur l'overlay
-    popup.addEventListener('click', function(e) {
-      if (e.target === popup) hidePopup();
+  // Remplir l'écran intro
+  const dimRight = document.getElementById('aDimsRight');
+  if (dimRight) {
+    DIMS.forEach(d => {
+      const el = document.createElement('div');
+      el.className = 'a-dim-item';
+      el.innerHTML = `<div class="a-dim-icon">${d.icon}</div><div><div class="a-dim-name">${d.name}</div><div class="a-dim-q">${d.count} questions</div></div>`;
+      dimRight.appendChild(el);
     });
+  }
 
-    // Fermeture : touche Escape
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && popup.classList.contains('visible')) hidePopup();
-    });
+  document.getElementById('aStartBtn')?.addEventListener('click', () => {
+    cur = 0; answers = new Array(N).fill(null);
+    showScreen('questions');
+    renderQ();
+  });
 
-    // Soumission du formulaire popup
-    if (popupForm) {
-      popupForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const emailInput = popupForm.querySelector('input[type="email"]');
-        const submitBtn = popupForm.querySelector('button');
-        const email = emailInput.value;
-        const originalText = submitBtn.textContent;
+  function renderQ() {
+    const q = QS[cur];
+    document.getElementById('aQNum').textContent = cur + 1;
+    document.getElementById('aQDim').textContent = DIMS[q.d].name;
+    document.getElementById('aProgressFill').style.width = ((cur + 1) / N * 100) + '%';
+    document.getElementById('aQText').textContent = q.q;
+    document.getElementById('aQHelp').textContent = q.h;
 
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Envoi…';
-
-        let success = false;
-        try {
-          const response = await fetch(WEB3FORMS_ENDPOINT, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-              access_key: WEB3FORMS_KEY,
-              subject: `[Norvy Lead Magnet] Nouvelle demande de checklist AMLR (popup)`,
-              from_name: 'Norvy',
-              email: email,
-              source: 'lead-magnet-popup',
-              message: `Nouvelle demande de checklist AMLR depuis le popup.\n\nEmail : ${email}\nDate : ${new Date().toLocaleString('fr-FR')}`
-            })
-          });
-          const data = await response.json();
-          success = data.success === true;
-        } catch (err) {
-          console.error('Erreur Web3Forms popup :', err);
-        }
-
-        if (success) {
-          // Téléchargement du PDF
-          const link = document.createElement('a');
-          link.href = 'Norvy-Checklist-AMLR-2024-1624.pdf';
-          link.download = 'Norvy-Checklist-AMLR-2024-1624.pdf';
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-
-          popupSuccess.classList.add('visible');
-          submitBtn.textContent = '✓ Téléchargement lancé';
-          emailInput.value = '';
-          // Marquer comme vu et fermer après 2,5s
-          localStorage.setItem(STORAGE_KEY, Date.now().toString());
-          setTimeout(hidePopup, 2500);
-        } else {
-          submitBtn.textContent = '⚠ Erreur, réessayez';
-          setTimeout(() => { submitBtn.textContent = originalText; }, 3000);
-        }
-        submitBtn.disabled = false;
+    const container = document.getElementById('aOptions');
+    container.innerHTML = '';
+    q.opts.forEach((opt, i) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'a-option' + (answers[cur] === i ? ' selected' : '');
+      btn.innerHTML = `<span class="a-option-dot"></span><span>${opt.l}</span>`;
+      btn.addEventListener('click', () => {
+        answers[cur] = i;
+        container.querySelectorAll('.a-option').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        document.getElementById('aNextBtn').disabled = false;
       });
-    }
-  })();
-</script>
+      container.appendChild(btn);
+    });
 
+    const prevBtn = document.getElementById('aPrevBtn');
+    const nextBtn = document.getElementById('aNextBtn');
+    prevBtn.disabled = cur === 0;
+    nextBtn.disabled = answers[cur] === null;
+    nextBtn.innerHTML = cur === N - 1
+      ? 'Voir mon score <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>'
+      : 'Suivant <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  }
+
+  document.getElementById('aPrevBtn')?.addEventListener('click', () => { if (cur > 0) { cur--; renderQ(); } });
+  document.getElementById('aNextBtn')?.addEventListener('click', () => {
+    if (answers[cur] === null) return;
+    if (cur === N - 1) { computeScore(); showScreen('email'); }
+    else { cur++; renderQ(); }
+  });
+
+  function computeScore() {
+    const dMap = {};
+    DIMS.forEach((d, i) => dMap[i] = { pts: 0, max: 0 });
+    QS.forEach((q, i) => {
+      const pts = answers[i] !== null ? q.opts[answers[i]].v : 0;
+      dMap[q.d].pts += pts;
+      dMap[q.d].max += 5;
+    });
+    const totalPts = Object.values(dMap).reduce((s, d) => s + d.pts, 0);
+    const totalMax = Object.values(dMap).reduce((s, d) => s + d.max, 0);
+    score = Math.round(totalPts / totalMax * 100);
+    DIMS.forEach((d, i) => { dimScores[d.name] = Math.round(dMap[i].pts / dMap[i].max * 100); });
+  }
+
+  function getGrade() {
+    if (score >= 75) return { cls: 'high', label: 'Conformité avancée', verdict: 'Votre dispositif AML est mature. Quelques ajustements suffiront pour aborder l\'AMLR sereinement.' };
+    if (score >= 50) return { cls: 'medium', label: 'Conformité partielle', verdict: 'Votre cabinet est partiellement conforme. Des actions structurantes sont à engager avant juillet 2027.' };
+    return { cls: 'danger', label: 'Conformité insuffisante', verdict: 'Votre dispositif AML présente des lacunes majeures. Une mise en conformité urgente est nécessaire.' };
+  }
+
+  // Formulaire email
+  document.getElementById('aEmailForm')?.addEventListener('submit', async e => {
+    e.preventDefault();
+    email = document.getElementById('aEmail').value.trim();
+    firmName = document.getElementById('aFirmName').value.trim();
+    if (!email) return;
+    const btn = document.getElementById('aSubmitBtn');
+    btn.disabled = true; btn.textContent = 'Envoi…';
+    const grade = getGrade();
+    const dimText = DIMS.map(d => `${d.name}: ${dimScores[d.name]}/100`).join('\n');
+    const ok = await w3fSubmit(
+      `[Norvy Audit AML] Score ${score}/100 — ${email}`,
+      email, 'audit-aml',
+      `Audit AML complété\n\nEmail: ${email}\nCabinet: ${firmName || '(non renseigné)'}\nDate: ${new Date().toLocaleString('fr-FR')}\n\nSCORE: ${score}/100\nNIVEAU: ${grade.label}\n\n${dimText}\n\nÀ recontacter sous 24-48h.`
+    );
+    if (ok || true) { // On télécharge le PDF même si l'envoi échoue
+      generateAndDownload();
+      document.getElementById('aSuccess').classList.add('visible');
+      btn.textContent = '✓ Rapport téléchargé';
+      setTimeout(() => { showScreen('results'); renderResults(); }, 1800);
+    }
+  });
+
+  function renderResults() {
+    const grade = getGrade();
+    const big = document.getElementById('aScoreBig');
+    big.textContent = score;
+    big.className = 'a-score-big' + (grade.cls === 'medium' ? ' warn' : grade.cls === 'danger' ? ' danger' : '');
+    const gradeEl = document.getElementById('aGrade');
+    gradeEl.textContent = grade.label;
+    gradeEl.className = 'a-grade ' + grade.cls;
+    document.getElementById('aVerdict').textContent = grade.verdict;
+
+    const bd = document.getElementById('aBreakdown');
+    bd.innerHTML = '';
+    DIMS.forEach(d => {
+      const s = dimScores[d.name];
+      const cls = s >= 75 ? '' : s >= 50 ? 'warn' : 'danger';
+      const row = document.createElement('div');
+      row.className = 'a-dim-row';
+      row.innerHTML = `
+        <div class="a-dim-info">
+          <div class="a-dim-label">${d.name}</div>
+          <div class="a-dim-bar"><div class="a-dim-bar-fill ${cls}" style="width:0%"></div></div>
+        </div>
+        <div class="a-dim-score">${s} / 100</div>
+      `;
+      bd.appendChild(row);
+      setTimeout(() => row.querySelector('.a-dim-bar-fill').style.width = s + '%', 150);
+    });
+  }
+
+  document.getElementById('aRedownload')?.addEventListener('click', generateAndDownload);
+
+  // ── PDF ──
+  function generateAndDownload() {
+    if (!window.jspdf) { console.warn('jsPDF non chargé'); return; }
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+    const W = 210, M = 20;
+    const grade = getGrade();
+    const today = new Date().toLocaleDateString('fr-FR', { day:'2-digit', month:'long', year:'numeric' });
+
+    // Couleurs
+    const dark = [14, 16, 19], accent = [26, 77, 62], dim = [92, 100, 112], warn = [184, 130, 28], danger = [184, 56, 56];
+    const scoreColor = grade.cls === 'high' ? accent : grade.cls === 'medium' ? warn : danger;
+
+    // — PAGE 1 —
+    // Bande d'en-tête
+    doc.setFillColor(...dark);
+    doc.rect(0, 0, W, 70, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(22);
+    doc.text('Norvy', M, 28);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(11);
+    doc.setTextColor(180, 180, 175);
+    doc.text('Rapport d\'audit AML — ' + today, M, 36);
+    if (firmName) doc.text('Cabinet : ' + firmName, M, 44);
+
+    // Score
+    doc.setTextColor(...scoreColor);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(72);
+    doc.text(String(score), M, 115);
+    doc.setFontSize(18);
+    doc.setTextColor(...dim);
+    doc.setFont('helvetica', 'normal');
+    doc.text('/ 100', M + 48, 115);
+
+    // Badge grade
+    doc.setFillColor(grade.cls === 'high' ? 232 : grade.cls === 'medium' ? 251 : 252,
+                     grade.cls === 'high' ? 240 : grade.cls === 'medium' ? 243 : 232,
+                     grade.cls === 'high' ? 236 : grade.cls === 'medium' ? 223 : 232);
+    doc.roundedRect(M, 122, 100, 10, 3, 3, 'F');
+    doc.setTextColor(...scoreColor);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(10);
+    doc.text(grade.label.toUpperCase(), M + 4, 129);
+
+    // Verdict
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(12);
+    doc.setTextColor(...dark);
+    const vLines = doc.splitTextToSize(grade.verdict, W - 2 * M);
+    doc.text(vLines, M, 145);
+
+    // — PAGE 2 : Détail par dimension —
+    doc.addPage();
+    doc.setTextColor(...dark);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(18);
+    doc.text('Score par dimension', M, 28);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    doc.setTextColor(...dim);
+    doc.text('Évaluation des 6 piliers AMLR 2024/1624', M, 36);
+
+    let y = 52;
+    DIMS.forEach(d => {
+      const s = dimScores[d.name];
+      const c = s >= 75 ? accent : s >= 50 ? warn : danger;
+      doc.setTextColor(...dark);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(11);
+      doc.text(d.name, M, y);
+      doc.setTextColor(...c);
+      const st = `${s} / 100`;
+      doc.text(st, W - M - doc.getTextWidth(st), y);
+      // Barre
+      const bw = W - 2 * M;
+      doc.setFillColor(240, 238, 232);
+      doc.roundedRect(M, y + 3, bw, 4, 2, 2, 'F');
+      doc.setFillColor(...c);
+      doc.roundedRect(M, y + 3, bw * s / 100, 4, 2, 2, 'F');
+      y += 20;
+    });
+
+    // — Recommandations sur page 2 —
+    y += 10;
+    if (y > 220) { doc.addPage(); y = 30; }
+    doc.setTextColor(...dark);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(16);
+    doc.text('Actions prioritaires', M, y);
+    y += 10;
+
+    const recTexts = {
+      'Gouvernance': { low: 'Formaliser une politique AML écrite, désigner un Compliance Officer et établir une évaluation des risques propre au cabinet. Action prioritaire : rédiger la politique en s\'appuyant sur les modèles AMLR.', medium: 'Actualiser la politique AML (< 12 mois), renforcer la documentation de l\'évaluation des risques, vérifier l\'intégration de l\'AMLR 2024/1624.' },
+      'KYC & Vigilance': { low: 'Mettre en place une procédure KYC digitale standardisée. Identifier systématiquement les bénéficiaires effectifs avec recoupement RBE. Définir une matrice de vigilance renforcée.', medium: 'Automatiser la mise à jour périodique des KYC. Renforcer le recoupement RBE/RCS. Documenter les mesures de vigilance renforcée.' },
+      'Screening': { low: 'Mettre en place un screening automatisé contre les listes UE/OFAC/ONU et bases PEP professionnelles dès l\'entrée en relation. Activer la surveillance continue.', medium: 'Passer d\'un screening manuel à un screening automatisé continu. Investir dans une base PEP professionnelle.' },
+      'Formation': { low: 'Instaurer un plan de formation AML annuel obligatoire pour tous les collaborateurs. Documenter les formations dans un registre traçable.', medium: 'Standardiser le rythme annuel des formations et améliorer la traçabilité (registre numérique).' },
+      'Registre & Traçabilité': { low: 'Migrer vers un registre numérique horodaté et auditable. Documenter systématiquement les analyses de risque.', medium: 'Renforcer la documentation des analyses de risque. Standardiser l\'extraction du questionnaire ordinal annuel.' },
+      'Déclaration & Soupçon': { low: 'Formaliser la procédure de déclaration de soupçon à la CRF. Identifier les indicateurs de soupçon propres à votre activité. Former les collaborateurs aux canaux d\'escalade.', medium: 'Documenter formellement les typologies de soupçon et les canaux d\'escalade internes.' },
+    };
+
+    DIMS.forEach(d => {
+      const s = dimScores[d.name];
+      if (s >= 75) return;
+      if (y > 250) { doc.addPage(); y = 30; }
+      const level = s >= 50 ? 'medium' : 'low';
+      const c = level === 'medium' ? warn : danger;
+      doc.setFillColor(...c);
+      doc.roundedRect(M, y - 4, level === 'medium' ? 22 : 16, 7, 2, 2, 'F');
+      doc.setTextColor(255, 255, 255);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(7);
+      doc.text(level === 'medium' ? 'MOYENNE' : 'HAUTE', M + 2, y);
+      doc.setTextColor(...dark);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(11);
+      doc.text(d.name, M + (level === 'medium' ? 28 : 22), y);
+      y += 7;
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(10);
+      doc.setTextColor(...dim);
+      const lines = doc.splitTextToSize(recTexts[d.name][level], W - 2 * M);
+      lines.forEach(l => { if (y > 270) { doc.addPage(); y = 30; } doc.text(l, M, y); y += 5; });
+      y += 6;
+    });
+
+    // CTA final
+    if (y > 230) { doc.addPage(); y = 30; }
+    y += 8;
+    doc.setFillColor(232, 240, 236);
+    doc.roundedRect(M, y, W - 2 * M, 38, 4, 4, 'F');
+    doc.setTextColor(...accent);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(13);
+    doc.text('Norvy automatise votre conformité AML', M + 6, y + 11);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    doc.setTextColor(...dark);
+    const ctaLines = doc.splitTextToSize('LPM complet + AML/KYC natif + questionnaire Barreau auto-généré. Hébergé au Luxembourg.', W - 2 * M - 12);
+    let cy = y + 20;
+    ctaLines.forEach(l => { doc.text(l, M + 6, cy); cy += 5; });
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...accent);
+    doc.text('norvy.lu', M + 6, y + 33);
+
+    // Numéros de page
+    const total = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= total; i++) {
+      doc.setPage(i);
+      doc.setDrawColor(230, 228, 222);
+      doc.line(M, 285, W - M, 285);
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(...dim);
+      doc.text('Norvy — Audit AML', M, 292);
+      doc.text(`Page ${i} / ${total}`, W - M - 14, 292);
+    }
+
+    const fname = firmName ? `Norvy-Audit-AML-${firmName.replace(/[^a-z0-9]/gi,'-')}.pdf` : `Norvy-Audit-AML.pdf`;
+    doc.save(fname);
+  }
+
+})();
+</script>
 </body>
 </html>
