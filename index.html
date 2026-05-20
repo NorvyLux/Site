@@ -1848,615 +1848,606 @@ document.querySelectorAll('.billing-opt').forEach(btn => {
 });
 
 
-// ════════════════════════════════════════════════════════════════
-// NORVY — RAPPORT D'AUTO-EVALUATION AML — 10 PAGES
-// Clés dimScores : 'Gouvernance' | 'KYC & Vigilance' | 'Screening'
-//                  'Formation' | 'Registre & Traçabilité' | 'Déclaration & Soupçon'
-// ════════════════════════════════════════════════════════════════
-
-function s(str) {
-  if (!str) return '';
-  return String(str)
+// ── NORVY RAPPORT PDF 10 PAGES ─────────────────────
+function s(t){
+  if(!t)return'';
+  return String(t)
     .replace(/[\u2018\u2019]/g,"'").replace(/[\u201C\u201D]/g,'"')
-    .replace(/\u2013/g,'-').replace(/\u2014/g,'--').replace(/\u2026/g,'...')
-    .replace(/\u00e0/g,'a').replace(/\u00e2/g,'a').replace(/\u00e4/g,'a')
-    .replace(/\u00e8/g,'e').replace(/\u00e9/g,'e').replace(/\u00ea/g,'e').replace(/\u00eb/g,'e')
-    .replace(/\u00ee/g,'i').replace(/\u00ef/g,'i').replace(/\u00ec/g,'i').replace(/\u00ed/g,'i')
-    .replace(/\u00f4/g,'o').replace(/\u00f6/g,'o').replace(/\u00f2/g,'o').replace(/\u00f3/g,'o')
-    .replace(/\u00f9/g,'u').replace(/\u00fb/g,'u').replace(/\u00fc/g,'u').replace(/\u00fa/g,'u')
-    .replace(/\u00c0/g,'A').replace(/\u00c2/g,'A').replace(/\u00c4/g,'A')
-    .replace(/\u00c8/g,'E').replace(/\u00c9/g,'E').replace(/\u00ca/g,'E').replace(/\u00cb/g,'E')
-    .replace(/\u00ce/g,'I').replace(/\u00cf/g,'I')
-    .replace(/\u00d4/g,'O').replace(/\u00d6/g,'O')
-    .replace(/\u00d9/g,'U').replace(/\u00db/g,'U').replace(/\u00dc/g,'U')
-    .replace(/\u00e7/g,'c').replace(/\u00c7/g,'C')
-    .replace(/\u00e6/g,'ae').replace(/\u0153/g,'oe').replace(/[^\x00-\xFF]/g,'?');
+    .replace(/\u2013/g,'-').replace(/\u2014/g,'--').replace(/\u00e0/g,'a')
+    .replace(/\u00e2/g,'a').replace(/\u00e8/g,'e').replace(/\u00e9/g,'e')
+    .replace(/\u00ea/g,'e').replace(/\u00eb/g,'e').replace(/\u00ee/g,'i')
+    .replace(/\u00ef/g,'i').replace(/\u00f4/g,'o').replace(/\u00f9/g,'u')
+    .replace(/\u00fb/g,'u').replace(/\u00fc/g,'u').replace(/\u00e7/g,'c')
+    .replace(/\u00c9/g,'E').replace(/\u00c8/g,'E').replace(/\u00c0/g,'A')
+    .replace(/\u0153/g,'oe').replace(/[^\x00-\xFF]/g,'?');
 }
 
-function generatePDF(score, dimScores, firmName) {
-  if (!window.jspdf) { console.warn('jsPDF non charge'); return; }
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({ unit: 'mm', format: 'a4' });
-
-  const W=210, H=297, M=16, RW=W-2*M;
-  const NPAGES=10;
-  let pg=0;
-  const today = new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'});
+function generatePDF(score, dimScores, firmName){
+  if(!window.jspdf){console.warn('jsPDF not loaded');return;}
+  var jsPDF=window.jspdf.jsPDF;
+  var doc=new jsPDF({unit:'mm',format:'a4'});
+  var W=210,H=297,ML=14,MR=14,RW=W-ML-MR,NP=10;
+  var pg=0;
+  var today=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'});
 
   // Palette
-  const C_DARK=[14,18,26], C_ACC=[26,77,62], C_MID=[37,102,82], C_GRN=[61,171,135];
-  const C_SOFT=[232,240,236], C_TEXT=[18,20,26], C_DIM=[88,96,108], C_FAINT=[152,160,172];
-  const C_BRD=[224,220,212], C_BG=[247,246,243], C_WH=[255,255,255];
-  const C_WARN=[184,124,26], C_WSOF=[251,243,223];
-  const C_DANG=[180,52,52],  C_DSOF=[252,230,230];
+  var DA=[14,18,26],AC=[26,77,62],GR=[61,171,135],SO=[230,240,235];
+  var TX=[18,20,26],DM=[90,98,110],FA=[150,158,170];
+  var BD=[220,216,208],BG=[247,246,243],WH=[255,255,255];
+  var WA=[180,122,24],WS=[251,243,222],RD=[178,50,50],RS=[252,228,228];
 
-  // Helpers
-  const fc=c=>doc.setFillColor(...c);
-  const dc=c=>doc.setDrawColor(...c);
-  const tc=c=>doc.setTextColor(...c);
-  const lw=w=>doc.setLineWidth(w);
-  const ff=(st,sz)=>{doc.setFont('helvetica',st||'normal');doc.setFontSize(sz||10);};
-  const tx=(t,x,y,o)=>doc.text(s(t),x,y,o||{});
-  const sp=(t,w)=>doc.splitTextToSize(s(t),w);
-  const ln=(x1,y1,x2,y2)=>doc.line(x1,y1,x2,y2);
-  const rr=(x,y,w,h,r,m)=>{ const rad=r||0; const mode=m||'F'; rad>0?doc.roundedRect(x,y,w,h,rad,rad,mode):doc.rect(x,y,w,h,mode); };
-  const cr=(x,y,r,m)=>doc.circle(x,y,r,m||'F');
+  function fc(c){doc.setFillColor(c[0],c[1],c[2]);}
+  function dc(c){doc.setDrawColor(c[0],c[1],c[2]);}
+  function tc(c){doc.setTextColor(c[0],c[1],c[2]);}
+  function lw(w){doc.setLineWidth(w);}
+  function ff(st,sz){doc.setFont('helvetica',st||'normal');doc.setFontSize(sz||10);}
+  function tx(t,x,y,o){doc.text(s(String(t)),x,y,o||{});}
+  function sp(t,w){return doc.splitTextToSize(s(String(t)),w);}
+  function ln(x1,y1,x2,y2){doc.line(x1,y1,x2,y2);}
 
-  const sCol=v=>v>=75?C_ACC:v>=50?C_WARN:C_DANG;
-  const sBg =v=>v>=75?C_SOFT:v>=50?C_WSOF:C_DSOF;
-  const sLbl=v=>v>=75?'CONFORME':v>=50?'PARTIEL':'INSUFFISANT';
-  const sKey=v=>v>=75?'high':v>=50?'medium':'low';
-
-  function bar(x,y,w,h,pct,col,r) {
-    fc(C_BRD); rr(x,y,w,h,r||2);
-    fc(col); rr(x,y,Math.max(w*Math.min(pct/100,1),1),h,r||2);
+  // Safe rect: bx(x,y,w,h) or bx(x,y,w,h,r) or bx(x,y,w,h,r,mode)
+  function bx(x,y,w,h,r,m){
+    if(w<=0||h<=0)return;
+    var rad=(typeof r==='number'&&r>0)?r:0;
+    var mode=(typeof m==='string')?m:(typeof r==='string'?r:'F');
+    if(rad>0) doc.roundedRect(x,y,w,h,rad,rad,mode);
+    else doc.rect(x,y,w,h,mode);
   }
 
-  function badge(lbl,x,y,bg,fg) {
-    const tw=doc.getTextWidth(s(lbl));
-    fc(bg); dc(fg); lw(0.18);
-    rr(x,y-2.5,tw+8,7,2,'FD');
-    tc(fg); ff('bold',6); tx(lbl,x+4,y+2);
+  function sC(v){return v>=75?AC:v>=50?WA:RD;}
+  function sB(v){return v>=75?SO:v>=50?WS:RS;}
+  function sL(v){return v>=75?'CONFORME':v>=50?'PARTIEL':'INSUFFISANT';}
+  function sK(v){return v>=75?'high':v>=50?'medium':'low';}
+
+  // Progress bar
+  function pbar(x,y,w,h,pct,col){
+    if(w<=0)return;
+    fc(BD);bx(x,y,w,h,1.5);
+    var fw=Math.max(w*Math.min(pct/100,1),1);
+    fc(col);bx(x,y,fw,h,1.5);
   }
 
-  function hdr(title,y,col) {
-    fc(col||C_DARK); rr(M,y,RW,9,2,'F');
-    ff('bold',8.5); tc(C_WH); tx(title,M+5,y+6.5);
-    return y+12;
+  // Badge
+  function bdg(lbl,x,y,bg,fg){
+    var tw=doc.getTextWidth(s(lbl));
+    fc(bg);dc(fg);lw(0.18);bx(x,y-2.2,tw+8,6.5,1.5,'FD');
+    tc(fg);ff('bold',6);tx(lbl,x+4,y+1.8);
   }
 
-  function sep(y) { dc(C_BRD); lw(0.2); ln(M,y,W-M,y); }
+  // Separator line
+  function sep(y){dc(BD);lw(0.2);ln(ML,y,W-MR,y);}
 
-  function foot() {
-    sep(283); ff('normal',7); tc(C_FAINT);
-    tx('Norvy — Rapport d\'auto-evaluation AML — Confidentiel',M,291);
-    tx('Page '+pg+' / '+NPAGES,W-M,291,{align:'right'});
-    tx('norvy.lu | contact@norvy.lu',W/2,291,{align:'center'});
+  // Left color stripe
+  function stripe(col){fc(col);bx(0,0,5,H);}
+
+  // Footer
+  function foot(){
+    sep(282);
+    ff('normal',7);tc(FA);
+    tx("Norvy — Rapport d'auto-evaluation AML — Confidentiel",ML,290);
+    tx('Page '+pg+' / '+NP,W-MR,290,{align:'right'});
+    tx('norvy.lu | contact@norvy.lu',W/2,290,{align:'center'});
   }
 
-  function leftStripe(col) { fc(col); rr(0,0,5,H); }
+  // Score lookup with accent fallback
+  function getScore(key){
+    if(dimScores[key]!==undefined)return dimScores[key];
+    var map={'Registre & Tracabilite':'Registre & Traçabilité','Declaration & Soupcon':'Déclaration & Soupçon'};
+    if(map[key]&&dimScores[map[key]]!==undefined)return dimScores[map[key]];
+    return 0;
+  }
 
-  // ── Données métier (clés = noms exacts de dimScores) ─────────────────
-  const META = [
-    {
-      key:'Gouvernance', short:'Gouvernance',
-      sub:'Politique AML, Compliance Officer, evaluation des risques',
-      analysis:{
-        low:'Votre cabinet ne dispose pas d\'une politique AML ecrite ni d\'un Compliance Officer formellement designe. Sans ces fondements, aucune diligence ne peut etre justifiee aupres d\'un controleur. L\'absence de politique ecrite constitue elle-meme une violation autonome en cas de controle ordinal ou CRF.',
-        medium:'Votre gouvernance AML existe mais n\'est pas totalement formalisee. La politique necessite une mise a jour (< 12 mois) et le Compliance Officer doit etre officialise aupres du Barreau. L\'evaluation des risques gagnerait a integrer les typologies AMLR 2024/1624.',
-        high:'Votre gouvernance AML est bien structuree. La politique est a jour, le Compliance Officer est designe et declare. L\'enjeu est de maintenir ce niveau au rythme des publications AMLA et d\'integrer les nouvelles exigences AMLR au fil de leur publication.'
-      },
-      actions:{
-        low:['Rediger et valider une politique AML ecrite, signee par les associes, couvrant vigilance, risques et declaration','Nommer et declarer officiellement un Compliance Officer aupres du Barreau, avec lettre de mission','Etablir une cartographie des risques par typologies de clientele et zones geographiques','Integrer les obligations AMLR 2024/1624 dans toutes les procedures internes avant juillet 2027'],
-        medium:['Actualiser la politique AML (objectif : revision < 12 mois)','Officialiser la declaration du Compliance Officer aupres de l\'Ordre','Enrichir la cartographie des risques avec les typologies AMLR 2024/1624','Documenter le processus de revision annuelle avec traçabilite numerique'],
-        high:['Maintenir le cycle de revision annuelle de la politique AML','Documenter les mises a jour au fil des publications AMLA','Formaliser l\'alignement avec le reglement AMLR 2024/1624']
-      },
-      norvy:'Tableau de bord Gouvernance centralise : statut de la politique, Compliance Officer designe, echeance de revision — tout visible en un coup d\'oeil. Alertes AMLA automatiques et circuit de validation electronique entre associes avec historique horodate.'
+  // ── META data ────────────────────────────────────────
+  var META=[
+    {key:'Gouvernance',short:'Gouvernance',
+     sub:'Politique AML, Compliance Officer, evaluation des risques',
+     an:{
+       low:"Votre cabinet ne dispose pas d'une politique AML ecrite ni d'un Compliance Officer formellement designe. Sans ces fondements, aucune diligence ne peut etre justifiee aupres d'un controleur. L'absence de politique ecrite constitue elle-meme une violation autonome en cas de controle ordinal ou CRF.",
+       medium:"Votre gouvernance AML existe mais n'est pas totalement formalisee. La politique necessite une mise a jour (revision < 12 mois) et le Compliance Officer doit etre officialise aupres du Barreau. L'evaluation des risques gagnerait a integrer les typologies AMLR 2024/1624.",
+       high:"Votre gouvernance AML est bien structuree. La politique est a jour, un Compliance Officer est designe et declare. L'enjeu est de maintenir ce niveau au rythme des publications AMLA."
+     },
+     ac:{
+       low:["Rediger et valider une politique AML ecrite signee par les associes couvrant vigilance, risques et declaration","Nommer et declarer officiellement un Compliance Officer aupres du Barreau avec lettre de mission","Etablir une cartographie des risques par typologies de clientele et zones geographiques","Integrer les obligations AMLR 2024/1624 dans toutes les procedures internes avant juillet 2027"],
+       medium:["Actualiser la politique AML (objectif : revision < 12 mois)","Officialiser la declaration du Compliance Officer aupres de l'Ordre","Enrichir la cartographie des risques avec les typologies AMLR 2024/1624","Documenter le processus de revision annuelle avec tracabilite numerique"],
+       high:["Maintenir le cycle de revision annuelle de la politique AML","Documenter les mises a jour au fil des publications AMLA"]
+     },
+     nv:"Tableau de bord Gouvernance centralise : statut de la politique, Compliance Officer designe, echeance de revision — tout visible en un coup d'oeil. Alertes AMLA automatiques. Circuit de validation electronique entre associes avec historique horodate."
     },
-    {
-      key:'KYC & Vigilance', short:'KYC',
-      sub:'Identification clients, beneficiaires effectifs, vigilance renforcee',
-      analysis:{
-        low:'Votre processus d\'identification des clients et de leurs beneficiaires effectifs est insuffisant. Toute ouverture de dossier sans diligence formalisee constitue une violation directe de l\'AMLR exposant personnellement l\'avocat responsable. L\'archivage sur 5 ans n\'est pas en place.',
-        medium:'Vos diligences KYC existent mais manquent de systematisation. La revue periodique selon une matrice de risque et l\'archivage electronique horodate sur 5 ans restent des vulnerabilites identifiees lors des controles ordinaux.',
-        high:'Votre processus KYC est structure. L\'enjeu est l\'automatisation de la revue periodique selon une matrice de risque et le recoupement systematique avec le Registre des Beneficiaires Effectifs pour 100% des clients.'
-      },
-      actions:{
-        low:['Deployer une procedure KYC standardisee pour chaque entree en relation (identite, RBE, justificatifs)','Identifier systematiquement les beneficiaires effectifs (> 25%) avec recoupement RBE officiel','Formaliser les criteres de vigilance renforcee : PEP, zones FATF, montages complexes','Mettre en place un archivage electronique horodate sur 5 ans minimum pour toutes les pieces KYC'],
-        medium:['Automatiser la mise a jour periodique des KYC selon une matrice de risque par client','Renforcer le recoupement RBE de facon systematique pour tous les dossiers actifs','Documenter chaque decision de vigilance renforcee avec justification ecrite'],
-        high:['Affiner la matrice de revision par niveau de risque client','Maintenir le recoupement RBE pour l\'integralite du portefeuille actif']
-      },
-      norvy:'Dossier KYC numerique guide : collecte structuree des pieces, OCR automatique, identification BE avec croisement RBE luxembourgeois. Matrice de revision intelligente generant un calendrier automatique selon le risque. Archivage certifie 5 ans.'
+    {key:'KYC & Vigilance',short:'KYC',
+     sub:"Identification clients, beneficiaires effectifs, vigilance renforcee",
+     an:{
+       low:"Votre processus d'identification des clients et de leurs beneficiaires effectifs est insuffisant. Toute ouverture de dossier sans diligence formalisee constitue une violation directe de l'AMLR exposant personnellement l'avocat responsable.",
+       medium:"Vos diligences KYC existent mais manquent de systematisation. La revue periodique selon une matrice de risque et l'archivage electronique horodate sur 5 ans restent des vulnerabilites identifiees lors des controles ordinaux.",
+       high:"Votre processus KYC est structure. L'enjeu est l'automatisation de la revue periodique selon une matrice de risque et le recoupement systematique avec le Registre des Beneficiaires Effectifs."
+     },
+     ac:{
+       low:["Deployer une procedure KYC standardisee pour chaque entree en relation (identite, RBE, justificatifs)","Identifier systematiquement les beneficiaires effectifs (> 25%) avec recoupement RBE officiel","Formaliser les criteres de vigilance renforcee : PEP, zones FATF, montages complexes","Mettre en place un archivage electronique horodate sur 5 ans minimum pour toutes les pieces KYC"],
+       medium:["Automatiser la mise a jour periodique des KYC selon une matrice de risque par client","Renforcer le recoupement RBE de facon systematique pour tous les dossiers actifs","Documenter chaque decision de vigilance renforcee avec justification ecrite"],
+       high:["Affiner la matrice de revision par niveau de risque client","Maintenir le recoupement RBE pour l'integralite du portefeuille actif"]
+     },
+     nv:"Dossier KYC numerique guide : collecte structuree des pieces, OCR automatique, identification BE avec croisement RBE luxembourgeois. Matrice de revision intelligente generant un calendrier automatique selon le risque. Archivage certifie 5 ans."
     },
-    {
-      key:'Screening', short:'Screening',
-      sub:'Listes sanctions UE/OFAC/ONU, detection PEP, surveillance continue',
-      analysis:{
-        low:'Votre cabinet n\'effectue pas de screening systematique contre les listes de sanctions ni de verification PEP. Toute relation d\'affaires avec un sanctionne non detecte expose le cabinet a des sanctions penales directes et engage la responsabilite personnelle des associes.',
-        medium:'Votre screening est partiel ou manuel. L\'absence de surveillance continue cree une fenetre de risque critique : un client peut etre sanctionne apres l\'ouverture du dossier sans que vous en soyez automatiquement informe.',
-        high:'Votre screening est actif. L\'enjeu est l\'extension aux proches des PEP, l\'integration des resultats dans le scoring de risque global, et la documentation systematique des faux positifs.'
-      },
-      actions:{
-        low:['Mettre en place un screening automatise contre les listes UE, OFAC, ONU et UK','Souscrire a une base de donnees PEP professionnelle couvrant 220+ pays et proches','Activer la surveillance continue avec alertes automatiques sur nouvelles correspondances','Documenter chaque resultat de screening dans le dossier KYC correspondant'],
-        medium:['Passer du screening manuel a une surveillance continue et automatisee','Etendre le perimetre de detection aux proches et entites associees des PEP','Integrer les resultats de screening dans le scoring de risque global du client'],
-        high:['Maintenir la couverture integrale de toutes les listes officielles','Documenter et qualifier les faux positifs pour affiner les regles de correspondance']
-      },
-      norvy:'Screening temps reel contre 6 listes (UE, OFAC, ONU, UK, PPE, Adverse Media). Mise a jour quotidienne. Detection PEP avancee sur 220+ pays incluant les proches et entites associees. Surveillance 24/7 post-ouverture : alerte immediate si un client entre sur une liste apres l\'ouverture du dossier.'
+    {key:'Screening',short:'Screening',
+     sub:"Listes sanctions UE/OFAC/ONU, detection PEP, surveillance continue",
+     an:{
+       low:"Votre cabinet n'effectue pas de screening systematique contre les listes de sanctions ni de verification PEP. Toute relation avec un sanctionne non detecte expose le cabinet a des sanctions penales directes et engage la responsabilite personnelle des associes.",
+       medium:"Votre screening est partiel ou manuel. L'absence de surveillance continue cree une fenetre de risque critique : un client peut etre sanctionne apres l'ouverture du dossier sans notification automatique.",
+       high:"Votre screening est actif. L'enjeu est l'extension aux proches des PEP, l'integration dans le scoring de risque global, et la documentation systematique des faux positifs."
+     },
+     ac:{
+       low:["Mettre en place un screening automatise contre les listes UE, OFAC, ONU et UK","Souscrire a une base de donnees PEP professionnelle couvrant 220+ pays et proches","Activer la surveillance continue avec alertes automatiques sur nouvelles correspondances","Documenter chaque resultat de screening dans le dossier KYC correspondant"],
+       medium:["Passer du screening manuel a une surveillance continue et automatisee","Etendre le perimetre de detection aux proches et entites associees des PEP","Integrer les resultats de screening dans le scoring de risque global du client"],
+       high:["Maintenir la couverture integrale de toutes les listes officielles","Documenter les faux positifs pour affiner les regles de correspondance"]
+     },
+     nv:"Screening temps reel contre 6 listes (UE, OFAC, ONU, UK, PPE, Adverse Media). Mise a jour quotidienne. Detection PEP sur 220+ pays incluant les proches. Surveillance 24/7 post-ouverture : alerte immediate si un client entre sur une liste apres l'ouverture."
     },
-    {
-      key:'Formation', short:'Formation',
-      sub:'Formation AML annuelle, registre des formations, plan certifiant',
-      analysis:{
-        low:'Aucune formation AML structuree n\'est dispensee dans votre cabinet. En cas de controle, l\'absence de registre de formation constitue une violation autonome independamment de la qualite du reste du dispositif. Tous les collaborateurs doivent etre formes.',
-        medium:'Des formations ont lieu mais sans plan annuel structure ni registre individuel. La tracabilite par collaborateur reste insuffisante pour justifier la conformite aupres du Barreau lors du questionnaire annuel.',
-        high:'Votre plan de formation est actif et trace. L\'enjeu est d\'integrer un module specifique AMLR 2024/1624 et de differencier les programmes par profil (associes, collaborateurs, assistants).'
-      },
-      actions:{
-        low:['Instaurer un plan de formation AML annuel obligatoire pour tous les collaborateurs','Tenir un registre numerique des formations : date, contenu, participant, certificat','Designer un referent formation AML au sein du cabinet','Programmer les prochaines sessions avant le 31 decembre'],
-        medium:['Standardiser la cadence annuelle et la tracabilite individuelle par collaborateur','Differencier les programmes par profil : associes, collaborateurs, assistants','Ajouter un module AMLR 2024/1624 au plan de formation existant'],
-        high:['Maintenir la cadence annuelle et actualiser les contenus AMLR','Documenter les evaluations post-formation et l\'impact sur les pratiques']
-      },
-      norvy:'Module de formation AML integre : bibliotheque de formations adaptees aux avocats, suivi de completion individuel, attestation automatique. Registre de formation genere automatiquement et exportable pour le questionnaire Barreau. Rappels automatiques avant expiration du cycle annuel.'
+    {key:'Formation',short:'Formation',
+     sub:"Formation AML annuelle, registre des formations, plan certifiant",
+     an:{
+       low:"Aucune formation AML structuree n'est dispensee dans votre cabinet. En cas de controle, l'absence de registre de formation constitue une violation autonome independamment de la qualite du reste du dispositif. Tous les collaborateurs doivent etre formes.",
+       medium:"Des formations ont lieu mais sans plan annuel structure ni registre individuel. La tracabilite par collaborateur reste insuffisante pour justifier la conformite aupres du Barreau lors du questionnaire annuel.",
+       high:"Votre plan de formation est actif et trace. L'enjeu est d'integrer un module specifique AMLR 2024/1624 et de differencier les programmes par profil."
+     },
+     ac:{
+       low:["Instaurer un plan de formation AML annuel obligatoire pour tous les collaborateurs","Tenir un registre numerique des formations : date, contenu, participant, certificat","Designer un referent formation AML au sein du cabinet","Programmer les prochaines sessions avant le 31 decembre"],
+       medium:["Standardiser la cadence annuelle et la tracabilite individuelle par collaborateur","Differencier les programmes par profil : associes, collaborateurs, assistants","Ajouter un module AMLR 2024/1624 au plan de formation existant"],
+       high:["Maintenir la cadence annuelle et actualiser les contenus AMLR","Documenter les evaluations post-formation"]
+     },
+     nv:"Module de formation AML integre : bibliotheque de formations adaptees aux avocats, suivi de completion individuel, attestation automatique. Registre de formation genere et exportable pour le questionnaire Barreau. Rappels automatiques avant expiration."
     },
-    {
-      key:'Registre & Traçabilité', short:'Registre',
-      sub:'Registre AML horodate, documentation des risques, questionnaire Barreau',
-      analysis:{
-        low:'Votre cabinet ne dispose pas d\'un registre AML numerique horodate. En cas de controle ordinal ou d\'intervention de la CRF, l\'absence de registre structuré est traitee comme une violation autonome. Le questionnaire annuel du Barreau prend actuellement plusieurs jours de travail.',
-        medium:'Un registre existe mais il n\'est ni numerique, ni horodate, ni immediatement exportable. Le questionnaire annuel du Barreau necessite une reconstruction manuelle chronophage et source d\'erreurs.',
-        high:'Votre registre est bien tenu. L\'enjeu est l\'automatisation de la generation du questionnaire annuel et le renforcement de la justification ecrite de chaque decision de risque pour tenir en cas de controle approfondi.'
-      },
-      actions:{
-        low:['Migrer vers un registre AML numerique, horodate et immuable','Documenter systematiquement les analyses de risque et decisions prises pour chaque dossier','Preparer un plan d\'urgence permettant de repondre au questionnaire ordinal en < 1 jour','Definir une procedure formelle de reponse aux controles CRF'],
-        medium:['Renforcer la justification ecrite de chaque decision de risque','Automatiser la generation du questionnaire annuel Barreau depuis les donnees cabinet','Tester la procedure de controle en simulant un audit avant tout besoin reel'],
-        high:['Maintenir la qualite et la completude du registre','Affiner les modeles de justification des decisions de risque']
-      },
-      norvy:'Registre AML immuable avec horodatage certifie de chaque action : pret pour tout controle ordinal ou CRF en quelques clics. Questionnaire OAL/Barreau auto-genere depuis vos donnees : un clic pour le PDF pre-rempli. Dashboard de tracabilite en temps reel, exportable en PDF.'
+    {key:'Registre & Tracabilite',short:'Registre',
+     sub:"Registre AML horodate, documentation des risques, questionnaire Barreau",
+     an:{
+       low:"Votre cabinet ne dispose pas d'un registre AML numerique horodate. En cas de controle ordinal ou CRF, l'absence de registre structure est traitee comme une violation autonome. Le questionnaire annuel du Barreau prend actuellement plusieurs jours de travail.",
+       medium:"Un registre existe mais il n'est ni numerique, ni horodate, ni immediatement exportable. Le questionnaire annuel du Barreau necessite une reconstruction manuelle chronophage.",
+       high:"Votre registre est bien tenu. L'enjeu est l'automatisation du questionnaire annuel et le renforcement de la justification ecrite de chaque decision de risque."
+     },
+     ac:{
+       low:["Migrer vers un registre AML numerique, horodate et immuable","Documenter systematiquement les analyses de risque et decisions prises pour chaque dossier","Preparer un plan d'urgence pour repondre au questionnaire ordinal en < 1 jour","Definir une procedure formelle de reponse aux controles CRF"],
+       medium:["Renforcer la justification ecrite de chaque decision de risque","Automatiser la generation du questionnaire annuel Barreau depuis les donnees cabinet","Tester la procedure de controle en simulant un audit"],
+       high:["Maintenir la qualite et la completude du registre","Affiner les modeles de justification des decisions de risque"]
+     },
+     nv:"Registre AML immuable avec horodatage certifie : pret pour tout controle ordinal ou CRF en quelques clics. Questionnaire OAL/Barreau auto-genere depuis vos donnees — un clic pour le PDF pre-rempli. Dashboard de tracabilite en temps reel."
     },
-    {
-      key:'Déclaration & Soupçon', short:'DOS / CRF',
-      sub:'Procedure DOS a la CRF, red flags, canaux d\'escalade internes',
-      analysis:{
-        low:'Votre cabinet ne dispose pas de procedure formalisee de declaration de soupcon. En cas de transaction suspecte non declaree, la responsabilite penale de l\'avocat responsable peut etre directement engagee. Le risque est personnel et immediate.',
-        medium:'Une procedure informelle existe mais sans documentation des typologies de red flags ni traçabilite des escalades internes. La procedure CRF n\'est pas maitrisee de facon certaine par tous les collaborateurs.',
-        high:'Votre dispositif DOS est en place. L\'enjeu est la mise a jour des typologies de red flags avec les signaux AMLA et la documentation systematique des decisions de non-declaration motivees.'
-      },
-      actions:{
-        low:['Formaliser une procedure ecrite de declaration de soupcon a la CRF (canaux, delais, contenu)','Etablir une liste de red flags adaptee a vos typologies de clientele et prestations','Former tous les collaborateurs aux signaux d\'alerte et au canal d\'escalade interne','Documenter formellement le canal d\'escalade interne vers le Compliance Officer'],
-        medium:['Documenter les typologies de soupcon specifiques a votre activite','Organiser un exercice pratique de declaration CRF au moins une fois par an','Tracer systematiquement les escalades internes, meme non suivies de declaration'],
-        high:['Mettre a jour les typologies de red flags avec les signaux publies par l\'AMLA','Documenter et motiver chaque decision de non-declaration']
-      },
-      norvy:'Workflow de signalement numerique : circuit d\'escalade collaborateur > Compliance Officer > decision DOS, entierement trace et horodate. Bibliotheque de red flags prechargee et adaptable. Preparation guidee de la declaration DOS avec tous les elements requis par la CRF, export securise archive dans le registre AML.'
+    {key:'Declaration & Soupcon',short:'DOS / CRF',
+     sub:"Procedure DOS a la CRF, red flags, canaux d'escalade internes",
+     an:{
+       low:"Votre cabinet ne dispose pas de procedure formalisee de declaration de soupcon. En cas de transaction suspecte non declaree, la responsabilite penale de l'avocat peut etre directement engagee. Le risque est personnel et immediat.",
+       medium:"Une procedure informelle existe mais sans documentation des red flags ni tracabilite des escalades internes. La procedure CRF n'est pas maitrisee par tous les collaborateurs.",
+       high:"Votre dispositif DOS est en place. L'enjeu est la mise a jour des typologies de red flags avec les signaux AMLA et la documentation des decisions de non-declaration motivees."
+     },
+     ac:{
+       low:["Formaliser une procedure ecrite de declaration de soupcon a la CRF (canaux, delais, contenu)","Etablir une liste de red flags adaptee a vos typologies de clientele et prestations","Former tous les collaborateurs aux signaux d'alerte et au canal d'escalade interne","Documenter formellement le canal d'escalade interne vers le Compliance Officer"],
+       medium:["Documenter les typologies de soupcon specifiques a votre activite","Organiser un exercice pratique de declaration CRF au moins une fois par an","Tracer les escalades internes meme non suivies de declaration"],
+       high:["Mettre a jour les typologies de red flags avec les signaux AMLA","Documenter et motiver chaque decision de non-declaration"]
+     },
+     nv:"Workflow de signalement numerique : circuit d'escalade collaborateur > Compliance Officer > decision DOS, entierement trace et horodate. Bibliotheque de red flags prechargee et adaptable. Preparation guidee de la declaration DOS avec tous les elements requis par la CRF."
     }
   ];
 
-  const scoreCol = sCol(score);
-  const scoreBg  = sBg(score);
+  var scCol=sC(score),scBg=sB(score);
 
-  // ══════════════════════════════════════════════════
+  // ════════════════════════════════════════
   // PAGE 1 : COUVERTURE
-  // ══════════════════════════════════════════════════
+  // ════════════════════════════════════════
   pg=1;
-  fc(C_WH); rr(0,0,W,H);
+  fc(WH);bx(0,0,W,H);
 
-  // Header foncé
-  fc(C_DARK); rr(0,0,W,90);
-  fc(C_GRN);  rr(0,0,W,3);
-  fc(C_ACC);  rr(W-52,0,52,90);
+  // Header
+  fc(DA);bx(0,0,W,86);
+  fc(GR);bx(0,0,W,3);
+  fc(AC);bx(W-50,0,50,86);
 
-  // Logo dans bande verte droite
-  ff('bold',16); tc(C_WH); tx('norvy',W-47,28,{align:'center'});
-  ff('normal',7); tc([190,215,205]); tx('norvy.lu',W-47,37,{align:'center'});
-  ff('normal',6.5); tc([155,185,172]); tx('contact@norvy.lu',W-47,45,{align:'center'});
+  // Logo (bande droite)
+  ff('bold',14);tc(WH);tx('norvy',W-47,28,{align:'center'});
+  ff('normal',6.5);tc([190,215,205]);tx('norvy.lu',W-47,37,{align:'center'});
+  ff('normal',6);tc([155,185,172]);tx('contact@norvy.lu',W-47,46,{align:'center'});
 
-  // Titre gauche
-  ff('bold',9); tc(C_GRN); tx('RAPPORT D\'AUTO-EVALUATION',M,30);
-  ff('bold',26); tc(C_WH); tx('Maturite de',M,50);
-  ff('bold',26); tc(C_WH); tx('conformite AML',M,64);
-  ff('normal',8.5); tc([175,190,200]); tx('LCB-FT  &  AMLR 2024/1624',M,76);
+  // Titre
+  ff('bold',8.5);tc(GR);tx("RAPPORT D'AUTO-EVALUATION AML",ML,28);
+  ff('bold',26);tc(WH);tx('Maturite de conformite',ML,48);
+  ff('normal',8.5);tc([175,190,200]);tx('LCB-FT  &  AMLR 2024/1624  |  '+today,ML,60);
+  ff('italic',6.5);tc([155,175,185]);tx('Ce document est confidentiel. Usage strictement reserve au cabinet evalue.',ML,70);
 
   // Bloc cabinet
-  fc(C_WH); dc(C_BRD); lw(0.3); rr(M,98,RW,36,3,'FD');
-  ff('bold',7); tc(C_FAINT); tx('CABINET EVALUE',M+6,108);
-  ff('bold',16); tc(C_TEXT); tx(firmName||'Cabinet d\'avocats',M+6,120);
-  ff('normal',8); tc(C_DIM); tx('Date : '+today+'  |  Document confidentiel',M+6,130);
+  fc(WH);dc(BD);lw(0.3);bx(ML,94,RW,32,3,'FD');
+  ff('bold',7);tc(FA);tx('CABINET EVALUE',ML+6,104);
+  ff('bold',15);tc(TX);tx(s(firmName||"Cabinet d'avocats"),ML+6,115);
+  ff('normal',8);tc(DM);tx('Evaluation generee le : '+today,ML+6,125);
 
   // Score centré
-  const scX=W/2, scY=165;
-  fc(scoreBg); dc(scoreCol); lw(1.2); cr(scX,scY,26,'FD');
-  ff('bold',34); tc(scoreCol); tx(String(score),scX,scY+4,{align:'center'});
-  ff('normal',8); tc(C_DIM); tx('/ 100',scX,scY+13,{align:'center'});
-  badge(sLbl(score),scX-16,scY+21,scoreBg,scoreCol);
-  ff('normal',7.5); tc(C_DIM); tx('Score global de conformite AML',scX,scY+32,{align:'center'});
+  var scX=W/2,scY=162;
+  fc(scBg);dc(scCol);lw(1.2);doc.circle(scX,scY,24,'FD');
+  ff('bold',32);tc(scCol);tx(String(score),scX,scY+4,{align:'center'});
+  ff('normal',7.5);tc(DM);tx('/ 100',scX,scY+13,{align:'center'});
+  bdg(sL(score),scX-15,scY+20,scBg,scCol);
+  ff('normal',7);tc(DM);tx('Score global de conformite AML',scX,scY+30,{align:'center'});
 
-  // Mini barres 6 piliers
-  const bW3=(RW-8)/6;
-  ff('bold',6); tc(C_FAINT); tx('EVALUATION PAR PILIER AMLR',M,206);
-  META.forEach((d,i)=>{
-    const sc2=dimScores[d.key]||0;
-    const bx2=M+i*(bW3+1.6);
-    bar(bx2,209,bW3,5,sc2,sCol(sc2),1.5);
-    ff('normal',5); tc(C_DIM); tx(d.short,bx2,218);
-    ff('bold',6); tc(sCol(sc2)); tx(sc2+'%',bx2,224);
+  // Barres 6 piliers
+  var bW1=Math.floor((RW-10)/6);
+  ff('bold',5.5);tc(FA);tx('EVALUATION PAR PILIER AMLR',ML,200);
+  META.forEach(function(d,i){
+    var sc2=getScore(d.key);
+    var bxi=ML+i*(bW1+2);
+    pbar(bxi,203,bW1,5,sc2,sC(sc2));
+    ff('normal',4.8);tc(DM);tx(d.short,bxi,212);
+    ff('bold',6);tc(sC(sc2));tx(sc2+'%',bxi,218);
   });
 
-  // Verdict court
-  const vShort=score>=75
-    ?'Votre cabinet affiche un niveau de maturite AML avance. Ce rapport consolide les axes d\'optimisation avant l\'echeance AMLR de juillet 2027.'
-    :score>=50
-    ?'Des progres sont accomplis. Ce rapport identifie precisement les piliers a renforcer pour la pleine conformite AMLR avant juillet 2027.'
-    :'Des lacunes importantes exposent votre cabinet. Ce rapport detaille un plan d\'action priorise a engager sans delai avant juillet 2027.';
-  fc(scoreBg); dc(scoreCol); lw(0.3); rr(M,230,RW,22,2.5,'FD');
-  ff('italic',8.5); tc(C_TEXT); sp(vShort,RW-10).slice(0,3).forEach((l,i)=>tx(l,M+5,237+i*5.5));
+  // Verdict
+  var vS=score>=75?"Votre cabinet affiche un niveau de maturite AML avance. Ce rapport consolide les axes d'optimisation avant l'echeance AMLR de juillet 2027.":score>=50?"Des progres sont accomplis. Ce rapport identifie les piliers a renforcer pour la pleine conformite AMLR avant juillet 2027.":"Des lacunes importantes exposent votre cabinet. Ce rapport detaille un plan d'action priorise a engager sans delai avant juillet 2027.";
+  fc(scBg);dc(scCol);lw(0.3);bx(ML,223,RW,20,2,'FD');
+  ff('italic',8);tc(TX);
+  var vLines=sp(vS,RW-10);
+  vLines.slice(0,2).forEach(function(l,i){tx(l,ML+5,230+i*6);});
 
   // Sommaire
-  sep(258);
-  ff('bold',7); tc(C_ACC); tx('SOMMAIRE',M,266);
-  [
-    ['p. 2','Synthese executive — score global, tableau des 6 piliers, verdict detaille'],
-    ['p. 3 - 8','Analyse par pilier AMLR — situation, actions, solution Norvy'],
-    ['p. 9','Plan d\'action global — toutes les actions classees par priorite'],
-    ['p. 10','Norvy — Presentation, pricing et contacts'],
-  ].forEach(([p,l],i)=>{
-    const ty=272+i*8;
-    fc(i===3?C_ACC:C_BG); rr(M,ty-3,RW,8,1.5,'F');
-    ff('bold',7); tc(i===3?C_WH:C_ACC); tx(p,M+3,ty+2.5);
-    ff('normal',7); tc(i===3?[210,230,220]:C_TEXT); tx(l,M+26,ty+2.5);
+  sep(250);
+  ff('bold',7);tc(AC);tx('SOMMAIRE',ML,258);
+  var toc=[
+    ['p. 2','Synthese executive — score global, tableau 6 piliers, verdict detaille'],
+    ['p. 3 - 8','Analyse par pilier AMLR — situation, actions recommandees, solution Norvy'],
+    ['p. 9',"Plan d'action global — toutes les actions classees par priorite"],
+    ['p. 10','Norvy — Presentation produit, tarifs et contacts'],
+  ];
+  toc.forEach(function(item,i){
+    var ty=264+i*8;
+    fc(i===3?AC:BG);bx(ML,ty-3,RW,7.5,1.5,'F');
+    ff('bold',7);tc(i===3?WH:AC);tx(item[0],ML+3,ty+2.2);
+    ff('normal',7);tc(i===3?[210,230,220]:TX);tx(item[1],ML+28,ty+2.2);
   });
-
-  ff('italic',6); tc(C_FAINT);
-  tx('Ce rapport est genere automatiquement a partir de vos reponses. Il a valeur indicative et ne remplace pas l\'avis d\'un expert AML qualifie.',M,282,{maxWidth:RW});
+  ff('italic',5.5);tc(FA);
+  tx("Ce rapport est genere automatiquement a partir de vos reponses. Il a valeur indicative et ne remplace pas l'avis d'un expert AML qualifie.",ML,283,{maxWidth:RW});
   foot();
 
-  // ══════════════════════════════════════════════════
+  // ════════════════════════════════════════
   // PAGE 2 : SYNTHESE EXECUTIVE
-  // ══════════════════════════════════════════════════
-  doc.addPage(); pg=2;
-  fc(C_WH); rr(0,0,W,H); leftStripe(scoreCol);
+  // ════════════════════════════════════════
+  doc.addPage();pg=2;
+  fc(WH);bx(0,0,W,H);stripe(scCol);
 
-  ff('bold',7); tc(C_FAINT); tx('SECTION 1 — SYNTHESE EXECUTIVE',M+5,15);
-  ff('bold',20); tc(C_TEXT); tx('Tableau de bord de conformite AML',M+5,27);
-  ff('normal',9); tc(C_DIM); tx('Vue d\'ensemble sur les 6 piliers AMLR 2024/1624',M+5,35);
-  sep(40);
+  ff('bold',6.5);tc(FA);tx('SECTION 1 / '+NP+' — SYNTHESE EXECUTIVE',ML+5,14);
+  ff('bold',19);tc(TX);tx('Tableau de bord de conformite AML',ML+5,26);
+  ff('normal',8.5);tc(DM);tx('Vue d\'ensemble sur les 6 piliers AMLR 2024/1624',ML+5,33);
+  sep(38);
 
-  // Score + barre
-  let y2=47;
-  fc(scoreBg); dc(scoreCol); lw(0.35); rr(M+5,y2,RW-5,26,2.5,'FD');
-  ff('bold',28); tc(scoreCol); tx(score+' / 100',M+11,y2+20);
-  badge(sLbl(score),M+11+doc.getTextWidth(s(score+' / 100'))+5,y2+13,scoreBg,scoreCol);
-  ff('normal',8); tc(C_DIM);
-  const sv=score>=75?'Dispositif AML avance — axes d\'optimisation identifies':score>=50?'Conformite partielle — actions cles a engager avant juillet 2027':'Lacunes importantes — plan d\'action priorise ci-apres';
-  tx(sv,W-M-4,y2+20,{align:'right'});
-  bar(M+5,y2+28,RW-5,5,score,scoreCol,1.5);
-  y2+=40;
+  // Score global
+  var y2=45;
+  fc(scBg);dc(scCol);lw(0.35);bx(ML+4,y2,RW-4,24,2,'FD');
+  ff('bold',26);tc(scCol);tx(score+' / 100',ML+9,y2+18);
+  var sw=doc.getTextWidth(s(score+' / 100'));
+  bdg(sL(score),ML+9+sw+5,y2+11,scBg,scCol);
+  ff('normal',7.5);tc(DM);
+  var sv=score>=75?'Dispositif AML avance':score>=50?'Conformite partielle — actions cles a engager avant juillet 2027':'Lacunes importantes — plan d\'action priorise ci-apres';
+  tx(sv,W-MR-4,y2+18,{align:'right'});
+  pbar(ML+4,y2+26,RW-4,4,score,scCol);
+  y2+=36;
 
   // Tableau 6 piliers
-  fc(C_DARK); rr(M+5,y2,RW-5,8,'F');
-  ff('bold',7); tc(C_WH);
-  ['PILIER AMLR','SCORE','NIVEAU','PRIORITE','ECHEANCE'].forEach((h,i)=>tx(h,M+7+[0,78,98,128,160][i],y2+5.5));
+  fc(DA);bx(ML+4,y2,RW-4,8,'F');
+  ff('bold',7);tc(WH);
+  var hx=[0,74,94,122,154];
+  ['PILIER AMLR','SCORE','NIVEAU','PRIORITE','ECHEANCE'].forEach(function(h,i){tx(h,ML+6+hx[i],y2+5.5);});
   y2+=8;
-  META.forEach((d,i)=>{
-    const sc2=dimScores[d.key]||0;
-    const prio=sc2>=75?'Maintenance':sc2>=50?'Correction':'Urgente';
-    const prioC=sc2>=75?C_ACC:sc2>=50?C_WARN:C_DANG;
-    fc(i%2===0?C_WH:C_BG); rr(M+5,y2,RW-5,11,'F');
-    dc(C_BRD); lw(0.1); ln(M+5,y2+11,M+5+RW-5,y2+11);
-    ff('bold',8.5); tc(C_TEXT); tx(d.key,M+8,y2+8);
-    ff('bold',10); tc(sCol(sc2)); tx(String(sc2),M+84,y2+8);
-    badge(sLbl(sc2),M+98,y2+4,sBg(sc2),sCol(sc2));
-    ff('bold',8); tc(prioC); tx(prio,M+132,y2+8);
-    ff('normal',7.5); tc(C_DIM); tx(sc2>=75?'2027':'Avant 07/2027',M+163,y2+8);
-    y2+=11;
+  META.forEach(function(d,i){
+    var sc2=getScore(d.key);
+    var prio=sc2>=75?'Maintenance':sc2>=50?'Correction':'Urgente';
+    var prioC=sc2>=75?AC:sc2>=50?WA:RD;
+    fc(i%2===0?WH:BG);bx(ML+4,y2,RW-4,10,'F');
+    dc(BD);lw(0.1);ln(ML+4,y2+10,ML+4+RW-4,y2+10);
+    ff('bold',8);tc(TX);tx(d.key,ML+7,y2+7);
+    ff('bold',10);tc(sC(sc2));tx(String(sc2),ML+80,y2+7);
+    bdg(sL(sc2),ML+94,y2+3,sB(sc2),sC(sc2));
+    ff('bold',7.5);tc(prioC);tx(prio,ML+126,y2+7);
+    ff('normal',7);tc(DM);tx(sc2>=75?'2027':'Avant 07/2027',ML+158,y2+7);
+    y2+=10;
   });
-  y2+=8;
+  y2+=6;
 
-  // Jauge globale
-  ff('bold',7); tc(C_FAINT); tx('JAUGE GLOBALE DE CONFORMITE',M+5,y2);
-  y2+=4;
-  bar(M+5,y2,RW-5,7,score,scoreCol,2);
-  ff('bold',11); tc(scoreCol); tx(score+'%',W-M-4,y2+6,{align:'right'});
-  y2+=15;
+  // Jauge + Verdict
+  ff('bold',6.5);tc(FA);tx('JAUGE GLOBALE DE CONFORMITE',ML+4,y2);y2+=4;
+  pbar(ML+4,y2,RW-4,6,score,scCol);
+  ff('bold',10);tc(scCol);tx(score+'%',W-MR-4,y2+5,{align:'right'});
+  y2+=14;
 
-  // Verdict long
-  ff('bold',9); tc(C_TEXT); tx('Verdict executif',M+5,y2); y2+=5;
-  const vLong=score>=75
-    ?'Votre cabinet a constitue un socle de conformite AML solide et documenté. Les fondements reglementaires sont en place. L\'enjeu est desormais l\'efficience operationnelle : automatiser les processus manuels et preparer l\'integration AMLR 2024/1624 applicable en juillet 2027. Ce rapport identifie les axes d\'optimisation et decrit comment Norvy vous accompagne pour passer de la conformite a l\'excellence.'
-    :score>=50
-    ?'Votre cabinet a engage une demarche AML reelle, mais certains piliers restent insuffisamment formalises pour resister a un controle ordinal ou CRF. Les risques sont identifies et quantifiables. Ce rapport vous indique exactement sur quels axes concentrer les efforts pour atteindre la pleine conformite AMLR avant l\'echeance de juillet 2027.'
-    :'Votre dispositif AML presente des insuffisances importantes au regard des obligations LCB-FT et du cadre AMLR 2024/1624 applicable en juillet 2027. Cette situation expose le cabinet a des sanctions administratives et penales directes — y compris des responsabilites personnelles pour les associes (amendes jusqu\'a 10 M EUR ou 10% du CA). Ce rapport detaille un plan d\'action priorise pour corriger ces lacunes de maniere structuree.';
-  fc(scoreBg); dc(scoreCol); lw(0.25); rr(M+5,y2,RW-5,38,2,'FD');
-  ff('normal',8.5); tc(C_TEXT);
-  sp(vLong,RW-14).slice(0,6).forEach((l,i)=>tx(l,M+9,y2+7+i*5.5));
-  y2+=44;
+  var vL=score>=75?"Votre cabinet a constitue un socle de conformite AML solide. Les fondements reglementaires sont en place. L'enjeu est l'efficience operationnelle : automatiser les processus manuels et preparer l'integration AMLR 2024/1624 applicable en juillet 2027.":score>=50?"Votre cabinet a engage une demarche AML reelle, mais certains piliers restent insuffisamment formalises pour resister a un controle ordinal ou CRF. Ce rapport vous indique exactement les axes a renforcer pour la pleine conformite AMLR avant juillet 2027.":"Votre dispositif AML presente des insuffisances importantes au regard des obligations LCB-FT et du cadre AMLR 2024/1624 applicable en juillet 2027. Cette situation expose le cabinet a des sanctions directes — amendes jusqu'a 10 M EUR ou 10% du CA. Ce rapport detaille un plan d'action priorise.";
+  fc(scBg);dc(scCol);lw(0.25);bx(ML+4,y2,RW-4,32,2,'FD');
+  ff('normal',8);tc(TX);
+  sp(vL,RW-12).slice(0,5).forEach(function(l,i){tx(l,ML+8,y2+7+i*5);});
+  y2+=38;
 
   // Points forts / priorités
-  if(y2+46<278){
-    const cW=(RW-8)/2;
-    const sorted2=META.map(d=>({...d,sc2:dimScores[d.key]||0})).sort((a,b)=>b.sc2-a.sc2);
-    const strongs=sorted2.filter(d=>d.sc2>=60).slice(0,3);
-    const weaks=sorted2.filter(d=>d.sc2<60).reverse().slice(0,3);
+  if(y2+42<275){
+    var cW2=Math.floor((RW-6)/2);
+    var sorted2=META.map(function(d){return{k:d.key,sc2:getScore(d.key)};}).sort(function(a,b){return b.sc2-a.sc2;});
+    var strgs=sorted2.slice(0,3);
+    var wks=sorted2.slice(-3).reverse();
 
-    fc(C_SOFT); dc(C_ACC); lw(0.25); rr(M+5,y2,cW,8,2,'FD');
-    ff('bold',7.5); tc(C_ACC); tx('POINTS FORTS',M+8,y2+5.5);
-    strongs.forEach((d,i)=>{
-      fc(i%2===0?C_WH:C_BG); rr(M+5,y2+8+i*10,cW,10,'F');
-      dc(C_BRD); lw(0.1); ln(M+5,y2+18+i*10,M+5+cW,y2+18+i*10);
-      ff('normal',8); tc(C_TEXT); tx(d.key,M+8,y2+15+i*10);
-      ff('bold',8); tc(sCol(d.sc2)); tx(d.sc2+'%',M+5+cW-4,y2+15+i*10,{align:'right'});
+    fc(SO);dc(AC);lw(0.2);bx(ML+4,y2,cW2,8,2,'FD');
+    ff('bold',7);tc(AC);tx('POINTS FORTS',ML+7,y2+5.5);
+    strgs.forEach(function(d,i){
+      fc(i%2===0?WH:BG);bx(ML+4,y2+8+i*9,cW2,9,'F');
+      dc(BD);lw(0.1);ln(ML+4,y2+17+i*9,ML+4+cW2,y2+17+i*9);
+      ff('normal',7.5);tc(TX);tx(d.k,ML+7,y2+14+i*9);
+      ff('bold',7.5);tc(sC(d.sc2));tx(d.sc2+'%',ML+4+cW2-3,y2+14+i*9,{align:'right'});
     });
 
-    const rx=M+5+cW+6;
-    fc(C_DSOF); dc(C_DANG); lw(0.25); rr(rx,y2,cW,8,2,'FD');
-    ff('bold',7.5); tc(C_DANG); tx('PRIORITES D\'ACTION',rx+3,y2+5.5);
-    weaks.forEach((d,i)=>{
-      fc(i%2===0?C_WH:C_BG); rr(rx,y2+8+i*10,cW,10,'F');
-      dc(C_BRD); lw(0.1); ln(rx,y2+18+i*10,rx+cW,y2+18+i*10);
-      ff('normal',8); tc(C_TEXT); tx(d.key,rx+3,y2+15+i*10);
-      ff('bold',8); tc(sCol(d.sc2)); tx(d.sc2+'%',rx+cW-4,y2+15+i*10,{align:'right'});
+    var rx2=ML+4+cW2+6;
+    fc(RS);dc(RD);lw(0.2);bx(rx2,y2,cW2,8,2,'FD');
+    ff('bold',7);tc(RD);tx("PRIORITES D'ACTION",rx2+3,y2+5.5);
+    wks.forEach(function(d,i){
+      fc(i%2===0?WH:BG);bx(rx2,y2+8+i*9,cW2,9,'F');
+      dc(BD);lw(0.1);ln(rx2,y2+17+i*9,rx2+cW2,y2+17+i*9);
+      ff('normal',7.5);tc(TX);tx(d.k,rx2+3,y2+14+i*9);
+      ff('bold',7.5);tc(sC(d.sc2));tx(d.sc2+'%',rx2+cW2-3,y2+14+i*9,{align:'right'});
     });
   }
   foot();
 
-  // ══════════════════════════════════════════════════
-  // PAGES 3–8 : UNE PAR PILIER
-  // ══════════════════════════════════════════════════
-  META.forEach((dim,idx)=>{
-    doc.addPage(); pg=3+idx;
-    fc(C_WH); rr(0,0,W,H);
-    const sc2=dimScores[dim.key]||0;
-    const col=sCol(sc2), bgc=sBg(sc2), gk=sKey(sc2);
-    leftStripe(col);
+  // ════════════════════════════════════════
+  // PAGES 3–8 : UN PAR PILIER
+  // ════════════════════════════════════════
+  META.forEach(function(dim,idx){
+    doc.addPage();pg=3+idx;
+    fc(WH);bx(0,0,W,H);
 
-    // En-tête
-    ff('bold',7); tc(C_FAINT); tx('PILIER '+(idx+1)+' SUR 6',M+5,14);
-    ff('bold',7.5); tc(col); tx(dim.sub.toUpperCase(),M+5,21);
-    dc(C_BRD); lw(0.2); ln(M+5,25,W-M,25);
-    ff('bold',20); tc(C_TEXT); tx(dim.key,M+5,36);
+    var sc2=getScore(dim.key);
+    var col=sC(sc2),bgc=sB(sc2),gk=sK(sc2);
+    stripe(col);
 
-    // Score pilier
-    fc(bgc); dc(col); lw(0.5); rr(W-M-40,10,40,32,2.5,'FD');
-    ff('bold',26); tc(col); tx(String(sc2),W-M-20,29,{align:'center'});
-    ff('normal',7); tc(C_DIM); tx('/ 100',W-M-20,36,{align:'center'});
-    badge(sLbl(sc2),W-M-38,39,bgc,col);
-    ff('normal',7); tc(C_FAINT); tx('Score pilier',M+5,46);
-    bar(M+5,48,RW*0.65,4,sc2,col,2);
-    dc(C_BRD); lw(0.2); ln(M+5,58,W-M,58);
+    // ── EN-TÊTE ──
+    ff('bold',6.5);tc(FA);tx('PILIER '+(idx+1)+' SUR 6  —  PAGE '+pg+' / '+NP,ML+5,13);
+    ff('bold',7.5);tc(col);tx(s(dim.sub).toUpperCase(),ML+5,20);
+    dc(BD);lw(0.2);ln(ML+5,24,W-MR,24);
+    ff('bold',19);tc(TX);tx(s(dim.key),ML+5,35);
 
-    // Analyse
-    let yp=65;
-    ff('bold',8); tc(col); tx('ANALYSE DE VOTRE SITUATION',M+5,yp); yp+=5;
-    dc(col); lw(0.5); ln(M+5,yp,M+35,yp);
-    dc(C_BRD); lw(0.2); ln(M+37,yp,W-M,yp); yp+=6;
-    fc(bgc); dc(col); lw(0.25); rr(M+5,yp,RW-5,32,2,'FD');
-    fc(col); cr(M+13,yp+16,6,'F');
-    ff('bold',10); tc(C_WH); tx(sc2>=75?'OK':sc2>=50?'~':'!',M+13,yp+19,{align:'center'});
-    ff('normal',8.5); tc(C_TEXT);
-    sp(dim.analysis[gk],RW-28).slice(0,4).forEach((l,i)=>tx(l,M+22,yp+8+i*5.5));
-    yp+=38;
+    // Score pilier (coin droit)
+    fc(bgc);dc(col);lw(0.5);bx(W-MR-38,9,38,30,2.5,'FD');
+    ff('bold',22);tc(col);tx(String(sc2),W-MR-19,26,{align:'center'});
+    ff('normal',6.5);tc(DM);tx('/ 100',W-MR-19,33,{align:'center'});
+    bdg(sL(sc2),W-MR-37,36,bgc,col);
 
-    // Actions
-    ff('bold',8); tc(col); tx('PLAN D\'ACTION RECOMMANDE',M+5,yp); yp+=5;
-    dc(col); lw(0.5); ln(M+5,yp,M+35,yp);
-    dc(C_BRD); lw(0.2); ln(M+37,yp,W-M,yp); yp+=6;
-    dim.actions[gk].forEach((a,i)=>{
-      const lines=sp(a,RW-20);
-      const rh=Math.max(13,lines.length*5+5);
-      if(yp+rh>204)return;
-      fc(i%2===0?C_WH:C_BG); dc(C_BRD); lw(0.15); rr(M+5,yp,RW-5,rh,1.5,'FD');
-      fc(col); rr(M+5,yp,10,rh,0,'F');
-      ff('bold',9); tc(C_WH); tx(String(i+1),M+10,yp+rh/2+3,{align:'center'});
-      ff('normal',8.5); tc(C_TEXT); lines.forEach((l,j)=>tx(l,M+18,yp+6+j*5));
-      yp+=rh+3;
+    // Barre score
+    ff('normal',6.5);tc(FA);tx('Score pilier',ML+5,45);
+    pbar(ML+5,47,RW*0.6,4,sc2,col);
+    dc(BD);lw(0.2);ln(ML+5,56,W-MR,56);
+
+    // ── ANALYSE ──
+    var yp=63;
+    fc(col);bx(ML+5,yp,4,5,0,'F');
+    ff('bold',8);tc(col);tx("ANALYSE DE VOTRE SITUATION",ML+12,yp+4);yp+=9;
+    fc(bgc);dc(col);lw(0.25);bx(ML+5,yp,RW-5,28,2,'FD');
+    ff('normal',8);tc(TX);
+    var anLines=sp(dim.an[gk],RW-14);
+    anLines.slice(0,4).forEach(function(l,i){tx(l,ML+9,yp+6+i*5);});
+    yp+=33;
+
+    // ── ACTIONS ──
+    fc(col);bx(ML+5,yp,4,5,0,'F');
+    ff('bold',8);tc(col);tx("PLAN D'ACTION RECOMMANDE",ML+12,yp+4);yp+=9;
+
+    var acts=dim.ac[gk];
+    acts.forEach(function(a,i){
+      if(yp>192)return;
+      var lines=sp(a,RW-18);
+      var rh=Math.max(11,lines.length*4.5+5);
+      fc(i%2===0?WH:BG);dc(BD);lw(0.15);bx(ML+5,yp,RW-5,rh,1.5,'FD');
+      // Numéro
+      fc(col);bx(ML+5,yp,9,rh,0,'F');
+      ff('bold',8.5);tc(WH);tx(String(i+1),ML+9.5,yp+rh/2+3,{align:'center'});
+      // Texte
+      ff('normal',8);tc(TX);lines.forEach(function(l,j){tx(l,ML+17,yp+5+j*4.5);});
+      yp+=rh+2;
     });
     yp+=5;
 
-    // Norvy
-    if(yp<248){
-      fc(C_DARK); rr(M+5,yp,RW-5,10,2,'F');
-      ff('bold',8.5); tc(C_GRN); tx('COMMENT NORVY RESOUT CE PROBLEME',M+9,yp+7); yp+=13;
-      if(yp+22<276){
-        fc(C_WH); dc(C_ACC); lw(0.25); rr(M+5,yp,RW-5,22,2,'FD');
-        fc(C_GRN); rr(M+7,yp+5,4,12,1.5,'F');
-        ff('bold',8); tc(C_ACC); tx('Solution Norvy',M+14,yp+10);
-        ff('normal',7.5); tc(C_DIM);
-        sp(dim.norvy,RW-20).slice(0,2).forEach((l,j)=>tx(l,M+14,yp+15+j*4.5));
+    // ── SOLUTION NORVY ──
+    if(yp<245){
+      fc(DA);bx(ML+5,yp,RW-5,10,2,'F');
+      ff('bold',8.5);tc(GR);tx('COMMENT NORVY RESOUT CE PROBLEME',ML+9,yp+7);yp+=13;
+
+      if(yp+26<270){
+        fc(WH);dc(AC);lw(0.3);bx(ML+5,yp,RW-5,24,2,'FD');
+        // Barre verte gauche
+        fc(GR);bx(ML+7,yp+4,3.5,16,1.5,'F');
+        ff('bold',8);tc(AC);tx('Solution Norvy',ML+14,yp+10);
+        ff('normal',7.5);tc(DM);
+        sp(dim.nv,RW-20).slice(0,2).forEach(function(l,j){tx(l,ML+14,yp+16+j*4.5);});
       }
     }
 
-    // Bas
-    dc(C_BRD); lw(0.2); ln(M,277,W-M,277);
-    fc(bgc); rr(M,278,RW,8,'F');
-    ff('bold',7); tc(col); tx('Score — '+dim.key+' : '+sc2+' / 100  —  '+sLbl(sc2),M+5,283.5);
-    bar(W-M-52,280,48,4,sc2,col,1.5);
+    // ── BAS DE PAGE ──
+    dc(BD);lw(0.2);ln(ML,274,W-MR,274);
+    fc(bgc);bx(ML,275,RW,7,'F');
+    ff('bold',7);tc(col);tx('Score — '+s(dim.key)+' : '+sc2+' / 100  —  '+sL(sc2),ML+4,280);
+    pbar(W-MR-50,277,46,3,sc2,col);
     foot();
   });
 
-  // ══════════════════════════════════════════════════
+  // ════════════════════════════════════════
   // PAGE 9 : PLAN D'ACTION GLOBAL
-  // ══════════════════════════════════════════════════
-  doc.addPage(); pg=9;
-  fc(C_WH); rr(0,0,W,H);
-  fc(C_DARK); rr(0,0,W,28,'F');
-  fc(C_GRN);  rr(0,0,W,3,'F');
-  ff('bold',7); tc(C_GRN); tx('SECTION 8 — PLAN D\'ACTION GLOBAL',M,16);
-  ff('bold',16); tc(C_WH); tx('Synthese des actions prioritaires avant juillet 2027',M,24);
+  // ════════════════════════════════════════
+  doc.addPage();pg=9;
+  fc(WH);bx(0,0,W,H);
 
-  const allA=[];
-  META.forEach(d=>{
-    const sc2=dimScores[d.key]||0;
-    const gk2=sKey(sc2);
-    const prio=sc2>=75?3:sc2>=50?2:1;
-    d.actions[gk2].forEach(a=>allA.push({k:d.key,a,prio,sc2}));
+  // Header
+  fc(DA);bx(0,0,W,26,'F');fc(GR);bx(0,0,W,3,'F');
+  ff('bold',6.5);tc(GR);tx("SECTION 8 / "+NP+" — PLAN D'ACTION GLOBAL",ML,14);
+  ff('bold',15);tc(WH);tx('Synthese des actions prioritaires — Echeance juillet 2027',ML,23);
+
+  // Compiler et trier les actions
+  var allA=[];
+  META.forEach(function(d){
+    var sc2=getScore(d.key),gk2=sK(sc2),prio=sc2>=75?3:sc2>=50?2:1;
+    d.ac[gk2].forEach(function(a){allA.push({k:d.key,a:a,prio:prio,sc2:sc2});});
   });
-  allA.sort((a,b)=>a.prio-b.prio);
+  allA.sort(function(a,b){return a.prio-b.prio;});
 
-  let apy=33;
+  var apy=30;
   // Légende
-  [[C_DANG,'Priorite Haute'],[C_WARN,'Priorite Moyenne'],[C_ACC,'Maintenance']].forEach(([c,l],i)=>{
-    fc(c); cr(M+4+i*56,apy+3,3,'F');
-    ff('normal',7.5); tc(C_DIM); tx(l,M+10+i*56,apy+4.5);
+  [[RD,'Haute'],[WA,'Moyenne'],[AC,'Faible / Maintenance']].forEach(function(item,i){
+    fc(item[0]);doc.circle(ML+5+i*52,apy+3,2.5,'F');
+    ff('normal',7);tc(DM);tx(item[1],ML+10+i*52,apy+4);
   });
   apy+=10;
 
-  // Tableau
-  fc(C_DARK); rr(M,apy,RW,8,'F');
-  ff('bold',7); tc(C_WH);
-  ['#','PILIER','ACTION RECOMMANDEE','PRIORITE'].forEach((h,i)=>tx(h,M+2+[0,10,40,160][i],apy+5.5));
+  // En-tête tableau
+  fc(DA);bx(ML,apy,RW,8,'F');
+  ff('bold',6.5);tc(WH);
+  tx('#',ML+3,apy+5.5);tx('PILIER',ML+10,apy+5.5);tx('ACTION RECOMMANDEE',ML+48,apy+5.5);tx('PRIORITE',ML+165,apy+5.5);
   apy+=8;
 
-  allA.slice(0,20).forEach((item,i)=>{
-    if(apy>270)return;
-    const prioC=item.prio===1?C_DANG:item.prio===2?C_WARN:C_ACC;
-    const pL=item.prio===1?'HAUTE':item.prio===2?'MOYENNE':'FAIBLE';
-    const pBg=item.prio===1?C_DSOF:item.prio===2?C_WSOF:C_SOFT;
-    const lines=sp(item.a,112);
-    const rh=Math.max(10,lines.length*4.5+4);
-    fc(i%2===0?C_WH:C_BG); rr(M,apy,RW,rh,'F');
-    dc(C_BRD); lw(0.1); ln(M,apy+rh,M+RW,apy+rh);
-    fc(prioC); cr(M+5,apy+rh/2,3,'F');
-    ff('bold',6); tc(C_WH); tx(String(i+1),M+5,apy+rh/2+2,{align:'center'});
-    ff('normal',7); tc(C_DIM); tx(s(item.k).substring(0,14),M+10,apy+rh/2+2);
-    ff('normal',7.5); tc(C_TEXT); lines.forEach((l,j)=>tx(l,M+42,apy+4+j*4.5));
-    fc(pBg); dc(prioC); lw(0.2); rr(M+163,apy+(rh-7)/2,28,7,1.5,'FD');
-    ff('bold',6.5); tc(prioC); tx(pL,M+177,apy+(rh-7)/2+5,{align:'center'});
+  allA.slice(0,22).forEach(function(item,i){
+    if(apy>272)return;
+    var prioC=item.prio===1?RD:item.prio===2?WA:AC;
+    var pL=item.prio===1?'HAUTE':item.prio===2?'MOYENNE':'FAIBLE';
+    var pBg=item.prio===1?RS:item.prio===2?WS:SO;
+    var lines=sp(item.a,110);
+    var rh=Math.max(9,lines.length*4+4);
+    fc(i%2===0?WH:BG);bx(ML,apy,RW,rh,'F');
+    dc(BD);lw(0.1);ln(ML,apy+rh,ML+RW,apy+rh);
+    fc(prioC);doc.circle(ML+5,apy+rh/2,2.5,'F');
+    ff('bold',5.5);tc(WH);tx(String(i+1),ML+5,apy+rh/2+1.8,{align:'center'});
+    ff('normal',6.5);tc(DM);tx(s(item.k).substring(0,13),ML+10,apy+rh/2+2);
+    ff('normal',7);tc(TX);lines.forEach(function(l,j){tx(l,ML+48,apy+4+j*4);});
+    fc(pBg);dc(prioC);lw(0.18);bx(ML+163,apy+(rh-6)/2,26,6,1.5,'FD');
+    ff('bold',6);tc(prioC);tx(pL,ML+176,apy+(rh-6)/2+4.5,{align:'center'});
     apy+=rh;
   });
   foot();
 
-  // ══════════════════════════════════════════════════
-  // PAGE 10 : NORVY — PRESENTATION, PRICING, CONTACTS
-  // ══════════════════════════════════════════════════
-  doc.addPage(); pg=10;
-  fc(C_DARK); rr(0,0,W,H);
-  fc([18,50,40]); rr(0,0,W,78);
-  fc(C_GRN);   rr(0,0,W,3);
-  fc(C_ACC);   rr(W-55,0,55,78);
+  // ════════════════════════════════════════
+  // PAGE 10 : NORVY — PRESENTATION + PRICING + CONTACTS
+  // ════════════════════════════════════════
+  doc.addPage();pg=10;
+  fc(DA);bx(0,0,W,H);
 
-  // Logo
-  ff('bold',32); tc(C_WH); tx('norvy',M,34);
-  fc(C_GRN); rr(M,40,68,2.5,'F');
-  ff('normal',9);  tc([185,215,205]); tx('Le logiciel de gestion de cabinet avec l\'AML dans son ADN',M,50);
-  ff('normal',7.5);tc([130,165,150]); tx('Hebergement souverain Luxembourg  |  RGPD & secret professionnel  |  AMLR 2024/1624 by design',M,59);
+  // ── Header Norvy ──
+  fc([16,48,38]);bx(0,0,W,72,'F');
+  fc(GR);bx(0,0,W,3,'F');
+  fc(AC);bx(W-48,0,48,72,'F');
+
+  ff('bold',30);tc(WH);tx('norvy',ML,32);
+  fc(GR);bx(ML,37,62,2.5,'F');
+  ff('normal',8.5);tc([185,215,205]);tx("Le logiciel de gestion de cabinet avec l'AML dans son ADN",ML,47);
+  ff('normal',7);tc([130,165,150]);tx('Hebergement Luxembourg  |  RGPD & secret professionnel  |  AMLR 2024/1624 by design',ML,56);
 
   // Contacts dans bande droite
-  ff('bold',8.5); tc(C_WH); tx('norvy.lu',W-50,26);
-  ff('normal',7.5);tc([200,228,218]); tx('contact@norvy.lu',W-50,35);
-  ff('normal',7);  tc([160,200,185]); tx('Luxembourg',W-50,44);
-  ff('normal',7);  tc([130,170,155]); tx('Grand-Duche de Luxembourg',W-50,52);
+  ff('bold',8);tc(WH);tx('norvy.lu',W-44,24);
+  ff('normal',7);tc([200,228,218]);tx('contact@norvy.lu',W-44,33);
+  ff('normal',6.5);tc([160,200,185]);tx('Luxembourg',W-44,42);
 
-  let pp=83;
+  var pp=77;
 
-  // ── Section personnalisée : vos lacunes → nos solutions ──
-  fc([20,32,44]); rr(0,pp,W,11,'F');
-  ff('bold',8.5); tc(C_GRN); tx('VOS LACUNES — NOS SOLUTIONS : POURQUOI NORVY EST FAIT POUR VOTRE CABINET',M+4,pp+7.5);
+  // ── Section lacunes personnalisées ──
+  fc([18,30,42]);bx(0,pp,W,11,'F');
+  ff('bold',8);tc(GR);tx('VOS LACUNES — NOS SOLUTIONS : POURQUOI NORVY EST FAIT POUR VOTRE CABINET',ML+4,pp+7.5);
   pp+=14;
 
-  const weakest3=META.map(d=>({...d,sc2:dimScores[d.key]||0})).sort((a,b)=>a.sc2-b.sc2).slice(0,3);
-  weakest3.forEach((d,i)=>{
-    if(pp+42>222)return;
-    const gk3=sKey(d.sc2);
-    const col=sCol(d.sc2);
-    fc([24,38,54]); dc([50,75,65]); lw(0.2); rr(M,pp,RW,40,2.5,'FD');
-    fc(col); rr(M,pp,4,40,'F');
+  var weakest3=META.map(function(d){return{key:d.key,an:d.an,nv:d.nv,sc2:getScore(d.key)};}).sort(function(a,b){return a.sc2-b.sc2;}).slice(0,3);
+  weakest3.forEach(function(d,i){
+    if(pp+38>218)return;
+    var gk3=sK(d.sc2),col=sC(d.sc2);
+    fc([22,36,52]);dc([48,72,62]);lw(0.2);bx(ML,pp,RW,36,2.5,'FD');
+    fc(col);bx(ML,pp,4,36,'F');
     // Badge score
-    fc(sBg(d.sc2)); rr(M+8,pp+5,22,13,2,'F');
-    ff('bold',12); tc(col); tx(d.sc2+'%',M+19,pp+14,{align:'center'});
-    // Nom + niveau
-    ff('bold',10); tc(C_WH); tx(d.key,M+34,pp+11);
-    badge(sLbl(d.sc2),M+34+doc.getTextWidth(s(d.key))+5,pp+7,sBg(d.sc2),col);
+    fc(sB(d.sc2));bx(ML+7,pp+4,22,12,2,'F');
+    ff('bold',11);tc(col);tx(d.sc2+'%',ML+18,pp+12,{align:'center'});
+    // Nom
+    ff('bold',9.5);tc(WH);tx(s(d.key),ML+33,pp+10);
+    bdg(sL(d.sc2),ML+33+doc.getTextWidth(s(d.key))+4,pp+6,sB(d.sc2),col);
     // Lacune (2 lignes)
-    ff('italic',7.5); tc([175,198,188]);
-    sp(d.analysis[gk3],RW-20).slice(0,2).forEach((l,j)=>tx(l,M+8,pp+22+j*5));
+    ff('italic',7);tc([170,192,182]);
+    sp(d.an[gk3],RW-18).slice(0,2).forEach(function(l,j){tx(l,ML+7,pp+20+j*4.5);});
     // Solution Norvy
-    ff('bold',7); tc(C_GRN); tx('Solution Norvy :',M+8,pp+35.5);
-    const sLabel2=d.norvy.split('.')[0];
-    ff('normal',6.5); tc([155,185,175]); tx(s(sLabel2)+'.',M+8+doc.getTextWidth('Solution Norvy :')+3,pp+35.5);
-    pp+=44;
+    ff('bold',7);tc(GR);tx('Solution Norvy :',ML+7,pp+31.5);
+    var sol=(d.nv.split('.')[0]||d.nv)+'.';
+    ff('normal',6.5);tc([155,185,175]);tx(s(sol),ML+7+doc.getTextWidth('Solution Norvy :')+3,pp+31.5);
+    pp+=39;
   });
 
-  // ── Fonctionnalites completes ──
+  // ── Features ──
   pp+=2;
-  fc([22,34,46]); rr(0,pp,W,10,'F');
-  ff('bold',8.5); tc(C_WH); tx('NORVY EN BREF — TOUT CE QU\'INCLUT LA PLATEFORME',M+4,pp+7);
+  fc([20,32,44]);bx(0,pp,W,10,'F');
+  ff('bold',8);tc(WH);tx("NORVY EN BREF — TOUT CE QU'INCLUT LA PLATEFORME",ML+4,pp+7);
   pp+=13;
 
-  const feats2=[
+  var feats=[
     ['LPM complet','Dossiers, temps, facturation, encaissements, relances.'],
     ['KYC natif & continu','Identification BE, revue periodique, archivage 5 ans certifie.'],
     ['Screening 6 listes','UE, OFAC, ONU, UK, PPE, Adverse Media. Surveillance 24/7.'],
-    ['Questionnaire Barreau','Pre-rempli automatiquement depuis vos dossiers. Export PDF 1 clic.'],
+    ['Questionnaire Barreau','Pre-rempli automatiquement. Export PDF en un clic.'],
     ['Registre AML immuable','Horodatage certifie. Pret pour tout controle CRF ou ordinal.'],
     ['Scoring de risque','Evaluation continue, justification ecrite tracable.'],
   ];
-  const fW2=(RW-4)/2;
-  feats2.forEach((f,i)=>{
-    if(pp+20>258)return;
-    const fx2=M+(i%2)*(fW2+4);
-    if(i%2===0&&i>0)pp+=22;
-    fc([24,38,54]); rr(fx2,pp,fW2,20,2,'F');
-    fc(C_GRN); rr(fx2+3,pp+5,2.5,10,1,'F');
-    ff('bold',8); tc(C_WH); tx(f[0],fx2+9,pp+10);
-    ff('normal',7); tc([150,178,168]); sp(f[1],fW2-14).slice(0,2).forEach((l,j)=>tx(l,fx2+9,pp+15+j*4));
-    if(i===feats2.length-1||i%2===1)pp+=22;
+  var fW=Math.floor((RW-4)/3);
+  var row=0;
+  feats.forEach(function(f,i){
+    var col2=i%3,row2=Math.floor(i/3);
+    var fx=ML+col2*(fW+2),fy=pp+row2*20;
+    if(fy+20>255)return;
+    fc([22,36,52]);bx(fx,fy,fW,18,2,'F');
+    fc(GR);bx(fx+3,fy+4,2.5,10,1,'F');
+    ff('bold',7.5);tc(WH);tx(f[0],fx+9,fy+9);
+    ff('normal',6.5);tc([148,175,165]);sp(f[1],fW-13).slice(0,2).forEach(function(l,j){tx(l,fx+9,fy+14+j*3.5);});
   });
-  pp+=6;
+  pp+=42;
 
-  // ── Pricing ──
-  if(pp+36<264){
-    fc([22,34,46]); rr(0,pp,W,10,'F');
-    ff('bold',8.5); tc(C_WH); tx('TARIFS — PAR UTILISATEUR, DEGRESSIF — MIGRATION ACCOMPAGNEE OFFERTE',M+4,pp+7);
-    pp+=13;
-    const plans2=[
-      {name:'Cabinet',    range:'1 a 5 utilisateurs',  eur:'149 EUR',note:'/util./mois HT'},
-      {name:'Structure',  range:'6 a 10 utilisateurs', eur:'139 EUR',note:'/util./mois HT',star:true},
-      {name:'Firm',       range:'11 a 50 utilisateurs',eur:'129 EUR',note:'/util./mois HT'},
-      {name:'Sur mesure', range:'Plus de 50 util.',    eur:'Sur devis',note:'Nous contacter'},
+  // ── PRICING ──
+  if(pp+40<258){
+    fc([18,30,42]);bx(0,pp,W,11,'F');
+    ff('bold',8);tc(WH);tx('TARIFS — PAR UTILISATEUR, DEGRESSIF  |  MIGRATION ACCOMPAGNEE OFFERTE  |  -15% PAIEMENT ANNUEL',ML+4,pp+7.5);
+    pp+=14;
+
+    var plans=[
+      {name:'Cabinet',    sub:'1 a 5 util.',   eur:'149',unit:'EUR/util./mois HT'},
+      {name:'Structure',  sub:'6 a 10 util.',  eur:'139',unit:'EUR/util./mois HT',star:true},
+      {name:'Firm',       sub:'11 a 50 util.', eur:'129',unit:'EUR/util./mois HT'},
+      {name:'Sur mesure', sub:'+ 50 util.',    eur:'Devis',unit:'Nous contacter'},
     ];
-    const pW2=(RW-6)/4;
-    plans2.forEach((p,i)=>{
-      const px3=M+i*(pW2+2);
-      fc(p.star?C_ACC:[28,44,58]); rr(px3,pp,pW2,30,2,'F');
-      if(p.star){fc(C_GRN);rr(px3,pp,pW2,3,'F');ff('bold',6.5);tc(C_DARK);tx('POPULAIRE',px3+pW2/2,pp+2.5,{align:'center'});}
-      ff('bold',9); tc(C_WH); tx(p.name,px3+5,pp+11);
-      ff('normal',7); tc(p.star?[220,240,235]:[140,168,158]); tx(p.range,px3+5,pp+17.5);
-      ff('bold',13); tc(p.star?C_WH:C_GRN); tx(p.eur,px3+5,pp+26);
-      ff('normal',6.5); tc(p.star?[200,230,220]:[110,138,128]); tx(p.note,px3+pW2-4,pp+26,{align:'right'});
+    var pW=Math.floor((RW-6)/4);
+    plans.forEach(function(p,i){
+      var px=ML+i*(pW+2);
+      fc(p.star?AC:[26,42,58]);bx(px,pp,pW,32,2.5,'F');
+      if(p.star){
+        fc(GR);bx(px,pp,pW,3.5,'F');
+        ff('bold',6);tc(DA);tx('LE PLUS POPULAIRE',px+pW/2,pp+2.8,{align:'center'});
+      }
+      ff('bold',9);tc(WH);tx(p.name,px+4,pp+11);
+      ff('normal',6.5);tc(p.star?[220,240,235]:[138,165,155]);tx(p.sub,px+4,pp+17);
+      ff('bold',18);tc(p.star?WH:GR);tx(p.eur,px+4,pp+27);
+      ff('normal',6);tc(p.star?[200,230,218]:[108,135,125]);tx(p.unit,px+pW-3,pp+27,{align:'right'});
     });
-    pp+=33;
+    pp+=35;
   }
 
   // ── CTA ──
-  if(pp+22<268){
-    fc(C_GRN); rr(M,pp,RW,21,3,'F');
-    ff('bold',13); tc(C_DARK); tx('Pret a regulariser votre dispositif AML ?',W/2,pp+10,{align:'center'});
-    ff('normal',8.5); tc([20,55,40]); tx('Nos experts vous accompagnent de l\'onboarding a la pleine conformite AMLR.',W/2,pp+17,{align:'center'});
-    pp+=24;
+  if(pp+22<264){
+    fc(GR);bx(ML,pp,RW,20,3,'F');
+    ff('bold',12);tc(DA);tx("Pret a regulariser votre dispositif AML ?",W/2,pp+9.5,{align:'center'});
+    ff('normal',8);tc([18,55,38]);tx("Demandez une demo sur norvy.lu — Nos experts configurent Norvy pour votre cabinet.",W/2,pp+16,{align:'center'});
+    // URL mise en avant
+    fc(DA);bx(W/2-30,pp+18,60,0,'F'); // underline placeholder handled by text styling
+    pp+=23;
   }
 
-  // ── Contacts ──
-  if(pp+20<276){
-    const cW2=(RW-4)/3;
-    [{label:'Site web',val:'www.norvy.lu'},{label:'Email contact',val:'contact@norvy.lu'},{label:'Siege social',val:'Luxembourg, Grand-Duche'}].forEach((c,i)=>{
-      const cx2=M+i*(cW2+2);
-      fc([24,40,56]); rr(cx2,pp,cW2,18,2,'F');
-      ff('bold',7); tc([130,165,155]); tx(c.label,cx2+5,pp+8);
-      ff('bold',9); tc(C_WH); sp(c.val,cW2-10).forEach((l,j)=>tx(l,cx2+5,pp+14+j*4));
-    });
+  // ── Bloc URL centré ──
+  if(pp+12<272){
+    fc([26,44,60]);bx(ML,pp,RW,14,2.5,'F');
+    ff('bold',13);tc(GR);tx('www.norvy.lu',W/2,pp+5,{align:'center'});
+    ff('bold',8);tc([180,215,205]);tx('contact@norvy.lu  |  Luxembourg, Grand-Duche de Luxembourg',W/2,pp+11,{align:'center'});
+    pp+=17;
   }
 
-  // Footer page 10
-  dc([40,62,55]); lw(0.2); ln(M,282,W-M,282);
-  ff('normal',6.5); tc([88,112,104]);
-  tx('Norvy SARL-S (en formation) — Luxembourg — Ce rapport est genere automatiquement a titre indicatif et ne constitue pas un avis juridique ou un audit professionnel.',M,290,{maxWidth:RW*0.72});
-  ff('normal',7); tc([80,108,100]); tx('Page 10 / 10  |  norvy.lu  |  contact@norvy.lu',W-M,290,{align:'right'});
+  // ── Footer p10 ──
+  dc([38,58,52]);lw(0.2);ln(ML,279,W-MR,279);
+  ff('italic',6);tc([85,110,100]);tx("Norvy SARL-S (en formation) — Luxembourg — Ce rapport est genere automatiquement a titre indicatif et ne constitue pas un avis juridique ou un audit professionnel.",ML,286,{maxWidth:RW*0.7});
+  ff('normal',7);tc([78,105,96]);tx('Page 10 / 10  |  norvy.lu  |  contact@norvy.lu',W-MR,286,{align:'right'});
 
-  // Sauvegarde
-  const fname2=firmName
-    ?'Norvy-Rapport-AML-'+s(firmName).replace(/[^a-z0-9]/gi,'-')+'-'+new Date().toISOString().slice(0,10)+'.pdf'
-    :'Norvy-Rapport-AutoEvaluation-AML-'+new Date().toISOString().slice(0,10)+'.pdf';
-  doc.save(fname2);
+  // ── Sauvegarde ──
+  var fname=firmName?'Norvy-Rapport-AML-'+s(firmName).replace(/[^a-z0-9]/gi,'-')+'-'+new Date().toISOString().slice(0,10)+'.pdf':'Norvy-Rapport-AutoEvaluation-AML-'+new Date().toISOString().slice(0,10)+'.pdf';
+  doc.save(fname);
 }
-
 
 
 // ── AUDIT ENGINE ─────────────────────────────────────
