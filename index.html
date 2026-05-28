@@ -9,7 +9,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
 <style>
 :root {
   --bg: #F7F6F3;
@@ -32,10 +31,8 @@
   --danger-soft: #FBE8E8;
   --grid: rgba(17,19,24,0.035);
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-
 body {
   background: var(--bg);
   color: var(--text);
@@ -44,8 +41,6 @@ body {
   line-height: 1.5;
   overflow-x: hidden;
 }
-
-/* ── NAV ─────────────────────────────────────────── */
 nav {
   position: sticky; top: 0; z-index: 200;
   background: rgba(247, 246, 243, 0.85);
@@ -78,11 +73,8 @@ nav {
   transition: background 0.2s, transform 0.15s;
 }
 .nav-cta:hover { background: var(--accent-mid); transform: translateY(-1px); }
-
-/* ── HERO ────────────────────────────────────────── */
 .hero { padding: 80px 0 0; overflow: hidden; }
 .container { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
-
 .hero-badge {
   display: inline-flex; align-items: center; gap: 8px;
   background: var(--accent-light); border: 1px solid rgba(27,79,64,0.2);
@@ -92,7 +84,6 @@ nav {
   text-transform: uppercase; margin-bottom: 28px;
 }
 .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-bright); }
-
 .hero h1 {
   font-size: clamp(38px, 5.5vw, 72px);
   font-weight: 600; letter-spacing: -0.04em; line-height: 1.02;
@@ -102,13 +93,10 @@ nav {
   font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400;
   color: var(--accent);
 }
-
 .hero-sub {
   font-size: 18px; color: var(--text-dim); max-width: 580px;
   line-height: 1.6; margin-bottom: 48px; font-weight: 300;
 }
-
-/* CTA principal : auto-évaluation */
 .hero-audit-cta {
   display: inline-flex; align-items: center; gap: 16px;
   background: var(--accent); color: #fff;
@@ -126,12 +114,9 @@ nav {
 .hero-cta-sub { font-size: 12px; color: rgba(255,255,255,0.7); font-family: 'JetBrains Mono', monospace; }
 .hero-cta-arrow { width: 16px; height: 16px; transition: transform 0.2s; }
 .hero-audit-cta:hover .hero-cta-arrow { transform: translateX(3px); }
-
 .hero-or { font-size: 13px; color: var(--text-faint); margin: 4px 0 12px; }
 .hero-demo-link { color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; }
 .hero-demo-link:hover { text-decoration: underline; }
-
-/* Trust pills */
 .hero-trust { display: flex; align-items: center; gap: 16px; margin-top: 40px; flex-wrap: wrap; }
 .trust-pill {
   display: flex; align-items: center; gap: 8px;
@@ -140,8 +125,6 @@ nav {
   font-size: 12.5px; color: var(--text-dim); font-weight: 400;
 }
 .trust-pill svg { width: 14px; height: 14px; color: var(--accent); flex-shrink: 0; }
-
-/* ── PRODUCT SCREENSHOTS ─────────────────────────── */
 .screenshots-wrap {
   margin-top: 64px; position: relative;
   background: linear-gradient(180deg, var(--bg) 0%, var(--bg-elev-2) 100%);
@@ -152,7 +135,6 @@ nav {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
   background: linear-gradient(90deg, var(--accent), var(--accent-bright));
 }
-
 .screenshots-tabs {
   display: flex; gap: 4px; margin-bottom: 24px;
   background: var(--bg-elev-2); border-radius: 10px; padding: 4px;
@@ -164,23 +146,15 @@ nav {
   font-family: inherit; transition: all 0.2s;
 }
 .stab.active { background: var(--bg-elev); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
-
 .screenshot-pane { display: none; }
 .screenshot-pane.active { display: block; }
-
 .screen-img {
   width: 100%; border-radius: 12px 12px 0 0;
   border: 1px solid var(--border); border-bottom: none;
   overflow: hidden; box-shadow: 0 8px 32px -8px rgba(0,0,0,0.12);
 }
-
-/* Real screenshot simulation with actual UI elements */
-.screen-dashboard {
-  background: #F8F8F8; min-height: 420px; font-family: 'Sora', sans-serif;
-}
-.sd-header {
-  background: #1B2337; padding: 24px 32px; display: flex; align-items: center; justify-content: space-between;
-}
+.screen-dashboard { background: #F8F8F8; min-height: 420px; font-family: 'Sora', sans-serif; }
+.sd-header { background: #1B2337; padding: 24px 32px; display: flex; align-items: center; justify-content: space-between; }
 .sd-greeting { color: rgba(255,255,255,0.6); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
 .sd-title { color: #fff; font-size: 22px; font-weight: 700; }
 .sd-subtitle { color: rgba(255,255,255,0.5); font-size: 13px; margin-top: 4px; }
@@ -188,12 +162,10 @@ nav {
 .sd-btn { padding: 9px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; border: none; font-family: inherit; }
 .sd-btn-primary { background: #fff; color: #1B2337; }
 .sd-btn-secondary { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.15); }
-
 .sd-tabs { display: flex; gap: 0; border-bottom: 1px solid #E8E6E1; background: #fff; }
 .sd-tab { padding: 14px 24px; font-size: 14px; color: #888; cursor: pointer; border-bottom: 2px solid transparent; display: flex; align-items: center; gap: 8px; }
 .sd-tab.active { color: #111; font-weight: 600; border-bottom-color: #1B4F40; }
 .sd-tab-badge { background: #FEE2E2; color: #DC2626; font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 100px; }
-
 .sd-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; padding: 24px; }
 .sd-stat { background: #fff; border: 1px solid #E8E6E1; border-radius: 12px; padding: 18px; }
 .sd-stat-label { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
@@ -201,7 +173,6 @@ nav {
 .sd-stat-sub { font-size: 12px; color: #888; margin-top: 4px; }
 .sd-stat-sub.green { color: #1B4F40; }
 .sd-stat-sub.warn { color: #B87C1A; }
-
 .sd-table-head { display: grid; grid-template-columns: 40px 1fr 180px 80px 110px 110px 90px; gap: 12px; padding: 10px 24px; background: #F8F7F4; border-bottom: 1px solid #E8E6E1; font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 0.08em; }
 .sd-row { display: grid; grid-template-columns: 40px 1fr 180px 80px 110px 110px 90px; gap: 12px; padding: 14px 24px; border-bottom: 1px solid #F0EEE8; align-items: center; background: #fff; }
 .sd-row:hover { background: #F9F8F5; }
@@ -220,8 +191,6 @@ nav {
 .sd-score.warn { background: #FEF3C7; color: #B87C1A; }
 .sd-score.ok { background: #E6F0EB; color: #1B4F40; }
 .sd-score.low { background: #F3F2EF; color: #999; }
-
-/* Compliance screen */
 .sc-compliance { background: #F8F8F8; min-height: 420px; }
 .sc-header { background: #1B2337; padding: 24px 32px; }
 .sc-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; padding: 24px; }
@@ -239,8 +208,6 @@ nav {
 .sc-action.featured .sc-action-title { color: #fff; }
 .sc-action-sub { font-size: 12px; color: #888; }
 .sc-action.featured .sc-action-sub { color: rgba(255,255,255,0.5); }
-
-/* OAL screen */
 .sq-wrap { background: #F8F8F8; min-height: 420px; }
 .sq-head { background: #1B2337; padding: 24px 32px; }
 .sq-head-top { display: flex; align-items: flex-start; justify-content: space-between; }
@@ -273,11 +240,6 @@ nav {
 .sq-q-text { font-size: 14px; font-weight: 600; color: #111; margin-bottom: 12px; }
 .sq-q-source { font-size: 11px; color: #3DAB87; margin-bottom: 10px; }
 .sq-q-field { background: #fff; border: 1.5px dashed #3DAB87; border-radius: 8px; padding: 12px 16px; font-size: 15px; font-weight: 700; color: #111; }
-
-/* Audit screen */
-.sa-wrap { background: #F8F8F8; min-height: 420px; }
-
-/* Journal screen */
 .sj-wrap { background: #fff; min-height: 420px; }
 .sj-head { padding: 24px 32px; border-bottom: 1px solid #E8E6E1; display: flex; align-items: center; justify-content: space-between; }
 .sj-head-title { font-size: 20px; font-weight: 700; color: #111; }
@@ -304,23 +266,18 @@ nav {
 .sj-entry-time { font-size: 11px; color: #AAA; white-space: nowrap; }
 .sj-tags { display: flex; gap: 6px; margin-top: 10px; margin-left: 22px; }
 .sj-tag { padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; background: #E6F0EB; color: #1B4F40; }
-
-/* ── SOCIAL PROOF ─────────────────────────────────── */
 .proof { padding: 80px 0; border-top: 1px solid var(--border-soft); }
 .proof-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; margin-top: 56px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
 .proof-stat { background: var(--bg-elev); padding: 40px 32px; }
 .proof-num { font-size: 52px; font-weight: 700; letter-spacing: -0.04em; color: var(--text); margin-bottom: 8px; }
 .proof-num span { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--accent); font-weight: 400; font-size: 36px; }
 .proof-label { font-size: 15px; color: var(--text-dim); line-height: 1.5; }
-
-/* ── AMLR ─────────────────────────────────────────── */
 .amlr { padding: 100px 0; background: var(--bg-dark); position: relative; overflow: hidden; }
 .amlr::before { content: ''; position: absolute; top: -200px; right: -200px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(61,171,135,0.08) 0%, transparent 70%); pointer-events: none; }
 .amlr .section-eyebrow { color: var(--accent-bright); }
 .amlr .section-title { color: #F3F2EE; max-width: 720px; }
 .amlr .section-title em { color: var(--accent-bright); }
 .amlr .section-lead { color: rgba(243,242,238,0.6); max-width: 640px; }
-
 .amlr-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 56px; }
 .amlr-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 32px; }
 .amlr-card-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(243,242,238,0.3); margin-bottom: 16px; letter-spacing: 0.1em; text-transform: uppercase; }
@@ -329,8 +286,6 @@ nav {
 .amlr-card-stat { margin-top: 24px; padding-top: 20px; border-top: 1px dashed rgba(255,255,255,0.1); display: flex; align-items: baseline; gap: 8px; }
 .amlr-card-stat strong { font-family: 'JetBrains Mono', monospace; font-size: 30px; font-weight: 600; color: var(--accent-bright); }
 .amlr-card-stat span { font-size: 13px; color: rgba(243,242,238,0.4); }
-
-/* ── FEATURES ─────────────────────────────────────── */
 .features { padding: 100px 0; }
 .feature-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; margin-top: 56px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
 .feature { background: var(--bg-elev); padding: 32px 28px; transition: background 0.2s; }
@@ -339,14 +294,8 @@ nav {
 .feature-icon svg { width: 18px; height: 18px; }
 .feature h3 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
 .feature p { font-size: 13.5px; color: var(--text-dim); line-height: 1.6; }
-
-/* ── HIGHLIGHT (Questionnaire) ───────────────────── */
 .highlight { padding: 100px 0; }
-.highlight-card {
-  background: var(--bg-dark); border-radius: 20px; padding: 60px;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
-  position: relative; overflow: hidden;
-}
+.highlight-card { background: var(--bg-dark); border-radius: 20px; padding: 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; overflow: hidden; }
 .highlight-card::before { content: ''; position: absolute; top: -100px; right: -100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(61,171,135,0.12) 0%, transparent 70%); }
 .highlight-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent-bright); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 16px; font-weight: 600; position: relative; }
 .highlight-card h2 { font-size: clamp(26px, 3vw, 38px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; color: #F3F2EE; margin-bottom: 16px; position: relative; }
@@ -355,13 +304,7 @@ nav {
 .highlight-list { list-style: none; position: relative; }
 .highlight-list li { display: flex; align-items: flex-start; gap: 10px; padding: 7px 0; font-size: 14px; color: rgba(243,242,238,0.8); }
 .highlight-list svg { width: 15px; height: 15px; color: var(--accent-bright); flex-shrink: 0; margin-top: 2px; }
-
-/* OAL mock embedded */
-.oal-mock {
-  background: #fff; border-radius: 12px; overflow: hidden;
-  box-shadow: 0 20px 60px -20px rgba(0,0,0,0.5);
-  position: relative; font-family: 'Sora', sans-serif;
-}
+.oal-mock { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 60px -20px rgba(0,0,0,0.5); position: relative; font-family: 'Sora', sans-serif; }
 .oal-mock-head { background: #1B2337; padding: 16px 20px; }
 .oal-mock-meta { font-size: 9px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
 .oal-mock-title { font-size: 15px; font-weight: 700; color: #fff; }
@@ -385,8 +328,6 @@ nav {
 .oal-q-text { font-size: 12px; font-weight: 600; color: #111; margin-bottom: 8px; }
 .oal-q-src { font-size: 10px; color: #3DAB87; margin-bottom: 6px; }
 .oal-q-val { background: #fff; border: 1.5px dashed #3DAB87; border-radius: 6px; padding: 8px 12px; font-size: 14px; font-weight: 800; color: #111; }
-
-/* ── COMPARISON ──────────────────────────────────── */
 .comparison { padding: 100px 0; background: var(--bg-elev-2); }
 .compare-table { margin-top: 56px; background: var(--bg-elev); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
 .compare-row { display: grid; grid-template-columns: 2fr 1fr 1fr; border-bottom: 1px solid var(--border); }
@@ -403,18 +344,13 @@ nav {
 .check.yes { color: var(--accent); }
 .check.no { color: var(--text-faint); }
 .check.partial { color: var(--warn); }
-
-/* ── AUDIT SECTION ───────────────────────────────── */
 .audit { padding: 100px 0; }
 .audit-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 56px; gap: 40px; flex-wrap: wrap; }
 .audit-pills { display: flex; gap: 8px; flex-wrap: wrap; }
 .audit-pill { display: inline-flex; align-items: center; gap: 5px; font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-faint); background: var(--bg-elev); border: 1px solid var(--border); padding: 5px 12px; border-radius: 100px; }
-
 .audit-card { background: var(--bg-elev); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,0.02); }
 .a-screen { display: none; }
 .a-screen.active { display: block; }
-
-/* Intro screen */
 .a-intro { display: grid; grid-template-columns: 1fr 1fr; min-height: 480px; }
 .a-intro-left { padding: 52px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--border); }
 .a-intro-left h3 { font-size: clamp(24px, 2.5vw, 34px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 14px; }
@@ -429,8 +365,6 @@ nav {
 .a-dim-icon svg { width: 15px; height: 15px; }
 .a-dim-name { font-size: 13px; font-weight: 600; color: var(--text); }
 .a-dim-q { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-faint); margin-top: 1px; }
-
-/* Question screen */
 .a-questions { padding: 48px 52px; display: flex; flex-direction: column; min-height: 480px; }
 .a-q-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
 .a-q-counter { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-faint); }
@@ -455,8 +389,6 @@ nav {
 .a-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
 .a-btn.primary:hover:not(:disabled) { background: var(--accent-mid); }
 .a-btn svg { width: 14px; height: 14px; }
-
-/* Email screen */
 .a-email { display: grid; grid-template-columns: 1fr 1fr; min-height: 480px; }
 .a-email-left { padding: 52px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--border); }
 .a-email-left h3 { font-size: 28px; font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 12px; }
@@ -477,8 +409,6 @@ nav {
 .a-what-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-faint); margin-bottom: 2px; }
 .a-what-item { display: flex; align-items: flex-start; gap: 10px; padding: 13px 15px; background: var(--bg-elev); border: 1px solid var(--border); border-radius: 9px; font-size: 13.5px; color: var(--text-dim); }
 .a-what-item svg { width: 14px; height: 14px; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
-
-/* Results screen */
 .a-results { display: grid; grid-template-columns: 320px 1fr; min-height: 480px; }
 .a-score-panel { padding: 52px 36px; background: var(--bg); border-right: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
 .a-score-big { font-size: 88px; font-weight: 700; letter-spacing: -0.05em; line-height: 1; color: var(--accent); margin-bottom: 4px; transition: color 0.3s; }
@@ -502,8 +432,6 @@ nav {
 .a-dim-bar-fill.warn { background: var(--warn); }
 .a-dim-bar-fill.danger { background: var(--danger); }
 .a-dim-score { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; color: var(--text-dim); text-align: right; }
-
-/* ── PRICING → après audit ───────────────────────── */
 .pricing { padding: 100px 0; background: var(--bg-elev-2); border-top: 1px solid var(--border-soft); }
 .pricing-top { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 56px; gap: 40px; flex-wrap: wrap; }
 .billing-toggle { display: inline-flex; align-items: center; background: var(--bg-elev); border: 1px solid var(--border); border-radius: 10px; padding: 3px; }
@@ -547,8 +475,6 @@ nav {
 .enterprise-desc { color: var(--text-dim); font-size: 13px; line-height: 1.55; margin-bottom: 20px; }
 .enterprise-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; background: var(--text); color: var(--bg-elev); padding: 10px 18px; border-radius: 9px; font-size: 13.5px; font-weight: 600; text-decoration: none; cursor: pointer; font-family: inherit; border: none; transition: all 0.15s; width: 100%; }
 .enterprise-btn:hover { background: #000; transform: translateY(-1px); }
-
-/* ── FAQ ─────────────────────────────────────────── */
 .faq { padding: 100px 0; }
 .faq-list { margin-top: 56px; max-width: 800px; }
 .faq-item { border-top: 1px solid var(--border); padding: 22px 0; }
@@ -558,8 +484,6 @@ nav {
 .faq-q::after { content: '+'; font-size: 22px; color: var(--text-dim); transition: transform 0.2s; font-weight: 300; }
 .faq-item[open] .faq-q::after { transform: rotate(45deg); color: var(--accent); }
 .faq-a { margin-top: 12px; color: var(--text-dim); font-size: 14.5px; line-height: 1.65; max-width: 700px; }
-
-/* ── FINAL CTA ───────────────────────────────────── */
 .final-cta { padding: 120px 0; background: var(--bg-dark); text-align: center; position: relative; overflow: hidden; }
 .final-cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(61,171,135,0.08) 0%, transparent 60%); pointer-events: none; }
 .final-cta h2 { font-size: clamp(36px, 5vw, 60px); font-weight: 600; letter-spacing: -0.04em; line-height: 1; color: #F3F2EE; margin-bottom: 20px; position: relative; }
@@ -568,8 +492,6 @@ nav {
 .final-cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--accent-bright); color: #fff; padding: 16px 28px; border-radius: 12px; font-size: 15px; font-weight: 700; text-decoration: none; cursor: pointer; border: none; font-family: inherit; transition: all 0.2s; position: relative; box-shadow: 0 4px 20px -4px rgba(61,171,135,0.4); }
 .final-cta-btn:hover { background: #4DBFA0; transform: translateY(-2px); box-shadow: 0 10px 30px -8px rgba(61,171,135,0.5); }
 .final-cta-btn svg { width: 18px; height: 18px; }
-
-/* ── FOOTER ──────────────────────────────────────── */
 footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid rgba(255,255,255,0.06); }
 .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
 .footer-brand { font-size: 22px; font-weight: 700; letter-spacing: -0.04em; color: #F3F2EE; margin-bottom: 10px; }
@@ -580,14 +502,10 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
 .footer-col a { color: rgba(243,242,238,0.55); text-decoration: none; font-size: 13.5px; transition: color 0.2s; }
 .footer-col a:hover { color: #F3F2EE; }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(243,242,238,0.25); }
-
-/* ── SECTION COMMON ──────────────────────────────── */
 .section-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 18px; font-weight: 600; }
 .section-title { font-size: clamp(30px, 4vw, 50px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 20px; max-width: 760px; }
 .section-title em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: var(--text-dim); }
 .section-lead { font-size: 17px; color: var(--text-dim); max-width: 620px; line-height: 1.6; font-weight: 300; }
-
-/* ── ANIMATIONS ──────────────────────────────────── */
 .fade-up { animation: fadeUp 0.7s cubic-bezier(0.2,0.8,0.2,1) backwards; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 .delay-1 { animation-delay: 0.1s; }
@@ -595,8 +513,6 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
 .delay-3 { animation-delay: 0.3s; }
 .delay-4 { animation-delay: 0.4s; }
 .delay-5 { animation-delay: 0.5s; }
-
-/* ── ROI ─────────────────────────────────────────── */
 .roi { padding: 100px 0; border-top: 1px solid var(--border-soft); }
 .roi-card { margin-top: 56px; background: var(--bg-elev); border: 1px solid var(--border); border-radius: 20px; padding: 44px; display: grid; grid-template-columns: 1fr 1fr; gap: 44px; }
 .roi-inputs h3 { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 6px; }
@@ -616,394 +532,23 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
 .roi-cta { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--accent); color: #fff; border: none; padding: 12px 18px; border-radius: 9px; font-size: 13.5px; font-weight: 600; cursor: pointer; font-family: inherit; text-decoration: none; transition: all 0.15s; }
 .roi-cta:hover { background: var(--accent-mid); transform: translateY(-1px); }
 .roi-cta svg { width: 13px; height: 13px; }
-
-/* ══════════════════════════════════════════
-   RESPONSIVE — Mobile first
-   Breakpoints: 480 / 640 / 900 / 1100
-   ══════════════════════════════════════════ */
-
-/* ── 1100px : pricing 4 cols → 3 cols ─── */
-@media (max-width: 1100px) {
-  .pricing-grid { grid-template-columns: repeat(3, 1fr); }
-  .price-card.enterprise { display: none; }
-}
-
-/* ── 900px : tablette ────────────────── */
-@media (max-width: 900px) {
-  /* Nav */
-  .nav-links { display: none; }
-  .nav-inner { padding: 0 20px; }
-
-  /* Global spacing */
-  .container { padding: 0 20px; }
-  .hero { padding: 56px 0 0; }
-
-  /* Hero */
-  .hero h1 { font-size: clamp(28px, 6vw, 46px); }
-  .hero-sub { font-size: 16px; }
-  .hero-audit-cta { padding: 14px 18px; gap: 12px; }
-  .hero-cta-icon { width: 36px; height: 36px; }
-  .hero-cta-icon svg { width: 17px; height: 17px; }
-  .hero-cta-title { font-size: 14px; }
-  .hero-trust { gap: 10px; }
-  .trust-pill { font-size: 12px; padding: 5px 12px; }
-
-  /* Screenshots */
-  .screenshots-wrap { padding: 20px 20px 0; border-radius: 16px 16px 0 0; }
-  .screenshots-tabs { flex-wrap: wrap; gap: 6px; }
-  .stab { font-size: 12px; padding: 6px 12px; }
-
-  /* Product screens — masquer les colonnes trop larges */
-  .sd-header { flex-direction: column; gap: 14px; padding: 16px 20px; }
-  .sd-actions { flex-wrap: wrap; gap: 6px; }
-  .sd-btn { font-size: 12px; padding: 7px 12px; }
-  .sd-stats { grid-template-columns: 1fr 1fr; gap: 10px; padding: 16px; }
-  .sd-stat-val { font-size: 22px; }
-  .sd-table-head { display: none; }
-  .sd-row { grid-template-columns: 36px 1fr auto; gap: 8px; padding: 12px 16px; }
-  .sd-mission, .sd-screening { display: none; }
-  .sd-score { font-size: 11px; }
-
-  .sc-grid { grid-template-columns: 1fr 1fr; gap: 10px; padding: 16px; }
-  .sc-actions { grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 16px 16px; }
-
-  .sq-body { grid-template-columns: 1fr; }
-  .sq-sidebar { display: none; }
-  .sq-content { padding: 20px; }
-  .sq-head { padding: 16px 20px; }
-  .sq-head-top { flex-direction: column; gap: 10px; }
-  .sq-progress-num { font-size: 28px; }
-
-  .sj-stats { grid-template-columns: 1fr 1fr; gap: 10px; padding: 16px; }
-  .sj-head { flex-direction: column; gap: 12px; padding: 16px 20px; }
-  .sj-entries { padding: 0 16px; }
-
-  /* Proof */
-  .proof-grid { grid-template-columns: 1fr; }
-  .proof-num { font-size: 40px; }
-
-  /* AMLR */
-  .amlr { padding: 64px 0; }
-  .amlr-cards { grid-template-columns: 1fr; gap: 14px; margin-top: 36px; }
-
-  /* Features */
-  .features { padding: 64px 0; }
-  .feature-grid { grid-template-columns: 1fr 1fr; }
-
-  /* Highlight */
-  .highlight { padding: 64px 0; }
-  .highlight-card { grid-template-columns: 1fr; padding: 32px 24px; gap: 32px; }
-  .highlight-card::before { display: none; }
-
-  /* Compare */
-  .comparison { padding: 64px 0; }
-  .compare-row { grid-template-columns: 1.6fr 1fr 1fr; }
-  .compare-cell { padding: 12px 14px; font-size: 13px; }
-
-  /* ROI */
-  .roi { padding: 64px 0; }
-  .roi-card { grid-template-columns: 1fr; padding: 28px 20px; gap: 28px; }
-  .roi-amount { font-size: 44px; }
-
-  /* Audit */
-  .audit { padding: 64px 0; }
-  .audit-header { flex-direction: column; align-items: flex-start; gap: 20px; margin-bottom: 32px; }
-  .audit-pills { gap: 6px; }
-  .a-intro { grid-template-columns: 1fr; }
-  .a-intro-right { display: none; }
-  .a-intro-left { padding: 32px 24px; }
-  .a-questions { padding: 28px 20px; }
-  .a-options { grid-template-columns: 1fr; }
-  .a-email { grid-template-columns: 1fr; }
-  .a-email-right { display: none; }
-  .a-email-left { padding: 32px 24px; }
-  .a-results { grid-template-columns: 1fr; }
-  .a-score-panel { border-right: none; border-bottom: 1px solid var(--border); padding: 32px 20px; }
-  .a-score-big { font-size: 72px; }
-  .a-breakdown-panel { padding: 28px 20px; }
-
-  /* Pricing */
-  .pricing { padding: 64px 0; }
-  .pricing-top { flex-direction: column; align-items: flex-start; gap: 16px; margin-bottom: 32px; }
-  .pricing-grid { grid-template-columns: 1fr; gap: 12px; }
-  .price-card.enterprise { display: flex; }
-
-  /* FAQ */
-  .faq { padding: 64px 0; }
-  .faq-q { font-size: 15px; }
-
-  /* Footer */
-  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
-  .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
-
-  /* Section spacing */
-  .proof { padding: 64px 0; }
-  .section-title { font-size: clamp(26px, 5vw, 40px); }
-  .section-lead { font-size: 15px; }
-}
-
-/* ── 640px : grand mobile ────────────── */
-@media (max-width: 640px) {
-  /* Nav */
-  .nav-cta { font-size: 12px; padding: 7px 13px; }
-  .logo { font-size: 19px; }
-  .logo-pill { font-size: 8px; }
-
-  /* Hero */
-  .hero { padding: 40px 0 0; }
-  .hero h1 { font-size: clamp(24px, 7vw, 36px); letter-spacing: -0.03em; }
-  .hero-sub { font-size: 15px; margin-bottom: 32px; }
-  .hero-badge { font-size: 10px; padding: 4px 12px; }
-  .hero-audit-cta { width: 100%; }
-  .hero-or { margin: 10px 0 8px; }
-  .hero-demo-link { font-size: 13px; }
-  .hero-trust { flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 28px; }
-  .trust-pill { font-size: 11.5px; }
-
-  /* Screenshots */
-  .screenshots-wrap { padding: 16px 16px 0; margin-top: 40px; }
-  .screenshots-tabs { gap: 4px; }
-  .stab { font-size: 11px; padding: 5px 10px; }
-
-  /* Screen mocks — simplifié sur mobile */
-  .sd-header { padding: 14px 16px; }
-  .sd-title { font-size: 16px; }
-  .sd-actions { display: none; }
-  .sd-tabs { overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
-  .sd-tab { padding: 10px 14px; font-size: 12px; flex-shrink: 0; }
-  .sd-stats { grid-template-columns: 1fr 1fr; gap: 8px; padding: 12px; }
-  .sd-stat { padding: 12px; }
-  .sd-stat-val { font-size: 20px; }
-  .sd-stat-sub { font-size: 11px; }
-  .sd-row { grid-template-columns: 32px 1fr auto; gap: 6px; padding: 10px 12px; }
-  .sd-avatar { width: 28px; height: 28px; font-size: 10px; }
-  .sd-client-name { font-size: 12px; }
-  .sd-client-ref { font-size: 10px; }
-  .sd-scope { font-size: 10px; padding: 2px 7px; }
-
-  .sc-grid { grid-template-columns: 1fr 1fr; padding: 12px; gap: 8px; }
-  .sc-stat { padding: 12px; }
-  .sc-stat-val { font-size: 22px; }
-  .sc-actions { grid-template-columns: 1fr 1fr; padding: 0 12px 12px; gap: 8px; }
-  .sc-action { padding: 14px 10px; }
-  .sc-action-icon { font-size: 18px; margin-bottom: 6px; }
-  .sc-action-title { font-size: 12px; }
-
-  .sq-head { padding: 14px 16px; }
-  .sq-head-title { font-size: 16px; }
-  .sq-head-sub { font-size: 11px; }
-  .sq-head-badges { flex-wrap: wrap; gap: 4px; }
-  .sq-badge { font-size: 10px; padding: 3px 8px; }
-  .sq-content { padding: 16px; }
-  .sq-section-title { font-size: 16px; }
-  .sq-q { padding: 12px; }
-  .sq-q-text { font-size: 12px; }
-
-  .sj-head { padding: 14px 16px; }
-  .sj-head-title { font-size: 16px; }
-  .sj-stats { grid-template-columns: 1fr 1fr; padding: 12px; gap: 8px; }
-  .sj-stat { padding: 14px; }
-  .sj-stat-val { font-size: 22px; }
-  .sj-filters { padding: 0 12px 14px; gap: 6px; }
-  .sj-filter { font-size: 11px; padding: 5px 11px; }
-  .sj-entries { padding: 0 12px; }
-  .sj-entry { padding: 14px 14px; }
-  .sj-entry-title { font-size: 13px; }
-
-  /* Proof */
-  .proof { padding: 48px 0; }
-  .proof-num { font-size: 36px; }
-  .proof-stat { padding: 28px 24px; }
-
-  /* AMLR */
-  .amlr { padding: 48px 0; }
-  .amlr-card { padding: 24px; }
-  .amlr-card h3 { font-size: 18px; }
-  .amlr-card-stat strong { font-size: 24px; }
-
-  /* Features */
-  .features { padding: 48px 0; }
-  .feature-grid { grid-template-columns: 1fr; }
-  .feature { padding: 24px 20px; }
-
-  /* Highlight */
-  .highlight { padding: 48px 0; }
-  .highlight-card { padding: 28px 20px; gap: 24px; border-radius: 16px; }
-  .highlight-card h2 { font-size: clamp(22px, 5vw, 30px); }
-  .oal-mock { font-size: 12px; }
-  .oal-mock-title { font-size: 13px; }
-  .oal-sidebar { display: none; }
-  .oal-body { grid-template-columns: 1fr; }
-  .oal-content { padding: 14px; }
-
-  /* Compare */
-  .comparison { padding: 48px 0; }
-  .compare-row { grid-template-columns: 1.4fr 1fr; }
-  .compare-cell.legacy { display: none; }
-  .compare-row.header .compare-cell.legacy { display: none; }
-  .compare-cell { padding: 10px 12px; font-size: 12px; }
-
-  /* ROI */
-  .roi { padding: 48px 0; }
-  .roi-card { padding: 24px 20px; gap: 24px; border-radius: 14px; }
-  .roi-amount { font-size: 38px; }
-  .roi-amount em { font-size: 22px; }
-  .roi-output { padding: 24px 20px; }
-
-  /* Audit */
-  .audit { padding: 48px 0; }
-  .a-intro-left { padding: 28px 20px; }
-  .a-intro-left h3 { font-size: 22px; }
-  .a-start-btn { font-size: 14px; padding: 12px 18px; }
-  .a-questions { padding: 24px 20px; min-height: auto; }
-  .a-question-text { font-size: 17px; }
-  .a-question-help { font-size: 13px; margin-bottom: 24px; }
-  .a-option { font-size: 13px; padding: 13px 14px; }
-  .a-nav { padding-top: 16px; }
-  .a-btn { font-size: 13px; padding: 9px 14px; }
-  .a-email-left { padding: 28px 20px; }
-  .a-email-left h3 { font-size: 22px; }
-  .a-email-left > p { font-size: 14px; }
-  .a-input { font-size: 14px; padding: 11px 14px; }
-  .a-submit { font-size: 14px; }
-  .a-score-big { font-size: 64px; }
-  .a-breakdown-panel { padding: 24px 20px; }
-  .a-dim-label { font-size: 13px; }
-  .a-panel-actions .a-btn { font-size: 12px; }
-
-  /* Pricing */
-  .pricing { padding: 48px 0; }
-  .price-card { padding: 24px 20px; }
-  .price-num { font-size: 40px; }
-  .billing-toggle { width: 100%; }
-  .billing-opt { flex: 1; justify-content: center; }
-
-  /* FAQ */
-  .faq { padding: 48px 0; }
-  .faq-list { margin-top: 32px; }
-  .faq-q { font-size: 14px; }
-  .faq-a { font-size: 13.5px; }
-
-  /* Final CTA */
-  .final-cta { padding: 72px 0; }
-  .final-cta h2 { font-size: clamp(28px, 8vw, 44px); }
-  .final-cta p { font-size: 15px; }
-  .final-cta-btn { font-size: 14px; padding: 14px 22px; width: 100%; justify-content: center; }
-
-  /* Footer */
-  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
-  footer { padding: 44px 0 28px; }
-
-  /* Section commons */
-  .section-eyebrow { font-size: 10px; }
-}
-
-/* ── 480px : petit mobile ────────────── */
-@media (max-width: 480px) {
-  .container { padding: 0 16px; }
-  .nav-inner { padding: 0 16px; }
-  .hero h1 { font-size: clamp(22px, 7.5vw, 30px); }
-  .hero-badge { font-size: 9.5px; }
-
-  /* Screenshots : masquer sur très petit écran, juste montrer stats */
-  .sd-tabs { font-size: 11px; }
-  .sd-stats { grid-template-columns: 1fr 1fr; }
-  .sc-grid { grid-template-columns: 1fr 1fr; }
-  .sc-actions { grid-template-columns: 1fr 1fr; }
-  .sj-stats { grid-template-columns: 1fr 1fr; }
-
-  /* Proof : inline numbers */
-  .proof-num { font-size: 32px; }
-  .proof-num span { font-size: 24px; }
-
-  /* Audit questions : une colonne */
-  .a-options { gap: 8px; }
-  .a-option { padding: 12px 13px; }
-
-  /* Pricing : simplifier */
-  .price-features li { font-size: 12.5px; }
-  .pricing-top > div > p { font-size: 13.5px; }
-
-  /* Compare : masquer "legacy" pour garder lisible */
-  .compare-row { grid-template-columns: 1.2fr 1fr; }
-
-  /* ROI */
-  .roi-amount { font-size: 34px; }
-  .roi-inputs h3 { font-size: 18px; }
-
-  /* Section title mobile */
-  .section-title { letter-spacing: -0.02em; }
-  .section-lead { font-size: 14.5px; }
-}
-
-/* ── Hamburger mobile nav ────────────── */
-.nav-hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  padding: 4px;
-  background: none;
-  border: none;
-}
-.nav-hamburger span {
-  display: block;
-  width: 22px;
-  height: 2px;
-  background: var(--text);
-  border-radius: 2px;
-  transition: all 0.25s;
-}
+.nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+.nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.25s; }
 .nav-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
 .nav-hamburger.open span:nth-child(2) { opacity: 0; }
 .nav-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-
-.nav-mobile-menu {
-  display: none;
-  position: fixed;
-  top: 60px;
-  left: 0;
-  right: 0;
-  background: rgba(247,246,243,0.97);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  padding: 16px 20px 20px;
-  z-index: 199;
-  flex-direction: column;
-  gap: 4px;
-}
+.nav-mobile-menu { display: none; position: fixed; top: 60px; left: 0; right: 0; background: rgba(247,246,243,0.97); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 16px 20px 20px; z-index: 199; flex-direction: column; gap: 4px; }
 .nav-mobile-menu.open { display: flex; }
-.nav-mobile-menu a {
-  color: var(--text-dim);
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: 500;
-  padding: 12px 8px;
-  border-bottom: 1px solid var(--border-soft);
-  transition: color 0.2s;
-}
+.nav-mobile-menu a { color: var(--text-dim); text-decoration: none; font-size: 16px; font-weight: 500; padding: 12px 8px; border-bottom: 1px solid var(--border-soft); transition: color 0.2s; }
 .nav-mobile-menu a:last-child { border-bottom: none; }
 .nav-mobile-menu a:hover { color: var(--text); }
-.nav-mobile-menu .nav-mobile-cta {
-  margin-top: 8px;
-  background: var(--accent);
-  color: #fff;
-  text-align: center;
-  border-radius: 9px;
-  padding: 13px;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-@media (max-width: 900px) {
-  .nav-hamburger { display: flex; }
-  .nav-cta { display: none; }
-}
+.nav-mobile-menu .nav-mobile-cta { margin-top: 8px; background: var(--accent); color: #fff; text-align: center; border-radius: 9px; padding: 13px; font-size: 14px; font-weight: 600; }
+@media (max-width: 900px) { .nav-hamburger { display: flex; } .nav-cta { display: none; } .nav-links { display: none; } .container { padding: 0 20px; } .hero { padding: 56px 0 0; } .hero h1 { font-size: clamp(28px, 6vw, 46px); } .sd-stats { grid-template-columns: 1fr 1fr; } .sd-table-head { display: none; } .sd-row { grid-template-columns: 36px 1fr auto; } .sd-mission, .sd-screening { display: none; } .sc-grid { grid-template-columns: 1fr 1fr; } .sc-actions { grid-template-columns: 1fr 1fr; } .sq-body { grid-template-columns: 1fr; } .sq-sidebar { display: none; } .proof-grid { grid-template-columns: 1fr; } .amlr-cards { grid-template-columns: 1fr; } .feature-grid { grid-template-columns: 1fr 1fr; } .highlight-card { grid-template-columns: 1fr; padding: 32px 24px; } .compare-row { grid-template-columns: 1.6fr 1fr 1fr; } .roi-card { grid-template-columns: 1fr; } .a-intro { grid-template-columns: 1fr; } .a-intro-right { display: none; } .a-options { grid-template-columns: 1fr; } .a-email { grid-template-columns: 1fr; } .a-email-right { display: none; } .a-results { grid-template-columns: 1fr; } .a-score-panel { border-right: none; border-bottom: 1px solid var(--border); } .pricing-grid { grid-template-columns: 1fr; } .footer-grid { grid-template-columns: 1fr 1fr; } .sj-stats { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) { .hero h1 { font-size: clamp(24px, 7vw, 36px); } .feature-grid { grid-template-columns: 1fr; } .compare-row { grid-template-columns: 1.4fr 1fr; } .compare-cell.legacy { display: none; } .a-score-big { font-size: 64px; } }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="nav-inner">
     <a href="#" class="logo">norvy <span class="logo-pill">LU</span></a>
@@ -1014,7 +559,7 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
       <li><a href="#pricing">Tarifs</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
-    <a href="mailto:contact@norvy.lu" class="nav-cta">Demander une démo</a>
+    <a href="mailto:contact@norvy.fr" class="nav-cta">Demander une démo</a>
     <button class="nav-hamburger" id="navHamburger" aria-label="Menu" type="button">
       <span></span><span></span><span></span>
     </button>
@@ -1026,26 +571,20 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
   <a href="#audit">Auto-évaluation</a>
   <a href="#pricing">Tarifs</a>
   <a href="#faq">FAQ</a>
-  <a href="mailto:contact@norvy.lu" class="nav-mobile-cta">Demander une démo</a>
+  <a href="mailto:contact@norvy.fr" class="nav-mobile-cta">Demander une démo</a>
 </div>
 
-<!-- HERO -->
 <section class="hero">
   <div class="container">
     <div class="hero-badge fade-up">
       <span class="hero-badge-dot"></span>
       Conçu pour les avocats · Hébergé au Luxembourg
     </div>
-
     <h1 class="fade-up delay-1">Le logiciel qui gère votre cabinet <em>et votre conformité AML</em> en même temps.</h1>
-
     <p class="hero-sub fade-up delay-2">Dossiers, facturation, KYC, screening, registre AML, questionnaire OAL — tout dans un seul outil. Avant tout, découvrez où en est votre cabinet.</p>
-
     <div class="fade-up delay-3">
       <button class="hero-audit-cta" id="heroAuditCta" type="button">
-        <span class="hero-cta-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-        </span>
+        <span class="hero-cta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
         <span class="hero-cta-text">
           <span class="hero-cta-title">Faire mon auto-évaluation AML</span>
           <span class="hero-cta-sub">22 questions · 8 min · Rapport PDF gratuit</span>
@@ -1053,42 +592,31 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
         <svg class="hero-cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </button>
       <div class="hero-or">ou</div>
-      <a href="mailto:contact@norvy.lu" class="hero-demo-link">
+      <a href="mailto:contact@norvy.fr" class="hero-demo-link">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><polyline points="3,8 12,13 21,8"/></svg>
         Demander une démo personnalisée
       </a>
     </div>
-
     <div class="hero-trust fade-up delay-4">
-      <div class="trust-pill">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        Hébergement souverain Luxembourg
-      </div>
-      <div class="trust-pill">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        RGPD & secret professionnel
-      </div>
-      <div class="trust-pill">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
-        AMLR 2024/1624 by design
-      </div>
+      <div class="trust-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Hébergement souverain Luxembourg</div>
+      <div class="trust-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>RGPD &amp; secret professionnel</div>
+      <div class="trust-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg>AMLR 2024/1624 by design</div>
     </div>
 
-    <!-- PRODUCT SCREENSHOTS -->
     <div class="screenshots-wrap fade-up delay-5">
       <div class="screenshots-tabs">
-        <button class="stab active" data-pane="dashboard" type="button">📁 Dossiers & Financier</button>
+        <button class="stab active" data-pane="dashboard" type="button">📁 Dossiers &amp; Financier</button>
         <button class="stab" data-pane="compliance" type="button">🛡️ Compliance</button>
         <button class="stab" data-pane="oal" type="button">📋 Questionnaire OAL</button>
         <button class="stab" data-pane="journal" type="button">🔍 Journal d'audit</button>
       </div>
 
-      <!-- Pane: Dashboard / Dossiers -->
+      <!-- DASHBOARD -->
       <div class="screenshot-pane active screen-img" id="pane-dashboard">
         <div class="screen-dashboard">
           <div class="sd-header">
             <div>
-              <div class="sd-greeting">Bonjour, NC ADVOCAT · BARREAU LU</div>
+              <div class="sd-greeting">Bonjour, Maître · BARREAU LU</div>
               <div class="sd-title">5 alerte(s) requièrent votre attention</div>
               <div class="sd-subtitle">5 alerte(s) en attente · 6 dossiers · 5 in scope</div>
             </div>
@@ -1106,144 +634,49 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
             <div class="sd-tab">📑 Recouvrement <span class="sd-tab-badge" style="background:#FEF3C7;color:#B87C1A;">3</span></div>
           </div>
           <div class="sd-stats">
-            <div class="sd-stat">
-              <div class="sd-stat-label">TOTAL FACTURÉ</div>
-              <div class="sd-stat-val">8 074 €</div>
-              <div class="sd-stat-sub green">+4 563 € ce mois</div>
-            </div>
-            <div class="sd-stat">
-              <div class="sd-stat-label">ENCAISSÉ</div>
-              <div class="sd-stat-val">878 €</div>
-              <div class="sd-stat-sub">878 € encaissé · 11% du total</div>
-            </div>
-            <div class="sd-stat">
-              <div class="sd-stat-label">HEURES FACTURABLES</div>
-              <div class="sd-stat-val">0h</div>
-              <div class="sd-stat-sub">ce mois</div>
-            </div>
-            <div class="sd-stat">
-              <div class="sd-stat-label">FACTURES ÉMISES</div>
-              <div class="sd-stat-val">4</div>
-              <div class="sd-stat-sub warn">2 en attente</div>
-            </div>
+            <div class="sd-stat"><div class="sd-stat-label">TOTAL FACTURÉ</div><div class="sd-stat-val">8 074 €</div><div class="sd-stat-sub green">+4 563 € ce mois</div></div>
+            <div class="sd-stat"><div class="sd-stat-label">ENCAISSÉ</div><div class="sd-stat-val">878 €</div><div class="sd-stat-sub">878 € encaissé · 11% du total</div></div>
+            <div class="sd-stat"><div class="sd-stat-label">HEURES FACTURABLES</div><div class="sd-stat-val">0h</div><div class="sd-stat-sub">ce mois</div></div>
+            <div class="sd-stat"><div class="sd-stat-label">FACTURES ÉMISES</div><div class="sd-stat-val">4</div><div class="sd-stat-sub warn">2 en attente</div></div>
           </div>
-          <div class="sd-table-head">
-            <div></div><div>CLIENT</div><div>MISSION</div><div>SCOPE</div><div>VIGILANCE</div><div>SCREENING</div><div>AMLR</div>
-          </div>
-          <div class="sd-row">
-            <div class="sd-avatar">DJ</div>
-            <div><div class="sd-client-name">DURAND Jean-Pierre</div><div class="sd-client-ref">NRV-2026-1001 · 18 mai</div></div>
-            <div class="sd-mission">Transaction immobilière</div>
-            <div><span class="sd-scope in">IN</span></div>
-            <div><span class="sd-vig renforcee">🔴 Renforcée</span></div>
-            <div class="sd-screening">✓ Négatif</div>
-            <div><span class="sd-score warn">48/100</span></div>
-          </div>
-          <div class="sd-row">
-            <div class="sd-avatar" style="background:#E7F0FE;color:#3B5FA0;">AR</div>
-            <div><div class="sd-client-name">ATLAS Holdings S.à r.l.</div><div class="sd-client-ref">NRV-2026-1002 · 15 mai</div></div>
-            <div class="sd-mission">Gestion de fonds</div>
-            <div><span class="sd-scope in">IN</span></div>
-            <div><span class="sd-vig renforcee">🔴 Renforcée</span></div>
-            <div class="sd-screening">✓ Négatif</div>
-            <div><span class="sd-score warn">54/100</span></div>
-          </div>
-          <div class="sd-row">
-            <div class="sd-avatar" style="background:#EEF7EE;color:#2E7D3E;">FS</div>
-            <div><div class="sd-client-name">FIBEX Management S.A.</div><div class="sd-client-ref">NRV-2026-1003 · 17 mai</div></div>
-            <div class="sd-mission">Constitution de société</div>
-            <div><span class="sd-scope in">IN</span></div>
-            <div><span class="sd-vig normale">🟢 Normale</span></div>
-            <div class="sd-screening">✓ Négatif</div>
-            <div><span class="sd-score ok">23/100</span></div>
-          </div>
-          <div class="sd-row">
-            <div class="sd-avatar" style="background:#F5F0F5;color:#7B3FA0;">LS</div>
-            <div><div class="sd-client-name">LAMBERT Sophie</div><div class="sd-client-ref">NRV-2026-1004 · 16 mai</div></div>
-            <div class="sd-mission">Représentation judiciaire</div>
-            <div><span class="sd-scope out">OUT</span></div>
-            <div style="color:#ccc;font-size:14px;">—</div>
-            <div class="sd-screening">✓ Négatif</div>
-            <div><span class="sd-score low">5/100</span></div>
-          </div>
+          <div class="sd-table-head"><div></div><div>CLIENT</div><div>MISSION</div><div>SCOPE</div><div>VIGILANCE</div><div>SCREENING</div><div>AMLR</div></div>
+          <div class="sd-row"><div class="sd-avatar">DJ</div><div><div class="sd-client-name">DURAND Jean-Pierre</div><div class="sd-client-ref">NRV-2026-1001 · 18 mai</div></div><div class="sd-mission">Transaction immobilière</div><div><span class="sd-scope in">IN</span></div><div><span class="sd-vig renforcee">🔴 Renforcée</span></div><div class="sd-screening">✓ Négatif</div><div><span class="sd-score warn">48/100</span></div></div>
+          <div class="sd-row"><div class="sd-avatar" style="background:#E7F0FE;color:#3B5FA0;">AR</div><div><div class="sd-client-name">ATLAS Holdings S.à r.l.</div><div class="sd-client-ref">NRV-2026-1002 · 15 mai</div></div><div class="sd-mission">Gestion de fonds</div><div><span class="sd-scope in">IN</span></div><div><span class="sd-vig renforcee">🔴 Renforcée</span></div><div class="sd-screening">✓ Négatif</div><div><span class="sd-score warn">54/100</span></div></div>
+          <div class="sd-row"><div class="sd-avatar" style="background:#EEF7EE;color:#2E7D3E;">FS</div><div><div class="sd-client-name">FIBEX Management S.A.</div><div class="sd-client-ref">NRV-2026-1003 · 17 mai</div></div><div class="sd-mission">Constitution de société</div><div><span class="sd-scope in">IN</span></div><div><span class="sd-vig normale">🟢 Normale</span></div><div class="sd-screening">✓ Négatif</div><div><span class="sd-score ok">23/100</span></div></div>
+          <div class="sd-row"><div class="sd-avatar" style="background:#F5F0F5;color:#7B3FA0;">LS</div><div><div class="sd-client-name">LAMBERT Sophie</div><div class="sd-client-ref">NRV-2026-1004 · 16 mai</div></div><div class="sd-mission">Représentation judiciaire</div><div><span class="sd-scope out">OUT</span></div><div style="color:#ccc;font-size:14px;">—</div><div class="sd-screening">✓ Négatif</div><div><span class="sd-score low">5/100</span></div></div>
         </div>
       </div>
 
-      <!-- Pane: Compliance -->
+      <!-- COMPLIANCE -->
       <div class="screenshot-pane screen-img" id="pane-compliance">
         <div class="sc-compliance">
           <div class="sd-header" style="background:#1B2337;padding:20px 32px;">
             <div>
-              <div class="sd-greeting">NC ADVOCAT · COMPLIANCE</div>
+              <div class="sd-greeting">VOTRE CABINET · COMPLIANCE</div>
               <div class="sd-title">Tableau de conformité AML</div>
             </div>
           </div>
           <div class="sd-tabs">
-            <div class="sd-tab">📁 Dossiers</div>
-            <div class="sd-tab">💹 Financier</div>
+            <div class="sd-tab">📁 Dossiers</div><div class="sd-tab">💹 Financier</div>
             <div class="sd-tab active">🛡️ Compliance <span class="sd-tab-badge">5</span></div>
             <div class="sd-tab">📑 Recouvrement <span class="sd-tab-badge" style="background:#FEF3C7;color:#B87C1A;">3</span></div>
           </div>
           <div class="sc-grid">
-            <div class="sc-stat">
-              <div class="sc-stat-label">
-                <div class="sc-stat-icon" style="background:#E6EFF7;">🛡️</div>
-                IN SCOPE LCB
-              </div>
-              <div class="sc-stat-val">4</div>
-              <div class="sc-stat-sub">80% du portefeuille</div>
-            </div>
-            <div class="sc-stat">
-              <div class="sc-stat-label">
-                <div class="sc-stat-icon" style="background:#FEF3C7;">⚠️</div>
-                ALERTES OUVERTES
-              </div>
-              <div class="sc-stat-val">5</div>
-              <div class="sc-stat-sub danger">⚠ À traiter · 1 critique(s)</div>
-            </div>
-            <div class="sc-stat">
-              <div class="sc-stat-label">
-                <div class="sc-stat-icon" style="background:#E6EFF7;">🔍</div>
-                SCREENINGS
-              </div>
-              <div class="sc-stat-val">5</div>
-              <div class="sc-stat-sub">100% négatifs · 0 alerte(s)</div>
-            </div>
-            <div class="sc-stat">
-              <div class="sc-stat-label">
-                <div class="sc-stat-icon" style="background:#EEF7EE;">📋</div>
-                OAL
-              </div>
-              <div class="sc-stat-val">100%</div>
-              <div class="sc-stat-sub">Progression · questionnaire</div>
-            </div>
+            <div class="sc-stat"><div class="sc-stat-label"><div class="sc-stat-icon" style="background:#E6EFF7;">🛡️</div>IN SCOPE LCB</div><div class="sc-stat-val">4</div><div class="sc-stat-sub">80% du portefeuille</div></div>
+            <div class="sc-stat"><div class="sc-stat-label"><div class="sc-stat-icon" style="background:#FEF3C7;">⚠️</div>ALERTES OUVERTES</div><div class="sc-stat-val">5</div><div class="sc-stat-sub danger">⚠ À traiter · 1 critique(s)</div></div>
+            <div class="sc-stat"><div class="sc-stat-label"><div class="sc-stat-icon" style="background:#E6EFF7;">🔍</div>SCREENINGS</div><div class="sc-stat-val">5</div><div class="sc-stat-sub">100% négatifs · 0 alerte(s)</div></div>
+            <div class="sc-stat"><div class="sc-stat-label"><div class="sc-stat-icon" style="background:#EEF7EE;">📋</div>OAL</div><div class="sc-stat-val">100%</div><div class="sc-stat-sub">Progression · questionnaire</div></div>
           </div>
           <div class="sc-actions">
-            <div class="sc-action featured">
-              <div class="sc-action-icon">🔍</div>
-              <div class="sc-action-title">Screening KYC</div>
-              <div class="sc-action-sub">Sanctions & PPE</div>
-            </div>
-            <div class="sc-action" style="border: 2px solid #1B2337;">
-              <div class="sc-action-icon">🔄</div>
-              <div class="sc-action-title">Revues KYC</div>
-              <div class="sc-action-sub">0 à planifier</div>
-            </div>
-            <div class="sc-action">
-              <div class="sc-action-icon">📋</div>
-              <div class="sc-action-title">Questionnaire OAL</div>
-              <div class="sc-action-sub">Rapport annuel</div>
-            </div>
-            <div class="sc-action">
-              <div class="sc-action-icon">📊</div>
-              <div class="sc-action-title">Rapport CSSF</div>
-              <div class="sc-action-sub">Générer PDF</div>
-            </div>
+            <div class="sc-action featured"><div class="sc-action-icon">🔍</div><div class="sc-action-title">Screening KYC</div><div class="sc-action-sub">Sanctions &amp; PPE</div></div>
+            <div class="sc-action" style="border:2px solid #1B2337;"><div class="sc-action-icon">🔄</div><div class="sc-action-title">Revues KYC</div><div class="sc-action-sub">0 à planifier</div></div>
+            <div class="sc-action"><div class="sc-action-icon">📋</div><div class="sc-action-title">Questionnaire OAL</div><div class="sc-action-sub">Rapport annuel</div></div>
+            <div class="sc-action"><div class="sc-action-icon">📊</div><div class="sc-action-title">Rapport CSSF</div><div class="sc-action-sub">Générer PDF</div></div>
           </div>
         </div>
       </div>
 
-      <!-- Pane: OAL -->
+      <!-- OAL -->
       <div class="screenshot-pane screen-img" id="pane-oal">
         <div class="sq-wrap">
           <div class="sq-head">
@@ -1251,7 +684,7 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
               <div>
                 <div class="sq-head-meta">OAL · QUESTIONNAIRE ANNUEL LBC-FT OFFICIEL</div>
                 <div class="sq-head-title">Questionnaire Annuel OAL — Exercice 2023</div>
-                <div class="sq-head-sub">NC Advocat Sàrl · Barreau de Luxembourg · 10 avocats</div>
+                <div class="sq-head-sub">Cabinet Juridique · Barreau de Luxembourg · 10 avocats</div>
                 <div class="sq-head-badges">
                   <span class="sq-badge green">✓ Questions officielles OAL 2023</span>
                   <span class="sq-badge warn">⚠ 2 réponses manuelles requises</span>
@@ -1267,14 +700,14 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
           <div class="sq-body">
             <div class="sq-sidebar">
               <div class="sq-sidebar-title">SECTIONS OFFICIELLES OAL</div>
-              <div class="sq-sidebar-item active">I. Informations & Effectif <span class="check">✓</span></div>
+              <div class="sq-sidebar-item active">I. Informations &amp; Effectif <span class="check">✓</span></div>
               <div class="sq-sidebar-item">II. Organisation LBC/FT <span class="check">✓</span></div>
               <div class="sq-sidebar-item">III. Activités visées <span class="check">✓</span></div>
               <div class="sq-sidebar-item">IV. Données clientèle <span class="check">✓</span></div>
               <div class="sq-sidebar-item">V. Mesures de vigilance <span class="check">✓</span></div>
-              <div class="sq-sidebar-item">VI. Coopération & Déclarations <span class="warn-icon">⚠</span></div>
+              <div class="sq-sidebar-item">VI. Coopération &amp; Déclarations <span class="warn-icon">⚠</span></div>
               <div class="sq-sidebar-item">VII. Secteurs à risque <span class="warn-icon">⚠</span></div>
-              <div class="sq-sidebar-item" style="margin-top:12px;color:#999;font-size:12px;">→ Finalisation & PDF</div>
+              <div class="sq-sidebar-item" style="margin-top:12px;color:#999;font-size:12px;">→ Finalisation &amp; PDF</div>
               <button class="sq-sidebar-btn">📄 Générer le PDF officiel</button>
             </div>
             <div class="sq-content">
@@ -1298,18 +731,12 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
         </div>
       </div>
 
-      <!-- Pane: Journal -->
+      <!-- JOURNAL -->
       <div class="screenshot-pane screen-img" id="pane-journal">
         <div class="sj-wrap">
           <div class="sj-head">
-            <div>
-              <div class="sj-head-title">Journal d'audit compliance</div>
-              <div class="sj-head-sub">Toutes les actions compliance tracées · Horodatées · Immuables</div>
-            </div>
-            <div class="sj-head-actions">
-              <button class="sj-btn">📥 CSV</button>
-              <button class="sj-btn primary">🏛 Rapport OAL</button>
-            </div>
+            <div><div class="sj-head-title">Journal d'audit compliance</div><div class="sj-head-sub">Toutes les actions compliance tracées · Horodatées · Immuables</div></div>
+            <div class="sj-head-actions"><button class="sj-btn">📥 CSV</button><button class="sj-btn primary">🏛 Rapport OAL</button></div>
           </div>
           <div class="sj-stats">
             <div class="sj-stat"><div class="sj-stat-val gray">9</div><div class="sj-stat-label">Actions tracées</div></div>
@@ -1318,12 +745,9 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
             <div class="sj-stat"><div class="sj-stat-val gray">0</div><div class="sj-stat-label">Anomalies</div></div>
           </div>
           <div class="sj-filters">
-            <button class="sj-filter">Tout</button>
-            <button class="sj-filter">📁 Dossiers</button>
-            <button class="sj-filter active">🔵 Screenings</button>
-            <button class="sj-filter">📋 KYC</button>
-            <button class="sj-filter">⚠️ Alertes</button>
-            <button class="sj-filter">✅ Décisions</button>
+            <button class="sj-filter">Tout</button><button class="sj-filter">📁 Dossiers</button>
+            <button class="sj-filter active">🔵 Screenings</button><button class="sj-filter">📋 KYC</button>
+            <button class="sj-filter">⚠️ Alertes</button><button class="sj-filter">✅ Décisions</button>
           </div>
           <div class="sj-entries">
             <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px 10px;font-size:18px;font-weight:700;color:#111;border-bottom:1px solid #E8E6E1;margin-bottom:12px;">
@@ -1331,32 +755,14 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
               <span style="font-size:12px;color:#3DAB87;font-weight:600;">🔒 Immuable · Horodaté</span>
             </div>
             <div class="sj-entry">
-              <div class="sj-entry-top">
-                <div style="display:flex;align-items:flex-start;gap:0;">
-                  <div class="sj-entry-dot"></div>
-                  <div class="sj-entry-title" style="margin-left:12px;">🔍 Screening — DURAND Jean-Pierre</div>
-                </div>
-                <div class="sj-entry-time">26/03 14:29 · Norvy Auto</div>
-              </div>
+              <div class="sj-entry-top"><div style="display:flex;align-items:flex-start;gap:0;"><div class="sj-entry-dot"></div><div class="sj-entry-title" style="margin-left:12px;">🔍 Screening — DURAND Jean-Pierre</div></div><div class="sj-entry-time">26/03 14:29 · Norvy Auto</div></div>
               <div class="sj-entry-sub">6 listes · UE, OFAC, ONU, UK, PPE, Adverse Media · Résultat : Négatif</div>
-              <div class="sj-tags">
-                <span class="sj-tag">Négatif</span>
-                <span class="sj-tag">6 listes</span>
-              </div>
+              <div class="sj-tags"><span class="sj-tag">Négatif</span><span class="sj-tag">6 listes</span></div>
             </div>
             <div class="sj-entry">
-              <div class="sj-entry-top">
-                <div style="display:flex;align-items:flex-start;">
-                  <div class="sj-entry-dot"></div>
-                  <div class="sj-entry-title" style="margin-left:12px;">🔍 Screening — ATLAS Holdings</div>
-                </div>
-                <div class="sj-entry-time">24/03 11:16 · Norvy Auto</div>
-              </div>
+              <div class="sj-entry-top"><div style="display:flex;align-items:flex-start;"><div class="sj-entry-dot"></div><div class="sj-entry-title" style="margin-left:12px;">🔍 Screening — ATLAS Holdings</div></div><div class="sj-entry-time">24/03 11:16 · Norvy Auto</div></div>
               <div class="sj-entry-sub">6 listes · Résultat : Négatif</div>
-              <div class="sj-tags">
-                <span class="sj-tag">Négatif</span>
-                <span class="sj-tag">6 listes</span>
-              </div>
+              <div class="sj-tags"><span class="sj-tag">Négatif</span><span class="sj-tag">6 listes</span></div>
             </div>
           </div>
         </div>
@@ -1365,52 +771,30 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
   </div>
 </section>
 
-<!-- PROOF -->
 <section class="proof" id="produit">
   <div class="container">
     <div class="section-eyebrow">Ce que Norvy change concrètement</div>
     <h2 class="section-title">Le temps que vous reprenez. <em>L'exposition que vous éliminez.</em></h2>
     <div class="proof-grid">
-      <div class="proof-stat">
-        <div class="proof-num">~18 750<span> €/an</span></div>
-        <div class="proof-label">de temps facturable récupéré dans un cabinet de 3 avocats — juste sur les diligences AML manuelles.</div>
-      </div>
-      <div class="proof-stat">
-        <div class="proof-num">2<span> jours</span></div>
-        <div class="proof-label">économisés sur le questionnaire annuel du Barreau. Norvy le génère pré-rempli en un clic.</div>
-      </div>
-      <div class="proof-stat">
-        <div class="proof-num">5 ans</div>
-        <div class="proof-label">d'archivage obligatoire. Vos pièces KYC sont toutes retrouvables, horodatées, auditables.</div>
-      </div>
+      <div class="proof-stat"><div class="proof-num">~18 750<span> €/an</span></div><div class="proof-label">de temps facturable récupéré dans un cabinet de 3 avocats — juste sur les diligences AML manuelles.</div></div>
+      <div class="proof-stat"><div class="proof-num">2<span> jours</span></div><div class="proof-label">économisés sur le questionnaire annuel du Barreau. Norvy le génère pré-rempli en un clic.</div></div>
+      <div class="proof-stat"><div class="proof-num">5 ans</div><div class="proof-label">d'archivage obligatoire. Vos pièces KYC sont toutes retrouvables, horodatées, auditables.</div></div>
     </div>
   </div>
 </section>
 
-<!-- AMLR -->
 <section class="amlr" id="amlr">
   <div class="container">
     <div class="section-eyebrow">Le catalyseur réglementaire</div>
     <h2 class="section-title">Le règlement <em>AMLR</em> change la donne pour votre cabinet.</h2>
     <p class="section-lead">L'Autorité européenne de lutte anti-blanchiment (AMLA) est opérationnelle. Les obligations AML des avocats deviennent directement applicables, harmonisées et auditables. Les outils legacy ne suffisent plus.</p>
     <div class="amlr-cards">
-      <div class="amlr-card">
-        <div class="amlr-card-num">01 / OBLIGATION</div>
-        <h3>Vigilance renforcée systématique</h3>
-        <p>Identification du bénéficiaire effectif, screening PEP/sanctions en continu, conservation horodatée de chaque pièce. Plus aucun dossier ne peut s'ouvrir sans diligence formalisée et traçable.</p>
-        <div class="amlr-card-stat"><strong>5 ans</strong><span>de conservation des pièces KYC après fin de la relation</span></div>
-      </div>
-      <div class="amlr-card">
-        <div class="amlr-card-num">02 / RISQUE</div>
-        <h3>Sanctions personnelles pour l'avocat</h3>
-        <p>Au-delà des amendes administratives, le cadre AMLR introduit des responsabilités directes pour les associés et compliance officers. Un dossier mal documenté expose le cabinet — et l'avocat lui-même.</p>
-        <div class="amlr-card-stat"><strong>10 M€</strong><span>amende maximale ou 10% du CA annuel</span></div>
-      </div>
+      <div class="amlr-card"><div class="amlr-card-num">01 / OBLIGATION</div><h3>Vigilance renforcée systématique</h3><p>Identification du bénéficiaire effectif, screening PEP/sanctions en continu, conservation horodatée de chaque pièce. Plus aucun dossier ne peut s'ouvrir sans diligence formalisée et traçable.</p><div class="amlr-card-stat"><strong>5 ans</strong><span>de conservation des pièces KYC après fin de la relation</span></div></div>
+      <div class="amlr-card"><div class="amlr-card-num">02 / RISQUE</div><h3>Sanctions personnelles pour l'avocat</h3><p>Au-delà des amendes administratives, le cadre AMLR introduit des responsabilités directes pour les associés et compliance officers. Un dossier mal documenté expose le cabinet — et l'avocat lui-même.</p><div class="amlr-card-stat"><strong>10 M€</strong><span>amende maximale ou 10% du CA annuel</span></div></div>
     </div>
   </div>
 </section>
 
-<!-- FEATURES -->
 <section class="features">
   <div class="container">
     <div class="section-eyebrow">Un LPM complet. Avec l'AML intégré.</div>
@@ -1418,10 +802,10 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
     <div class="feature-grid">
       <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h3>Gestion de dossiers</h3><p>Cycle de vie complet : matters, échéances, parties, documents. Lien automatique entre chaque mandat et la diligence client correspondante.</p></div>
       <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><h3>Suivi des temps</h3><p>Saisie en un clic depuis n'importe quel dossier, chronomètre intégré, ventilation par associé et matter.</p></div>
-      <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><h3>Facturation & recouvrement</h3><p>Conventions d'honoraires électroniques, factures conformes, suivi des paiements en temps réel, relances automatiques.</p></div>
-      <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>KYC natif & continu</h3><p>Onboarding client guidé, vérification d'identité, registre des bénéficiaires effectifs, mise à jour permanente.</p></div>
+      <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><h3>Facturation &amp; recouvrement</h3><p>Conventions d'honoraires électroniques, factures conformes, suivi des paiements en temps réel, relances automatiques.</p></div>
+      <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>KYC natif &amp; continu</h3><p>Onboarding client guidé, vérification d'identité, registre des bénéficiaires effectifs, mise à jour permanente.</p></div>
       <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg></div><h3>Scoring de risque automatisé</h3><p>Évaluation continue, réévaluation déclenchée par événement, justification traçable. Le scoring devient un livrable.</p></div>
-      <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><h3>Screening PEP & sanctions</h3><p>Croisement avec listes UE, OFAC, ONU, UK — mis à jour quotidiennement. Alertes en temps réel.</p></div>
+      <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><h3>Screening PEP &amp; sanctions</h3><p>Croisement avec listes UE, OFAC, ONU, UK — mis à jour quotidiennement. Alertes en temps réel.</p></div>
       <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h3>Registre AML auditable</h3><p>Traçabilité immuable des décisions de diligence, prêt pour un contrôle CRF ou ordinal en quelques clics.</p></div>
       <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3>Souveraineté des données</h3><p>Hébergement Luxembourg, chiffrement bout-en-bout, conformité RGPD et secret professionnel par construction.</p></div>
       <div class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div><h3>Questionnaire Barreau auto</h3><p>Le questionnaire annuel OAL se génère depuis vos données — pré-rempli, exportable en PDF, prêt à transmettre.</p></div>
@@ -1429,7 +813,6 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
   </div>
 </section>
 
-<!-- HIGHLIGHT OAL -->
 <section class="highlight">
   <div class="container">
     <div class="highlight-card">
@@ -1450,10 +833,7 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
           <div class="oal-mock-meta">OAL · QUESTIONNAIRE ANNUEL LBC-FT OFFICIEL</div>
           <div class="oal-mock-title">Questionnaire Annuel OAL — Exercice 2023</div>
           <div class="oal-mock-prog">
-            <div class="oal-mock-badges">
-              <span class="oal-mock-badge g">✓ Questions OAL 2023</span>
-              <span class="oal-mock-badge w">⚠ 2 manuelles requises</span>
-            </div>
+            <div class="oal-mock-badges"><span class="oal-mock-badge g">✓ Questions OAL 2023</span><span class="oal-mock-badge w">⚠ 2 manuelles requises</span></div>
             <div class="oal-mock-pct">78%</div>
           </div>
         </div>
@@ -1472,18 +852,8 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
           <div class="oal-content">
             <div class="oal-section-meta">SECTION I · INFORMATIONS GÉNÉRALES</div>
             <div class="oal-section-title">Identification de l'Étude <span class="oal-auto-tag">✓ Auto-rempli</span></div>
-            <div class="oal-q">
-              <div class="oal-q-ref">Q1</div>
-              <div class="oal-q-text">Effectif total de l'Étude luxembourgeoise</div>
-              <div class="oal-q-src">✓ Norvy · Extrait depuis les paramètres cabinet</div>
-              <div style="font-size:9px;color:#AAA;margin-bottom:5px;text-transform:uppercase;letter-spacing:0.06em;">EFFECTIF TOTAL</div>
-              <div class="oal-q-val">10</div>
-            </div>
-            <div class="oal-q">
-              <div class="oal-q-ref">Q2 — Q3 — Q4 — Q5 — Q6</div>
-              <div class="oal-q-text">Répartition par catégorie et fonctions</div>
-              <div class="oal-q-src">✓ Norvy · Extrait depuis les paramètres collaborateurs</div>
-            </div>
+            <div class="oal-q"><div class="oal-q-ref">Q1</div><div class="oal-q-text">Effectif total de l'Étude luxembourgeoise</div><div class="oal-q-src">✓ Norvy · Extrait depuis les paramètres cabinet</div><div style="font-size:9px;color:#AAA;margin-bottom:5px;text-transform:uppercase;letter-spacing:0.06em;">EFFECTIF TOTAL</div><div class="oal-q-val">10</div></div>
+            <div class="oal-q"><div class="oal-q-ref">Q2 — Q3 — Q4 — Q5 — Q6</div><div class="oal-q-text">Répartition par catégorie et fonctions</div><div class="oal-q-src">✓ Norvy · Extrait depuis les paramètres collaborateurs</div></div>
           </div>
         </div>
       </div>
@@ -1491,7 +861,6 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
   </div>
 </section>
 
-<!-- COMPARISON -->
 <section class="comparison">
   <div class="container">
     <div class="section-eyebrow">Pourquoi Norvy</div>
@@ -1509,7 +878,6 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
   </div>
 </section>
 
-<!-- ROI -->
 <section class="roi">
   <div class="container">
     <div class="section-eyebrow">Calculateur</div>
@@ -1533,14 +901,13 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
   </div>
 </section>
 
-<!-- AUDIT -->
 <section class="audit" id="audit">
   <div class="container">
     <div class="audit-header">
       <div>
         <div class="section-eyebrow">Auto-évaluation AML</div>
         <h2 class="section-title" style="max-width:560px;margin-bottom:12px;">Êtes-vous prêt pour <em>l'AMLR 2027 ?</em></h2>
-        <p class="section-lead">22 questions, 8 minutes. Recevez votre score de conformité et un rapport PDF personnalisé avec les actions prioritaires — puis découvrez comment Norvy vous aide à les corriger.</p>
+        <p class="section-lead">22 questions, 8 minutes. Recevez votre score de conformité et un rapport PDF personnalisé avec les actions prioritaires.</p>
       </div>
       <div class="audit-pills">
         <div class="audit-pill">22 questions</div>
@@ -1549,63 +916,41 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
         <div class="audit-pill">100% confidentiel</div>
       </div>
     </div>
-
     <div class="audit-card" id="auditCard">
-      <!-- SCREEN INTRO -->
       <div class="a-screen active" id="aScreenIntro">
         <div class="a-intro">
           <div class="a-intro-left">
             <h3>Évaluez votre dispositif <em>AML en 8 minutes.</em></h3>
             <p>Cette auto-évaluation mesure la maturité de votre cabinet sur les 6 piliers exigés par l'AMLR 2024/1624. À l'issue, vous recevez un rapport PDF personnalisé avec votre score et des recommandations.</p>
-            <button class="a-start-btn" id="aStartBtn" type="button">
-              Commencer l'auto-évaluation
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </button>
+            <button class="a-start-btn" id="aStartBtn" type="button">Commencer l'auto-évaluation <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
           </div>
           <div class="a-intro-right" id="aDimsRight"></div>
         </div>
       </div>
-
-      <!-- SCREEN QUESTIONS -->
       <div class="a-screen" id="aScreenQuestions">
         <div class="a-questions">
-          <div class="a-q-top">
-            <div class="a-q-counter">Question <strong id="aQNum">1</strong> / 22</div>
-            <div class="a-q-dim" id="aQDim">Gouvernance</div>
-          </div>
+          <div class="a-q-top"><div class="a-q-counter">Question <strong id="aQNum">1</strong> / 22</div><div class="a-q-dim" id="aQDim">Gouvernance</div></div>
           <div class="a-progress"><div class="a-progress-fill" id="aProgressFill"></div></div>
           <h3 class="a-question-text" id="aQText"></h3>
           <p class="a-question-help" id="aQHelp"></p>
           <div class="a-options" id="aOptions"></div>
           <div class="a-nav">
-            <button class="a-btn" id="aPrevBtn" type="button" disabled>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Précédent
-            </button>
-            <button class="a-btn primary" id="aNextBtn" type="button" disabled>
-              Suivant<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </button>
+            <button class="a-btn" id="aPrevBtn" type="button" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Précédent</button>
+            <button class="a-btn primary" id="aNextBtn" type="button" disabled>Suivant<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
           </div>
         </div>
       </div>
-
-      <!-- SCREEN EMAIL -->
       <div class="a-screen" id="aScreenEmail">
         <div class="a-email">
           <div class="a-email-left">
             <h3>Votre auto-évaluation est <em>terminée.</em></h3>
             <p>Indiquez votre email pour recevoir votre rapport PDF personnalisé avec votre score, les gaps identifiés et les actions prioritaires avant juillet 2027.</p>
             <form class="a-email-form" id="aEmailForm">
-              <input type="text" class="a-input" id="aFirmName" placeholder="Nom du cabinet (optionnel)" />
+              <input type="text" class="a-input" id="aFirmName" placeholder="Ex: Cabinet Dupont &amp; Associés" />
               <input type="email" class="a-input" id="aEmail" placeholder="votre@cabinet.lu" required />
-              <button type="submit" class="a-submit" id="aSubmitBtn">
-                Recevoir mon rapport PDF
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              </button>
+              <button type="submit" class="a-submit" id="aSubmitBtn">Recevoir mon rapport PDF <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></button>
               <div class="a-consent">Désinscription en un clic. Aucun spam.</div>
-              <div class="a-success" id="aSuccess">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 7"/></svg>
-                Téléchargement lancé — vérifiez vos téléchargements.
-              </div>
+              <div class="a-success" id="aSuccess"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 7"/></svg>Téléchargement lancé — vérifiez vos téléchargements.</div>
             </form>
           </div>
           <div class="a-email-right">
@@ -1617,8 +962,6 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
           </div>
         </div>
       </div>
-
-      <!-- SCREEN RESULTS -->
       <div class="a-screen" id="aScreenResults">
         <div class="a-results">
           <div class="a-score-panel">
@@ -1627,14 +970,8 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
             <div class="a-grade" id="aGrade">–</div>
             <p class="a-verdict" id="aVerdict"></p>
             <div class="a-panel-actions">
-              <button class="a-btn" id="aRedownload" type="button">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-                Re-télécharger le PDF
-              </button>
-              <a href="#pricing" class="a-btn primary">
-                Voir les tarifs Norvy
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              </a>
+              <button class="a-btn" id="aRedownload" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Re-télécharger le PDF</button>
+              <a href="#pricing" class="a-btn primary">Voir les tarifs Norvy <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
             </div>
           </div>
           <div class="a-breakdown-panel">
@@ -1647,7 +984,6 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
   </div>
 </section>
 
-<!-- PRICING -->
 <section class="pricing" id="pricing">
   <div class="container">
     <div class="pricing-top">
@@ -1666,12 +1002,12 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
         <div class="price-label">1 – 5 UTILISATEURS</div>
         <div class="price-name">Cabinet</div>
         <div class="price-amount"><span class="price-cur">€</span><span class="price-num" data-monthly="149" data-yearly="127">149</span><span class="price-per">/utilisateur<br>/mois HT</span></div>
-        <div class="price-note">Engagement 12 mois · Mensualisé</div>
-        <a href="mailto:contact@norvy.lu" class="price-btn">Demander une démo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <div class="price-note"> · Mensualisé</div>
+        <a href="mailto:contact@norvy.fr" class="price-btn">Demander une démo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <div class="price-divider"></div>
         <ul class="price-features">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>LPM complet — dossiers, temps, facturation</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Module AML/KYC natif — screening, BE, scoring</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Module AML/KYC natif</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Questionnaire OAL auto-généré</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Registre AML auditable</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Hébergement Luxembourg</li>
@@ -1684,7 +1020,7 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
         <div class="price-name">Structure</div>
         <div class="price-amount"><span class="price-cur">€</span><span class="price-num" data-monthly="139" data-yearly="118">139</span><span class="price-per">/utilisateur<br>/mois HT</span></div>
         <div class="price-note">Tarif appliqué à tout l'effectif</div>
-        <a href="mailto:contact@norvy.lu" class="price-btn dark">Demander une démo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="mailto:contact@norvy.fr" class="price-btn dark">Demander une démo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <div class="price-divider"></div>
         <ul class="price-features">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Tout ce qui est dans Cabinet</li>
@@ -1700,7 +1036,7 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
         <div class="price-name">Firm</div>
         <div class="price-amount"><span class="price-cur">€</span><span class="price-num" data-monthly="129" data-yearly="110">129</span><span class="price-per">/utilisateur<br>/mois HT</span></div>
         <div class="price-note">Tarif appliqué à tout l'effectif</div>
-        <a href="mailto:contact@norvy.lu" class="price-btn">Demander une démo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="mailto:contact@norvy.fr" class="price-btn">Demander une démo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <div class="price-divider"></div>
         <ul class="price-features">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Tout ce qui est dans Structure</li>
@@ -1715,29 +1051,27 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
         <div class="enterprise-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M15 9h.01M9 13h.01M15 13h.01"/></svg></div>
         <div class="enterprise-name">Sur mesure</div>
         <p class="enterprise-desc">Au-delà de 50 utilisateurs. Tarification et accompagnement adaptés.</p>
-        <a href="mailto:contact@norvy.lu" class="enterprise-btn">Nous contacter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:13px;height:13px;"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="mailto:contact@norvy.fr" class="enterprise-btn">Nous contacter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:13px;height:13px;"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FAQ -->
 <section class="faq" id="faq">
   <div class="container">
     <div class="section-eyebrow">Questions fréquentes</div>
     <h2 class="section-title">Ce que les avocats nous demandent <em>en premier.</em></h2>
     <div class="faq-list">
       <details class="faq-item"><summary class="faq-q">À quels cabinets s'adresse Norvy ?</summary><div class="faq-a">Norvy est conçu pour tous les avocats, de la pratique individuelle au cabinet d'affaires international, quelle que soit la juridiction. Le cœur du produit est la conformité AML/KYC, combinée à un LPM complet.</div></details>
-      <details class="faq-item"><summary class="faq-q">Comment fonctionne le questionnaire annuel pré-rempli ?</summary><div class="faq-a">Toutes les données nécessaires au questionnaire annuel AML (OAL, CSSF, Barreau) sont collectées automatiquement par Norvy au fil de l'année. Au moment de répondre, Norvy génère un PDF pré-rempli — il ne vous reste qu'à vérifier et transmettre.</div></details>
+      <details class="faq-item"><summary class="faq-q">Comment fonctionne le questionnaire annuel pré-rempli ?</summary><div class="faq-a">Toutes les données nécessaires au questionnaire annuel AML sont collectées automatiquement par Norvy au fil de l'année. Au moment de répondre, Norvy génère un PDF pré-rempli — il ne vous reste qu'à vérifier et transmettre.</div></details>
       <details class="faq-item"><summary class="faq-q">Quelle est la différence avec les solutions historiques du marché ?</summary><div class="faq-a">Les solutions historiques ont été conçues comme des outils de gestion de cabinet auxquels une couche de conformité a été ajoutée tardivement. Norvy inverse l'équation : la conformité AML/KYC est l'épine dorsale du produit, pas un module annexe.</div></details>
       <details class="faq-item"><summary class="faq-q">Comment se déroule la migration depuis nos outils actuels ?</summary><div class="faq-a">L'équipe Norvy assure une migration accompagnée des dossiers actifs et de l'historique KYC, incluse sans surcoût pour tous les plans.</div></details>
       <details class="faq-item"><summary class="faq-q">Où sont hébergées les données ?</summary><div class="faq-a">Exclusivement au Luxembourg, sur infrastructure souveraine. Chiffrement de bout en bout, contrôle d'accès granulaire, conformité RGPD et secret professionnel par construction. Aucun transfert hors Luxembourg.</div></details>
-      <details class="faq-item"><summary class="faq-q">Comment fonctionne le paiement annuel avec -15% ?</summary><div class="faq-a">Vous choisissez entre paiement annuel en une fois ou mensualisation avec engagement 12 mois. Dans les deux cas, la remise de 15% est appliquée. La mensualisation permet de lisser la charge budgétaire.</div></details>
+      <details class="faq-item"><summary class="faq-q">Comment fonctionne le paiement annuel avec -15% ?</summary><div class="faq-a">Vous choisissez entre paiement annuel en une fois ou mensualisation avec engagement 12 mois. Dans les deux cas, la remise de 15% est appliquée.</div></details>
     </div>
   </div>
 </section>
 
-<!-- FINAL CTA -->
 <section class="final-cta">
   <div class="container">
     <h2>Commencez par <em>votre auto-évaluation</em><br>— c'est gratuit.</h2>
@@ -1757,7 +1091,7 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
         <p class="footer-tag">Le logiciel de gestion de cabinet d'avocats avec l'AML dans son ADN. Construit au Luxembourg.</p>
       </div>
       <div class="footer-col"><h5>Produit</h5><ul><li><a href="#produit">Fonctionnalités</a></li><li><a href="#amlr">AMLR</a></li><li><a href="#pricing">Tarifs</a></li><li><a href="#audit">Auto-évaluation</a></li></ul></div>
-      <div class="footer-col"><h5>Société</h5><ul><li><a href="#">À propos</a></li><li><a href="mailto:contact@norvy.lu">Contact</a></li><li><a href="#">LinkedIn</a></li></ul></div>
+      <div class="footer-col"><h5>Société</h5><ul><li><a href="#">À propos</a></li><li><a href="mailto:contact@norvy.fr">Contact</a></li><li><a href="#">LinkedIn</a></li></ul></div>
       <div class="footer-col"><h5>Légal</h5><ul><li><a href="#">Mentions légales</a></li><li><a href="#">Confidentialité (RGPD)</a></li><li><a href="#">Conditions d'utilisation</a></li></ul></div>
     </div>
     <div class="footer-bottom">
@@ -1768,114 +1102,52 @@ footer { padding: 56px 0 36px; background: var(--bg-dark); border-top: 1px solid
 </footer>
 
 <script>
-// ── HAMBURGER MENU ───────────────────────────────────
 (function(){
-  const btn = document.getElementById('navHamburger');
-  const menu = document.getElementById('navMobileMenu');
-  if (!btn || !menu) return;
-  btn.addEventListener('click', () => {
-    const open = menu.classList.toggle('open');
-    btn.classList.toggle('open', open);
-    document.body.style.overflow = open ? 'hidden' : '';
-  });
-  menu.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      menu.classList.remove('open');
-      btn.classList.remove('open');
-      document.body.style.overflow = '';
-    });
-  });
-  document.addEventListener('click', e => {
-    if (!btn.contains(e.target) && !menu.contains(e.target)) {
-      menu.classList.remove('open');
-      btn.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-  });
+  const btn=document.getElementById('navHamburger');
+  const menu=document.getElementById('navMobileMenu');
+  if(!btn||!menu)return;
+  btn.addEventListener('click',()=>{const open=menu.classList.toggle('open');btn.classList.toggle('open',open);document.body.style.overflow=open?'hidden':'';});
+  menu.querySelectorAll('a').forEach(a=>{a.addEventListener('click',()=>{menu.classList.remove('open');btn.classList.remove('open');document.body.style.overflow='';});});
+  document.addEventListener('click',e=>{if(!btn.contains(e.target)&&!menu.contains(e.target)){menu.classList.remove('open');btn.classList.remove('open');document.body.style.overflow='';}});
 })();
 
-// ── SMOOTH SCROLL ────────────────────────────────────
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const t = document.querySelector(a.getAttribute('href'));
-    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-  });
-});
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}});});
 
-// ── SCREENSHOT TABS ──────────────────────────────────
-document.querySelectorAll('.stab').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.stab').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.screenshot-pane').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    const pane = document.getElementById('pane-' + btn.dataset.pane);
-    if (pane) pane.classList.add('active');
-  });
-});
+document.querySelectorAll('.stab').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.stab').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.screenshot-pane').forEach(p=>p.classList.remove('active'));btn.classList.add('active');const pane=document.getElementById('pane-'+btn.dataset.pane);if(pane)pane.classList.add('active');});});
 
-// ── SCROLL TO AUDIT ──────────────────────────────────
-function scrollToAuditAndStart() {
-  const s = document.getElementById('audit');
-  if (s) { s.scrollIntoView({ behavior: 'smooth', block: 'start' }); setTimeout(() => document.getElementById('aStartBtn')?.click(), 800); }
+function scrollToAuditAndStart(){const s=document.getElementById('audit');if(s){s.scrollIntoView({behavior:'smooth',block:'start'});setTimeout(()=>document.getElementById('aStartBtn')?.click(),800);}}
+document.getElementById('heroAuditCta')?.addEventListener('click',scrollToAuditAndStart);
+document.getElementById('finalAuditBtn')?.addEventListener('click',scrollToAuditAndStart);
+
+function calculateROI(){
+  const lawyers=+document.getElementById('roi-lawyers').value;
+  const clients=+document.getElementById('roi-clients').value;
+  const rate=+document.getElementById('roi-rate').value;
+  document.getElementById('roi-lawyers-val').textContent=lawyers;
+  document.getElementById('roi-clients-val').textContent=clients;
+  document.getElementById('roi-rate-val').textContent=rate+' €';
+  const hours=clients*1.5+lawyers*0.5*12+16;
+  const cost=Math.round(hours*rate);
+  document.getElementById('roi-amount').innerHTML='~ '+cost.toLocaleString('fr-FR')+'<em> €/an</em>';
+  document.getElementById('roi-detail').innerHTML='Soit <strong>~'+Math.round(hours)+' heures facturables/an</strong> consacrées à des tâches AML manuelles, multiplié par votre taux horaire moyen.';
 }
-document.getElementById('heroAuditCta')?.addEventListener('click', scrollToAuditAndStart);
-document.getElementById('finalAuditBtn')?.addEventListener('click', scrollToAuditAndStart);
-
-// ── ROI CALCULATOR ───────────────────────────────────
-function calculateROI() {
-  const lawyers = +document.getElementById('roi-lawyers').value;
-  const clients = +document.getElementById('roi-clients').value;
-  const rate = +document.getElementById('roi-rate').value;
-  document.getElementById('roi-lawyers-val').textContent = lawyers;
-  document.getElementById('roi-clients-val').textContent = clients;
-  document.getElementById('roi-rate-val').textContent = rate + ' €';
-  const hours = clients * 1.5 + lawyers * 0.5 * 12 + 16;
-  const cost = Math.round(hours * rate);
-  document.getElementById('roi-amount').innerHTML = '~ ' + cost.toLocaleString('fr-FR') + '<em> €/an</em>';
-  document.getElementById('roi-detail').innerHTML = 'Soit <strong>~' + Math.round(hours) + ' heures facturables/an</strong> consacrées à des tâches AML manuelles, multiplié par votre taux horaire moyen.';
-}
-['roi-lawyers','roi-clients','roi-rate'].forEach(id => document.getElementById(id)?.addEventListener('input', calculateROI));
+['roi-lawyers','roi-clients','roi-rate'].forEach(id=>document.getElementById(id)?.addEventListener('input',calculateROI));
 calculateROI();
 
-// ── PRICING TOGGLE ───────────────────────────────────
-document.querySelectorAll('.billing-opt').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.billing-opt').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const mode = btn.dataset.mode;
-    document.querySelectorAll('.price-num').forEach(n => { n.textContent = n.dataset[mode]; });
-  });
-});
+document.querySelectorAll('.billing-opt').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.billing-opt').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const mode=btn.dataset.mode;document.querySelectorAll('.price-num').forEach(n=>{n.textContent=n.dataset[mode];});});});
 
+function s(t){if(!t)return'';return String(t).replace(/[\u2018\u2019]/g,"'").replace(/[\u201C\u201D]/g,'"').replace(/\u2013/g,'-').replace(/\u2014/g,'--').replace(/\u00e0/g,'a').replace(/\u00e2/g,'a').replace(/\u00e8/g,'e').replace(/\u00e9/g,'e').replace(/\u00ea/g,'e').replace(/\u00eb/g,'e').replace(/\u00ee/g,'i').replace(/\u00ef/g,'i').replace(/\u00f4/g,'o').replace(/\u00f9/g,'u').replace(/\u00fb/g,'u').replace(/\u00fc/g,'u').replace(/\u00e7/g,'c').replace(/\u00c9/g,'E').replace(/\u00c8/g,'E').replace(/\u00c0/g,'A').replace(/\u0153/g,'oe').replace(/[^\x00-\xFF]/g,'?');}
 
-// ── NORVY RAPPORT PDF 10 PAGES ─────────────────────
-function s(t){
-  if(!t)return'';
-  return String(t)
-    .replace(/[\u2018\u2019]/g,"'").replace(/[\u201C\u201D]/g,'"')
-    .replace(/\u2013/g,'-').replace(/\u2014/g,'--').replace(/\u00e0/g,'a')
-    .replace(/\u00e2/g,'a').replace(/\u00e8/g,'e').replace(/\u00e9/g,'e')
-    .replace(/\u00ea/g,'e').replace(/\u00eb/g,'e').replace(/\u00ee/g,'i')
-    .replace(/\u00ef/g,'i').replace(/\u00f4/g,'o').replace(/\u00f9/g,'u')
-    .replace(/\u00fb/g,'u').replace(/\u00fc/g,'u').replace(/\u00e7/g,'c')
-    .replace(/\u00c9/g,'E').replace(/\u00c8/g,'E').replace(/\u00c0/g,'A')
-    .replace(/\u0153/g,'oe').replace(/[^\x00-\xFF]/g,'?');
-}
-
-function generatePDF(score, dimScores, firmName){
+function generatePDF(score,dimScores,firmName){
   if(!window.jspdf){console.warn('jsPDF not loaded');return;}
   var jsPDF=window.jspdf.jsPDF;
   var doc=new jsPDF({unit:'mm',format:'a4'});
-  var W=210,H=297,ML=14,MR=14,RW=W-ML-MR,NP=10;
-  var pg=0;
+  var W=210,H=297,ML=14,MR=14,RW=W-ML-MR;
   var today=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'});
-
-  // Palette
   var DA=[14,18,26],AC=[26,77,62],GR=[61,171,135],SO=[230,240,235];
   var TX=[18,20,26],DM=[90,98,110],FA=[150,158,170];
   var BD=[220,216,208],BG=[247,246,243],WH=[255,255,255];
   var WA=[180,122,24],WS=[251,243,222],RD=[178,50,50],RS=[252,228,228];
-
   function fc(c){doc.setFillColor(c[0],c[1],c[2]);}
   function dc(c){doc.setDrawColor(c[0],c[1],c[2]);}
   function tc(c){doc.setTextColor(c[0],c[1],c[2]);}
@@ -1884,581 +1156,153 @@ function generatePDF(score, dimScores, firmName){
   function tx(t,x,y,o){doc.text(s(String(t)),x,y,o||{});}
   function sp(t,w){return doc.splitTextToSize(s(String(t)),w);}
   function ln(x1,y1,x2,y2){doc.line(x1,y1,x2,y2);}
-
-  // Safe rect: bx(x,y,w,h) or bx(x,y,w,h,r) or bx(x,y,w,h,r,mode)
-  function bx(x,y,w,h,r,m){
-    if(w<=0||h<=0)return;
-    var rad=(typeof r==='number'&&r>0)?r:0;
-    var mode=(typeof m==='string')?m:(typeof r==='string'?r:'F');
-    if(rad>0) doc.roundedRect(x,y,w,h,rad,rad,mode);
-    else doc.rect(x,y,w,h,mode);
-  }
-
+  function bx(x,y,w,h,r,m){if(w<=0||h<=0)return;var rad=(typeof r==='number'&&r>0)?r:0;var mode=(typeof m==='string')?m:(typeof r==='string'?r:'F');if(rad>0)doc.roundedRect(x,y,w,h,rad,rad,mode);else doc.rect(x,y,w,h,mode);}
   function sC(v){return v>=75?AC:v>=50?WA:RD;}
   function sB(v){return v>=75?SO:v>=50?WS:RS;}
   function sL(v){return v>=75?'CONFORME':v>=50?'PARTIEL':'INSUFFISANT';}
   function sK(v){return v>=75?'high':v>=50?'medium':'low';}
-
-  // Progress bar
-  function pbar(x,y,w,h,pct,col){
-    if(w<=0)return;
-    fc(BD);bx(x,y,w,h,1.5);
-    var fw=Math.max(w*Math.min(pct/100,1),1);
-    fc(col);bx(x,y,fw,h,1.5);
-  }
-
-  // Badge
-  function bdg(lbl,x,y,bg,fg){
-    var tw=doc.getTextWidth(s(lbl));
-    fc(bg);dc(fg);lw(0.18);bx(x,y-2.2,tw+8,6.5,1.5,'FD');
-    tc(fg);ff('bold',6);tx(lbl,x+4,y+1.8);
-  }
-
-  // Separator line
+  function pbar(x,y,w,h,pct,col){if(w<=0)return;fc(BD);bx(x,y,w,h,1.5);var fw=Math.max(w*Math.min(pct/100,1),1);fc(col);bx(x,y,fw,h,1.5);}
+  function bdg(lbl,x,y,bg,fg){var tw=doc.getTextWidth(s(lbl));fc(bg);dc(fg);lw(0.18);bx(x,y-2.2,tw+8,6.5,1.5,'FD');tc(fg);ff('bold',6);tx(lbl,x+4,y+1.8);}
   function sep(y){dc(BD);lw(0.2);ln(ML,y,W-MR,y);}
-
-  // Left color stripe
   function stripe(col){fc(col);bx(0,0,5,H);}
+  function foot(pg,NP){sep(282);ff('normal',7);tc(FA);tx("Norvy -- Rapport d'auto-evaluation AML -- Confidentiel",ML,290);tx('Page '+pg+' / '+NP,W-MR,290,{align:'right'});tx('norvy.fr | contact@norvy.fr',W/2,290,{align:'center'});}
+  function getScore(key){if(dimScores[key]!==undefined)return dimScores[key];return 0;}
 
-  // Footer
-  function foot(){
-    sep(282);
-    ff('normal',7);tc(FA);
-    tx("Norvy — Rapport d'auto-evaluation AML — Confidentiel",ML,290);
-    tx('Page '+pg+' / '+NP,W-MR,290,{align:'right'});
-    tx('norvy.lu | contact@norvy.lu',W/2,290,{align:'center'});
-  }
-
-  // Score lookup with accent fallback
-  function getScore(key){
-    if(dimScores[key]!==undefined)return dimScores[key];
-    var map={'Registre & Tracabilite':'Registre & Traçabilité','Declaration & Soupcon':'Déclaration & Soupçon'};
-    if(map[key]&&dimScores[map[key]]!==undefined)return dimScores[map[key]];
-    return 0;
-  }
-
-  // ── META data ────────────────────────────────────────
   var META=[
-    {key:'Gouvernance',short:'Gouvernance',
-     sub:'Politique AML, Compliance Officer, evaluation des risques',
-     an:{
-       low:"Votre cabinet ne dispose pas d'une politique AML ecrite ni d'un Compliance Officer formellement designe. Sans ces fondements, aucune diligence ne peut etre justifiee aupres d'un controleur. L'absence de politique ecrite constitue elle-meme une violation autonome en cas de controle ordinal ou CRF.",
-       medium:"Votre gouvernance AML existe mais n'est pas totalement formalisee. La politique necessite une mise a jour (revision < 12 mois) et le Compliance Officer doit etre officialise aupres du Barreau. L'evaluation des risques gagnerait a integrer les typologies AMLR 2024/1624.",
-       high:"Votre gouvernance AML est bien structuree. La politique est a jour, un Compliance Officer est designe et declare. L'enjeu est de maintenir ce niveau au rythme des publications AMLA."
-     },
-     ac:{
-       low:["Rediger et valider une politique AML ecrite signee par les associes couvrant vigilance, risques et declaration","Nommer et declarer officiellement un Compliance Officer aupres du Barreau avec lettre de mission","Etablir une cartographie des risques par typologies de clientele et zones geographiques","Integrer les obligations AMLR 2024/1624 dans toutes les procedures internes avant juillet 2027"],
-       medium:["Actualiser la politique AML (objectif : revision < 12 mois)","Officialiser la declaration du Compliance Officer aupres de l'Ordre","Enrichir la cartographie des risques avec les typologies AMLR 2024/1624","Documenter le processus de revision annuelle avec tracabilite numerique"],
-       high:["Maintenir le cycle de revision annuelle de la politique AML","Documenter les mises a jour au fil des publications AMLA"]
-     },
-     nv:"Tableau de bord Gouvernance centralise : statut de la politique, Compliance Officer designe, echeance de revision — tout visible en un coup d'oeil. Alertes AMLA automatiques. Circuit de validation electronique entre associes avec historique horodate."
-    },
-    {key:'KYC & Vigilance',short:'KYC',
-     sub:"Identification clients, beneficiaires effectifs, vigilance renforcee",
-     an:{
-       low:"Votre processus d'identification des clients et de leurs beneficiaires effectifs est insuffisant. Toute ouverture de dossier sans diligence formalisee constitue une violation directe de l'AMLR exposant personnellement l'avocat responsable.",
-       medium:"Vos diligences KYC existent mais manquent de systematisation. La revue periodique selon une matrice de risque et l'archivage electronique horodate sur 5 ans restent des vulnerabilites identifiees lors des controles ordinaux.",
-       high:"Votre processus KYC est structure. L'enjeu est l'automatisation de la revue periodique selon une matrice de risque et le recoupement systematique avec le Registre des Beneficiaires Effectifs."
-     },
-     ac:{
-       low:["Deployer une procedure KYC standardisee pour chaque entree en relation (identite, RBE, justificatifs)","Identifier systematiquement les beneficiaires effectifs (> 25%) avec recoupement RBE officiel","Formaliser les criteres de vigilance renforcee : PEP, zones FATF, montages complexes","Mettre en place un archivage electronique horodate sur 5 ans minimum pour toutes les pieces KYC"],
-       medium:["Automatiser la mise a jour periodique des KYC selon une matrice de risque par client","Renforcer le recoupement RBE de facon systematique pour tous les dossiers actifs","Documenter chaque decision de vigilance renforcee avec justification ecrite"],
-       high:["Affiner la matrice de revision par niveau de risque client","Maintenir le recoupement RBE pour l'integralite du portefeuille actif"]
-     },
-     nv:"Dossier KYC numerique guide : collecte structuree des pieces, OCR automatique, identification BE avec croisement RBE luxembourgeois. Matrice de revision intelligente generant un calendrier automatique selon le risque. Archivage certifie 5 ans."
-    },
-    {key:'Screening',short:'Screening',
-     sub:"Listes sanctions UE/OFAC/ONU, detection PEP, surveillance continue",
-     an:{
-       low:"Votre cabinet n'effectue pas de screening systematique contre les listes de sanctions ni de verification PEP. Toute relation avec un sanctionne non detecte expose le cabinet a des sanctions penales directes et engage la responsabilite personnelle des associes.",
-       medium:"Votre screening est partiel ou manuel. L'absence de surveillance continue cree une fenetre de risque critique : un client peut etre sanctionne apres l'ouverture du dossier sans notification automatique.",
-       high:"Votre screening est actif. L'enjeu est l'extension aux proches des PEP, l'integration dans le scoring de risque global, et la documentation systematique des faux positifs."
-     },
-     ac:{
-       low:["Mettre en place un screening automatise contre les listes UE, OFAC, ONU et UK","Souscrire a une base de donnees PEP professionnelle couvrant 220+ pays et proches","Activer la surveillance continue avec alertes automatiques sur nouvelles correspondances","Documenter chaque resultat de screening dans le dossier KYC correspondant"],
-       medium:["Passer du screening manuel a une surveillance continue et automatisee","Etendre le perimetre de detection aux proches et entites associees des PEP","Integrer les resultats de screening dans le scoring de risque global du client"],
-       high:["Maintenir la couverture integrale de toutes les listes officielles","Documenter les faux positifs pour affiner les regles de correspondance"]
-     },
-     nv:"Screening temps reel contre 6 listes (UE, OFAC, ONU, UK, PPE, Adverse Media). Mise a jour quotidienne. Detection PEP sur 220+ pays incluant les proches. Surveillance 24/7 post-ouverture : alerte immediate si un client entre sur une liste apres l'ouverture."
-    },
-    {key:'Formation',short:'Formation',
-     sub:"Formation AML annuelle, registre des formations, plan certifiant",
-     an:{
-       low:"Aucune formation AML structuree n'est dispensee dans votre cabinet. En cas de controle, l'absence de registre de formation constitue une violation autonome independamment de la qualite du reste du dispositif. Tous les collaborateurs doivent etre formes.",
-       medium:"Des formations ont lieu mais sans plan annuel structure ni registre individuel. La tracabilite par collaborateur reste insuffisante pour justifier la conformite aupres du Barreau lors du questionnaire annuel.",
-       high:"Votre plan de formation est actif et trace. L'enjeu est d'integrer un module specifique AMLR 2024/1624 et de differencier les programmes par profil."
-     },
-     ac:{
-       low:["Instaurer un plan de formation AML annuel obligatoire pour tous les collaborateurs","Tenir un registre numerique des formations : date, contenu, participant, certificat","Designer un referent formation AML au sein du cabinet","Programmer les prochaines sessions avant le 31 decembre"],
-       medium:["Standardiser la cadence annuelle et la tracabilite individuelle par collaborateur","Differencier les programmes par profil : associes, collaborateurs, assistants","Ajouter un module AMLR 2024/1624 au plan de formation existant"],
-       high:["Maintenir la cadence annuelle et actualiser les contenus AMLR","Documenter les evaluations post-formation"]
-     },
-     nv:"Module de formation AML integre : bibliotheque de formations adaptees aux avocats, suivi de completion individuel, attestation automatique. Registre de formation genere et exportable pour le questionnaire Barreau. Rappels automatiques avant expiration."
-    },
-    {key:'Registre & Tracabilite',short:'Registre',
-     sub:"Registre AML horodate, documentation des risques, questionnaire Barreau",
-     an:{
-       low:"Votre cabinet ne dispose pas d'un registre AML numerique horodate. En cas de controle ordinal ou CRF, l'absence de registre structure est traitee comme une violation autonome. Le questionnaire annuel du Barreau prend actuellement plusieurs jours de travail.",
-       medium:"Un registre existe mais il n'est ni numerique, ni horodate, ni immediatement exportable. Le questionnaire annuel du Barreau necessite une reconstruction manuelle chronophage.",
-       high:"Votre registre est bien tenu. L'enjeu est l'automatisation du questionnaire annuel et le renforcement de la justification ecrite de chaque decision de risque."
-     },
-     ac:{
-       low:["Migrer vers un registre AML numerique, horodate et immuable","Documenter systematiquement les analyses de risque et decisions prises pour chaque dossier","Preparer un plan d'urgence pour repondre au questionnaire ordinal en < 1 jour","Definir une procedure formelle de reponse aux controles CRF"],
-       medium:["Renforcer la justification ecrite de chaque decision de risque","Automatiser la generation du questionnaire annuel Barreau depuis les donnees cabinet","Tester la procedure de controle en simulant un audit"],
-       high:["Maintenir la qualite et la completude du registre","Affiner les modeles de justification des decisions de risque"]
-     },
-     nv:"Registre AML immuable avec horodatage certifie : pret pour tout controle ordinal ou CRF en quelques clics. Questionnaire OAL/Barreau auto-genere depuis vos donnees — un clic pour le PDF pre-rempli. Dashboard de tracabilite en temps reel."
-    },
-    {key:'Declaration & Soupcon',short:'DOS / CRF',
-     sub:"Procedure DOS a la CRF, red flags, canaux d'escalade internes",
-     an:{
-       low:"Votre cabinet ne dispose pas de procedure formalisee de declaration de soupcon. En cas de transaction suspecte non declaree, la responsabilite penale de l'avocat peut etre directement engagee. Le risque est personnel et immediat.",
-       medium:"Une procedure informelle existe mais sans documentation des red flags ni tracabilite des escalades internes. La procedure CRF n'est pas maitrisee par tous les collaborateurs.",
-       high:"Votre dispositif DOS est en place. L'enjeu est la mise a jour des typologies de red flags avec les signaux AMLA et la documentation des decisions de non-declaration motivees."
-     },
-     ac:{
-       low:["Formaliser une procedure ecrite de declaration de soupcon a la CRF (canaux, delais, contenu)","Etablir une liste de red flags adaptee a vos typologies de clientele et prestations","Former tous les collaborateurs aux signaux d'alerte et au canal d'escalade interne","Documenter formellement le canal d'escalade interne vers le Compliance Officer"],
-       medium:["Documenter les typologies de soupcon specifiques a votre activite","Organiser un exercice pratique de declaration CRF au moins une fois par an","Tracer les escalades internes meme non suivies de declaration"],
-       high:["Mettre a jour les typologies de red flags avec les signaux AMLA","Documenter et motiver chaque decision de non-declaration"]
-     },
-     nv:"Workflow de signalement numerique : circuit d'escalade collaborateur > Compliance Officer > decision DOS, entierement trace et horodate. Bibliotheque de red flags prechargee et adaptable. Preparation guidee de la declaration DOS avec tous les elements requis par la CRF."
-    }
+    {key:'Gouvernance',short:'Gouvernance',sub:'Politique AML, Compliance Officer, evaluation des risques',an:{low:"Votre cabinet ne dispose pas d'une politique AML ecrite ni d'un Compliance Officer formellement designe.",medium:"Votre gouvernance AML existe mais n'est pas totalement formalisee.",high:"Votre gouvernance AML est bien structuree."},ac:{low:["Rediger et valider une politique AML ecrite","Nommer un Compliance Officer officiellement","Etablir une cartographie des risques","Integrer les obligations AMLR 2024/1624"],medium:["Actualiser la politique AML","Officialiser la declaration du Compliance Officer","Enrichir la cartographie des risques","Documenter le processus de revision annuelle"],high:["Maintenir le cycle de revision annuelle","Documenter les mises a jour AMLA"]},nv:"Tableau de bord Gouvernance centralise : statut de la politique, Compliance Officer designe, echeance de revision."},
+    {key:'KYC & Vigilance',short:'KYC',sub:"Identification clients, beneficiaires effectifs, vigilance renforcee",an:{low:"Votre processus d'identification des clients est insuffisant.",medium:"Vos diligences KYC existent mais manquent de systematisation.",high:"Votre processus KYC est structure."},ac:{low:["Deployer une procedure KYC standardisee","Identifier systematiquement les beneficiaires effectifs","Formaliser les criteres de vigilance renforcee","Mettre en place un archivage electronique horodate sur 5 ans"],medium:["Automatiser la mise a jour periodique des KYC","Renforcer le recoupement RBE","Documenter chaque decision de vigilance renforcee"],high:["Affiner la matrice de revision par niveau de risque","Maintenir le recoupement RBE"]},nv:"Dossier KYC numerique guide : collecte structuree, identification BE avec croisement RBE. Archivage certifie 5 ans."},
+    {key:'Screening',short:'Screening',sub:"Listes sanctions UE/OFAC/ONU, detection PEP, surveillance continue",an:{low:"Votre cabinet n'effectue pas de screening systematique.",medium:"Votre screening est partiel ou manuel.",high:"Votre screening est actif."},ac:{low:["Mettre en place un screening automatise","Souscrire a une base de donnees PEP","Activer la surveillance continue","Documenter chaque resultat de screening"],medium:["Passer du screening manuel a une surveillance continue","Etendre le perimetre aux proches des PEP","Integrer les resultats dans le scoring de risque global"],high:["Maintenir la couverture integrale des listes","Documenter les faux positifs"]},nv:"Screening temps reel contre 6 listes. Mise a jour quotidienne. Surveillance 24/7."},
+    {key:'Formation',short:'Formation',sub:"Formation AML annuelle, registre des formations, plan certifiant",an:{low:"Aucune formation AML structuree n'est dispensee.",medium:"Des formations ont lieu mais sans plan annuel structure.",high:"Votre plan de formation est actif et trace."},ac:{low:["Instaurer un plan de formation AML annuel","Tenir un registre numerique des formations","Designer un referent formation AML","Programmer les prochaines sessions"],medium:["Standardiser la cadence annuelle","Differencier les programmes par profil","Ajouter un module AMLR 2024/1624"],high:["Maintenir la cadence annuelle","Documenter les evaluations post-formation"]},nv:"Module de formation AML integre : bibliotheque de formations, suivi de completion, attestation automatique."},
+    {key:'Registre & Tracabilite',short:'Registre',sub:"Registre AML horodate, documentation des risques, questionnaire Barreau",an:{low:"Votre cabinet ne dispose pas d'un registre AML numerique horodate.",medium:"Un registre existe mais n'est ni numerique, ni horodate.",high:"Votre registre est bien tenu."},ac:{low:["Migrer vers un registre AML numerique horodate","Documenter les analyses de risque","Preparer un plan d'urgence pour le questionnaire ordinal","Definir une procedure formelle de reponse aux controles CRF"],medium:["Renforcer la justification ecrite de chaque decision","Automatiser la generation du questionnaire annuel","Tester la procedure de controle"],high:["Maintenir la qualite du registre","Affiner les modeles de justification"]},nv:"Registre AML immuable horodate. Questionnaire OAL auto-genere en un clic."},
+    {key:'Declaration & Soupcon',short:'DOS / CRF',sub:"Procedure DOS a la CRF, red flags, canaux d'escalade internes",an:{low:"Votre cabinet ne dispose pas de procedure formalisee de declaration de soupcon.",medium:"Une procedure informelle existe mais sans documentation des red flags.",high:"Votre dispositif DOS est en place."},ac:{low:["Formaliser une procedure de declaration de soupcon","Etablir une liste de red flags","Former tous les collaborateurs","Documenter le canal d'escalade interne"],medium:["Documenter les typologies de soupcon","Organiser un exercice pratique de declaration","Tracer les escalades internes"],high:["Mettre a jour les typologies de red flags AMLA","Documenter les decisions de non-declaration"]},nv:"Workflow de signalement numerique : circuit d'escalade trace. Preparation guidee de la declaration DOS."}
   ];
 
+  var NP=10,pg=0;
   var scCol=sC(score),scBg=sB(score);
 
-  // ════════════════════════════════════════
-  // PAGE 1 : COUVERTURE
-  // ════════════════════════════════════════
   pg=1;
   fc(WH);bx(0,0,W,H);
-
-  // Header
-  fc(DA);bx(0,0,W,86);
-  fc(GR);bx(0,0,W,3);
-  fc(AC);bx(W-50,0,50,86);
-
-  // Logo (bande droite)
+  fc(DA);bx(0,0,W,86);fc(GR);bx(0,0,W,3);fc(AC);bx(W-50,0,50,86);
   ff('bold',14);tc(WH);tx('norvy',W-47,28,{align:'center'});
-  ff('normal',6.5);tc([190,215,205]);tx('norvy.lu',W-47,37,{align:'center'});
-  ff('normal',6);tc([155,185,172]);tx('contact@norvy.lu',W-47,46,{align:'center'});
-
-  // Titre
+  ff('normal',6.5);tc([190,215,205]);tx('norvy.fr',W-47,37,{align:'center'});
+  ff('normal',6);tc([155,185,172]);tx('contact@norvy.fr',W-47,46,{align:'center'});
   ff('bold',8.5);tc(GR);tx("RAPPORT D'AUTO-EVALUATION AML",ML,28);
   ff('bold',26);tc(WH);tx('Maturite de conformite',ML,48);
-  ff('normal',8.5);tc([175,190,200]);tx('LCB-FT  &  AMLR 2024/1624  |  '+today,ML,60);
-  ff('italic',6.5);tc([155,175,185]);tx('Ce document est confidentiel. Usage strictement reserve au cabinet evalue.',ML,70);
-
-  // Bloc cabinet
+  ff('normal',8.5);tc([175,190,200]);tx('LCB-FT & AMLR 2024/1624 | '+today,ML,60);
   fc(WH);dc(BD);lw(0.3);bx(ML,94,RW,32,3,'FD');
   ff('bold',7);tc(FA);tx('CABINET EVALUE',ML+6,104);
-  ff('bold',15);tc(TX);tx(s(firmName||"Cabinet d'avocats"),ML+6,115);
+  ff('bold',15);tc(TX);tx(s(firmName||"Votre cabinet"),ML+6,115);
   ff('normal',8);tc(DM);tx('Evaluation generee le : '+today,ML+6,125);
-
-  // Score centré
   var scX=W/2,scY=162;
   fc(scBg);dc(scCol);lw(1.2);doc.circle(scX,scY,24,'FD');
   ff('bold',32);tc(scCol);tx(String(score),scX,scY+4,{align:'center'});
   ff('normal',7.5);tc(DM);tx('/ 100',scX,scY+13,{align:'center'});
   bdg(sL(score),scX-15,scY+20,scBg,scCol);
   ff('normal',7);tc(DM);tx('Score global de conformite AML',scX,scY+30,{align:'center'});
-
-  // Barres 6 piliers
   var bW1=Math.floor((RW-10)/6);
   ff('bold',5.5);tc(FA);tx('EVALUATION PAR PILIER AMLR',ML,200);
-  META.forEach(function(d,i){
-    var sc2=getScore(d.key);
-    var bxi=ML+i*(bW1+2);
-    pbar(bxi,203,bW1,5,sc2,sC(sc2));
-    ff('normal',4.8);tc(DM);tx(d.short,bxi,212);
-    ff('bold',6);tc(sC(sc2));tx(sc2+'%',bxi,218);
-  });
-
-  // Verdict
-  var vS=score>=75?"Votre cabinet affiche un niveau de maturite AML avance. Ce rapport consolide les axes d'optimisation avant l'echeance AMLR de juillet 2027.":score>=50?"Des progres sont accomplis. Ce rapport identifie les piliers a renforcer pour la pleine conformite AMLR avant juillet 2027.":"Des lacunes importantes exposent votre cabinet. Ce rapport detaille un plan d'action priorise a engager sans delai avant juillet 2027.";
+  META.forEach(function(d,i){var sc2=getScore(d.key);var bxi=ML+i*(bW1+2);pbar(bxi,203,bW1,5,sc2,sC(sc2));ff('normal',4.8);tc(DM);tx(d.short,bxi,212);ff('bold',6);tc(sC(sc2));tx(sc2+'%',bxi,218);});
+  var vS=score>=75?"Votre cabinet affiche un niveau de maturite AML avance.":score>=50?"Des progres sont accomplis. Ce rapport identifie les piliers a renforcer.":"Des lacunes importantes exposent votre cabinet. Ce rapport detaille un plan d'action priorise.";
   fc(scBg);dc(scCol);lw(0.3);bx(ML,223,RW,20,2,'FD');
-  ff('italic',8);tc(TX);
-  var vLines=sp(vS,RW-10);
-  vLines.slice(0,2).forEach(function(l,i){tx(l,ML+5,230+i*6);});
-
-  // Sommaire
+  ff('italic',8);tc(TX);sp(vS,RW-10).slice(0,2).forEach(function(l,i){tx(l,ML+5,230+i*6);});
   sep(250);
   ff('bold',7);tc(AC);tx('SOMMAIRE',ML,258);
-  var toc=[
-    ['p. 2','Synthese executive — score global, tableau 6 piliers, verdict detaille'],
-    ['p. 3 - 8','Analyse par pilier AMLR — situation, actions recommandees, solution Norvy'],
-    ['p. 9',"Plan d'action global — toutes les actions classees par priorite"],
-    ['p. 10','Norvy — Presentation produit, tarifs et contacts'],
-  ];
-  toc.forEach(function(item,i){
-    var ty=264+i*8;
-    fc(i===3?AC:BG);bx(ML,ty-3,RW,7.5,1.5,'F');
-    ff('bold',7);tc(i===3?WH:AC);tx(item[0],ML+3,ty+2.2);
-    ff('normal',7);tc(i===3?[210,230,220]:TX);tx(item[1],ML+28,ty+2.2);
-  });
-  ff('italic',5.5);tc(FA);
-  tx("Ce rapport est genere automatiquement a partir de vos reponses. Il a valeur indicative et ne remplace pas l'avis d'un expert AML qualifie.",ML,283,{maxWidth:RW});
-  foot();
+  [['p. 2','Synthese executive'],['p. 3 - 8','Analyse par pilier AMLR'],['p. 9',"Plan d'action global"],['p. 10','Norvy — Presentation et contacts']].forEach(function(item,i){var ty=264+i*8;fc(i===3?AC:BG);bx(ML,ty-3,RW,7.5,1.5,'F');ff('bold',7);tc(i===3?WH:AC);tx(item[0],ML+3,ty+2.2);ff('normal',7);tc(i===3?[210,230,220]:TX);tx(item[1],ML+28,ty+2.2);});
+  foot(pg,NP);
 
-  // ════════════════════════════════════════
-  // PAGE 2 : SYNTHESE EXECUTIVE
-  // ════════════════════════════════════════
   doc.addPage();pg=2;
   fc(WH);bx(0,0,W,H);stripe(scCol);
-
-  ff('bold',6.5);tc(FA);tx('SECTION 1 / '+NP+' — SYNTHESE EXECUTIVE',ML+5,14);
+  ff('bold',6.5);tc(FA);tx('SECTION 1 / '+NP+' -- SYNTHESE EXECUTIVE',ML+5,14);
   ff('bold',19);tc(TX);tx('Tableau de bord de conformite AML',ML+5,26);
-  ff('normal',8.5);tc(DM);tx('Vue d\'ensemble sur les 6 piliers AMLR 2024/1624',ML+5,33);
   sep(38);
-
-  // Score global
   var y2=45;
   fc(scBg);dc(scCol);lw(0.35);bx(ML+4,y2,RW-4,24,2,'FD');
   ff('bold',26);tc(scCol);tx(score+' / 100',ML+9,y2+18);
-  var sw=doc.getTextWidth(s(score+' / 100'));
-  bdg(sL(score),ML+9+sw+5,y2+11,scBg,scCol);
-  ff('normal',7.5);tc(DM);
-  var sv=score>=75?'Dispositif AML avance':score>=50?'Conformite partielle — actions cles a engager avant juillet 2027':'Lacunes importantes — plan d\'action priorise ci-apres';
-  tx(sv,W-MR-4,y2+18,{align:'right'});
-  pbar(ML+4,y2+26,RW-4,4,score,scCol);
-  y2+=36;
-
-  // Tableau 6 piliers
+  bdg(sL(score),ML+9+doc.getTextWidth(s(score+' / 100'))+5,y2+11,scBg,scCol);
+  pbar(ML+4,y2+26,RW-4,4,score,scCol);y2+=36;
   fc(DA);bx(ML+4,y2,RW-4,8,'F');
   ff('bold',7);tc(WH);
-  var hx=[0,74,94,122,154];
-  ['PILIER AMLR','SCORE','NIVEAU','PRIORITE','ECHEANCE'].forEach(function(h,i){tx(h,ML+6+hx[i],y2+5.5);});
+  [0,74,94,122,154].forEach(function(hx,i){tx(['PILIER AMLR','SCORE','NIVEAU','PRIORITE','ECHEANCE'][i],ML+6+hx,y2+5.5);});
   y2+=8;
-  META.forEach(function(d,i){
-    var sc2=getScore(d.key);
-    var prio=sc2>=75?'Maintenance':sc2>=50?'Correction':'Urgente';
-    var prioC=sc2>=75?AC:sc2>=50?WA:RD;
-    fc(i%2===0?WH:BG);bx(ML+4,y2,RW-4,10,'F');
-    dc(BD);lw(0.1);ln(ML+4,y2+10,ML+4+RW-4,y2+10);
-    ff('bold',8);tc(TX);tx(d.key,ML+7,y2+7);
-    ff('bold',10);tc(sC(sc2));tx(String(sc2),ML+80,y2+7);
-    bdg(sL(sc2),ML+94,y2+3,sB(sc2),sC(sc2));
-    ff('bold',7.5);tc(prioC);tx(prio,ML+126,y2+7);
-    ff('normal',7);tc(DM);tx(sc2>=75?'2027':'Avant 07/2027',ML+158,y2+7);
-    y2+=10;
-  });
-  y2+=6;
-
-  // Jauge + Verdict
-  ff('bold',6.5);tc(FA);tx('JAUGE GLOBALE DE CONFORMITE',ML+4,y2);y2+=4;
-  pbar(ML+4,y2,RW-4,6,score,scCol);
-  ff('bold',10);tc(scCol);tx(score+'%',W-MR-4,y2+5,{align:'right'});
-  y2+=14;
-
-  var vL=score>=75?"Votre cabinet a constitue un socle de conformite AML solide. Les fondements reglementaires sont en place. L'enjeu est l'efficience operationnelle : automatiser les processus manuels et preparer l'integration AMLR 2024/1624 applicable en juillet 2027.":score>=50?"Votre cabinet a engage une demarche AML reelle, mais certains piliers restent insuffisamment formalises pour resister a un controle ordinal ou CRF. Ce rapport vous indique exactement les axes a renforcer pour la pleine conformite AMLR avant juillet 2027.":"Votre dispositif AML presente des insuffisances importantes au regard des obligations LCB-FT et du cadre AMLR 2024/1624 applicable en juillet 2027. Cette situation expose le cabinet a des sanctions directes — amendes jusqu'a 10 M EUR ou 10% du CA. Ce rapport detaille un plan d'action priorise.";
+  META.forEach(function(d,i){var sc2=getScore(d.key);var prio=sc2>=75?'Maintenance':sc2>=50?'Correction':'Urgente';var prioC=sc2>=75?AC:sc2>=50?WA:RD;fc(i%2===0?WH:BG);bx(ML+4,y2,RW-4,10,'F');dc(BD);lw(0.1);ln(ML+4,y2+10,ML+4+RW-4,y2+10);ff('bold',8);tc(TX);tx(d.key,ML+7,y2+7);ff('bold',10);tc(sC(sc2));tx(String(sc2),ML+80,y2+7);bdg(sL(sc2),ML+94,y2+3,sB(sc2),sC(sc2));ff('bold',7.5);tc(prioC);tx(prio,ML+126,y2+7);ff('normal',7);tc(DM);tx(sc2>=75?'2027':'Avant 07/2027',ML+158,y2+7);y2+=10;});
+  y2+=6;pbar(ML+4,y2,RW-4,6,score,scCol);y2+=14;
+  var vL=score>=75?"Votre cabinet a constitue un socle de conformite AML solide.":score>=50?"Votre cabinet a engage une demarche AML reelle, mais certains piliers restent insuffisamment formalises.":"Votre dispositif AML presente des insuffisances importantes au regard des obligations LCB-FT et du cadre AMLR 2024/1624.";
   fc(scBg);dc(scCol);lw(0.25);bx(ML+4,y2,RW-4,32,2,'FD');
-  ff('normal',8);tc(TX);
-  sp(vL,RW-12).slice(0,5).forEach(function(l,i){tx(l,ML+8,y2+7+i*5);});
-  y2+=38;
+  ff('normal',8);tc(TX);sp(vL,RW-12).slice(0,5).forEach(function(l,i){tx(l,ML+8,y2+7+i*5);});
+  foot(pg,NP);
 
-  // Points forts / priorités
-  if(y2+42<275){
-    var cW2=Math.floor((RW-6)/2);
-    var sorted2=META.map(function(d){return{k:d.key,sc2:getScore(d.key)};}).sort(function(a,b){return b.sc2-a.sc2;});
-    var strgs=sorted2.slice(0,3);
-    var wks=sorted2.slice(-3).reverse();
-
-    fc(SO);dc(AC);lw(0.2);bx(ML+4,y2,cW2,8,2,'FD');
-    ff('bold',7);tc(AC);tx('POINTS FORTS',ML+7,y2+5.5);
-    strgs.forEach(function(d,i){
-      fc(i%2===0?WH:BG);bx(ML+4,y2+8+i*9,cW2,9,'F');
-      dc(BD);lw(0.1);ln(ML+4,y2+17+i*9,ML+4+cW2,y2+17+i*9);
-      ff('normal',7.5);tc(TX);tx(d.k,ML+7,y2+14+i*9);
-      ff('bold',7.5);tc(sC(d.sc2));tx(d.sc2+'%',ML+4+cW2-3,y2+14+i*9,{align:'right'});
-    });
-
-    var rx2=ML+4+cW2+6;
-    fc(RS);dc(RD);lw(0.2);bx(rx2,y2,cW2,8,2,'FD');
-    ff('bold',7);tc(RD);tx("PRIORITES D'ACTION",rx2+3,y2+5.5);
-    wks.forEach(function(d,i){
-      fc(i%2===0?WH:BG);bx(rx2,y2+8+i*9,cW2,9,'F');
-      dc(BD);lw(0.1);ln(rx2,y2+17+i*9,rx2+cW2,y2+17+i*9);
-      ff('normal',7.5);tc(TX);tx(d.k,rx2+3,y2+14+i*9);
-      ff('bold',7.5);tc(sC(d.sc2));tx(d.sc2+'%',rx2+cW2-3,y2+14+i*9,{align:'right'});
-    });
-  }
-  foot();
-
-  // ════════════════════════════════════════
-  // PAGES 3–8 : UN PAR PILIER
-  // ════════════════════════════════════════
   META.forEach(function(dim,idx){
     doc.addPage();pg=3+idx;
     fc(WH);bx(0,0,W,H);
-
-    var sc2=getScore(dim.key);
-    var col=sC(sc2),bgc=sB(sc2),gk=sK(sc2);
+    var sc2=getScore(dim.key);var col=sC(sc2),bgc=sB(sc2),gk=sK(sc2);
     stripe(col);
-
-    // ── EN-TÊTE ──
-    ff('bold',6.5);tc(FA);tx('PILIER '+(idx+1)+' SUR 6  —  PAGE '+pg+' / '+NP,ML+5,13);
+    ff('bold',6.5);tc(FA);tx('PILIER '+(idx+1)+' SUR 6 -- PAGE '+pg+' / '+NP,ML+5,13);
     ff('bold',7.5);tc(col);tx(s(dim.sub).toUpperCase(),ML+5,20);
     dc(BD);lw(0.2);ln(ML+5,24,W-MR,24);
     ff('bold',19);tc(TX);tx(s(dim.key),ML+5,35);
-
-    // Score pilier (coin droit)
     fc(bgc);dc(col);lw(0.5);bx(W-MR-38,9,38,30,2.5,'FD');
     ff('bold',22);tc(col);tx(String(sc2),W-MR-19,26,{align:'center'});
     ff('normal',6.5);tc(DM);tx('/ 100',W-MR-19,33,{align:'center'});
     bdg(sL(sc2),W-MR-37,36,bgc,col);
-
-    // Barre score
     ff('normal',6.5);tc(FA);tx('Score pilier',ML+5,45);
     pbar(ML+5,47,RW*0.6,4,sc2,col);
     dc(BD);lw(0.2);ln(ML+5,56,W-MR,56);
-
-    // ── ANALYSE ──
     var yp=63;
-    fc(col);bx(ML+5,yp,4,5,0,'F');
-    ff('bold',8);tc(col);tx("ANALYSE DE VOTRE SITUATION",ML+12,yp+4);yp+=9;
+    fc(col);bx(ML+5,yp,4,5,0,'F');ff('bold',8);tc(col);tx("ANALYSE DE VOTRE SITUATION",ML+12,yp+4);yp+=9;
     fc(bgc);dc(col);lw(0.25);bx(ML+5,yp,RW-5,28,2,'FD');
-    ff('normal',8);tc(TX);
-    var anLines=sp(dim.an[gk],RW-14);
-    anLines.slice(0,4).forEach(function(l,i){tx(l,ML+9,yp+6+i*5);});
-    yp+=33;
-
-    // ── ACTIONS ──
-    fc(col);bx(ML+5,yp,4,5,0,'F');
-    ff('bold',8);tc(col);tx("PLAN D'ACTION RECOMMANDE",ML+12,yp+4);yp+=9;
-
-    var acts=dim.ac[gk];
-    acts.forEach(function(a,i){
-      if(yp>192)return;
-      var lines=sp(a,RW-18);
-      var rh=Math.max(11,lines.length*4.5+5);
-      fc(i%2===0?WH:BG);dc(BD);lw(0.15);bx(ML+5,yp,RW-5,rh,1.5,'FD');
-      // Numéro
-      fc(col);bx(ML+5,yp,9,rh,0,'F');
-      ff('bold',8.5);tc(WH);tx(String(i+1),ML+9.5,yp+rh/2+3,{align:'center'});
-      // Texte
-      ff('normal',8);tc(TX);lines.forEach(function(l,j){tx(l,ML+17,yp+5+j*4.5);});
-      yp+=rh+2;
-    });
-    yp+=5;
-
-    // ── SOLUTION NORVY ──
-    if(yp<245){
-      fc(DA);bx(ML+5,yp,RW-5,10,2,'F');
-      ff('bold',8.5);tc(GR);tx('COMMENT NORVY RESOUT CE PROBLEME',ML+9,yp+7);yp+=13;
-
-      if(yp+26<270){
-        fc(WH);dc(AC);lw(0.3);bx(ML+5,yp,RW-5,24,2,'FD');
-        // Barre verte gauche
-        fc(GR);bx(ML+7,yp+4,3.5,16,1.5,'F');
-        ff('bold',8);tc(AC);tx('Solution Norvy',ML+14,yp+10);
-        ff('normal',7.5);tc(DM);
-        sp(dim.nv,RW-20).slice(0,2).forEach(function(l,j){tx(l,ML+14,yp+16+j*4.5);});
-      }
-    }
-
-    // ── BAS DE PAGE ──
-    dc(BD);lw(0.2);ln(ML,274,W-MR,274);
-    fc(bgc);bx(ML,275,RW,7,'F');
-    ff('bold',7);tc(col);tx('Score — '+s(dim.key)+' : '+sc2+' / 100  —  '+sL(sc2),ML+4,280);
-    pbar(W-MR-50,277,46,3,sc2,col);
-    foot();
+    ff('normal',8);tc(TX);sp(dim.an[gk],RW-14).slice(0,4).forEach(function(l,i){tx(l,ML+9,yp+6+i*5);});yp+=33;
+    fc(col);bx(ML+5,yp,4,5,0,'F');ff('bold',8);tc(col);tx("PLAN D'ACTION RECOMMANDE",ML+12,yp+4);yp+=9;
+    dim.ac[gk].forEach(function(a,i){if(yp>192)return;var lines=sp(a,RW-18);var rh=Math.max(11,lines.length*4.5+5);fc(i%2===0?WH:BG);dc(BD);lw(0.15);bx(ML+5,yp,RW-5,rh,1.5,'FD');fc(col);bx(ML+5,yp,9,rh,0,'F');ff('bold',8.5);tc(WH);tx(String(i+1),ML+9.5,yp+rh/2+3,{align:'center'});ff('normal',8);tc(TX);lines.forEach(function(l,j){tx(l,ML+17,yp+5+j*4.5);});yp+=rh+2;});yp+=5;
+    if(yp<245){fc(DA);bx(ML+5,yp,RW-5,10,2,'F');ff('bold',8.5);tc(GR);tx('COMMENT NORVY RESOUT CE PROBLEME',ML+9,yp+7);yp+=13;if(yp+26<270){fc(WH);dc(AC);lw(0.3);bx(ML+5,yp,RW-5,24,2,'FD');fc(GR);bx(ML+7,yp+4,3.5,16,1.5,'F');ff('bold',8);tc(AC);tx('Solution Norvy',ML+14,yp+10);ff('normal',7.5);tc(DM);sp(dim.nv,RW-20).slice(0,2).forEach(function(l,j){tx(l,ML+14,yp+16+j*4.5);});}}
+    dc(BD);lw(0.2);ln(ML,274,W-MR,274);fc(bgc);bx(ML,275,RW,7,'F');ff('bold',7);tc(col);tx('Score -- '+s(dim.key)+' : '+sc2+' / 100 -- '+sL(sc2),ML+4,280);pbar(W-MR-50,277,46,3,sc2,col);
+    foot(pg,NP);
   });
 
-  // ════════════════════════════════════════
-  // PAGE 9 : PLAN D'ACTION GLOBAL
-  // ════════════════════════════════════════
   doc.addPage();pg=9;
   fc(WH);bx(0,0,W,H);
-
-  // Header
   fc(DA);bx(0,0,W,26,'F');fc(GR);bx(0,0,W,3,'F');
-  ff('bold',6.5);tc(GR);tx("SECTION 8 / "+NP+" — PLAN D'ACTION GLOBAL",ML,14);
-  ff('bold',15);tc(WH);tx('Synthese des actions prioritaires — Echeance juillet 2027',ML,23);
-
-  // Compiler et trier les actions
+  ff('bold',6.5);tc(GR);tx("SECTION 8 / "+NP+" -- PLAN D'ACTION GLOBAL",ML,14);
+  ff('bold',15);tc(WH);tx("Synthese des actions prioritaires -- Echeance juillet 2027",ML,23);
   var allA=[];
-  META.forEach(function(d){
-    var sc2=getScore(d.key),gk2=sK(sc2),prio=sc2>=75?3:sc2>=50?2:1;
-    d.ac[gk2].forEach(function(a){allA.push({k:d.key,a:a,prio:prio,sc2:sc2});});
-  });
+  META.forEach(function(d){var sc2=getScore(d.key),gk2=sK(sc2),prio=sc2>=75?3:sc2>=50?2:1;d.ac[gk2].forEach(function(a){allA.push({k:d.key,a:a,prio:prio,sc2:sc2});});});
   allA.sort(function(a,b){return a.prio-b.prio;});
-
   var apy=30;
-  // Légende
-  [[RD,'Haute'],[WA,'Moyenne'],[AC,'Faible / Maintenance']].forEach(function(item,i){
-    fc(item[0]);doc.circle(ML+5+i*52,apy+3,2.5,'F');
-    ff('normal',7);tc(DM);tx(item[1],ML+10+i*52,apy+4);
-  });
-  apy+=10;
+  [[RD,'Haute'],[WA,'Moyenne'],[AC,'Faible / Maintenance']].forEach(function(item,i){fc(item[0]);doc.circle(ML+5+i*52,apy+3,2.5,'F');ff('normal',7);tc(DM);tx(item[1],ML+10+i*52,apy+4);});apy+=10;
+  fc(DA);bx(ML,apy,RW,8,'F');ff('bold',6.5);tc(WH);tx('#',ML+3,apy+5.5);tx('PILIER',ML+10,apy+5.5);tx('ACTION RECOMMANDEE',ML+48,apy+5.5);tx('PRIORITE',ML+165,apy+5.5);apy+=8;
+  allA.slice(0,22).forEach(function(item,i){if(apy>272)return;var prioC=item.prio===1?RD:item.prio===2?WA:AC;var pL=item.prio===1?'HAUTE':item.prio===2?'MOYENNE':'FAIBLE';var pBg=item.prio===1?RS:item.prio===2?WS:SO;var lines=sp(item.a,110);var rh=Math.max(9,lines.length*4+4);fc(i%2===0?WH:BG);bx(ML,apy,RW,rh,'F');dc(BD);lw(0.1);ln(ML,apy+rh,ML+RW,apy+rh);fc(prioC);doc.circle(ML+5,apy+rh/2,2.5,'F');ff('bold',5.5);tc(WH);tx(String(i+1),ML+5,apy+rh/2+1.8,{align:'center'});ff('normal',6.5);tc(DM);tx(s(item.k).substring(0,13),ML+10,apy+rh/2+2);ff('normal',7);tc(TX);lines.forEach(function(l,j){tx(l,ML+48,apy+4+j*4);});fc(pBg);dc(prioC);lw(0.18);bx(ML+163,apy+(rh-6)/2,26,6,1.5,'FD');ff('bold',6);tc(prioC);tx(pL,ML+176,apy+(rh-6)/2+4.5,{align:'center'});apy+=rh;});
+  foot(pg,NP);
 
-  // En-tête tableau
-  fc(DA);bx(ML,apy,RW,8,'F');
-  ff('bold',6.5);tc(WH);
-  tx('#',ML+3,apy+5.5);tx('PILIER',ML+10,apy+5.5);tx('ACTION RECOMMANDEE',ML+48,apy+5.5);tx('PRIORITE',ML+165,apy+5.5);
-  apy+=8;
-
-  allA.slice(0,22).forEach(function(item,i){
-    if(apy>272)return;
-    var prioC=item.prio===1?RD:item.prio===2?WA:AC;
-    var pL=item.prio===1?'HAUTE':item.prio===2?'MOYENNE':'FAIBLE';
-    var pBg=item.prio===1?RS:item.prio===2?WS:SO;
-    var lines=sp(item.a,110);
-    var rh=Math.max(9,lines.length*4+4);
-    fc(i%2===0?WH:BG);bx(ML,apy,RW,rh,'F');
-    dc(BD);lw(0.1);ln(ML,apy+rh,ML+RW,apy+rh);
-    fc(prioC);doc.circle(ML+5,apy+rh/2,2.5,'F');
-    ff('bold',5.5);tc(WH);tx(String(i+1),ML+5,apy+rh/2+1.8,{align:'center'});
-    ff('normal',6.5);tc(DM);tx(s(item.k).substring(0,13),ML+10,apy+rh/2+2);
-    ff('normal',7);tc(TX);lines.forEach(function(l,j){tx(l,ML+48,apy+4+j*4);});
-    fc(pBg);dc(prioC);lw(0.18);bx(ML+163,apy+(rh-6)/2,26,6,1.5,'FD');
-    ff('bold',6);tc(prioC);tx(pL,ML+176,apy+(rh-6)/2+4.5,{align:'center'});
-    apy+=rh;
-  });
-  foot();
-
-  // ════════════════════════════════════════
-  // PAGE 10 : NORVY — PRESENTATION + PRICING + CONTACTS
-  // ════════════════════════════════════════
   doc.addPage();pg=10;
   fc(DA);bx(0,0,W,H);
-
-  // ── Header Norvy ──
-  fc([16,48,38]);bx(0,0,W,72,'F');
-  fc(GR);bx(0,0,W,3,'F');
-  fc(AC);bx(W-48,0,48,72,'F');
-
-  ff('bold',30);tc(WH);tx('norvy',ML,32);
-  fc(GR);bx(ML,37,62,2.5,'F');
+  fc([16,48,38]);bx(0,0,W,72,'F');fc(GR);bx(0,0,W,3,'F');fc(AC);bx(W-48,0,48,72,'F');
+  ff('bold',30);tc(WH);tx('norvy',ML,32);fc(GR);bx(ML,37,62,2.5,'F');
   ff('normal',8.5);tc([185,215,205]);tx("Le logiciel de gestion de cabinet avec l'AML dans son ADN",ML,47);
-  ff('normal',7);tc([130,165,150]);tx('Hebergement Luxembourg  |  RGPD & secret professionnel  |  AMLR 2024/1624 by design',ML,56);
-
-  // Contacts dans bande droite
-  ff('bold',8);tc(WH);tx('norvy.lu',W-44,24);
-  ff('normal',7);tc([200,228,218]);tx('contact@norvy.lu',W-44,33);
-  ff('normal',6.5);tc([160,200,185]);tx('Luxembourg',W-44,42);
-
+  ff('normal',7);tc([130,165,150]);tx('Hebergement Luxembourg | RGPD & secret professionnel | AMLR 2024/1624 by design',ML,56);
+  ff('bold',8);tc(WH);tx('norvy.fr',W-44,24);ff('normal',7);tc([200,228,218]);tx('contact@norvy.fr',W-44,33);
   var pp=77;
-
-  // ── Section lacunes personnalisées ──
-  fc([18,30,42]);bx(0,pp,W,11,'F');
-  ff('bold',8);tc(GR);tx('VOS LACUNES — NOS SOLUTIONS : POURQUOI NORVY EST FAIT POUR VOTRE CABINET',ML+4,pp+7.5);
-  pp+=14;
-
   var weakest3=META.map(function(d){return{key:d.key,an:d.an,nv:d.nv,sc2:getScore(d.key)};}).sort(function(a,b){return a.sc2-b.sc2;}).slice(0,3);
-  weakest3.forEach(function(d,i){
-    if(pp+38>218)return;
-    var gk3=sK(d.sc2),col=sC(d.sc2);
-    fc([22,36,52]);dc([48,72,62]);lw(0.2);bx(ML,pp,RW,36,2.5,'FD');
-    fc(col);bx(ML,pp,4,36,'F');
-    // Badge score
-    fc(sB(d.sc2));bx(ML+7,pp+4,22,12,2,'F');
-    ff('bold',11);tc(col);tx(d.sc2+'%',ML+18,pp+12,{align:'center'});
-    // Nom
-    ff('bold',9.5);tc(WH);tx(s(d.key),ML+33,pp+10);
-    bdg(sL(d.sc2),ML+33+doc.getTextWidth(s(d.key))+4,pp+6,sB(d.sc2),col);
-    // Lacune (2 lignes)
-    ff('italic',7);tc([170,192,182]);
-    sp(d.an[gk3],RW-18).slice(0,2).forEach(function(l,j){tx(l,ML+7,pp+20+j*4.5);});
-    // Solution Norvy
-    ff('bold',7);tc(GR);tx('Solution Norvy :',ML+7,pp+31.5);
-    var sol=(d.nv.split('.')[0]||d.nv)+'.';
-    ff('normal',6.5);tc([155,185,175]);tx(s(sol),ML+7+doc.getTextWidth('Solution Norvy :')+3,pp+31.5);
-    pp+=39;
-  });
-
-  // ── Features ──
+  weakest3.forEach(function(d,i){if(pp+38>218)return;var gk3=sK(d.sc2),col=sC(d.sc2);fc([22,36,52]);dc([48,72,62]);lw(0.2);bx(ML,pp,RW,36,2.5,'FD');fc(col);bx(ML,pp,4,36,'F');fc(sB(d.sc2));bx(ML+7,pp+4,22,12,2,'F');ff('bold',11);tc(col);tx(d.sc2+'%',ML+18,pp+12,{align:'center'});ff('bold',9.5);tc(WH);tx(s(d.key),ML+33,pp+10);bdg(sL(d.sc2),ML+33+doc.getTextWidth(s(d.key))+4,pp+6,sB(d.sc2),col);ff('italic',7);tc([170,192,182]);sp(d.an[gk3],RW-18).slice(0,2).forEach(function(l,j){tx(l,ML+7,pp+20+j*4.5);});ff('bold',7);tc(GR);tx('Solution Norvy :',ML+7,pp+31.5);var sol=(d.nv.split('.')[0]||d.nv)+'.';ff('normal',6.5);tc([155,185,175]);tx(s(sol),ML+7+doc.getTextWidth('Solution Norvy :')+3,pp+31.5);pp+=39;});
   pp+=2;
-  fc([20,32,44]);bx(0,pp,W,10,'F');
-  ff('bold',8);tc(WH);tx("NORVY EN BREF — TOUT CE QU'INCLUT LA PLATEFORME",ML+4,pp+7);
-  pp+=13;
-
-  var feats=[
-    ['LPM complet','Dossiers, temps, facturation, encaissements, relances.'],
-    ['KYC natif & continu','Identification BE, revue periodique, archivage 5 ans certifie.'],
-    ['Screening 6 listes','UE, OFAC, ONU, UK, PPE, Adverse Media. Surveillance 24/7.'],
-    ['Questionnaire Barreau','Pre-rempli automatiquement. Export PDF en un clic.'],
-    ['Registre AML immuable','Horodatage certifie. Pret pour tout controle CRF ou ordinal.'],
-    ['Scoring de risque','Evaluation continue, justification ecrite tracable.'],
-  ];
+  var feats=[['LPM complet','Dossiers, temps, facturation, encaissements, relances.'],['KYC natif & continu','Identification BE, revue periodique, archivage 5 ans certifie.'],['Screening 6 listes','UE, OFAC, ONU, UK, PPE, Adverse Media. Surveillance 24/7.'],['Questionnaire Barreau','Pre-rempli automatiquement. Export PDF en un clic.'],['Registre AML immuable','Horodatage certifie. Pret pour tout controle CRF ou ordinal.'],['Scoring de risque','Evaluation continue, justification ecrite tracable.']];
   var fW=Math.floor((RW-4)/3);
-  var row=0;
-  feats.forEach(function(f,i){
-    var col2=i%3,row2=Math.floor(i/3);
-    var fx=ML+col2*(fW+2),fy=pp+row2*20;
-    if(fy+20>255)return;
-    fc([22,36,52]);bx(fx,fy,fW,18,2,'F');
-    fc(GR);bx(fx+3,fy+4,2.5,10,1,'F');
-    ff('bold',7.5);tc(WH);tx(f[0],fx+9,fy+9);
-    ff('normal',6.5);tc([148,175,165]);sp(f[1],fW-13).slice(0,2).forEach(function(l,j){tx(l,fx+9,fy+14+j*3.5);});
-  });
-  pp+=42;
-
-  // ── PRICING ──
-  if(pp+40<258){
-    fc([18,30,42]);bx(0,pp,W,11,'F');
-    ff('bold',8);tc(WH);tx('TARIFS — PAR UTILISATEUR, DEGRESSIF  |  MIGRATION ACCOMPAGNEE OFFERTE  |  -15% PAIEMENT ANNUEL',ML+4,pp+7.5);
-    pp+=14;
-
-    var plans=[
-      {name:'Cabinet',    sub:'1 a 5 util.',   eur:'149',unit:'EUR/util./mois HT'},
-      {name:'Structure',  sub:'6 a 10 util.',  eur:'139',unit:'EUR/util./mois HT',star:true},
-      {name:'Firm',       sub:'11 a 50 util.', eur:'129',unit:'EUR/util./mois HT'},
-      {name:'Sur mesure', sub:'+ 50 util.',    eur:'Devis',unit:'Nous contacter'},
-    ];
-    var pW=Math.floor((RW-6)/4);
-    plans.forEach(function(p,i){
-      var px=ML+i*(pW+2);
-      fc(p.star?AC:[26,42,58]);bx(px,pp,pW,32,2.5,'F');
-      if(p.star){
-        fc(GR);bx(px,pp,pW,3.5,'F');
-        ff('bold',6);tc(DA);tx('LE PLUS POPULAIRE',px+pW/2,pp+2.8,{align:'center'});
-      }
-      ff('bold',9);tc(WH);tx(p.name,px+4,pp+11);
-      ff('normal',6.5);tc(p.star?[220,240,235]:[138,165,155]);tx(p.sub,px+4,pp+17);
-      ff('bold',18);tc(p.star?WH:GR);tx(p.eur,px+4,pp+27);
-      ff('normal',6);tc(p.star?[200,230,218]:[108,135,125]);tx(p.unit,px+pW-3,pp+27,{align:'right'});
-    });
-    pp+=35;
-  }
-
-  // ── CTA ──
-  if(pp+22<264){
-    fc(GR);bx(ML,pp,RW,20,3,'F');
-    ff('bold',12);tc(DA);tx("Pret a regulariser votre dispositif AML ?",W/2,pp+9.5,{align:'center'});
-    ff('normal',8);tc([18,55,38]);tx("Demandez une demo sur norvy.lu — Nos experts configurent Norvy pour votre cabinet.",W/2,pp+16,{align:'center'});
-    // URL mise en avant
-    fc(DA);bx(W/2-30,pp+18,60,0,'F'); // underline placeholder handled by text styling
-    pp+=23;
-  }
-
-  // ── Bloc URL centré ──
-  if(pp+12<272){
-    fc([26,44,60]);bx(ML,pp,RW,14,2.5,'F');
-    ff('bold',13);tc(GR);tx('www.norvy.lu',W/2,pp+5,{align:'center'});
-    ff('bold',8);tc([180,215,205]);tx('contact@norvy.lu  |  Luxembourg, Grand-Duche de Luxembourg',W/2,pp+11,{align:'center'});
-    pp+=17;
-  }
-
-  // ── Footer p10 ──
+  feats.forEach(function(f,i){var col2=i%3,row2=Math.floor(i/3);var fx=ML+col2*(fW+2),fy=pp+row2*20;if(fy+20>255)return;fc([22,36,52]);bx(fx,fy,fW,18,2,'F');fc(GR);bx(fx+3,fy+4,2.5,10,1,'F');ff('bold',7.5);tc(WH);tx(f[0],fx+9,fy+9);ff('normal',6.5);tc([148,175,165]);sp(f[1],fW-13).slice(0,2).forEach(function(l,j){tx(l,fx+9,fy+14+j*3.5);});});pp+=42;
+  if(pp+40<258){fc([18,30,42]);bx(0,pp,W,11,'F');ff('bold',8);tc(WH);tx('TARIFS -- PAR UTILISATEUR, DEGRESSIF | MIGRATION ACCOMPAGNEE OFFERTE | -15% PAIEMENT ANNUEL',ML+4,pp+7.5);pp+=14;
+  var plans=[{name:'Cabinet',sub:'1 a 5 util.',eur:'149',unit:'EUR/util./mois HT'},{name:'Structure',sub:'6 a 10 util.',eur:'139',unit:'EUR/util./mois HT',star:true},{name:'Firm',sub:'11 a 50 util.',eur:'129',unit:'EUR/util./mois HT'},{name:'Sur mesure',sub:'+ 50 util.',eur:'Devis',unit:'Nous contacter'}];
+  var pW=Math.floor((RW-6)/4);
+  plans.forEach(function(p,i){var px=ML+i*(pW+2);fc(p.star?AC:[26,42,58]);bx(px,pp,pW,32,2.5,'F');if(p.star){fc(GR);bx(px,pp,pW,3.5,'F');ff('bold',6);tc(DA);tx('LE PLUS POPULAIRE',px+pW/2,pp+2.8,{align:'center'});}ff('bold',9);tc(WH);tx(p.name,px+4,pp+11);ff('normal',6.5);tc(p.star?[220,240,235]:[138,165,155]);tx(p.sub,px+4,pp+17);ff('bold',18);tc(p.star?WH:GR);tx(p.eur,px+4,pp+27);ff('normal',6);tc(p.star?[200,230,218]:[108,135,125]);tx(p.unit,px+pW-3,pp+27,{align:'right'});});pp+=35;}
+  if(pp+22<264){fc(GR);bx(ML,pp,RW,20,3,'F');ff('bold',12);tc(DA);tx("Pret a regulariser votre dispositif AML ?",W/2,pp+9.5,{align:'center'});ff('normal',8);tc([18,55,38]);tx("Demandez une demo sur norvy.fr -- Nos experts configurent Norvy pour votre cabinet.",W/2,pp+16,{align:'center'});pp+=23;}
+  if(pp+12<272){fc([26,44,60]);bx(ML,pp,RW,14,2.5,'F');ff('bold',13);tc(GR);tx('www.norvy.fr',W/2,pp+5,{align:'center'});ff('bold',8);tc([180,215,205]);tx('contact@norvy.fr | Luxembourg, Grand-Duche de Luxembourg',W/2,pp+11,{align:'center'});pp+=17;}
   dc([38,58,52]);lw(0.2);ln(ML,279,W-MR,279);
-  ff('italic',6);tc([85,110,100]);tx("Norvy SARL-S (en formation) — Luxembourg — Ce rapport est genere automatiquement a titre indicatif et ne constitue pas un avis juridique ou un audit professionnel.",ML,286,{maxWidth:RW*0.7});
-  ff('normal',7);tc([78,105,96]);tx('Page 10 / 10  |  norvy.lu  |  contact@norvy.lu',W-MR,286,{align:'right'});
-
-  // ── Sauvegarde ──
+  ff('italic',6);tc([85,110,100]);tx("Norvy SARL-S -- Luxembourg -- Ce rapport est genere automatiquement a titre indicatif.",ML,286,{maxWidth:RW*0.7});
+  ff('normal',7);tc([78,105,96]);tx('Page 10 / 10 | norvy.fr | contact@norvy.fr',W-MR,286,{align:'right'});
   var fname=firmName?'Norvy-Rapport-AML-'+s(firmName).replace(/[^a-z0-9]/gi,'-')+'-'+new Date().toISOString().slice(0,10)+'.pdf':'Norvy-Rapport-AutoEvaluation-AML-'+new Date().toISOString().slice(0,10)+'.pdf';
   doc.save(fname);
 }
 
-
-// ── AUDIT ENGINE ─────────────────────────────────────
 (function(){
   const W3F_KEY='c5f749fc-eb96-485f-9697-c47e7a9cc406';
   const W3F_URL='https://api.web3forms.com/submit';
-
-  async function w3fSubmit(subject,email,source,message){
-    try{const r=await fetch(W3F_URL,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({access_key:W3F_KEY,subject,from_name:'Norvy',email,source,message})});const d=await r.json();return d.success===true;}catch{return false;}
-  }
-
+  async function w3fSubmit(subject,email,source,message){try{const r=await fetch(W3F_URL,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({access_key:W3F_KEY,subject,from_name:'Norvy',email,source,message})});const d=await r.json();return d.success===true;}catch{return false;}}
   const DIMS=[
     {name:'Gouvernance',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',count:4},
     {name:'KYC & Vigilance',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>',count:5},
@@ -2467,117 +1311,43 @@ function generatePDF(score, dimScores, firmName){
     {name:'Registre & Traçabilité',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',count:4},
     {name:'Déclaration & Soupçon',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v2m0 4h.01M5 19h14a2 2 0 0 0 1.84-2.75L13.74 4a2 2 0 0 0-3.48 0L3.16 16.25A2 2 0 0 0 5 19z"/></svg>',count:4},
   ];
-
   const QS=[
     {d:0,q:"Votre cabinet dispose-t-il d'une politique AML écrite, datée et validée ?",h:"Politique formalisée couvrant l'évaluation des risques, les mesures de vigilance et les obligations de déclaration.",opts:[{l:"Oui, à jour (< 12 mois)",v:5},{l:"Oui, mais > 12 mois",v:3},{l:"En cours de rédaction",v:1},{l:"Non",v:0}]},
     {d:0,q:"Un Responsable AML / Compliance Officer est-il désigné formellement ?",h:"Une personne clairement identifiée et déclarée auprès de l'Ordre / autorité compétente.",opts:[{l:"Oui, déclaré officiellement",v:5},{l:"Oui, mais en interne uniquement",v:3},{l:"Pas formellement désigné",v:1},{l:"Non",v:0}]},
     {d:0,q:"Avez-vous formalisé une évaluation des risques AML propre à votre cabinet ?",h:"Cartographie des risques par typologie de clientèle, géographie, prestation et canal d'entrée en relation.",opts:[{l:"Oui, mise à jour annuelle",v:5},{l:"Oui, > 12 mois",v:3},{l:"Partiellement",v:1},{l:"Non",v:0}]},
     {d:0,q:"Vos procédures AML intègrent-elles le cadre AMLR 2024/1624 ?",h:"Mise à jour de vos procédures pour intégrer le nouveau cadre européen applicable juillet 2027.",opts:[{l:"Oui, déjà en conformité",v:5},{l:"En cours de mise à jour",v:3},{l:"Veille initiée",v:1},{l:"Non / pas au courant",v:0}]},
-    {d:1,q:"Comment identifiez-vous vos clients à l'entrée en relation ?",h:"Procédure d'identification et de vérification documentaire (pièce d'identité, RBE, justificatifs).",opts:[{l:"Procédure digitale standardisée",v:5},{l:"Procédure papier formalisée",v:3},{l:"Au cas par cas",v:1},{l:"Pas de procédure",v:0}]},
-    {d:1,q:"Identifiez-vous systématiquement les bénéficiaires effectifs (BE) ?",h:"Identification de toute personne physique détenant > 25% des droits ou exerçant un contrôle effectif.",opts:[{l:"Toujours, avec recoupement RBE/RCS",v:5},{l:"Toujours, sans recoupement",v:3},{l:"Parfois",v:1},{l:"Non",v:0}]},
-    {d:1,q:"Appliquez-vous des mesures de vigilance renforcée pour les clients à risque élevé ?",h:"PEPs, juridictions à haut risque, montages complexes, transactions inhabituelles.",opts:[{l:"Oui, critères formalisés",v:5},{l:"Oui, au cas par cas",v:3},{l:"Rarement",v:1},{l:"Non / pas conscient(e)",v:0}]},
-    {d:1,q:"À quelle fréquence mettez-vous à jour les éléments KYC de vos clients existants ?",h:"Revue périodique en fonction du risque (annuelle pour les risques élevés, jusqu'à 5 ans pour les faibles).",opts:[{l:"Selon une matrice de risque",v:5},{l:"Annuellement pour tous",v:3},{l:"À l'occasion",v:1},{l:"Jamais après ouverture",v:0}]},
+    {d:1,q:"Comment identifiez-vous vos clients à l'entrée en relation ?",h:"Procédure d'identification et de vérification documentaire.",opts:[{l:"Procédure digitale standardisée",v:5},{l:"Procédure papier formalisée",v:3},{l:"Au cas par cas",v:1},{l:"Pas de procédure",v:0}]},
+    {d:1,q:"Identifiez-vous systématiquement les bénéficiaires effectifs (BE) ?",h:"Identification de toute personne physique détenant > 25% des droits.",opts:[{l:"Toujours, avec recoupement RBE/RCS",v:5},{l:"Toujours, sans recoupement",v:3},{l:"Parfois",v:1},{l:"Non",v:0}]},
+    {d:1,q:"Appliquez-vous des mesures de vigilance renforcée pour les clients à risque élevé ?",h:"PEPs, juridictions à haut risque, montages complexes.",opts:[{l:"Oui, critères formalisés",v:5},{l:"Oui, au cas par cas",v:3},{l:"Rarement",v:1},{l:"Non",v:0}]},
+    {d:1,q:"À quelle fréquence mettez-vous à jour les éléments KYC de vos clients existants ?",h:"Revue périodique en fonction du risque.",opts:[{l:"Selon une matrice de risque",v:5},{l:"Annuellement pour tous",v:3},{l:"À l'occasion",v:1},{l:"Jamais après ouverture",v:0}]},
     {d:1,q:"Conservez-vous les pièces KYC pendant 5 ans après la fin de la relation ?",h:"Obligation européenne de conservation horodatée et accessible.",opts:[{l:"Oui, archivage électronique horodaté",v:5},{l:"Oui, archivage papier",v:3},{l:"Conservation partielle",v:1},{l:"Non / je ne sais pas",v:0}]},
-    {d:2,q:"Effectuez-vous un screening contre les listes de sanctions (UE, OFAC, ONU) ?",h:"Vérification à l'entrée en relation et de manière continue contre les listes officielles.",opts:[{l:"Oui, automatisé et continu",v:5},{l:"Oui, manuellement à l'entrée",v:2},{l:"Rarement",v:1},{l:"Non",v:0}]},
-    {d:2,q:"Vérifiez-vous l'exposition politique (PEP) de vos clients et de leurs proches ?",h:"Identification des personnes politiquement exposées et des membres de leur famille.",opts:[{l:"Oui, base PEP professionnelle",v:5},{l:"Recherche manuelle (Google, presse)",v:2},{l:"Au cas par cas",v:1},{l:"Non",v:0}]},
-    {d:2,q:"Vos screenings sont-ils re-lancés en continu (alerte sur nouvelle correspondance) ?",h:"Surveillance continue pour détecter les changements de statut après l'ouverture de la relation.",opts:[{l:"Oui, alertes automatisées",v:5},{l:"Revue périodique",v:3},{l:"Jamais après l'entrée",v:1},{l:"Pas de screening",v:0}]},
-    {d:3,q:"Vos collaborateurs reçoivent-ils une formation AML annuelle ?",h:"Obligation de formation initiale et continue pour tous les collaborateurs en contact avec la clientèle.",opts:[{l:"Oui, annuelle et tracée",v:5},{l:"Oui, mais ponctuelle",v:3},{l:"Onboarding uniquement",v:1},{l:"Pas de formation",v:0}]},
-    {d:3,q:"Tenez-vous un registre des formations AML suivies ?",h:"Justification documentaire en cas de contrôle ordinal ou de la CRF.",opts:[{l:"Oui, registre numérique",v:5},{l:"Oui, papier",v:3},{l:"Partiellement",v:1},{l:"Non",v:0}]},
+    {d:2,q:"Effectuez-vous un screening contre les listes de sanctions (UE, OFAC, ONU) ?",h:"Vérification à l'entrée en relation et de manière continue.",opts:[{l:"Oui, automatisé et continu",v:5},{l:"Oui, manuellement à l'entrée",v:2},{l:"Rarement",v:1},{l:"Non",v:0}]},
+    {d:2,q:"Vérifiez-vous l'exposition politique (PEP) de vos clients et de leurs proches ?",h:"Identification des personnes politiquement exposées.",opts:[{l:"Oui, base PEP professionnelle",v:5},{l:"Recherche manuelle (Google, presse)",v:2},{l:"Au cas par cas",v:1},{l:"Non",v:0}]},
+    {d:2,q:"Vos screenings sont-ils re-lancés en continu ?",h:"Surveillance continue pour détecter les changements de statut après l'ouverture de la relation.",opts:[{l:"Oui, alertes automatisées",v:5},{l:"Revue périodique",v:3},{l:"Jamais après l'entrée",v:1},{l:"Pas de screening",v:0}]},
+    {d:3,q:"Vos collaborateurs reçoivent-ils une formation AML annuelle ?",h:"Obligation de formation initiale et continue pour tous les collaborateurs.",opts:[{l:"Oui, annuelle et tracée",v:5},{l:"Oui, mais ponctuelle",v:3},{l:"Onboarding uniquement",v:1},{l:"Pas de formation",v:0}]},
+    {d:3,q:"Tenez-vous un registre des formations AML suivies ?",h:"Justification documentaire en cas de contrôle ordinal.",opts:[{l:"Oui, registre numérique",v:5},{l:"Oui, papier",v:3},{l:"Partiellement",v:1},{l:"Non",v:0}]},
     {d:4,q:"Tenez-vous un registre des diligences accomplies (dossiers KYC) ?",h:"Registre horodaté, immuable, exportable, accessible aux contrôles.",opts:[{l:"Oui, registre numérique horodaté",v:5},{l:"Oui, fichier Excel/papier",v:3},{l:"Partiellement",v:1},{l:"Non",v:0}]},
-    {d:4,q:"Documentez-vous les analyses de risque et les décisions prises ?",h:"Traçabilité écrite : pourquoi le risque a-t-il été qualifié faible/moyen/élevé.",opts:[{l:"Oui, justification écrite à chaque dossier",v:5},{l:"Oui, pour les risques élevés",v:3},{l:"Rarement",v:1},{l:"Non",v:0}]},
+    {d:4,q:"Documentez-vous les analyses de risque et les décisions prises ?",h:"Traçabilité écrite de chaque qualification de risque.",opts:[{l:"Oui, justification écrite à chaque dossier",v:5},{l:"Oui, pour les risques élevés",v:3},{l:"Rarement",v:1},{l:"Non",v:0}]},
     {d:4,q:"Pouvez-vous répondre au questionnaire annuel AML de votre Ordre en < 1 jour ?",h:"Capacité à extraire rapidement toutes les données agrégées requises par votre Barreau.",opts:[{l:"Oui, < 1 heure",v:5},{l:"Oui, < 1 jour",v:3},{l:"Cela prend 2-5 jours",v:1},{l:"> 1 semaine de travail",v:0}]},
-    {d:4,q:"Avez-vous un plan d'urgence en cas de contrôle ordinal ou CRF ?",h:"Procédure documentée d'extraction et de production des pièces dans les délais légaux.",opts:[{l:"Oui, procédure documentée",v:5},{l:"Oui, mais informel",v:3},{l:"À improviser",v:1},{l:"Non",v:0}]},
-    {d:5,q:"Connaissez-vous la procédure de déclaration de soupçon à la CRF ?",h:"Identification des canaux, délais et contenu d'une déclaration auprès de la cellule de renseignement financier.",opts:[{l:"Oui, procédure interne formalisée",v:5},{l:"Oui, mais informelle",v:3},{l:"Vaguement",v:1},{l:"Non",v:0}]},
-    {d:5,q:"Avez-vous identifié les indicateurs de soupçon propres à votre activité ?",h:"Liste interne de red flags : montages atypiques, financement opaque, refus de fournir des pièces, etc.",opts:[{l:"Oui, typologies documentées",v:5},{l:"Oui, informellement",v:3},{l:"Partiellement",v:1},{l:"Non",v:0}]},
-    {d:5,q:"Vos collaborateurs savent-ils à qui escalader un soupçon en interne ?",h:"Procédure claire d'escalade vers le Compliance Officer ou les associés.",opts:[{l:"Oui, canal documenté",v:5},{l:"Oui, par tradition",v:3},{l:"Peu clair",v:1},{l:"Non / pas de canal",v:0}]},
-    {d:5,q:"Avez-vous déjà effectué une déclaration de soupçon (DOS) à la CRF ?",h:"Expérience pratique de la procédure de déclaration auprès de la cellule de renseignement financier.",opts:[{l:"Oui, et tracée",v:5},{l:"Non, mais je saurais le faire",v:3},{l:"Je ne suis pas sûr(e)",v:1},{l:"Non, et je ne saurais pas",v:0}]},
+    {d:4,q:"Avez-vous un plan d'urgence en cas de contrôle ordinal ou CRF ?",h:"Procédure documentée d'extraction et de production des pièces.",opts:[{l:"Oui, procédure documentée",v:5},{l:"Oui, mais informel",v:3},{l:"À improviser",v:1},{l:"Non",v:0}]},
+    {d:5,q:"Connaissez-vous la procédure de déclaration de soupçon à la CRF ?",h:"Identification des canaux, délais et contenu d'une déclaration.",opts:[{l:"Oui, procédure interne formalisée",v:5},{l:"Oui, mais informelle",v:3},{l:"Vaguement",v:1},{l:"Non",v:0}]},
+    {d:5,q:"Avez-vous identifié les indicateurs de soupçon propres à votre activité ?",h:"Liste interne de red flags adaptée à vos typologies.",opts:[{l:"Oui, typologies documentées",v:5},{l:"Oui, informellement",v:3},{l:"Partiellement",v:1},{l:"Non",v:0}]},
+    {d:5,q:"Vos collaborateurs savent-ils à qui escalader un soupçon en interne ?",h:"Procédure claire d'escalade vers le Compliance Officer.",opts:[{l:"Oui, canal documenté",v:5},{l:"Oui, par tradition",v:3},{l:"Peu clair",v:1},{l:"Non / pas de canal",v:0}]},
+    {d:5,q:"Avez-vous déjà effectué une déclaration de soupçon (DOS) à la CRF ?",h:"Expérience pratique de la procédure de déclaration.",opts:[{l:"Oui, et tracée",v:5},{l:"Non, mais je saurais le faire",v:3},{l:"Je ne suis pas sûr(e)",v:1},{l:"Non, et je ne saurais pas",v:0}]},
   ];
-
   const N=QS.length;
   let cur=0,answers=new Array(N).fill(null),email='',firmName='',score=0,dimScores={};
-
-  const showScreen=name=>{
-    document.querySelectorAll('.a-screen').forEach(s=>s.classList.remove('active'));
-    document.getElementById({intro:'aScreenIntro',questions:'aScreenQuestions',email:'aScreenEmail',results:'aScreenResults'}[name])?.classList.add('active');
-    document.getElementById('auditCard')?.scrollIntoView({behavior:'smooth',block:'start'});
-  };
-
+  const showScreen=name=>{document.querySelectorAll('.a-screen').forEach(s=>s.classList.remove('active'));document.getElementById({intro:'aScreenIntro',questions:'aScreenQuestions',email:'aScreenEmail',results:'aScreenResults'}[name])?.classList.add('active');document.getElementById('auditCard')?.scrollIntoView({behavior:'smooth',block:'start'});};
   const dimRight=document.getElementById('aDimsRight');
   if(dimRight){DIMS.forEach(d=>{const el=document.createElement('div');el.className='a-dim-item';el.innerHTML=`<div class="a-dim-icon">${d.icon}</div><div><div class="a-dim-name">${d.name}</div><div class="a-dim-q">${d.count} questions</div></div>`;dimRight.appendChild(el);});}
-
   document.getElementById('aStartBtn')?.addEventListener('click',()=>{cur=0;answers=new Array(N).fill(null);showScreen('questions');renderQ();});
-
-  function renderQ(){
-    const q=QS[cur];
-    document.getElementById('aQNum').textContent=cur+1;
-    document.getElementById('aQDim').textContent=DIMS[q.d].name;
-    document.getElementById('aProgressFill').style.width=((cur+1)/N*100)+'%';
-    document.getElementById('aQText').textContent=q.q;
-    document.getElementById('aQHelp').textContent=q.h;
-    const c=document.getElementById('aOptions');c.innerHTML='';
-    q.opts.forEach((opt,i)=>{
-      const btn=document.createElement('button');btn.type='button';btn.className='a-option'+(answers[cur]===i?' selected':'');
-      btn.innerHTML=`<span class="a-option-dot"></span><span>${opt.l}</span>`;
-      btn.addEventListener('click',()=>{answers[cur]=i;c.querySelectorAll('.a-option').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');document.getElementById('aNextBtn').disabled=false;});
-      c.appendChild(btn);
-    });
-    document.getElementById('aPrevBtn').disabled=cur===0;
-    document.getElementById('aNextBtn').disabled=answers[cur]===null;
-    const nb=document.getElementById('aNextBtn');
-    nb.innerHTML=cur===N-1?'Voir mon score <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>':'Suivant <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
-  }
-
+  function renderQ(){const q=QS[cur];document.getElementById('aQNum').textContent=cur+1;document.getElementById('aQDim').textContent=DIMS[q.d].name;document.getElementById('aProgressFill').style.width=((cur+1)/N*100)+'%';document.getElementById('aQText').textContent=q.q;document.getElementById('aQHelp').textContent=q.h;const c=document.getElementById('aOptions');c.innerHTML='';q.opts.forEach((opt,i)=>{const btn=document.createElement('button');btn.type='button';btn.className='a-option'+(answers[cur]===i?' selected':'');btn.innerHTML=`<span class="a-option-dot"></span><span>${opt.l}</span>`;btn.addEventListener('click',()=>{answers[cur]=i;c.querySelectorAll('.a-option').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');document.getElementById('aNextBtn').disabled=false;});c.appendChild(btn);});document.getElementById('aPrevBtn').disabled=cur===0;document.getElementById('aNextBtn').disabled=answers[cur]===null;const nb=document.getElementById('aNextBtn');nb.innerHTML=cur===N-1?'Voir mon score <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>':'Suivant <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';}
   document.getElementById('aPrevBtn')?.addEventListener('click',()=>{if(cur>0){cur--;renderQ();}});
   document.getElementById('aNextBtn')?.addEventListener('click',()=>{if(answers[cur]===null)return;if(cur===N-1){computeScore();showScreen('email');}else{cur++;renderQ();}});
-
-  function computeScore(){
-    const dm={};DIMS.forEach((_,i)=>dm[i]={pts:0,max:0});
-    QS.forEach((q,i)=>{const p=answers[i]!==null?q.opts[answers[i]].v:0;dm[q.d].pts+=p;dm[q.d].max+=5;});
-    const tp=Object.values(dm).reduce((a,d)=>a+d.pts,0);
-    const tm=Object.values(dm).reduce((a,d)=>a+d.max,0);
-    score=Math.round(tp/tm*100);
-    DIMS.forEach((d,i)=>{dimScores[d.name]=Math.round(dm[i].pts/dm[i].max*100);});
-  }
-
-  function getGrade(){
-    if(score>=75)return{cls:'high',label:'Conformité avancée',verdict:'Votre dispositif AML est mature. Norvy automatisera et optimisera votre conformité opérationnelle.'};
-    if(score>=50)return{cls:'medium',label:'Conformité partielle',verdict:'Votre cabinet est partiellement conforme. Des actions structurantes sont à engager avant juillet 2027.'};
-    return{cls:'danger',label:'Conformité insuffisante',verdict:'Votre dispositif présente des lacunes majeures. Une mise en conformité urgente est nécessaire.'};
-  }
-
-  document.getElementById('aEmailForm')?.addEventListener('submit',async e=>{
-    e.preventDefault();
-    email=document.getElementById('aEmail').value.trim();
-    firmName=document.getElementById('aFirmName').value.trim();
-    if(!email)return;
-    const btn=document.getElementById('aSubmitBtn');
-    btn.disabled=true;btn.textContent='Envoi…';
-    const grade=getGrade();
-    const dimText=DIMS.map(d=>`${d.name}: ${dimScores[d.name]}/100`).join('\n');
-    w3fSubmit(`[Norvy Auto-eval AML] Score ${score}/100 -- ${email}`,email,'audit-aml',`Score: ${score}/100\nNiveau: ${grade.label}\n\n${dimText}\nCabinet: ${firmName||'(non renseigne)'}\nDate: ${new Date().toLocaleString('fr-FR')}`);
-    generatePDF(score,dimScores,firmName);
-    document.getElementById('aSuccess').classList.add('visible');
-    btn.textContent='✓ Rapport téléchargé';
-    setTimeout(()=>{showScreen('results');renderResults();},1800);
-  });
-
-  function renderResults(){
-    const grade=getGrade();
-    const big=document.getElementById('aScoreBig');
-    big.textContent=score;big.className='a-score-big'+(grade.cls==='medium'?' warn':grade.cls==='danger'?' danger':'');
-    const gradeEl=document.getElementById('aGrade');gradeEl.textContent=grade.label;gradeEl.className='a-grade '+grade.cls;
-    document.getElementById('aVerdict').textContent=grade.verdict;
-    const bd=document.getElementById('aBreakdown');bd.innerHTML='';
-    DIMS.forEach(d=>{
-      const sc2=dimScores[d.name];
-      const cls=sc2>=75?'':sc2>=50?' warn':' danger';
-      const row=document.createElement('div');row.className='a-dim-row';
-      row.innerHTML=`<div class="a-dim-info"><div class="a-dim-label">${d.name}</div><div class="a-dim-bar"><div class="a-dim-bar-fill${cls}" style="width:0%"></div></div></div><div class="a-dim-score">${sc2} / 100</div>`;
-      bd.appendChild(row);
-      setTimeout(()=>row.querySelector('.a-dim-bar-fill').style.width=sc2+'%',150);
-    });
-  }
-
+  function computeScore(){const dm={};DIMS.forEach((_,i)=>dm[i]={pts:0,max:0});QS.forEach((q,i)=>{const p=answers[i]!==null?q.opts[answers[i]].v:0;dm[q.d].pts+=p;dm[q.d].max+=5;});const tp=Object.values(dm).reduce((a,d)=>a+d.pts,0);const tm=Object.values(dm).reduce((a,d)=>a+d.max,0);score=Math.round(tp/tm*100);DIMS.forEach((d,i)=>{dimScores[d.name]=Math.round(dm[i].pts/dm[i].max*100);});}
+  function getGrade(){if(score>=75)return{cls:'high',label:'Conformité avancée',verdict:'Votre dispositif AML est mature. Norvy automatisera et optimisera votre conformité opérationnelle.'};if(score>=50)return{cls:'medium',label:'Conformité partielle',verdict:'Votre cabinet est partiellement conforme. Des actions structurantes sont à engager avant juillet 2027.'};return{cls:'danger',label:'Conformité insuffisante',verdict:'Votre dispositif présente des lacunes majeures. Une mise en conformité urgente est nécessaire.'};}
+  document.getElementById('aEmailForm')?.addEventListener('submit',async e=>{e.preventDefault();email=document.getElementById('aEmail').value.trim();firmName=document.getElementById('aFirmName').value.trim();if(!email)return;const btn=document.getElementById('aSubmitBtn');btn.disabled=true;btn.textContent='Envoi…';const grade=getGrade();const dimText=DIMS.map(d=>`${d.name}: ${dimScores[d.name]}/100`).join('\n');w3fSubmit(`[Norvy Auto-eval AML] Score ${score}/100 -- ${email}`,email,'audit-aml',`Score: ${score}/100\nNiveau: ${grade.label}\n\n${dimText}\nCabinet: ${firmName||'(non renseigne)'}\nDate: ${new Date().toLocaleString('fr-FR')}`);generatePDF(score,dimScores,firmName);document.getElementById('aSuccess').classList.add('visible');btn.textContent='✓ Rapport téléchargé';setTimeout(()=>{showScreen('results');renderResults();},1800);});
+  function renderResults(){const grade=getGrade();const big=document.getElementById('aScoreBig');big.textContent=score;big.className='a-score-big'+(grade.cls==='medium'?' warn':grade.cls==='danger'?' danger':'');const gradeEl=document.getElementById('aGrade');gradeEl.textContent=grade.label;gradeEl.className='a-grade '+grade.cls;document.getElementById('aVerdict').textContent=grade.verdict;const bd=document.getElementById('aBreakdown');bd.innerHTML='';DIMS.forEach(d=>{const sc2=dimScores[d.name];const cls=sc2>=75?'':sc2>=50?' warn':' danger';const row=document.createElement('div');row.className='a-dim-row';row.innerHTML=`<div class="a-dim-info"><div class="a-dim-label">${d.name}</div><div class="a-dim-bar"><div class="a-dim-bar-fill${cls}" style="width:0%"></div></div></div><div class="a-dim-score">${sc2} / 100</div>`;bd.appendChild(row);setTimeout(()=>row.querySelector('.a-dim-bar-fill').style.width=sc2+'%',150);});}
   document.getElementById('aRedownload')?.addEventListener('click',()=>generatePDF(score,dimScores,firmName));
 })();
 </script>
