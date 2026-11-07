@@ -111,6 +111,26 @@ section{padding:120px 0}
 .checks li{padding-left:30px;position:relative;font-size:16px}
 .checks li::before{content:"";position:absolute;left:0;top:7px;width:16px;height:9px;border-left:2.5px solid var(--blue);border-bottom:2.5px solid var(--blue);transform:rotate(-45deg)}
 
+/* gestion du cabinet */
+.cab{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:56px}
+.cab > div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:32px 32px 28px}
+.cab h3{font-size:22px;margin:0 0 6px}
+.cab > div > p{margin:0 0 18px;color:var(--muted);font-size:16px}
+.cab ul{list-style:none;margin:0;padding:0;display:grid;gap:11px;font-size:16px}
+.cab li{padding-left:22px;position:relative}
+.cab li::before{content:"";position:absolute;left:0;top:10px;width:8px;height:8px;border-radius:50%;background:var(--blue)}
+
+/* la conformité suit : séquence réelle */
+.steps{list-style:none;margin:36px 0 0;padding:0;counter-reset:k;display:grid;gap:0}
+.steps li{counter-increment:k;display:grid;grid-template-columns:44px 1fr;gap:16px;padding:18px 0;border-top:1px solid rgba(255,255,255,.14)}
+.steps li::before{content:counter(k);display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:var(--blue);color:#fff;font-weight:700;font-size:14px}
+.steps b{display:block;color:#fff;font-size:17px;margin-bottom:4px}
+.steps span{color:#B9C2DC;font-size:16px}
+.dark .shot{border-color:rgba(255,255,255,.12)}
+#conformite .split{align-items:start}
+#conformite .shot{position:sticky;top:110px;margin-top:120px}
+@media (max-width:980px){#conformite .shot{position:static;margin-top:0}}
+
 /* modules */
 .paper{background:var(--paper)}
 .mods{display:grid;grid-template-columns:repeat(3,1fr);gap:0 48px;margin-top:52px}
@@ -130,7 +150,7 @@ section{padding:120px 0}
 .cmp th,.cmp td{padding:18px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
 .cmp thead th{font-size:15px;border-bottom:2px solid var(--text)}
 .cmp td:nth-child(2){font-weight:600;color:var(--blue)}
-.cmp td:nth-child(3),.cmp thead th:nth-child(3){color:var(--muted)}
+.cmp td:nth-child(3),.cmp thead th:nth-child(3),.cmp td:nth-child(4),.cmp thead th:nth-child(4){color:var(--muted)}
 .cmp th[scope=row]{font-weight:500}
 
 /* données */
@@ -210,7 +230,8 @@ footer{padding:64px 0 40px;font-size:15px}
   section{padding:84px 0}
   .navlinks,.nav .navright .btn{display:none}
   .burger{display:block}
-  .mods,.facts,.trio,.roi,.plans,.fgrid{grid-template-columns:1fr}
+  .mods,.facts,.trio,.roi,.plans,.fgrid,.cab{grid-template-columns:1fr}
+  .cmp4 th:nth-child(4),.cmp4 td:nth-child(4){display:none}
   .facts,.trio{gap:32px}
   .hero{padding-top:64px}
   .cmp{font-size:14px}
@@ -229,9 +250,9 @@ footer{padding:64px 0 40px;font-size:15px}
   <div class="wrap">
     <a class="logo" href="#top" aria-label="Norvy, accueil">norvy<i></i></a>
     <nav class="navlinks" aria-label="Navigation principale">
-      <a href="#plateforme" data-en="Platform">Plateforme</a>
-      <a href="#conformite" data-en="Compliance">Conformité</a>
-      <a href="#donnees" data-en="Your data">Vos données</a>
+      <a href="#cabinet" data-en="Your firm">Votre cabinet</a>
+      <a href="#conformite" data-en="Compliance">La conformité</a>
+      <a href="#pourquoi" data-en="Why Norvy">Pourquoi Norvy</a>
       <a href="#tarifs" data-en="Pricing">Tarifs</a>
     </nav>
     <div class="navright">
@@ -246,9 +267,9 @@ footer{padding:64px 0 40px;font-size:15px}
     </div>
   </div>
   <div class="mobmenu" id="mobmenu">
-    <a href="#plateforme" data-en="Platform">Plateforme</a>
-    <a href="#conformite" data-en="Compliance">Conformité</a>
-    <a href="#donnees" data-en="Your data">Vos données</a>
+    <a href="#cabinet" data-en="Your firm">Votre cabinet</a>
+    <a href="#conformite" data-en="Compliance">La conformité</a>
+    <a href="#pourquoi" data-en="Why Norvy">Pourquoi Norvy</a>
     <a href="#tarifs" data-en="Pricing">Tarifs</a>
     <a href="#eval" data-en="AML self-assessment">Auto-évaluation AML</a>
     <a href="#" onclick="return openCalendly(event)" data-en="Book a demo">Réserver une démo</a>
@@ -260,16 +281,16 @@ footer{padding:64px 0 40px;font-size:15px}
 <!-- HERO -->
 <section id="top" class="hero dark">
   <div class="wrap">
-    <h1 data-en="Run your law firm and stay compliant, in one place.">Gérez votre cabinet tout en restant conforme.</h1>
-    <p class="lead" data-en="Matters, time, billing, e-signature and calendar in a single platform, with AML/KYC checks built into every new matter. Made for lawyers, from sole practitioners to business law firms.">Dossiers, temps, facturation, signature électronique et agenda dans un seul logiciel, avec le contrôle AML/KYC intégré à chaque ouverture de dossier. Pensé pour les avocats, de l'exercice individuel au cabinet d'affaires.</p>
+    <h1 data-en="Run your law firm. Stay compliant while you do.">Gérez votre cabinet tout en étant conforme.</h1>
+    <p class="lead" data-en="Norvy is the software you run your firm on every day: matters, time, invoices, payments, signatures, calendar. Because everything sits in one place, your AML compliance gets done as you work.">Norvy est le logiciel dans lequel vous gérez votre cabinet au quotidien : dossiers, temps, factures, encaissements, signatures, agenda. Et parce que tout est au même endroit, votre conformité AML se fait pendant que vous travaillez.</p>
     <div class="ctas">
       <a class="btn btn-light" href="#" onclick="return openCalendly(event)" data-en="Book a 30-minute demo">Réserver une démo de 30 min</a>
-      <a class="btn btn-ghost" href="#eval" data-en="Take the AML self-assessment">Faire l'auto-évaluation AML</a>
+      <a class="btn btn-ghost" href="#cabinet" data-en="See what Norvy does">Voir ce que fait Norvy</a>
     </div>
     <ul class="proof">
-      <li data-en="Data hosted in Europe">Données hébergées en Europe</li>
+      <li data-en="For every lawyer, from sole practice to business law firm">Pour tout avocat, de l'indépendant au cabinet d'affaires</li>
       <li data-en="Unlimited screening included">Screening illimité inclus</li>
-      <li data-en="Migration included">Migration incluse</li>
+      <li data-en="Data hosted in Europe">Données hébergées en Europe</li>
     </ul>
   </div>
   <div class="herovideo">
@@ -279,72 +300,102 @@ footer{padding:64px 0 40px;font-size:15px}
   </div>
 </section>
 
-<!-- PARCOURS -->
-<section id="plateforme">
+<!-- 1. LA GESTION DU CABINET -->
+<section id="cabinet" class="paper">
   <div class="wrap">
-    <p class="kicker" data-en="How a matter runs in Norvy">Le parcours d'un dossier dans Norvy</p>
-    <h2 style="max-width:760px" data-en="From the first meeting to the paid invoice, without re-typing anything.">Du premier rendez-vous à la facture payée, sans ressaisie.</h2>
-    <ol class="flow">
-      <li><b data-en="Open the matter">Ouverture</b><span data-en="Company details pre-filled from official registers.">Fiche société pré-remplie depuis les registres officiels.</span></li>
-      <li><b data-en="Screening">Screening</b><span data-en="Sanctions, PEP and adverse media, run automatically and time-stamped.">Sanctions, PPE et adverse media, lancé automatiquement et horodaté.</span></li>
-      <li><b data-en="Documents">Pièces</b><span data-en="IDs, company extracts and articles read automatically; beneficial owners mapped.">Pièces d'identité, extraits et statuts lus automatiquement ; bénéficiaires effectifs cartographiés.</span></li>
-      <li><b data-en="Engagement">Engagement</b><span data-en="Fee agreement and engagement letter signed electronically.">Convention d'honoraires et lettre de mission signées électroniquement.</span></li>
-      <li><b data-en="Time & billing">Temps &amp; facture</b><span data-en="Time recorded on the matter, invoiced and followed up automatically.">Temps saisi sur le dossier, facturé, relancé automatiquement.</span></li>
-      <li><b data-en="Annual report">Questionnaire</b><span data-en="Your Bar's annual AML questionnaire filled from your real data.">Le questionnaire AML annuel de l'Ordre rempli depuis vos données.</span></li>
-    </ol>
+    <p class="kicker" data-en="1. Your firm, day to day">1. Votre cabinet au quotidien</p>
+    <h2 style="max-width:820px" data-en="The software your whole firm works in, every day.">Le logiciel dans lequel tout votre cabinet travaille, chaque jour.</h2>
+    <p class="lead" style="margin-top:18px" data-en="From the first meeting to the paid invoice, everything happens in Norvy. No more juggling between your matters software, Excel, your mailbox and your signature tool.">Du premier rendez-vous à la facture encaissée, tout se passe dans Norvy. Fini les allers-retours entre votre logiciel de dossiers, Excel, votre messagerie et votre outil de signature.</p>
+    <div class="cab">
+      <div>
+        <h3 data-en="Clients and matters">Clients et dossiers</h3>
+        <p data-en="Create a client in seconds, find everything in one place.">Créez un client en quelques secondes, retrouvez tout au même endroit.</p>
+        <ul>
+          <li data-en="Company file filled from the official registers or from the uploaded extract">Fiche société remplie depuis les registres officiels ou l'extrait déposé</li>
+          <li data-en="Matters with parties, deadlines, documents and full history">Dossiers avec parties, échéances, documents et historique complet</li>
+          <li data-en="Conflict-of-interest check when a matter is opened">Contrôle des conflits d'intérêts à l'ouverture</li>
+        </ul>
+      </div>
+      <div>
+        <h3 data-en="Time and billing">Temps et facturation</h3>
+        <p data-en="From time recorded to money received, with nothing typed twice.">Du temps passé à l'argent encaissé, sans rien ressaisir.</p>
+        <ul>
+          <li data-en="Built-in timer and timesheets per matter">Chronomètre intégré et feuilles de temps par dossier</li>
+          <li data-en="Pro forma sent on approval, turned into the final invoice on payment">Proforma envoyée dès validation, convertie en facture à l'encaissement</li>
+          <li data-en="Invoices sent by email or by post, online payment requests">Factures envoyées par e-mail ou par courrier, demandes de paiement en ligne</li>
+          <li data-en="Automatic reminders for unpaid invoices">Relances automatiques des impayés</li>
+        </ul>
+      </div>
+      <div>
+        <h3 data-en="Engagement and signature">Engagement et signature</h3>
+        <p data-en="The client signs remotely, the document goes straight into the matter.">Le client signe à distance, le document part directement dans le dossier.</p>
+        <ul>
+          <li data-en="Fee agreements and engagement letters generated from the matter">Conventions d'honoraires et lettres de mission générées depuis le dossier</li>
+          <li data-en="Electronic signature, simple or qualified">Signature électronique simple ou qualifiée</li>
+        </ul>
+      </div>
+      <div>
+        <h3 data-en="Organisation">Organisation</h3>
+        <p data-en="Everyone knows what to do, and the partner sees where the firm stands.">Chacun sait quoi faire, et l'associé voit où en est le cabinet.</p>
+        <ul>
+          <li data-en="Calendar synced with Outlook">Agenda synchronisé avec Outlook</li>
+          <li data-en="Task board per matter and per lawyer">Tableau des tâches par dossier et par avocat</li>
+          <li data-en="Dashboard: activity, billing, unpaid invoices">Tableau de bord : activité, facturation, impayés</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- OUVERTURE / KYC -->
-<section class="paper">
+<!-- 2. LA CONFORMITÉ SUIT -->
+<section id="conformite" class="dark banded">
   <div class="wrap split">
     <div>
-      <p class="kicker" data-en="Opening a matter">Ouverture de dossier</p>
-      <h2 data-en="AML/KYC is part of the file, not an extra tool.">L'AML/KYC fait partie du dossier, pas d'un outil à côté.</h2>
-      <p class="lead" style="margin-top:20px" data-en="As soon as you create a matter, Norvy checks the client and keeps the evidence. Nothing to copy from one software to another.">Dès la création du dossier, Norvy vérifie le client et conserve les preuves. Rien à recopier d'un logiciel à l'autre.</p>
-      <ul class="checks">
-        <li data-en="Three ways to fill in a company: upload the extract, search the registers, or type it in">Trois façons de remplir une fiche société : déposer l'extrait, lancer une recherche dans les registres ou saisir à la main</li>
-        <li data-en="Screening against EU, UN, OFAC and UK sanctions lists, PEP and adverse media">Screening listes de sanctions UE, ONU, OFAC et Royaume-Uni, PPE et adverse media</li>
-        <li data-en="Beneficial ownership chart built from the documents, with missing links flagged">Organigramme des bénéficiaires effectifs construit à partir des pièces, maillons manquants signalés</li>
-        <li data-en="Ongoing monitoring and expiry alerts on documents">Contrôle continu et alertes d'expiration des pièces</li>
-        <li data-en="Conflict-of-interest check before you accept the matter">Détection des conflits d'intérêts avant d'accepter le dossier</li>
-      </ul>
+      <p class="kicker" data-en="2. And compliance follows">2. Et la conformité suit</p>
+      <h2 data-en="You don't do compliance on top of your work. It comes from your work.">Vous ne faites pas la conformité en plus de votre travail. Elle découle de votre travail.</h2>
+      <p class="lead" style="margin-top:20px" data-en="The information you enter to manage a matter is the same information your AML obligations require. Norvy uses it straight away.">Les informations que vous saisissez pour gérer un dossier sont celles dont vos obligations AML ont besoin. Norvy s'en sert directement.</p>
+      <ol class="steps">
+        <li><div><b data-en="You open the matter">Vous ouvrez le dossier</b><span data-en="Type of engagement, amount, one-off transaction or ongoing relationship: Norvy sets the due diligence level.">Type de mission, montant, opération ponctuelle ou relation d'affaires : Norvy en déduit le niveau de vigilance.</span></div></li>
+        <li><div><b data-en="The client sends the documents">Le client envoie ses pièces</b><span data-en="The list of documents matches the due diligence level. The client uploads everything through one secure link.">La liste des pièces correspond au niveau de vigilance. Le client dépose tout via un seul lien sécurisé.</span></div></li>
+        <li><div><b data-en="Norvy reads and checks">Norvy lit et vérifie</b><span data-en="IDs, company extracts, articles and beneficial ownership register are read; the ownership chart is built and missing links are flagged.">Pièces d'identité, extraits, statuts et registre des bénéficiaires effectifs sont lus ; l'organigramme se construit et les maillons manquants sont signalés.</span></div></li>
+        <li><div><b data-en="Screening runs on its own">Le screening se lance seul</b><span data-en="Sanctions, PEP and adverse media, time-stamped, then ongoing monitoring adapted to the matter. Unlimited.">Sanctions, PPE et adverse media, horodaté, puis surveillance continue adaptée au dossier. En illimité.</span></div></li>
+        <li><div><b data-en="You bill as usual">Vous facturez comme d'habitude</b><span data-en="Your billing, turnover, client origin and headcount feed the Bar's annual questionnaire, which is filled in full.">Votre facturation, votre chiffre d'affaires, l'origine de vos clients et votre effectif alimentent le questionnaire annuel de l'Ordre, rempli en entier.</span></div></li>
+        <li><div><b data-en="On inspection, one click">En cas de contrôle, un clic</b><span data-en="The complete evidence file for every matter, time-stamped.">Le dossier de preuves complet de chaque dossier, horodaté.</span></div></li>
+      </ol>
     </div>
     <div class="shot"><img src="assets/screening-kyc.png" width="2356" height="954" loading="lazy" alt="Écran Norvy : screening KYC/AML d'une société et de ses bénéficiaires effectifs" data-en-alt="Norvy screen: KYC/AML screening of a company and its beneficial owners"></div>
   </div>
 </section>
 
-<!-- MODULES -->
-<section>
-  <div class="wrap">
-    <p class="kicker" data-en="The whole firm">Tout le cabinet</p>
-    <h2 style="max-width:700px" data-en="Everything your firm uses every day, in one subscription.">Ce dont votre cabinet se sert chaque jour, dans un seul abonnement.</h2>
-    <div class="mods">
-      <div><b data-en="Matters">Dossiers</b><span data-en="Parties, deadlines, documents and full history of each matter.">Parties, échéances, documents et historique complet de chaque dossier.</span></div>
-      <div><b data-en="Client onboarding & KYC">Ouverture &amp; KYC</b><span data-en="Client file pre-filled, documents read automatically.">Fiche client pré-remplie, pièces lues automatiquement.</span></div>
-      <div><b data-en="Unlimited screening">Screening illimité</b><span data-en="Screening and ongoing monitoring with no volume cap.">Screening et contrôle continu sans plafond de volume.</span></div>
-      <div><b data-en="Time recording">Temps passé</b><span data-en="Built-in timer and timesheets per matter.">Chronomètre intégré et feuilles de temps par dossier.</span></div>
-      <div><b data-en="Billing & follow-up">Facturation &amp; relances</b><span data-en="Invoices, payments and automatic reminders.">Factures, encaissements et relances automatiques.</span></div>
-      <div><b data-en="E-signature">Signature électronique</b><span data-en="Fee agreements and engagement letters signed remotely.">Conventions d'honoraires et lettres de mission signées à distance.</span></div>
-      <div><b data-en="Calendar & tasks">Agenda &amp; tâches</b><span data-en="Kanban task board, synced with Outlook calendar.">Tâches en Kanban, synchronisées avec l'agenda Outlook.</span></div>
-      <div><b data-en="Dashboard">Tableau de bord</b><span data-en="Activity, vigilance and billing at a glance.">Activité, vigilance et facturation en un coup d'œil.</span></div>
-      <div><b data-en="Annual AML questionnaire">Questionnaire annuel AML</b><span data-en="Filled in full from your data, with an audit trail.">Rempli en entier depuis vos données, avec journal d'audit.</span></div>
-    </div>
-  </div>
-</section>
-
 <!-- AMLR -->
-<section id="conformite" class="dark banded">
+<section>
   <div class="wrap">
     <p class="kicker" data-en="EU Regulation 2024/1624 (AMLR)">Règlement (UE) 2024/1624 (AMLR)</p>
     <h2 style="max-width:820px" data-en="From 10 July 2027, AMLR applies directly to lawyers.">À partir du 10 juillet 2027, l'AMLR s'applique directement aux avocats.</h2>
-    <p class="lead" style="margin-top:22px" data-en="The same customer due diligence rules across the EU, with more detail on what must be checked, kept and shown during an inspection. Norvy follows these rules as they are finalised.">Les mêmes règles de vigilance dans toute l'Union, avec plus de précision sur ce qu'il faut vérifier, conserver et pouvoir montrer lors d'un contrôle. Norvy suit ces règles au fil de leur finalisation.</p>
-    <div class="facts">
-      <div><strong data-en="10 July 2027">10 juil. 2027</strong><span data-en="Date of application of the AML Regulation.">Date d'application du règlement anti-blanchiment.</span></div>
-      <div><strong data-en="5 years">5 ans</strong><span data-en="Retention of documents and checks, time-stamped and retrievable instantly.">Conservation des pièces et des diligences, horodatées et retrouvables immédiatement.</span></div>
-      <div><strong data-en="1 click">1 clic</strong><span data-en="To produce the complete evidence file for an inspection.">Pour produire le dossier de preuves complet lors d'un contrôle.</span></div>
+    <p class="lead" style="margin-top:20px" data-en="The same due diligence rules across the EU, with more detail on what must be checked, kept and shown on inspection. With Norvy, you don't change the way you work: the software follows the rules as they are finalised.">Les mêmes règles de vigilance dans toute l'Union, avec plus de précision sur ce qu'il faut vérifier, conserver et montrer lors d'un contrôle. Avec Norvy, vous ne changez pas votre façon de travailler : le logiciel suit les règles au fil de leur finalisation.</p>
+    <a class="btn btn-ghost" style="margin-top:28px;color:var(--blue)" href="Norvy-Checklist-AMLR-2024-1624.pdf" download data-en="Download the free AMLR checklist (PDF)">Télécharger la checklist AMLR gratuite (PDF)</a>
+  </div>
+</section>
+
+<!-- 3. POURQUOI NORVY -->
+<section id="pourquoi" class="paper">
+  <div class="wrap">
+    <p class="kicker" data-en="3. What no one else does">3. Ce que les autres ne font pas</p>
+    <h2 style="max-width:860px" data-en="One database for running the firm and for compliance. That is what changes everything.">Une seule base pour gérer le cabinet et pour la conformité. C'est ce qui change tout.</h2>
+    <p class="lead" style="margin-top:18px" data-en="Practice management software doesn't do compliance. Compliance tools don't have your firm's data. Bolted-on modules don't talk to each other. Norvy was built as one.">Les logiciels de gestion ne font pas la conformité. Les outils de conformité n'ont pas les données du cabinet. Les modules ajoutés ne se parlent pas. Norvy a été conçu d'un seul bloc.</p>
+    <div style="overflow-x:auto">
+    <table class="cmp cmp4">
+      <thead><tr><th scope="col"><span style="position:absolute;left:-9999px">Critère</span></th><th scope="col">Norvy</th><th scope="col" data-en="Practice management software">Logiciel de gestion classique</th><th scope="col" data-en="Separate compliance tool">Outil de conformité séparé</th></tr></thead>
+      <tbody>
+        <tr><th scope="row" data-en="Matters, time, billing">Dossiers, temps, facturation</th><td data-en="Yes">Oui</td><td data-en="Yes">Oui</td><td data-en="No">Non</td></tr>
+        <tr><th scope="row" data-en="KYC and screening inside the matter">KYC et screening dans le dossier</th><td data-en="Yes, automatically">Oui, automatiquement</td><td data-en="No, or a separate module">Non, ou module à part</td><td data-en="Outside the matter">En dehors du dossier</td></tr>
+        <tr><th scope="row" data-en="Annual questionnaire">Questionnaire annuel</th><td data-en="Filled in full">Rempli en entier</td><td data-en="By hand">À la main</td><td data-en="Partly: no billing or turnover data">En partie : sans facturation ni chiffre d'affaires</td></tr>
+        <tr><th scope="row" data-en="Screening and monitoring">Screening et surveillance</th><td data-en="Unlimited, included">Illimités, inclus</td><td>—</td><td data-en="Billed by volume">Facturés au volume</td></tr>
+        <tr><th scope="row" data-en="Subscriptions">Abonnements</th><td data-en="One">Un seul</td><td data-en="One, plus a compliance tool">Un, plus un outil de conformité</td><td data-en="One, plus a management software">Un, plus un logiciel de gestion</td></tr>
+        <tr><th scope="row" data-en="Leaving with your data">Partir avec vos données</th><td data-en="Free export, anytime">Export libre, à tout moment</td><td data-en="On request, often billed">Sur demande, souvent payant</td><td data-en="On request">Sur demande</td></tr>
+      </tbody>
+    </table>
     </div>
-    <a class="dl" href="Norvy-Checklist-AMLR-2024-1624.pdf" download data-en="Download the free AMLR checklist (PDF)">Télécharger la checklist AMLR gratuite (PDF)</a>
   </div>
 </section>
 
@@ -353,34 +404,15 @@ footer{padding:64px 0 40px;font-size:15px}
   <div class="wrap split rev">
     <div class="shot"><img src="assets/controle-oal.png" width="1126" height="1316" loading="lazy" alt="Écran Norvy : génération du dossier de preuves pour un contrôle" data-en-alt="Norvy screen: generating the evidence file for an inspection"></div>
     <div>
-      <p class="kicker" data-en="Annual questionnaire">Questionnaire annuel</p>
-      <h2 data-en="Your Bar's annual AML questionnaire, filled in full.">Le questionnaire AML annuel de l'Ordre, rempli en entier.</h2>
-      <p class="lead" style="margin-top:20px" data-en="Every year, the same routine: pull out the files, count the checks, add up the figures. Norvy fills in the whole questionnaire from the data you already enter, including billing, turnover, client origin and headcount.">Chaque année, le même rituel : ressortir les dossiers, recompter les diligences, compiler les chiffres. Norvy remplit tout le questionnaire depuis les données que vous saisissez déjà, y compris facturation, chiffre d'affaires, origine des clients et effectif.</p>
+      <p class="kicker" data-en="The proof">La preuve</p>
+      <h2 data-en="The annual questionnaire, filled in full. Only possible with one database.">Le questionnaire annuel, rempli en entier. Possible seulement avec une seule base.</h2>
+      <p class="lead" style="margin-top:20px" data-en="The Bar asks about your due diligence, but also about your billing, turnover, client origin and headcount. A compliance tool alone doesn't have those figures. Norvy does, because you run your firm in it.">L'Ordre vous interroge sur vos diligences, mais aussi sur votre facturation, votre chiffre d'affaires, l'origine de vos clients et votre effectif. Un outil de conformité seul n'a pas ces chiffres. Norvy les a, parce que vous gérez votre cabinet dedans.</p>
       <ul class="checks">
-        <li data-en="Figures aggregated over the past year">Chiffres agrégés sur l'année écoulée</li>
-        <li data-en="PDF export ready to send">Export PDF prêt à transmettre</li>
+        <li data-en="Every question answered from your real data">Chaque question renseignée depuis vos données réelles</li>
         <li data-en="Every figure traceable back to the matters">Chaque chiffre traçable jusqu'aux dossiers</li>
+        <li data-en="PDF ready to send">PDF prêt à transmettre</li>
       </ul>
     </div>
-  </div>
-</section>
-
-<!-- COMPARATIF -->
-<section class="paper">
-  <div class="wrap" style="max-width:960px">
-    <h2 data-en="One tool instead of three subscriptions.">Un seul outil au lieu de trois abonnements.</h2>
-    <p class="lead" style="margin-top:16px" data-en="Most firms combine practice management software, a separate screening tool and spreadsheets. Here is what changes.">La plupart des cabinets combinent un logiciel de gestion, un outil de screening séparé et des tableurs. Voici ce qui change.</p>
-    <table class="cmp">
-      <thead><tr><th scope="col"><span class="sr" style="position:absolute;left:-9999px">Critère</span></th><th scope="col">Norvy</th><th scope="col" data-en="Usual setup">Organisation habituelle</th></tr></thead>
-      <tbody>
-        <tr><th scope="row" data-en="AML/KYC">AML/KYC</th><td data-en="Built into each matter">Intégré à chaque dossier</td><td data-en="Separate module or tool, another subscription">Module ou outil séparé, abonnement en plus</td></tr>
-        <tr><th scope="row" data-en="Screening & monitoring">Screening &amp; contrôle continu</th><td data-en="Unlimited, included">Illimités, inclus</td><td data-en="Billed by volume">Facturés au volume</td></tr>
-        <tr><th scope="row" data-en="Annual questionnaire">Questionnaire annuel</th><td data-en="Filled in full automatically">Rempli en entier automatiquement</td><td data-en="Compiled by hand">Recompilé à la main</td></tr>
-        <tr><th scope="row" data-en="Your data">Vos données</th><td data-en="Free export, anytime">Export libre, à tout moment</td><td data-en="Returned on request, sometimes for a fee">Restituées sur demande, parfois payante</td></tr>
-        <tr><th scope="row" data-en="Migration">Migration</th><td data-en="Included">Incluse</td><td data-en="Billed separately">Facturée en sus</td></tr>
-        <tr><th scope="row" data-en="Pricing">Tarif</th><td data-en="Public, per user">Public, par utilisateur</td><td data-en="Quote on request">Sur devis</td></tr>
-      </tbody>
-    </table>
   </div>
 </section>
 
@@ -477,7 +509,8 @@ footer{padding:64px 0 40px;font-size:15px}
 <section>
   <div class="wrap" style="max-width:860px">
     <h2 style="margin-bottom:40px" data-en="Questions">Questions fréquentes</h2>
-    <details><summary data-en="Who is Norvy for?">À qui s'adresse Norvy ?</summary><div class="faqa" data-en="To every lawyer, from sole practitioners to business law firms. Norvy is first of all practice management software for your day-to-day work; AML/KYC is built in so that compliance follows without extra effort.">À tous les avocats, de l'exercice individuel au cabinet d'affaires. Norvy est d'abord un logiciel de gestion pour le travail quotidien du cabinet ; l'AML/KYC y est intégré pour que la conformité suive sans effort supplémentaire.</div></details>
+    <details><summary data-en="Is Norvy a compliance tool?">Norvy est-il un outil de conformité ?</summary><div class="faqa" data-en="No. Norvy is practice management software for every lawyer, from sole practitioners to business law firms: matters, time, billing, signature, calendar. AML/KYC is built into it, so compliance gets done as you work, without a separate tool.">Non. Norvy est un logiciel de gestion de cabinet pour tout avocat, de l'indépendant au cabinet d'affaires : dossiers, temps, facturation, signature, agenda. L'AML/KYC y est intégré, pour que la conformité se fasse pendant que vous travaillez, sans outil à part.</div></details>
+    <details><summary data-en="I don't do much AML-sensitive work. Is Norvy still for me?">Je fais peu de dossiers sensibles en AML. Norvy est-il fait pour moi ?</summary><div class="faqa" data-en="Yes. You choose Norvy to run your firm. Due diligence adapts to each matter: light when the risk is low, more thorough when it is high. And every year, the Bar questionnaire is filled in for you.">Oui. Vous choisissez Norvy pour gérer votre cabinet. La vigilance s'adapte à chaque dossier : légère quand le risque est faible, renforcée quand il est élevé. Et chaque année, le questionnaire de l'Ordre se remplit pour vous.</div></details>
     <details><summary data-en="Is screening really unlimited?">Le screening est-il vraiment illimité ?</summary><div class="faqa" data-en="Yes. Screening at opening and ongoing monitoring are included in the per-user price, with no volume cap and no extra charge per check.">Oui. Le screening à l'ouverture et le contrôle continu sont inclus dans le prix par utilisateur, sans plafond de volume ni supplément par vérification.</div></details>
     <details><summary data-en="How does the annual questionnaire work?">Comment fonctionne le questionnaire annuel ?</summary><div class="faqa" data-en="Norvy collects the data needed throughout the year as you work. When the time comes, it generates the completed questionnaire: you review it and send it.">Norvy collecte les données nécessaires au fil de l'année, pendant que vous travaillez. Le moment venu, il génère le questionnaire complété : vous le relisez et le transmettez.</div></details>
     <details><summary data-en="How does migration from our current software work?">Comment se passe la migration depuis notre logiciel actuel ?</summary><div class="faqa" data-en="Our team imports your active matters, contacts and KYC history from your current software or spreadsheets. It is included in every plan at no extra cost.">Notre équipe reprend vos dossiers actifs, vos contacts et votre historique KYC depuis votre logiciel actuel ou vos tableurs. C'est inclus dans toutes les formules, sans surcoût.</div></details>
@@ -489,8 +522,8 @@ footer{padding:64px 0 40px;font-size:15px}
 <!-- CTA FINAL -->
 <section class="dark banded">
   <div class="wrap" style="text-align:center;max-width:820px">
-    <h2 data-en="See Norvy on your own matters.">Voyez Norvy sur vos propres dossiers.</h2>
-    <p class="lead" style="margin:20px auto 36px" data-en="A 30-minute demo, or start with the free AML self-assessment.">Une démo de 30 minutes, ou commencez par l'auto-évaluation AML gratuite.</p>
+    <h2 data-en="Run your firm. Norvy handles compliance.">Gérez votre cabinet. Norvy s'occupe de la conformité.</h2>
+    <p class="lead" style="margin:20px auto 36px" data-en="In 30 minutes we show you a matter from opening to paid invoice, and the annual questionnaire filling itself in. Your current data is migrated at no cost.">En 30 minutes, nous vous montrons un dossier de l'ouverture à la facture encaissée, et le questionnaire annuel qui se remplit seul. Vos données actuelles sont reprises sans frais.</p>
     <div class="ctas" style="justify-content:center">
       <a class="btn btn-light" href="#" onclick="return openCalendly(event)" data-en="Book a demo">Réserver une démo</a>
       <a class="btn btn-ghost" href="#eval" data-en="Take the self-assessment">Faire l'auto-évaluation</a>
@@ -507,7 +540,7 @@ footer{padding:64px 0 40px;font-size:15px}
         <div class="flogo">norvy<i></i></div>
         <p style="color:var(--muted);max-width:300px;margin:10px 0 0" data-en="Practice management software for lawyers, with AML built in. For lawyers, by lawyers.">Le logiciel de gestion de cabinet d'avocats, avec l'AML intégré. For lawyers, by lawyers.</p>
       </div>
-      <div><h4 data-en="Product">Produit</h4><a href="#plateforme" data-en="Platform">Plateforme</a><a href="#conformite" data-en="AML compliance">Conformité AML</a><a href="#tarifs" data-en="Pricing">Tarifs</a><a href="#eval" data-en="Self-assessment">Auto-évaluation</a></div>
+      <div><h4 data-en="Product">Produit</h4><a href="#cabinet" data-en="Your firm">Votre cabinet</a><a href="#conformite" data-en="Compliance">La conformité</a><a href="#pourquoi" data-en="Why Norvy">Pourquoi Norvy</a><a href="#tarifs" data-en="Pricing">Tarifs</a><a href="#eval" data-en="Self-assessment">Auto-évaluation</a></div>
       <div><h4 data-en="Company">Société</h4><a href="#" onclick="return mailContact(event)">Contact</a><a href="https://www.linkedin.com/company/norvy/" target="_blank" rel="noopener">LinkedIn</a></div>
       <div><h4 data-en="Legal">Légal</h4><a href="legal.html#mentions" data-en="Legal notice">Mentions légales</a><a href="legal.html#confidentialite" data-en="Privacy">Confidentialité</a><a href="cgu.html" data-en="Terms">CGU</a></div>
     </div>
