@@ -112,7 +112,7 @@ section{padding:120px 0}
 .checks li::before{content:"";position:absolute;left:0;top:7px;width:16px;height:9px;border-left:2.5px solid var(--blue);border-bottom:2.5px solid var(--blue);transform:rotate(-45deg)}
 
 /* gestion du cabinet */
-.cab{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:56px}
+.cab{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
 .cab > div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:32px 32px 28px}
 .cab h3{font-size:22px;margin:0 0 6px}
 .cab > div > p{margin:0 0 18px;color:var(--muted);font-size:16px}
@@ -130,6 +130,26 @@ section{padding:120px 0}
 #conformite .split{align-items:start}
 #conformite .shot{position:sticky;top:110px;margin-top:120px}
 @media (max-width:980px){#conformite .shot{position:static;margin-top:0}}
+
+/* comparatif visuel */
+.vswrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.vs{width:100%;border-collapse:collapse;margin-top:40px;font-size:16px;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 0 0 1px var(--line)}
+.vs th,.vs td{padding:14px 18px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+.vs th[scope=row]{text-align:left;font-weight:500}
+.vs thead th{font-size:15px;background:var(--ink);color:#fff;padding:18px}
+.vs thead th:nth-child(2){background:var(--blue)}
+.vs thead th:first-child{text-align:left;color:#B9C2DC;font-weight:500}
+.vs td:nth-child(2){background:#F1F5FF}
+.vs .grp th{background:var(--paper);text-align:left;font-size:14px;font-weight:700;color:var(--blue);padding:12px 18px}
+.ic{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;font-size:19px;font-weight:800;line-height:1}
+.ic.y{background:#DDF3E6;color:#16794A}
+.ic.n{background:#FBE1DF;color:#C2372D}
+.ic.p{background:#FFF0D1;color:#9A6400}
+.legend{display:flex;flex-wrap:wrap;gap:22px;margin-top:18px;font-size:14px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend .ic{width:22px;height:22px;font-size:12px}
+.bonus{margin:22px 0 0;padding:16px 18px;border-radius:10px;background:rgba(169,185,242,.1);color:#C9D1EA;font-size:15px}
+.bonus b{color:#fff}
 
 /* modules */
 .paper{background:var(--paper)}
@@ -231,7 +251,10 @@ footer{padding:64px 0 40px;font-size:15px}
   .navlinks,.nav .navright .btn{display:none}
   .burger{display:block}
   .mods,.facts,.trio,.roi,.plans,.fgrid,.cab{grid-template-columns:1fr}
-  .cmp4 th:nth-child(4),.cmp4 td:nth-child(4){display:none}
+  .vs{font-size:14px;min-width:520px}
+  .vs th,.vs td{padding:12px 6px}
+  .vs .ic{width:28px;height:28px;font-size:15px}
+  .vs thead th{font-size:12px}
   .facts,.trio{gap:32px}
   .hero{padding-top:64px}
   .cmp{font-size:14px}
@@ -311,18 +334,29 @@ footer{padding:64px 0 40px;font-size:15px}
         <h3 data-en="Clients and matters">Clients et dossiers</h3>
         <p data-en="Create a client in seconds, find everything in one place.">Créez un client en quelques secondes, retrouvez tout au même endroit.</p>
         <ul>
-          <li data-en="Company file filled from the official registers or from the uploaded extract">Fiche société remplie depuis les registres officiels ou l'extrait déposé</li>
-          <li data-en="Matters with parties, deadlines, documents and full history">Dossiers avec parties, échéances, documents et historique complet</li>
-          <li data-en="Conflict-of-interest check when a matter is opened">Contrôle des conflits d'intérêts à l'ouverture</li>
+          <li data-en="Company file filled from official registers, or from the uploaded extract">Fiche société remplie depuis les registres officiels ou l'extrait déposé</li>
+          <li data-en="Matters with parties, deadlines and full history">Dossiers avec parties, échéances et historique complet</li>
+          <li data-en="Conflict-of-interest check when opening">Contrôle des conflits d'intérêts à l'ouverture</li>
+          <li data-en="Search across all clients and matters">Recherche dans tous les clients et dossiers</li>
+        </ul>
+      </div>
+      <div>
+        <h3 data-en="Documents">Documents</h3>
+        <p data-en="Every document filed in the right matter, readable by Norvy.">Chaque pièce rangée dans le bon dossier, lue par Norvy.</p>
+        <ul>
+          <li data-en="Document space for each matter">Espace documentaire par dossier</li>
+          <li data-en="Automatic reading of IDs, company extracts and articles">Lecture automatique des pièces d'identité, extraits et statuts</li>
+          <li data-en="Secure link for clients to upload their documents">Lien sécurisé pour que le client dépose ses pièces</li>
+          <li data-en="Time-stamped archive, kept 5 years">Archivage horodaté, conservé 5 ans</li>
         </ul>
       </div>
       <div>
         <h3 data-en="Time and billing">Temps et facturation</h3>
-        <p data-en="From time recorded to money received, with nothing typed twice.">Du temps passé à l'argent encaissé, sans rien ressaisir.</p>
+        <p data-en="From time recorded to money received, nothing typed twice.">Du temps passé à l'argent encaissé, sans rien ressaisir.</p>
         <ul>
           <li data-en="Built-in timer and timesheets per matter">Chronomètre intégré et feuilles de temps par dossier</li>
-          <li data-en="Pro forma sent on approval, turned into the final invoice on payment">Proforma envoyée dès validation, convertie en facture à l'encaissement</li>
-          <li data-en="Invoices sent by email or by post, online payment requests">Factures envoyées par e-mail ou par courrier, demandes de paiement en ligne</li>
+          <li data-en="Pro forma on approval, final invoice on payment">Proforma dès validation, facture définitive à l'encaissement</li>
+          <li data-en="Invoices sent by email or by post, online payment requests">Envoi par e-mail ou par courrier, demandes de paiement en ligne</li>
           <li data-en="Automatic reminders for unpaid invoices">Relances automatiques des impayés</li>
         </ul>
       </div>
@@ -330,7 +364,8 @@ footer{padding:64px 0 40px;font-size:15px}
         <h3 data-en="Engagement and signature">Engagement et signature</h3>
         <p data-en="The client signs remotely, the document goes straight into the matter.">Le client signe à distance, le document part directement dans le dossier.</p>
         <ul>
-          <li data-en="Fee agreements and engagement letters generated from the matter">Conventions d'honoraires et lettres de mission générées depuis le dossier</li>
+          <li data-en="Fee agreements generated from the matter">Conventions d'honoraires générées depuis le dossier</li>
+          <li data-en="Engagement letters">Lettres de mission</li>
           <li data-en="Electronic signature, simple or qualified">Signature électronique simple ou qualifiée</li>
         </ul>
       </div>
@@ -339,8 +374,18 @@ footer{padding:64px 0 40px;font-size:15px}
         <p data-en="Everyone knows what to do, and the partner sees where the firm stands.">Chacun sait quoi faire, et l'associé voit où en est le cabinet.</p>
         <ul>
           <li data-en="Calendar synced with Outlook">Agenda synchronisé avec Outlook</li>
-          <li data-en="Task board per matter and per lawyer">Tableau des tâches par dossier et par avocat</li>
+          <li data-en="Kanban task board per matter and per lawyer">Tâches en Kanban, par dossier et par avocat</li>
           <li data-en="Dashboard: activity, billing, unpaid invoices">Tableau de bord : activité, facturation, impayés</li>
+          <li data-en="Access by role within the firm">Accès par rôle au sein du cabinet</li>
+        </ul>
+      </div>
+      <div>
+        <h3 data-en="Getting started">Démarrage</h3>
+        <p data-en="You switch without losing anything, and you stay free.">Vous changez sans rien perdre, et vous restez libre.</p>
+        <ul>
+          <li data-en="Import of your matters from your current software">Reprise de vos dossiers depuis votre logiciel actuel</li>
+          <li data-en="Migration included in every plan">Migration incluse dans toutes les formules</li>
+          <li data-en="Free export of your data, anytime">Export libre de vos données, à tout moment</li>
         </ul>
       </div>
     </div>
@@ -359,9 +404,11 @@ footer{padding:64px 0 40px;font-size:15px}
         <li><div><b data-en="The client sends the documents">Le client envoie ses pièces</b><span data-en="The list of documents matches the due diligence level. The client uploads everything through one secure link.">La liste des pièces correspond au niveau de vigilance. Le client dépose tout via un seul lien sécurisé.</span></div></li>
         <li><div><b data-en="Norvy reads and checks">Norvy lit et vérifie</b><span data-en="IDs, company extracts, articles and beneficial ownership register are read; the ownership chart is built and missing links are flagged.">Pièces d'identité, extraits, statuts et registre des bénéficiaires effectifs sont lus ; l'organigramme se construit et les maillons manquants sont signalés.</span></div></li>
         <li><div><b data-en="Screening runs on its own">Le screening se lance seul</b><span data-en="Sanctions, PEP and adverse media, time-stamped, then ongoing monitoring adapted to the matter. Unlimited.">Sanctions, PPE et adverse media, horodaté, puis surveillance continue adaptée au dossier. En illimité.</span></div></li>
-        <li><div><b data-en="You bill as usual">Vous facturez comme d'habitude</b><span data-en="Your billing, turnover, client origin and headcount feed the Bar's annual questionnaire, which is filled in full.">Votre facturation, votre chiffre d'affaires, l'origine de vos clients et votre effectif alimentent le questionnaire annuel de l'Ordre, rempli en entier.</span></div></li>
+        <li><div><b data-en="Norvy keeps watching">Norvy continue de surveiller</b><span data-en="Ongoing monitoring of clients and beneficial owners, alerts when a document expires or a situation changes.">Surveillance continue des clients et des bénéficiaires effectifs, alertes quand une pièce expire ou qu'une situation change.</span></div></li>
         <li><div><b data-en="On inspection, one click">En cas de contrôle, un clic</b><span data-en="The complete evidence file for every matter, time-stamped.">Le dossier de preuves complet de chaque dossier, horodaté.</span></div></li>
       </ol>
+      <p class="bonus" data-en="&lt;b&gt;Bonus:&lt;/b&gt; since your billing and activity are already in Norvy, the Bar's annual AML questionnaire is filled in for you.">
+        <b>En bonus :</b> comme votre facturation et votre activité sont déjà dans Norvy, le questionnaire AML annuel de l'Ordre se remplit pour vous.</p>
     </div>
     <div class="shot"><img src="assets/screening-kyc.png" width="2356" height="954" loading="lazy" alt="Écran Norvy : screening KYC/AML d'une société et de ses bénéficiaires effectifs" data-en-alt="Norvy screen: KYC/AML screening of a company and its beneficial owners"></div>
   </div>
@@ -383,36 +430,39 @@ footer{padding:64px 0 40px;font-size:15px}
     <p class="kicker" data-en="3. What no one else does">3. Ce que les autres ne font pas</p>
     <h2 style="max-width:860px" data-en="One database for running the firm and for compliance. That is what changes everything.">Une seule base pour gérer le cabinet et pour la conformité. C'est ce qui change tout.</h2>
     <p class="lead" style="margin-top:18px" data-en="Practice management software doesn't do compliance. Compliance tools don't have your firm's data. Bolted-on modules don't talk to each other. Norvy was built as one.">Les logiciels de gestion ne font pas la conformité. Les outils de conformité n'ont pas les données du cabinet. Les modules ajoutés ne se parlent pas. Norvy a été conçu d'un seul bloc.</p>
-    <div style="overflow-x:auto">
-    <table class="cmp cmp4">
-      <thead><tr><th scope="col"><span style="position:absolute;left:-9999px">Critère</span></th><th scope="col">Norvy</th><th scope="col" data-en="Practice management software">Logiciel de gestion classique</th><th scope="col" data-en="Separate compliance tool">Outil de conformité séparé</th></tr></thead>
+    <div class="vswrap">
+    <table class="vs">
+      <thead><tr><th scope="col" data-en="Feature">Fonctionnalité</th><th scope="col">Norvy</th><th scope="col" data-en="Practice management software">Logiciel de gestion classique</th><th scope="col" data-en="Separate compliance tool">Outil de conformité séparé</th></tr></thead>
       <tbody>
-        <tr><th scope="row" data-en="Matters, time, billing">Dossiers, temps, facturation</th><td data-en="Yes">Oui</td><td data-en="Yes">Oui</td><td data-en="No">Non</td></tr>
-        <tr><th scope="row" data-en="KYC and screening inside the matter">KYC et screening dans le dossier</th><td data-en="Yes, automatically">Oui, automatiquement</td><td data-en="No, or a separate module">Non, ou module à part</td><td data-en="Outside the matter">En dehors du dossier</td></tr>
-        <tr><th scope="row" data-en="Annual questionnaire">Questionnaire annuel</th><td data-en="Filled in full">Rempli en entier</td><td data-en="By hand">À la main</td><td data-en="Partly: no billing or turnover data">En partie : sans facturation ni chiffre d'affaires</td></tr>
-        <tr><th scope="row" data-en="Screening and monitoring">Screening et surveillance</th><td data-en="Unlimited, included">Illimités, inclus</td><td>—</td><td data-en="Billed by volume">Facturés au volume</td></tr>
-        <tr><th scope="row" data-en="Subscriptions">Abonnements</th><td data-en="One">Un seul</td><td data-en="One, plus a compliance tool">Un, plus un outil de conformité</td><td data-en="One, plus a management software">Un, plus un logiciel de gestion</td></tr>
-        <tr><th scope="row" data-en="Leaving with your data">Partir avec vos données</th><td data-en="Free export, anytime">Export libre, à tout moment</td><td data-en="On request, often billed">Sur demande, souvent payant</td><td data-en="On request">Sur demande</td></tr>
+        <tr class="grp"><th colspan="4" scope="colgroup" data-en="Running the firm">Gestion du cabinet</th></tr>
+        <tr><th scope="row" data-en="Matters and clients">Dossiers et clients</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
+        <tr><th scope="row" data-en="Company file filled from registers">Fiche société remplie depuis les registres</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
+        <tr><th scope="row" data-en="Time recording and timer">Temps passé et chronomètre</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
+        <tr><th scope="row" data-en="Billing, pro formas and reminders">Facturation, proformas et relances</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
+        <tr><th scope="row" data-en="Fee agreements and e-signature">Conventions d'honoraires et signature électronique</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
+        <tr><th scope="row" data-en="Outlook calendar and tasks">Agenda Outlook et tâches</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
+        <tr><th scope="row" data-en="Conflict-of-interest check">Contrôle des conflits d'intérêts</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
+        <tr><th scope="row" data-en="Firm dashboard">Tableau de bord du cabinet</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
+        <tr class="grp"><th colspan="4" scope="colgroup" data-en="AML/KYC compliance">Conformité AML/KYC</th></tr>
+        <tr><th scope="row" data-en="KYC built into matter opening">KYC intégré à l'ouverture du dossier</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
+        <tr><th scope="row" data-en="Due diligence level set per matter">Niveau de vigilance adapté à chaque dossier</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
+        <tr><th scope="row" data-en="Document collection via client link">Collecte des pièces par lien client</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
+        <tr><th scope="row" data-en="Automatic document reading">Lecture automatique des pièces</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
+        <tr><th scope="row" data-en="Beneficial ownership chart">Organigramme des bénéficiaires effectifs</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
+        <tr><th scope="row" data-en="Sanctions, PEP, adverse media screening">Screening sanctions, PPE, adverse media</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic y" aria-label="Oui">✓</span></td></tr>
+        <tr><th scope="row" data-en="Ongoing monitoring and expiry alerts">Surveillance continue et alertes d'expiration</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
+        <tr><th scope="row" data-en="Unlimited screening, no volume fees">Screening illimité, sans coût au volume</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
+        <tr><th scope="row" data-en="Time-stamped evidence file in one click">Dossier de preuves horodaté en un clic</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
+        <tr class="grp"><th colspan="4" scope="colgroup" data-en="And for you">Et pour vous</th></tr>
+        <tr><th scope="row" data-en="One subscription for everything">Un seul abonnement pour tout</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
+        <tr><th scope="row" data-en="Enter once, no duplicate data">Une seule saisie, aucune double donnée</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
+        <tr><th scope="row" data-en="Migration included">Migration incluse</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
+        <tr><th scope="row" data-en="Free export of your data">Export libre de vos données</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
+        <tr><th scope="row" data-en="Annual questionnaire filled automatically">Questionnaire annuel rempli automatiquement</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
       </tbody>
     </table>
     </div>
-  </div>
-</section>
-
-<!-- QUESTIONNAIRE -->
-<section>
-  <div class="wrap split rev">
-    <div class="shot"><img src="assets/controle-oal.png" width="1126" height="1316" loading="lazy" alt="Écran Norvy : génération du dossier de preuves pour un contrôle" data-en-alt="Norvy screen: generating the evidence file for an inspection"></div>
-    <div>
-      <p class="kicker" data-en="The proof">La preuve</p>
-      <h2 data-en="The annual questionnaire, filled in full. Only possible with one database.">Le questionnaire annuel, rempli en entier. Possible seulement avec une seule base.</h2>
-      <p class="lead" style="margin-top:20px" data-en="The Bar asks about your due diligence, but also about your billing, turnover, client origin and headcount. A compliance tool alone doesn't have those figures. Norvy does, because you run your firm in it.">L'Ordre vous interroge sur vos diligences, mais aussi sur votre facturation, votre chiffre d'affaires, l'origine de vos clients et votre effectif. Un outil de conformité seul n'a pas ces chiffres. Norvy les a, parce que vous gérez votre cabinet dedans.</p>
-      <ul class="checks">
-        <li data-en="Every question answered from your real data">Chaque question renseignée depuis vos données réelles</li>
-        <li data-en="Every figure traceable back to the matters">Chaque chiffre traçable jusqu'aux dossiers</li>
-        <li data-en="PDF ready to send">PDF prêt à transmettre</li>
-      </ul>
-    </div>
+    <div class="legend"><span><span class="ic y" aria-label="Oui">✓</span><span data-en="Included">Inclus</span></span><span><span class="ic p" aria-label="En option ou partiel">~</span><span data-en="Paid option or partial">En option payante ou partiel</span></span><span><span class="ic n" aria-label="Non">✕</span><span data-en="Not available">Non disponible</span></span></div>
   </div>
 </section>
 
@@ -523,7 +573,7 @@ footer{padding:64px 0 40px;font-size:15px}
 <section class="dark banded">
   <div class="wrap" style="text-align:center;max-width:820px">
     <h2 data-en="Run your firm. Norvy handles compliance.">Gérez votre cabinet. Norvy s'occupe de la conformité.</h2>
-    <p class="lead" style="margin:20px auto 36px" data-en="In 30 minutes we show you a matter from opening to paid invoice, and the annual questionnaire filling itself in. Your current data is migrated at no cost.">En 30 minutes, nous vous montrons un dossier de l'ouverture à la facture encaissée, et le questionnaire annuel qui se remplit seul. Vos données actuelles sont reprises sans frais.</p>
+    <p class="lead" style="margin:20px auto 36px" data-en="In 30 minutes we show you a matter from opening and client checks to the paid invoice. Your current data is migrated at no cost.">En 30 minutes, nous vous montrons un dossier de l'ouverture et la vérification du client jusqu'à la facture encaissée. Vos données actuelles sont reprises sans frais.</p>
     <div class="ctas" style="justify-content:center">
       <a class="btn btn-light" href="#" onclick="return openCalendly(event)" data-en="Book a demo">Réserver une démo</a>
       <a class="btn btn-ghost" href="#eval" data-en="Take the self-assessment">Faire l'auto-évaluation</a>
