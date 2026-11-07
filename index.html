@@ -205,6 +205,27 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .qin{font:inherit;font-size:16px;padding:15px 18px;border:1.5px solid var(--line);border-radius:10px;outline:none;color:var(--text);width:100%}
 .qin:focus{border-color:var(--blue)}
 .tag{display:inline-block;font-size:13px;font-weight:600;color:var(--blue);background:#EDF1FD;padding:5px 12px;border-radius:6px}
+.res-top{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.res-top > div{background:var(--paper);border-radius:14px;padding:28px}
+.res-big{font-size:64px;font-weight:700;letter-spacing:-.05em;line-height:1;margin:4px 0 6px}
+.res-big span{font-size:24px;color:var(--muted);font-weight:500}
+.pil{padding:14px 0;border-bottom:1px solid var(--line)}
+.pil-row{display:flex;justify-content:space-between;gap:12px;margin-bottom:8px}
+.pil-row span b{color:var(--blue);margin-right:6px}
+.pil-bar{height:6px;background:#E3E7F1;border-radius:3px;overflow:hidden}
+.pil-bar div{height:100%}
+.pil-nv{margin:10px 0 0;font-size:15px;color:var(--muted)}
+.pil-nv b{color:#fff;background:var(--blue);font-size:12px;padding:2px 7px;border-radius:4px;margin-right:6px}
+.leadbox{background:var(--ink);color:#fff;border-radius:14px;padding:32px;margin-top:36px;border-top:var(--band) solid var(--blue)}
+.leadbox h3{font-size:22px;margin:0 0 6px}
+.leadbox > p{color:#B9C2DC;margin:0 0 20px}
+.leadbox .btn-ghost{color:#fff}
+.lf{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.lf label{display:grid;gap:6px;font-size:13px;color:#B9C2DC}
+.lf .full{grid-column:1/-1}
+.leadbox .qin{background:#fff}
+.leadbox a{color:var(--peri)}
+@media (max-width:640px){.res-top,.lf{grid-template-columns:1fr}.res-big{font-size:52px}}
 
 /* tarifs */
 .bill{display:inline-flex;background:#fff;border:1px solid var(--line);border-radius:10px;padding:4px;margin-top:26px}
@@ -657,37 +678,55 @@ function setBilling(m){
 }
 
 /* ---------- Auto-évaluation ---------- */
-var DIMS=[['Gouvernance','Governance'],['KYC & vigilance','KYC & due diligence'],['Screening','Screening'],['Formation','Training'],['Registre & traçabilité','Records & traceability'],['Déclaration de soupçon','Suspicious activity reporting']];
-var QUESTIONS=[
- {d:0,q:["Disposez-vous d'une politique AML écrite et à jour ?","Do you have a written, up-to-date AML policy?"],h:["Document de référence décrivant votre dispositif de lutte anti-blanchiment.","The reference document describing your anti-money laundering framework."],o:[["Oui, formalisée et revue chaque année","Yes, documented and reviewed every year",100],["Une ébauche existe mais n'est pas à jour","A draft exists but is out of date",50],["Non","No",0]]},
- {d:0,q:["Un responsable conformité est-il formellement désigné ?","Is a compliance officer formally appointed?"],h:["Responsable AML identifié et déclaré en interne.","An AML officer identified and declared internally."],o:[["Oui, désigné et déclaré","Yes, appointed and declared",100],["Désigné en interne, non formalisé","Appointed informally",50],["Non","No",0]]},
- {d:1,q:["Comment identifiez-vous les bénéficiaires effectifs ?","How do you identify beneficial owners?"],h:["Pour vos clients personnes morales (25 % et plus).","For your corporate clients (25% or more)."],o:[["Systématiquement, avec recoupement registre","Always, cross-checked with the register",100],["Au cas par cas","Case by case",50],["Rarement / pas de procédure","Rarely / no procedure",0]]},
- {d:1,q:["Vos dossiers KYC sont-ils archivés et horodatés ?","Are your KYC files archived and time-stamped?"],h:["Conservation obligatoire de 5 ans après la fin de la relation.","Mandatory 5-year retention after the relationship ends."],o:[["Oui, archivage électronique horodaté","Yes, time-stamped electronic archive",100],["Papier ou fichiers dispersés","Paper or scattered files",50],["Non structuré","Not organised",0]]},
- {d:2,q:["Effectuez-vous un screening sanctions/PPE à l'entrée en relation ?","Do you screen for sanctions/PEP when onboarding a client?"],h:["Croisement avec les listes UE, OFAC, ONU et PPE.","Checked against EU, OFAC, UN and PEP lists."],o:[["Oui, automatisé sur plusieurs listes","Yes, automated across several lists",100],["Manuel / ponctuel","Manual / occasional",50],["Non","No",0]]},
- {d:2,q:["Ce screening est-il répété dans le temps ?","Is that screening repeated over time?"],h:["Surveillance continue au-delà de l'ouverture.","Ongoing monitoring beyond onboarding."],o:[["Oui, en continu","Yes, continuously",100],["Uniquement à l'ouverture","Only at onboarding",50],["Jamais","Never",0]]},
- {d:3,q:["Vos collaborateurs suivent-ils une formation AML régulière ?","Do your staff receive regular AML training?"],h:["Sensibilisation aux obligations anti-blanchiment.","Awareness of anti-money laundering obligations."],o:[["Oui, plan annuel tracé","Yes, a recorded annual plan",100],["Ponctuellement","Occasionally",50],["Non","No",0]]},
- {d:3,q:["Tenez-vous un registre des formations suivies ?","Do you keep a record of training attended?"],h:["Preuve documentée des sessions et des participants.","Documented evidence of sessions and attendees."],o:[["Oui, à jour","Yes, up to date",100],["Partiel","Partly",50],["Non","No",0]]},
- {d:4,q:["Vos décisions de vigilance sont-elles traçables ?","Are your due diligence decisions traceable?"],h:["Justification écrite de chaque décision.","A written rationale for each decision."],o:[["Oui, registre horodaté","Yes, a time-stamped log",100],["Notes dispersées","Scattered notes",50],["Non","No",0]]},
- {d:4,q:["Comment préparez-vous le questionnaire annuel de l'Ordre ?","How do you prepare your Bar's annual questionnaire?"],h:["Le questionnaire AML transmis chaque année.","The AML questionnaire submitted every year."],o:[["Généré automatiquement depuis nos données","Generated automatically from our data",100],["Recompilé manuellement chaque année","Compiled by hand every year",50],["Dans l'urgence / difficilement","At the last minute / with difficulty",0]]},
- {d:5,q:["Avez-vous une procédure formalisée de déclaration de soupçon ?","Do you have a formal suspicious activity reporting procedure?"],h:["Circuit interne vers la cellule de renseignement financier.","Internal route to the financial intelligence unit."],o:[["Oui, documentée et connue de tous","Yes, documented and known to all",100],["Informelle","Informal",50],["Non","No",0]]},
- {d:5,q:["Vos collaborateurs savent-ils reconnaître un signal d'alerte ?","Can your staff recognise a red flag?"],h:["Détection et remontée des signaux d'alerte.","Spotting and escalating warning signs."],o:[["Oui, liste de signaux et circuit de remontée","Yes, a red-flag list and escalation route",100],["Vaguement","Vaguely",50],["Non","No",0]]}
+var DIMS=[['Politique et organisation','Policy and organisation'],['Évaluation des risques','Risk assessment'],['Vigilance client','Customer due diligence'],['Bénéficiaires effectifs','Beneficial owners'],['Screening PPE et sanctions','PEP and sanctions screening'],['Vigilance renforcée et déclarations','Enhanced due diligence and reporting'],['Conservation et preuves','Records and evidence']];
+var NORVY=[
+ ["Les procédures du cabinet s'appliquent dans chaque dossier, de la même façon pour tous les avocats.","The firm's procedures apply in every matter, the same way for every lawyer."],
+ ["Chaque dossier est qualifié à l'ouverture (type de mission, montant, relation) et le niveau de vigilance en découle.","Each matter is qualified at opening (engagement, amount, relationship) and the due diligence level follows."],
+ ["La fiche client se remplit depuis les registres ; le client dépose ses pièces via un lien sécurisé et Norvy les lit.","The client file fills itself from the registers; the client uploads documents through a secure link and Norvy reads them."],
+ ["Norvy lit extraits, statuts et registres et construit l'organigramme des bénéficiaires effectifs, maillons manquants signalés.","Norvy reads extracts, articles and registers and builds the beneficial ownership chart, flagging missing links."],
+ ["Screening sanctions, PPE et adverse media à l'ouverture, puis surveillance continue. En illimité.","Sanctions, PEP and adverse media screening at opening, then ongoing monitoring. Unlimited."],
+ ["Les dossiers à risque élevé sont repérés et la liste des pièces à demander s'adapte au niveau de vigilance.","High-risk matters are flagged and the list of documents to request adapts to the due diligence level."],
+ ["Chaque vérification est horodatée dans le dossier ; le dossier de preuves complet sort en un clic.","Every check is time-stamped in the matter; the complete evidence file comes out in one click."]
 ];
-var st={phase:'intro',step:0,answers:{},email:'',firm:''};
+var NORVY_ORG=["Dossiers, temps, facturation, signature et conformité partagent une seule saisie, dans un seul outil.","Matters, time, billing, signature and compliance share a single entry, in one tool."];
+var DK=["Je ne sais pas","I don't know",0];
+var QUESTIONS=[
+ {d:0,q:["Avez-vous une politique AML écrite et un responsable désigné ?","Do you have a written AML policy and a designated person in charge?"],h:["C'est le premier document demandé lors d'un contrôle.","It is the first document requested on inspection."],o:[["Oui, les deux, et la politique est à jour","Yes, both, and the policy is up to date",100],["En partie, ou la politique n'est plus à jour","Partly, or the policy is out of date",50],["Non","No",0],DK]},
+ {d:1,q:["Avez-vous une évaluation écrite des risques du cabinet ?","Do you have a written firm-wide risk assessment?"],h:["Clients, services proposés, pays concernés.","Clients, services offered, countries involved."],o:[["Oui, documentée et mise à jour","Yes, documented and kept up to date",100],["Elle existe mais est ancienne ou incomplète","It exists but is old or incomplete",50],["Non","No",0],DK]},
+ {d:2,q:["À l'ouverture d'un dossier, comment fixez-vous le niveau de vigilance ?","When opening a matter, how do you set the due diligence level?"],h:["Simplifiée, standard ou renforcée.","Simplified, standard or enhanced."],o:[["Selon des critères écrits, appliqués à chaque dossier","Using written criteria, applied to every matter",100],["Au cas par cas, selon l'avocat","Case by case, depending on the lawyer",50],["Aucun niveau n'est défini","No level is defined",0],DK]},
+ {d:2,q:["Les informations de vos clients sont-elles mises à jour ?","Is your clients' information kept up to date?"],h:["L'AMLR impose une mise à jour plus fréquente pour les clients à risque élevé.","AMLR requires more frequent updates for high-risk clients."],o:[["Oui, régulièrement, plus souvent pour les risques élevés","Yes, regularly, more often for high risk",100],["Seulement à l'ouverture du dossier","Only when the matter is opened",50],["Rarement ou jamais","Rarely or never",0],DK]},
+ {d:3,q:["Comment vérifiez-vous les bénéficiaires effectifs ?","How do you verify beneficial owners?"],h:["Sous l'AMLR, le registre seul ne suffit plus.","Under AMLR, the register alone is no longer enough."],o:[["Pièces et recoupement avec le registre, détention indirecte comprise","Documents cross-checked with the register, indirect ownership included",100],["Avec le registre uniquement","With the register only",50],["Pas de procédure définie","No defined procedure",0],DK]},
+ {d:3,q:["Appliquez-vous le seuil de 25 % ou plus ?","Do you apply the 25%-or-more threshold?"],h:["L'AMLR remplace le seuil « plus de 25 % » : 25 % exactement compte désormais.","AMLR replaces the \"more than 25%\" threshold: exactly 25% now counts."],o:[["Oui","Yes",100],["Nous appliquons encore « plus de 25 % »","We still apply \"more than 25%\"",0],DK]},
+ {d:4,q:["Faites-vous un screening sanctions et PPE à l'entrée en relation ?","Do you screen for sanctions and PEPs at onboarding?"],h:["Client et bénéficiaires effectifs.","Client and beneficial owners."],o:[["Oui, avec un outil, sur plusieurs listes","Yes, with a tool, across several lists",100],["Oui, manuellement (recherches en ligne)","Yes, manually (online searches)",50],["Non","No",0],DK]},
+ {d:4,q:["Et pendant la relation ?","And during the relationship?"],h:["Un client peut apparaître sur une liste en cours de mission.","A client can appear on a list during the engagement."],o:[["Surveillance continue, avec alertes","Ongoing monitoring, with alerts",100],["Nous refaisons le screening de temps en temps","We screen again from time to time",50],["Jamais après l'ouverture","Never after opening",0],DK]},
+ {d:5,q:["Avez-vous une procédure écrite pour les dossiers à risque élevé et les soupçons ?","Do you have a written procedure for high-risk matters and suspicions?"],h:["Mesures renforcées, validation, circuit de déclaration.","Enhanced measures, approval, reporting route."],o:[["Oui, documentée et connue de l'équipe","Yes, documented and known to the team",100],["Informelle","Informal",50],["Non","No",0],DK]},
+ {d:6,q:["Pour un dossier donné, pouvez-vous montrer toutes les vérifications faites, datées ?","For a given matter, can you show every check made, with dates?"],h:["C'est ce que demande un contrôleur.","That is what an inspector asks for."],o:[["Oui, en quelques minutes","Yes, within minutes",100],["Oui, en rassemblant plusieurs sources","Yes, by gathering several sources",50],["Difficilement","With difficulty",0],DK]},
+ {g:1,q:["Combien d'outils utilisez-vous pour ouvrir un dossier et vérifier le client ?","How many tools do you use to open a matter and check the client?"],h:["Logiciel de gestion, outil de screening, Excel, e-mails, signature…","Practice software, screening tool, Excel, email, signature…"],o:[["Un seul","Just one",100],["Deux ou trois","Two or three",50],["Quatre ou plus","Four or more",0]]},
+ {g:1,q:["Ressaisissez-vous les informations d'un client à plusieurs endroits ?","Do you re-enter client information in several places?"],h:["Nom, société, adresse, bénéficiaires…","Name, company, address, beneficial owners…"],o:[["Non, une seule saisie","No, entered once",100],["Parfois","Sometimes",50],["Oui, systématiquement","Yes, every time",0]]},
+ {g:1,q:["Comment préparez-vous vos factures et vos relances ?","How do you prepare invoices and reminders?"],h:["Du temps passé à l'encaissement.","From time recorded to payment."],o:[["Depuis le temps saisi dans le logiciel, relances automatiques","From time recorded in the software, automatic reminders",100],["En partie à la main","Partly by hand",50],["Sous Word ou Excel, relances manuelles","In Word or Excel, manual reminders",0]]}
+];
+var st={phase:'intro',step:0,answers:{},email:'',firm:'',country:'',size:'',soft:'',sent:false};
 var EMAIL_RE=/^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function L(pair){return LANG==='en'?pair[1]:pair[0];}
+function avg(a){return a.length?Math.round(a.reduce(function(x,y){return x+y;},0)/a.length):0;}
 function results(){
-  var by={};
-  QUESTIONS.forEach(function(q,i){(by[q.d]=by[q.d]||[]).push(st.answers[i]!=null?st.answers[i]:0);});
-  var ds=DIMS.map(function(d,i){var a=by[i]||[0];return {name:L(d),score:Math.round(a.reduce(function(x,y){return x+y;},0)/a.length)};});
-  var g=Math.round(ds.reduce(function(x,y){return x+y.score;},0)/ds.length),grade,cls,verdict;
-  if(g>=75){grade=T('Dispositif solide','Solid framework');cls='#1E7A4F';verdict=T("Votre cabinet a un socle de conformité solide. Quelques ajustements restent à faire pour être prêt pour l'AMLR.","Your firm has a solid compliance base. A few adjustments remain before AMLR applies.");}
-  else if(g>=50){grade=T('À renforcer','Needs strengthening');cls='#9A6B00';verdict=T("Une démarche est engagée, mais plusieurs piliers ne sont pas encore formalisés au niveau attendu par l'AMLR.","Work has started, but several pillars are not yet formalised to the level AMLR expects.");}
-  else {grade=T('Insuffisant','Insufficient');cls='#B23A32';verdict=T("Des lacunes importantes exposent votre cabinet. Un plan d'action prioritaire s'impose avant juillet 2027.","Significant gaps expose your firm. A priority action plan is needed before July 2027.");}
-  var pr=ds.filter(function(d){return d.score<75;}).sort(function(a,b){return a.score-b.score;}).slice(0,3).map(function(d){return d.name;});
-  return {global:g,dims:ds,grade:grade,color:cls,verdict:verdict,priorities:pr};
+  var by={},org=[];
+  QUESTIONS.forEach(function(q,i){var v=st.answers[i]!=null?st.answers[i]:0; if(q.g){org.push(v);}else{(by[q.d]=by[q.d]||[]).push(v);}});
+  var ds=DIMS.map(function(d,i){return {i:i,name:L(d),score:avg(by[i]||[0])};});
+  var g=avg(ds.map(function(d){return d.score;})),o=avg(org),grade,col,verdict;
+  if(g>=75){grade=T('Dispositif solide','Solid framework');col='#1E7A4F';verdict=T("Votre cabinet a un socle solide. L'enjeu est maintenant de tout pouvoir prouver rapidement.","Your firm has a solid base. The challenge now is being able to prove everything quickly.");}
+  else if(g>=50){grade=T('À consolider','To consolidate');col='#9A6B00';verdict=T("Une démarche est engagée, mais plusieurs obligations ne sont pas encore au niveau attendu par l'AMLR.","Work has started, but several obligations are not yet at the level AMLR expects.");}
+  else {grade=T('Insuffisant','Insufficient');col='#B23A32';verdict=T("Des lacunes importantes exposent votre cabinet. Un plan d'action s'impose avant juillet 2027.","Significant gaps expose your firm. An action plan is needed before July 2027.");}
+  var og,ov;
+  if(o>=75){og=T('Organisation unifiée','Streamlined');ov=T("Vos outils sont bien reliés.","Your tools are well connected.");}
+  else if(o>=40){og=T('Organisation dispersée','Scattered');ov=T("Une partie de votre temps se perd entre plusieurs outils et en ressaisies.","Some of your time is lost between tools and re-typing.");}
+  else {og=T('Organisation très dispersée','Very scattered');ov=T("Beaucoup de temps part dans la ressaisie et les allers-retours entre outils.","A lot of time goes into re-typing and switching between tools.");}
+  var pr=ds.filter(function(d){return d.score<75;}).sort(function(a,b){return a.score-b.score;});
+  return {global:g,dims:ds,grade:grade,color:col,verdict:verdict,org:o,orgGrade:og,orgVerdict:ov,priorities:pr};
 }
 function barColor(v){return v>=75?'#1E7A4F':v>=50?'#C79100':'#C0453C';}
+function opt(v,label,cur){return '<option value="'+esc(v)+'"'+(cur===v?' selected':'')+'>'+esc(label)+'</option>';}
 function render(){
   var el=document.getElementById('quiz'),h='';
   if(!el)return;
@@ -695,79 +734,89 @@ function render(){
     h='<div style="text-align:center">'+
       '<p class="kicker">'+T("Prêt pour l'AMLR 2027 ?","Ready for AMLR 2027?")+'</p>'+
       '<h2>'+T("Où en est votre cabinet ?","Where does your firm stand?")+'</h2>'+
-      '<p class="lead" style="margin:20px auto 34px">'+T("12 questions, 3 minutes. Vous obtenez un score par pilier et vos priorités avant juillet 2027.","12 questions, 3 minutes. You get a score for each pillar and your priorities before July 2027.")+'</p>'+
+      '<p class="lead" style="margin:20px auto 34px">'+T("13 questions, 3 minutes. Vous obtenez votre score sur les 7 obligations AMLR, l'état de l'organisation de votre cabinet et, pour chaque point faible, ce qui peut changer.","13 questions, 3 minutes. You get your score on the 7 AMLR obligations, how organised your firm is and, for each weak point, what can change.")+'</p>'+
       '<button class="btn btn-primary" onclick="start()">'+T("Commencer l'auto-évaluation","Start the self-assessment")+'</button>'+
-      '<p style="margin-top:16px;font-size:14px;color:var(--muted)">'+T("Gratuit, confidentiel, sans engagement.","Free, confidential, no commitment.")+'</p></div>';
+      '<p style="margin-top:16px;font-size:14px;color:var(--muted)">'+T("Gratuit, confidentiel, résultat immédiat.","Free, confidential, instant result.")+'</p></div>';
   } else if(st.phase==='q'){
     var q=QUESTIONS[st.step],n=QUESTIONS.length,ans=st.answers[st.step]!=null;
-    var pw=Math.round(((st.step+(ans?1:0))/n)*100)+'%';
-    h='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">'+
+    var pw=Math.round(((st.step+(ans?1:0))/n)*100);
+    var tag=q.g?T('Organisation du cabinet','Firm organisation'):L(DIMS[q.d]);
+    h='<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px">'+
         '<div style="font-size:15px;color:var(--muted)">'+T('Question','Question')+' <b style="color:var(--text)">'+(st.step+1)+'</b> / '+n+'</div>'+
-        '<span class="tag">'+esc(L(DIMS[q.d]))+'</span></div>'+
-      '<div style="height:4px;background:#DDE2EE;border-radius:2px;margin-bottom:40px;overflow:hidden" role="progressbar" aria-valuenow="'+parseInt(pw)+'" aria-valuemin="0" aria-valuemax="100"><div style="height:100%;background:var(--blue);transition:width .3s;width:'+pw+'"></div></div>'+
+        '<span class="tag">'+esc(tag)+'</span></div>'+
+      '<div style="height:4px;background:#DDE2EE;border-radius:2px;margin-bottom:40px;overflow:hidden" role="progressbar" aria-valuenow="'+pw+'" aria-valuemin="0" aria-valuemax="100"><div style="height:100%;background:var(--blue);transition:width .3s;width:'+pw+'%"></div></div>'+
       '<h3 style="font-size:clamp(24px,3vw,30px);line-height:1.2;margin:0 0 8px">'+esc(L(q.q))+'</h3>'+
       '<p style="color:var(--muted);margin:0 0 28px">'+esc(L(q.h))+'</p>';
-    q.o.forEach(function(o){
-      var sel=st.answers[st.step]===o[2];
-      h+='<button class="qopt'+(sel?' sel':'')+'" aria-pressed="'+sel+'" onclick="pick('+o[2]+')"><span class="dot"></span>'+esc(LANG==='en'?o[1]:o[0])+'</button>';
+    q.o.forEach(function(o,k){
+      var sel=st.answers[st.step]!=null&&st.pick&&st.pick[st.step]===k;
+      h+='<button class="qopt'+(sel?' sel':'')+'" aria-pressed="'+sel+'" onclick="pick('+k+')"><span class="dot"></span>'+esc(LANG==='en'?o[1]:o[0])+'</button>';
     });
     h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-top:32px;padding-top:22px;border-top:1px solid var(--line)">'+
       '<button onclick="prev()" style="background:none;border:0;font:inherit;color:var(--muted);cursor:pointer">‹ '+T('Précédent','Back')+'</button>'+
       '<button class="btn btn-primary" onclick="next()" '+(ans?'':'disabled style="opacity:.4;cursor:not-allowed"')+'>'+(st.step===n-1?T('Voir mon résultat','See my result'):T('Suivant','Next'))+'</button></div>';
-  } else if(st.phase==='email'){
-    var ok=EMAIL_RE.test(st.email);
-    h='<div style="max-width:540px;margin:0 auto;text-align:center">'+
-      '<p class="kicker">'+T('Évaluation terminée','Assessment complete')+'</p>'+
-      '<h2 style="font-size:clamp(30px,4vw,42px)">'+T('Votre score est prêt.','Your score is ready.')+'</h2>'+
-      '<p class="lead" style="margin:16px auto 28px">'+T("Indiquez votre e-mail pour afficher votre résultat et télécharger votre rapport PDF : score par pilier et actions prioritaires.","Enter your email to see your result and download your PDF report: score per pillar and priority actions.")+'</p>'+
-      '<div style="display:grid;gap:12px;text-align:left">'+
-        '<label class="sr" style="position:absolute;left:-9999px" for="qFirm">'+T('Nom du cabinet','Firm name')+'</label>'+
-        '<input class="qin" id="qFirm" placeholder="'+T('Nom du cabinet (facultatif)','Firm name (optional)')+'" value="'+esc(st.firm)+'" oninput="st.firm=this.value">'+
-        '<label class="sr" style="position:absolute;left:-9999px" for="qEmail">E-mail</label>'+
-        '<input class="qin" id="qEmail" type="email" autocomplete="email" placeholder="'+T('vous@cabinet.lu','you@firm.com')+'" value="'+esc(st.email)+'" oninput="onEmail(this.value)">'+
-        '<button class="btn btn-primary" id="qSubmit" onclick="submitEmail()" '+(ok?'':'disabled style="opacity:.4;cursor:not-allowed"')+'>'+T('Afficher mon résultat','Show my result')+'</button>'+
-      '</div>'+
-      '<p style="margin-top:14px;font-size:13px;color:var(--muted)">'+T('Vos réponses restent confidentielles. ','Your answers stay confidential. ')+'<a href="legal.html#confidentialite">'+T('Politique de confidentialité','Privacy policy')+'</a></p></div>';
   } else if(st.phase==='result'){
     var R=results();
-    h='<div style="text-align:center;margin-bottom:48px">'+
-      '<p style="color:var(--muted);margin:0 0 8px">'+T('Votre score de conformité','Your compliance score')+'</p>'+
-      '<div style="font-size:clamp(72px,12vw,110px);font-weight:700;letter-spacing:-.05em;line-height:1">'+R.global+'<span style="font-size:34px;color:var(--muted);font-weight:500">/100</span></div>'+
-      '<div style="display:inline-block;font-weight:700;margin-top:12px;color:'+R.color+'">'+R.grade+'</div>'+
-      '<p class="lead" style="margin:16px auto 0">'+R.verdict+'</p></div>'+
-      '<h3 style="font-size:17px;margin:0 0 12px">'+T('Score par pilier','Score per pillar')+'</h3>';
+    h='<div class="res-top">'+
+        '<div><p style="color:var(--muted);margin:0 0 6px">'+T('Conformité AMLR','AMLR compliance')+'</p>'+
+        '<div class="res-big">'+R.global+'<span>/100</span></div>'+
+        '<div style="font-weight:700;color:'+R.color+'">'+R.grade+'</div>'+
+        '<p style="color:var(--muted);margin:10px 0 0">'+R.verdict+'</p></div>'+
+        '<div><p style="color:var(--muted);margin:0 0 6px">'+T('Organisation du cabinet','Firm organisation')+'</p>'+
+        '<div class="res-big">'+R.org+'<span>/100</span></div>'+
+        '<div style="font-weight:700;color:'+barColor(R.org)+'">'+R.orgGrade+'</div>'+
+        '<p style="color:var(--muted);margin:10px 0 0">'+R.orgVerdict+'</p></div>'+
+      '</div>'+
+      '<h3 style="font-size:18px;margin:44px 0 6px">'+T('Votre score sur les 7 obligations','Your score on the 7 obligations')+'</h3>';
     R.dims.forEach(function(d){
-      h+='<div style="display:grid;grid-template-columns:1fr 50px;gap:16px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)">'+
-        '<div><div style="font-weight:500;margin-bottom:8px">'+esc(d.name)+'</div>'+
-        '<div style="height:6px;background:#E3E7F1;border-radius:3px;overflow:hidden"><div style="height:100%;width:'+d.score+'%;background:'+barColor(d.score)+'"></div></div></div>'+
-        '<div style="font-weight:700;text-align:right">'+d.score+'</div></div>';
+      h+='<div class="pil"><div class="pil-row"><span><b>'+String(d.i+1).padStart(2,'0')+'</b> '+esc(d.name)+'</span><b>'+d.score+'</b></div>'+
+        '<div class="pil-bar"><div style="width:'+d.score+'%;background:'+barColor(d.score)+'"></div></div>'+
+        (d.score<75?'<p class="pil-nv"><b>'+T('Avec Norvy','With Norvy')+'</b> '+esc(L(NORVY[d.i]))+'</p>':'')+'</div>';
     });
-    if(R.priorities.length){h+='<p style="margin-top:24px"><b>'+T('Vos priorités : ','Your priorities: ')+'</b>'+esc(R.priorities.join(', '))+'</p>';}
-    h+='<div style="background:var(--paper);border-radius:14px;padding:30px;margin-top:32px;text-align:center">'+
-      '<h3 style="font-size:22px;margin:0 0 8px">'+T('Votre rapport est prêt.','Your report is ready.')+'</h3>'+
-      '<p style="color:var(--muted);margin:0 0 22px">'+T("Téléchargez le détail, puis voyez comment Norvy traite chaque point faible.","Download the details, then see how Norvy handles each weak point.")+'</p>'+
-      '<div class="ctas" style="justify-content:center">'+
-        '<button class="btn btn-primary" onclick="downloadPDF()">'+T('Télécharger le rapport PDF','Download the PDF report')+'</button>'+
-        '<a class="btn btn-ghost" href="#" onclick="return openCalendly(event)">'+T('Réserver une démo','Book a demo')+'</a>'+
-        '<button onclick="restart()" style="background:none;border:0;font:inherit;color:var(--muted);cursor:pointer;padding:14px">'+T('Recommencer','Start again')+'</button>'+
-      '</div></div>';
+    if(R.org<75){h+='<div class="pil"><div class="pil-row"><span><b>+</b> '+T('Organisation du cabinet','Firm organisation')+'</span><b>'+R.org+'</b></div><div class="pil-bar"><div style="width:'+R.org+'%;background:'+barColor(R.org)+'"></div></div><p class="pil-nv"><b>Norvy</b> '+esc(L(NORVY_ORG))+'</p></div>';}
+    // formulaire / confirmation
+    if(!st.sent){
+      var ok=EMAIL_RE.test(st.email);
+      h+='<div class="leadbox"><h3>'+T('Recevez votre rapport détaillé','Get your detailed report')+'</h3>'+
+        '<p>'+T("Rapport PDF avec vos priorités, et la checklist AMLR complète (35 points).","PDF report with your priorities, plus the full AMLR checklist (35 points).")+'</p>'+
+        '<div class="lf">'+
+          '<label>E-mail *<input class="qin" id="qEmail" type="email" autocomplete="email" placeholder="'+T('vous@cabinet.lu','you@firm.com')+'" value="'+esc(st.email)+'" oninput="onEmail(this.value)"></label>'+
+          '<label>'+T('Cabinet','Firm')+'<input class="qin" placeholder="'+T('Facultatif','Optional')+'" value="'+esc(st.firm)+'" oninput="st.firm=this.value"></label>'+
+          '<label>'+T('Pays','Country')+'<select class="qin" onchange="st.country=this.value">'+opt('','—',st.country)+opt('Luxembourg','Luxembourg',st.country)+opt('France','France',st.country)+opt('Belgique',T('Belgique','Belgium'),st.country)+opt('Autre',T('Autre','Other'),st.country)+'</select></label>'+
+          '<label>'+T("Nombre d'avocats",'Number of lawyers')+'<select class="qin" onchange="st.size=this.value">'+opt('','—',st.size)+opt('1','1',st.size)+opt('2-5','2 – 5',st.size)+opt('6-10','6 – 10',st.size)+opt('11-50','11 – 50',st.size)+opt('50+',T('Plus de 50','More than 50'),st.size)+'</select></label>'+
+          '<label class="full">'+T('Logiciel actuel','Current software')+'<select class="qin" onchange="st.soft=this.value">'+opt('','—',st.soft)+opt('Kleos / LOP','Kleos / LOP',st.soft)+opt('Secib','Secib',st.soft)+opt('Jarvis','Jarvis',st.soft)+opt('Avonca','Avonca',st.soft)+opt('Autre logiciel',T('Autre logiciel','Other software'),st.soft)+opt('Word / Excel','Word / Excel',st.soft)+opt('Aucun',T('Aucun','None'),st.soft)+'</select></label>'+
+        '</div>'+
+        '<button class="btn btn-primary" id="qSubmit" onclick="submitLead()" '+(ok?'':'disabled style="opacity:.4;cursor:not-allowed"')+'>'+T('Recevoir mon rapport','Get my report')+'</button>'+
+        '<p style="margin:12px 0 0;font-size:13px;color:var(--muted)">'+T('Vos réponses restent confidentielles. ','Your answers stay confidential. ')+'<a href="legal.html#confidentialite">'+T('Politique de confidentialité','Privacy policy')+'</a></p></div>';
+    } else {
+      h+='<div class="leadbox"><h3>'+T('Votre rapport est prêt.','Your report is ready.')+'</h3>'+
+        '<p>'+T("Téléchargez-le, ainsi que la checklist. Ou voyez en 30 minutes comment Norvy traite vos points faibles sur un vrai dossier.","Download it, together with the checklist. Or see in 30 minutes how Norvy handles your weak points on a real matter.")+'</p>'+
+        '<div class="ctas">'+
+          '<button class="btn btn-primary" onclick="downloadPDF()">'+T('Télécharger le rapport PDF','Download the PDF report')+'</button>'+
+          '<a class="btn btn-ghost" href="'+(LANG==='en'?'Norvy-AMLR-Checklist-2024-1624-EN.pdf':'Norvy-Checklist-AMLR-2024-1624.pdf')+'" download>'+T('Télécharger la checklist','Download the checklist')+'</a>'+
+          '<a class="btn btn-ghost" href="#" onclick="return openCalendly(event)">'+T('Réserver une démo','Book a demo')+'</a>'+
+        '</div></div>';
+    }
+    h+='<p style="text-align:center;margin-top:20px"><button onclick="restart()" style="background:none;border:0;font:inherit;color:var(--muted);cursor:pointer;text-decoration:underline">'+T('Recommencer','Start again')+'</button></p>';
   }
   el.innerHTML=h;
 }
 function focusQuiz(){var el=document.getElementById('quiz');var b=el.querySelector('.qopt, input, button');if(b)b.focus({preventScroll:true});}
-function start(){st.phase='q';st.step=0;render();focusQuiz();}
-function pick(v){st.answers[st.step]=v;render();var s=document.querySelector('.qopt.sel');if(s)s.focus({preventScroll:true});}
-function next(){ if(st.answers[st.step]==null)return; if(st.step<QUESTIONS.length-1){st.step++;}else{st.phase='email';} render(); focusQuiz(); }
+function start(){st.phase='q';st.step=0;st.pick={};render();focusQuiz();}
+function pick(k){st.pick=st.pick||{};st.pick[st.step]=k;st.answers[st.step]=QUESTIONS[st.step].o[k][2];render();var s=document.querySelector('.qopt.sel');if(s)s.focus({preventScroll:true});}
+function next(){ if(st.answers[st.step]==null)return; if(st.step<QUESTIONS.length-1){st.step++;render();focusQuiz();}else{st.phase='result';render();document.getElementById('eval').scrollIntoView();} }
 function prev(){ if(st.step>0){st.step--;}else{st.phase='intro';} render(); }
 function onEmail(v){ st.email=v; var b=document.getElementById('qSubmit'); var ok=EMAIL_RE.test(v); if(b){b.disabled=!ok;b.style.opacity=ok?'':'.4';b.style.cursor=ok?'':'not-allowed';} }
 function sendLead(){
   if(!W3F_KEY)return;
   var R=results();
   try{fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
-    body:JSON.stringify({access_key:W3F_KEY,subject:'Norvy — nouvelle auto-évaluation AML ('+R.global+'/100)',from_name:'norvy.lu',email:st.email,cabinet:st.firm||'—',score:R.global+'/100',niveau:R.grade,priorites:R.priorities.join(', ')||'—',langue:LANG,detail:R.dims.map(function(d){return d.name+' : '+d.score;}).join(' | ')})});}catch(e){}
+    body:JSON.stringify({access_key:W3F_KEY,subject:'Norvy — auto-évaluation AML : '+R.global+'/100'+(st.firm?' — '+st.firm:''),from_name:'norvy.lu',
+      email:st.email,cabinet:st.firm||'—',pays:st.country||'—',avocats:st.size||'—',logiciel_actuel:st.soft||'—',
+      score_conformite:R.global+'/100 ('+R.grade+')',score_organisation:R.org+'/100 ('+R.orgGrade+')',
+      points_faibles:R.priorities.map(function(d){return d.name+' '+d.score;}).join(', ')||'—',langue:LANG})});}catch(e){}
 }
-function submitEmail(){ if(EMAIL_RE.test(st.email)){st.phase='result';sendLead();render();document.getElementById('eval').scrollIntoView();} }
-function restart(){st={phase:'intro',step:0,answers:{},email:'',firm:''};render();}
+function submitLead(){ if(EMAIL_RE.test(st.email)){sendLead();st.sent=true;render();} }
+function restart(){st={phase:'intro',step:0,answers:{},pick:{},email:'',firm:'',country:'',size:'',soft:'',sent:false};render();}
 
 function pdfText(s){return String(s).replace(/[’]/g,"'").replace(/[−–]/g,'-');}
 function downloadPDF(){
@@ -780,35 +829,36 @@ function downloadPDF(){
   doc.setFillColor(navy[0],navy[1],navy[2]);doc.rect(0,0,W,30,'F');doc.setFillColor(blue[0],blue[1],blue[2]);doc.rect(0,30,W,1.6,'F');
   doc.setFont('helvetica','bold');doc.setFontSize(20);doc.setTextColor(255,255,255);doc.text('norvy',ML,19);
   doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(185,194,220);doc.text(pdfText(T("Rapport d'auto-évaluation AML","AML self-assessment report")),W-ML,19,{align:'right'});
-  doc.setFontSize(9);doc.setTextColor(faint[0],faint[1],faint[2]);doc.text(pdfText(T('CABINET','FIRM')),ML,46);
-  doc.setFont('helvetica','bold');doc.setFontSize(15);doc.setTextColor(ink[0],ink[1],ink[2]);doc.text(pdfText(firm),ML,53.5);
-  doc.setFont('helvetica','normal');doc.setFontSize(9.5);doc.setTextColor(gray[0],gray[1],gray[2]);doc.text(pdfText(T('Évalué le ','Assessed on ')+today),ML,60);
-  var sc=R.global,b=band(sc);
-  doc.setFont('helvetica','bold');doc.setFontSize(52);doc.setTextColor(b[0],b[1],b[2]);doc.text(String(sc),ML,92);
-  var sw=doc.getTextWidth(String(sc));
-  doc.setFontSize(15);doc.setTextColor(faint[0],faint[1],faint[2]);doc.text('/100',ML+sw+3,92);
-  doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(b[0],b[1],b[2]);doc.text(pdfText(R.grade.toUpperCase()),ML+sw+28,79);
-  doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(gray[0],gray[1],gray[2]);
-  doc.text(doc.splitTextToSize(pdfText(R.verdict),RW-sw-28),ML+sw+28,86);
-  doc.setDrawColor(line[0],line[1],line[2]);doc.setLineWidth(.4);doc.line(ML,104,W-ML,104);
-  var y=116;
-  doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(faint[0],faint[1],faint[2]);doc.text(pdfText(T('SCORE PAR PILIER','SCORE PER PILLAR')),ML,y);y+=9;
+  doc.setFontSize(9);doc.setTextColor(faint[0],faint[1],faint[2]);doc.text(pdfText(T('CABINET','FIRM')),ML,44);
+  doc.setFont('helvetica','bold');doc.setFontSize(15);doc.setTextColor(ink[0],ink[1],ink[2]);doc.text(pdfText(firm),ML,51);
+  doc.setFont('helvetica','normal');doc.setFontSize(9.5);doc.setTextColor(gray[0],gray[1],gray[2]);doc.text(pdfText(T('Évalué le ','Assessed on ')+today),ML,57);
+  function bigScore(x,label,v,grade){var b=band(v);doc.setFontSize(9);doc.setTextColor(faint[0],faint[1],faint[2]);doc.text(pdfText(label),x,70);
+    doc.setFont('helvetica','bold');doc.setFontSize(40);doc.setTextColor(b[0],b[1],b[2]);doc.text(String(v),x,86);var sw=doc.getTextWidth(String(v));
+    doc.setFontSize(13);doc.setTextColor(faint[0],faint[1],faint[2]);doc.text('/100',x+sw+2,86);doc.setFontSize(10.5);doc.setTextColor(b[0],b[1],b[2]);doc.text(pdfText(grade),x,93);doc.setFont('helvetica','normal');}
+  bigScore(ML,T('CONFORMITÉ AMLR','AMLR COMPLIANCE'),R.global,R.grade);
+  bigScore(ML+RW/2,T('ORGANISATION DU CABINET','FIRM ORGANISATION'),R.org,R.orgGrade);
+  doc.setDrawColor(line[0],line[1],line[2]);doc.setLineWidth(.4);doc.line(ML,101,W-ML,101);
+  var y=112;
+  doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(faint[0],faint[1],faint[2]);doc.text(pdfText(T('SCORE PAR OBLIGATION','SCORE PER OBLIGATION')),ML,y);y+=9;
   R.dims.forEach(function(d){
-    doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(ink[0],ink[1],ink[2]);doc.text(pdfText(d.name),ML,y);
+    doc.setFont('helvetica','normal');doc.setFontSize(10.5);doc.setTextColor(ink[0],ink[1],ink[2]);doc.text(pdfText(String(d.i+1).padStart(2,'0')+'  '+d.name),ML,y);
     doc.setFont('helvetica','bold');doc.setTextColor(gray[0],gray[1],gray[2]);doc.text(String(d.score),W-ML,y,{align:'right'});
-    var by=y+2.6;doc.setFillColor(232,236,245);doc.roundedRect(ML,by,RW,2.4,1.2,1.2,'F');
-    var c=band(d.score);doc.setFillColor(c[0],c[1],c[2]);doc.roundedRect(ML,by,Math.max(RW*d.score/100,2),2.4,1.2,1.2,'F');
-    y+=13;
+    var by=y+2.4;doc.setFillColor(232,236,245);doc.roundedRect(ML,by,RW,2.2,1.1,1.1,'F');
+    var c=band(d.score);doc.setFillColor(c[0],c[1],c[2]);doc.roundedRect(ML,by,Math.max(RW*d.score/100,2),2.2,1.1,1.1,'F');
+    y+=11.5;
   });
-  y+=4;
   if(R.priorities.length){
-    doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(faint[0],faint[1],faint[2]);doc.text(pdfText(T('VOS PRIORITÉS','YOUR PRIORITIES')),ML,y);y+=8;
-    doc.setFontSize(11);
-    R.priorities.forEach(function(p){doc.setTextColor(blue[0],blue[1],blue[2]);doc.text('-',ML,y);doc.setFont('helvetica','normal');doc.setTextColor(ink[0],ink[1],ink[2]);doc.text(pdfText(p),ML+5,y);y+=7.5;});
+    y+=3;doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(faint[0],faint[1],faint[2]);doc.text(pdfText(T('VOS PRIORITÉS, ET CE QUE FAIT NORVY','YOUR PRIORITIES, AND WHAT NORVY DOES')),ML,y);y+=7;
+    R.priorities.slice(0,3).forEach(function(d){
+      doc.setFont('helvetica','bold');doc.setFontSize(10);doc.setTextColor(ink[0],ink[1],ink[2]);doc.text(pdfText(d.name),ML,y);y+=5;
+      doc.setFont('helvetica','normal');doc.setFontSize(9.5);doc.setTextColor(gray[0],gray[1],gray[2]);
+      var lines=doc.splitTextToSize(pdfText(L(NORVY[d.i])),RW);doc.text(lines,ML,y);y+=lines.length*4.6+3;
+    });
   }
-  doc.setFillColor(244,246,251);doc.roundedRect(ML,y+4,RW,26,3,3,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(12);doc.setTextColor(ink[0],ink[1],ink[2]);doc.text(pdfText(T('Norvy traite chaque point faible.','Norvy handles each weak point.')),ML+8,y+15);
-  doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(gray[0],gray[1],gray[2]);doc.text(pdfText(T("Dossiers, temps, facturation et AML/KYC dans un seul logiciel. Réservez une démo sur norvy.lu.","Matters, time, billing and AML/KYC in one platform. Book a demo at norvy.lu.")),ML+8,y+22,{maxWidth:RW-16});
+  y=Math.max(y+4,240);
+  doc.setFillColor(244,246,251);doc.roundedRect(ML,y,RW,22,3,3,'F');
+  doc.setFont('helvetica','bold');doc.setFontSize(11.5);doc.setTextColor(ink[0],ink[1],ink[2]);doc.text(pdfText(T('Gérez votre cabinet. La conformité suit.','Run your firm. Compliance follows.')),ML+7,y+9);
+  doc.setFont('helvetica','normal');doc.setFontSize(9.5);doc.setTextColor(gray[0],gray[1],gray[2]);doc.text(pdfText(T("Réservez une démo de 30 minutes sur norvy.lu.","Book a 30-minute demo at norvy.lu.")),ML+7,y+16);
   doc.setDrawColor(line[0],line[1],line[2]);doc.line(ML,282,W-ML,282);
   doc.setFontSize(8);doc.setTextColor(faint[0],faint[1],faint[2]);
   doc.text(pdfText(T('Norvy — Rapport confidentiel, ','Norvy — Confidential report, ')+today),ML,288);doc.text('norvy.lu',W-ML,288,{align:'right'});
