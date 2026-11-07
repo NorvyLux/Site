@@ -40,7 +40,7 @@
 html{scroll-behavior:smooth;scroll-padding-top:72px}
 body{margin:0;font-family:"Jakarta",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--text);background:#fff;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 a{color:inherit}
-img,video{max-width:100%;display:block}
+img,video{max-width:100%;height:auto;display:block}
 ::selection{background:var(--blue);color:#fff}
 :focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:6px}
 .dark :focus-visible{outline-color:var(--peri)}
@@ -181,9 +181,6 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .plan .per{font-size:15px;color:var(--muted)}
 .plan ul{list-style:none;padding:0;margin:24px 0 0;display:grid;gap:11px;font-size:15px}
 .plan .btn{margin-top:22px}
-.young{margin-top:28px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-left:var(--band) solid var(--blue);border-radius:14px;padding:26px 30px}
-.young b{font-size:19px;display:block;margin-bottom:4px}
-.young span{color:var(--muted);font-size:16px}
 
 /* FAQ */
 details{border-top:1px solid var(--line)}
@@ -471,10 +468,6 @@ footer{padding:64px 0 40px;font-size:15px}
         </ul>
         <a class="btn btn-ghost" href="#" onclick="return openCalendly(event)" data-en="Book a demo">Réserver une démo</a>
       </div>
-    </div>
-    <div class="young">
-      <div><b data-en="Young Lawyer programme">Programme Jeune Avocat</b><span data-en="12 months free for the first 200 lawyers setting up their practice.">12 mois offerts aux 200 premiers avocats qui s'installent.</span></div>
-      <a class="btn btn-primary" href="#" onclick="return openCalendly(event)" data-en="Apply">Je m'inscris</a>
     </div>
     <p style="margin-top:22px;color:var(--muted);font-size:15px"><span data-en="More than 50 users?">Plus de 50 utilisateurs ?</span> <a href="#" onclick="return openCalendly(event)" style="color:var(--blue);font-weight:600" data-en="Let's talk">Parlons-en</a></p>
   </div>
