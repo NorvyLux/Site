@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Norvy — Récupérez vos heures | Logiciel de gestion pour avocats</title>
+<title>Norvy — Logiciel de gestion pour cabinets d'avocats, avec AML intégré</title>
 <meta name="description" content="Norvy, le logiciel de gestion de cabinet d'avocats : dossiers, heures, factures, agenda et contrôles AML dans un seul outil. Données hébergées en Europe.">
 <meta name="theme-color" content="#0F1830">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -11,7 +11,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Norvy">
 <meta property="og:url" content="https://www.norvy.lu/">
-<meta property="og:title" content="Récupérez les heures que l'administratif vole à votre cabinet — Norvy">
+<meta property="og:title" content="Dossiers, facturation et contrôles AML dans un seul logiciel — Norvy">
 <meta property="og:description" content="Dossiers, heures, factures, agenda et contrôles AML dans un seul outil.">
 <meta property="og:image" content="https://www.norvy.lu/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -72,7 +72,7 @@ section{padding:100px 0}
 .play{display:inline-flex;width:30px;height:30px;border-radius:50%;background:rgba(47,91,216,.15);align-items:center;justify-content:center}
 .btn-light .play{background:#E6ECFB}
 .shotlabel{display:inline-block;margin:64px 0 14px;font-size:14px;color:var(--peri);font-weight:600}
-.herostage{max-width:900px;margin:0 auto;position:relative}
+.herostage{max-width:900px;margin:52px auto 0;position:relative}
 
 /* maquette d'application (données fictives) */
 .app{background:#F3F5F9;border-radius:16px 16px 0 0;box-shadow:0 30px 80px -20px rgba(0,0,0,.55);overflow:hidden;font-size:13px;color:#1B2235;text-align:left}
@@ -263,6 +263,48 @@ footer{padding:56px 0 36px;font-size:15px}
 .bonusbox p{margin:8px 0 0;color:var(--muted);font-size:16px}
 .bonusbox small{display:block;margin-top:10px;color:var(--muted);font-size:13px}
 .bonusbox .ctas{flex:none}
+.btn-lg{padding:17px 30px;font-size:17px}
+.hero h1{font-size:clamp(34px,4.6vw,56px);max-width:860px}
+.hero .sub{font-size:19px;margin:18px auto 30px;max-width:600px}
+.hero .ctas{align-items:center;gap:22px}
+.link-video{display:inline-flex;align-items:center;gap:9px;background:none;border:0;color:#C9D1EA;font:inherit;font-size:15px;font-weight:600;cursor:pointer;padding:8px 4px;text-decoration:underline;text-underline-offset:4px;text-decoration-color:rgba(201,209,234,.4)}
+.link-video:hover{color:#fff}
+.link-video .play{width:26px;height:26px;background:rgba(169,185,242,.15);color:var(--peri)}
+.democap{margin:0 auto;padding:16px 0 0;font-size:13px;color:#8F9AB8;max-width:900px}
+.mprob{font-size:15px!important;font-style:italic;color:#8A93AB!important;margin:0 0 8px!important}
+.vs2 td{text-align:left;font-size:15px;color:var(--muted)}
+.vs2 td:nth-child(3){color:var(--text);font-weight:600}
+.vs2 td:nth-child(3)::before{content:"✓";color:var(--ok);font-weight:800;margin-right:8px}
+.vs2 thead th:nth-child(2){background:var(--navy)}
+.vs2 thead th:nth-child(3){background:var(--blue)}
+.vs2 th[scope=row]{font-weight:700;width:24%}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+.scard{border:1px solid var(--line);border-radius:16px;padding:24px;background:#fff}
+.scard .ico{width:44px;height:44px;border-radius:12px;background:#E6ECFB;color:var(--blue);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.scard b{display:block;font-size:18px;margin-bottom:4px}.scard span{color:var(--muted);font-size:15px}
+.team ul{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:8px}
+.team li{color:var(--muted);font-size:15px;padding-left:22px;position:relative}
+.team li::before{content:"✓";position:absolute;left:0;color:var(--blue);font-weight:800}
+.team{margin-top:44px}
+.rules{list-style:none;padding:0;margin:20px auto 0;display:flex;flex-wrap:wrap;justify-content:center;gap:10px;max-width:900px}
+.rules li{background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:14px;color:var(--text)}
+section.mini{padding:36px 0}
+.diagline{margin:0;text-align:center;font-size:15px;color:var(--muted)}
+.diagline b{color:var(--text)}.diagline a{color:var(--blue);font-weight:600;white-space:nowrap}
+.showlist{list-style:none;padding:0;margin:26px auto 6px;display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:680px;text-align:left}
+.showlist li{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 16px;font-size:16px}
+.showlist li::before{content:"✓";color:var(--peri);font-weight:800;margin-right:10px}
+.answer{text-decoration:none}
+@media (max-width:640px){
+  .vs2,.vs2 tbody,.vs2 tr,.vs2 th,.vs2 td{display:block;width:auto!important}
+  .vs2 thead{display:none}
+  .vs2 tr{border-bottom:1px solid var(--line);padding:14px 16px}
+  .vs2 th[scope=row],.vs2 td{border:0;padding:3px 0;background:none!important}
+  .vs2 th[scope=row]{font-size:16px;margin-bottom:4px}
+  .vs2 td:nth-child(2)::before{content:"Outils séparés : ";font-weight:600;color:var(--text)}
+  html[lang=en] .vs2 td:nth-child(2)::before{content:"Separate tools: "}
+  .vs2 td:nth-child(3){color:var(--blue)}
+}
 /* barre mobile */
 .mobcta{display:none}
 @media (max-width:860px){
@@ -275,7 +317,8 @@ footer{padding:56px 0 36px;font-size:15px}
   .moment,.diag,.pricebox{grid-template-columns:1fr;gap:28px}
   .moment:nth-child(even) .mtext{order:0}
   .why,.pains{grid-template-columns:1fr 1fr}
-  .steps{grid-template-columns:1fr}
+  .steps,.sgrid{grid-template-columns:1fr}
+  .sgrid{grid-template-columns:1fr 1fr}
   .bonusbox{flex-direction:column;align-items:flex-start}
   .kpis{grid-template-columns:1fr 1fr}
   .moments{gap:72px}
@@ -284,9 +327,9 @@ footer{padding:56px 0 36px;font-size:15px}
   section{padding:76px 0}
   .navlinks,.nav .navright .btn{display:none}.burger{display:block}
   .fgrid{grid-template-columns:1fr}
-  .vs{font-size:14px;min-width:520px}.vs th,.vs td{padding:12px 6px}.vs .ic{width:28px;height:28px;font-size:15px}
+  .vs{font-size:14px;min-width:520px}.vs2{min-width:0}.vs2 th[scope=row]{width:auto}.vs th,.vs td{padding:12px 6px}.vs .ic{width:28px;height:28px;font-size:15px}
 }
-@media (max-width:560px){.pill{white-space:normal}.why,.pains{grid-template-columns:1fr}.hero .sub{font-size:18px}.ctas .btn{width:100%}.tiers{grid-template-columns:1fr}.week .d{min-height:170px}}
+@media (max-width:560px){.sgrid,.showlist{grid-template-columns:1fr}.hero .ctas{flex-direction:column;gap:8px}.pill{white-space:normal}.why,.pains{grid-template-columns:1fr}.hero .sub{font-size:18px}.ctas .btn{width:100%}.tiers{grid-template-columns:1fr}.week .d{min-height:170px}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}.f,.toast,.pain,.step,.answer{opacity:1!important;transform:none!important}}
 </style>
 </head>
@@ -297,44 +340,45 @@ footer{padding:56px 0 36px;font-size:15px}
     <a class="logo" href="#top" aria-label="Norvy">norvy<i></i></a>
     <nav class="navlinks" aria-label="Navigation">
       <a href="#journee" data-en="Features">Fonctionnalités</a>
-      <a href="#pourquoi" data-en="Why Norvy">Pourquoi Norvy</a>
+      <a href="#migration" data-en="Migration">Migration</a>
+      <a href="#securite" data-en="Security">Sécurité</a>
       <a href="#tarifs" data-en="Pricing">Tarifs</a>
-      <a href="diagnostic.html" data-en="AML diagnostic">Diagnostic AML</a>
+      <a href="#faq" data-en="FAQ">FAQ</a>
     </nav>
     <div class="navright">
       <div class="lang" role="group" aria-label="Langue / Language">
         <button type="button" data-lang="fr" aria-pressed="true">FR</button>
         <button type="button" data-lang="en" aria-pressed="false">EN</button>
       </div>
-      <a class="btn btn-primary" href="#" onclick="return openCalendly(event)" data-en="Book my demo">Réserver ma démo</a>
+      <a class="btn btn-primary" href="#" onclick="return openCalendly(event)" data-en="Book a demo">Réserver une démo</a>
       <button class="burger" type="button" aria-expanded="false" aria-controls="mobmenu" aria-label="Menu" onclick="toggleMenu(this)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
     </div>
   </div>
   <div class="mobmenu" id="mobmenu">
     <a href="#journee" data-en="Features">Fonctionnalités</a>
-    <a href="#pourquoi" data-en="Why Norvy">Pourquoi Norvy</a>
+    <a href="#migration" data-en="Migration">Migration</a>
+    <a href="#securite" data-en="Security">Sécurité</a>
     <a href="#tarifs" data-en="Pricing">Tarifs</a>
-    <a href="diagnostic.html" data-en="AML diagnostic">Diagnostic AML</a>
-    <a href="#" onclick="return openCalendly(event)" data-en="Book my demo (30 min)">Réserver ma démo (30 min)</a>
+    <a href="#faq" data-en="FAQ">FAQ</a>
+    <a href="#" onclick="return openCalendly(event)" data-en="Book a demo">Réserver une démonstration</a>
   </div>
 </header>
 
 <main>
 
-<!-- 1. CE QU'EST NORVY -->
+<!-- 1. PREMIER ÉCRAN -->
 <section id="top" class="hero dark">
   <div class="wrap">
-    <span class="eyebrow" data-en="Practice management software for lawyers · Luxembourg, France, Belgium">Logiciel de gestion pour avocats · Luxembourg, France, Belgique</span>
-    <h1 data-en="Win back the hours admin steals from your firm.">Récupérez les heures que l'administratif vole à votre cabinet.</h1>
-    <p class="sub" data-en="Matters, time, invoices, calendar and AML checks in one tool. You enter it once, Norvy chases, reminds and keeps a record of everything.">Dossiers, temps, factures, agenda et contrôles AML dans un seul outil. Vous saisissez une fois, Norvy relance, rappelle et garde la trace de tout.</p>
+    <span class="eyebrow" data-en="Practice management software for law firms">Logiciel de gestion pour cabinets d'avocats</span>
+    <h1 data-en="Manage your matters, billing and AML checks in one piece of software.">Gérez vos dossiers, votre facturation et vos contrôles AML dans un seul logiciel.</h1>
+    <p class="sub" data-en="Norvy brings together clients, time, invoices, calendar and AML checks. Each piece of information is entered only once.">Norvy réunit clients, temps passé, factures, agenda et vérifications AML. Chaque information n'est saisie qu'une fois.</p>
     <div class="ctas">
-      <a class="btn btn-light" href="#" onclick="return openCalendly(event)" data-en="Book my demo (30 min)">Réserver ma démo (30 min)</a>
-      <button class="btn btn-ghost" type="button" onclick="openVideo()"><span class="play"><svg width="12" height="12" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"/></svg></span><span data-en="See Norvy in 1 minute">Voir Norvy en 1 minute</span></button>
+      <a class="btn btn-primary btn-lg" href="#" onclick="return openCalendly(event)" data-en="Book a demo">Réserver une démonstration</a>
+      <button class="link-video" type="button" onclick="openVideo()"><span class="play"><svg width="10" height="10" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"/></svg></span><span data-en="Watch the video overview (1 min)">Voir la présentation vidéo (1 min)</span></button>
     </div>
-    <div class="marks"><span data-en="Data hosted in Europe">Données hébergées en Europe</span><span data-en="No commitment">Sans engagement</span><span data-en="Synced with Outlook">Synchronisé avec Outlook</span></div>
-    <span class="shotlabel" data-en="Your Norvy dashboard ↓">Votre tableau de bord Norvy ↓</span>
+    <div class="marks"><span data-en="Data hosted in Europe">Données hébergées en Europe</span><span data-en="Free migration">Migration offerte</span><span data-en="Support included">Accompagnement inclus</span><span data-en="No commitment">Sans engagement</span></div>
     <div class="herostage" data-anim="hero">
-      <div class="app" role="img" aria-label="Tableau de bord Norvy (données fictives)">
+      <div class="app" role="img" aria-label="Tableau de bord Norvy, données de démonstration">
         <div class="app-top"><div class="lg"><b>n</b>norvy</div><span class="ttl" data-en="Dashboard">Tableau de bord</span></div>
         <div class="app-body">
           <div class="welcome">
@@ -351,38 +395,39 @@ footer{padding:56px 0 36px;font-size:15px}
         </div>
       </div>
     </div>
+    <p class="democap" data-en="Dashboard: matters in progress, hours, invoicing and payments. Demo data.">Tableau de bord : dossiers en cours, heures, facturation et encaissements. Données de démonstration.</p>
   </div>
 </section>
 
-<!-- 2. VOUS VOUS RECONNAISSEZ ? -->
+<!-- 2. SITUATIONS -->
 <section class="paper" id="probleme">
   <div class="wrap center">
     <h2 data-en="Does your firm still run like this?">Votre cabinet tourne encore comme ça ?</h2>
     <div class="pains" data-anim="pains">
-      <div class="pain"><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="2" y="4" width="7" height="6" rx="1.5"/><rect x="13" y="4" width="7" height="6" rx="1.5"/><rect x="7.5" y="13" width="7" height="6" rx="1.5"/></svg></span><b data-en="The same details retyped in three tools.">Les mêmes informations ressaisies dans trois outils.</b></div>
-      <div class="pain"><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="12" r="7.5"/><path d="M11 8v4l2.5 2M8 2h6"/></svg></span><b data-en="Hours worked that never make it onto an invoice.">Des heures travaillées qui ne finissent jamais sur une facture.</b></div>
-      <div class="pain"><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="2.5" y="5" width="17" height="12" rx="2"/><path d="M3 6l8 6 8-6"/></svg></span><b data-en="KYC documents hunted down in your emails.">Des pièces KYC cherchées dans les e-mails.</b></div>
-      <div class="pain"><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="16" height="15" rx="2"/><path d="M3 9h16M8 2v4M14 2v4"/></svg></span><b data-en="Deadlines scattered across calendar, Excel and sticky notes.">Des échéances dispersées entre agenda, Excel et post-it.</b></div>
+      <div class="pain"><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="7" height="6" rx="1.5"/><rect x="13" y="4" width="7" height="6" rx="1.5"/><rect x="7.5" y="13" width="7" height="6" rx="1.5"/></svg></span><b data-en="The same details retyped in several tools.">Les mêmes informations ressaisies dans plusieurs outils.</b></div>
+      <div class="pain"><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="12" r="7.5"/><path d="M11 8v4l2.5 2M8 2h6"/></svg></span><b data-en="Hours worked forgotten at billing time.">Des heures travaillées oubliées au moment de facturer.</b></div>
+      <div class="pain"><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="17" height="12" rx="2"/><path d="M3 6l8 6 8-6"/></svg></span><b data-en="KYC documents scattered across emails.">Des pièces KYC dispersées dans les e-mails.</b></div>
+      <div class="pain"><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="16" height="15" rx="2"/><path d="M3 9h16M8 2v4M14 2v4"/></svg></span><b data-en="Deadlines split between calendar, Excel and sticky notes.">Des échéances réparties entre agenda, Excel et post-it.</b></div>
     </div>
-    <p class="answer" data-en="Norvy puts everything back in one place. ↓">Norvy remet tout au même endroit. ↓</p>
+    <a class="answer" href="#journee" data-en="See how it works with Norvy ↓">Voyez comment ça se passe avec Norvy ↓</a>
   </div>
 </section>
 
-<!-- 2. CE QUE ÇA CHANGE DANS LA JOURNÉE -->
+<!-- 3. CINQ ÉTAPES -->
 <section id="journee">
   <div class="wrap">
     <div class="center">
-      <h2 data-en="A day at the firm, in 5 steps">Une journée au cabinet, en 5 gestes</h2>
-      <p class="sub" data-en="From opening the matter to the invoice.">De l'ouverture du dossier à la facture.</p>
+      <h2 data-en="A matter in Norvy, step by step">Un dossier dans Norvy, étape par étape</h2>
+      <p class="sub" data-en="From the new client to the history of the matter.">Du nouveau client à l'historique du dossier.</p>
     </div>
     <div class="moments">
-
       <div class="moment">
         <div class="mtext">
           <div class="mnum"><b>1</b><span data-en="New client">Nouveau client</span></div>
-          <h3 data-en="Open a file in a few clicks">Ouvrez un dossier en quelques clics</h3>
-          <p data-en="Type the company name. Norvy pre-fills the file from the official registers. You check and approve.">Tapez le nom de la société. Norvy préremplit la fiche depuis les registres officiels. Vous vérifiez, vous validez.</p>
-          <span class="gain" data-en="✓ No more copying by hand">✓ Plus de saisie à la main</span>
+          <p class="mprob" data-en="Every new client means typing the same details again.">Chaque nouveau client, c'est la même saisie à refaire.</p>
+          <h3 data-en="Open a matter in a few clicks">Ouvrez un dossier en quelques clics</h3>
+          <p data-en="Type the company name: Norvy pre-fills the record from the official registers. You check and approve.">Tapez le nom de la société : Norvy préremplit la fiche depuis les registres officiels. Vous vérifiez et vous validez.</p>
+          <span class="gain" data-en="✓ Less typing by hand">✓ Moins de saisie à la main</span>
         </div>
         <div class="mvis" data-anim="open"><div class="app">
           <div class="app-top"><div class="lg"><b>n</b>norvy</div><span class="ttl" data-en="New matter">Nouveau dossier</span></div>
@@ -396,13 +441,13 @@ footer{padding:56px 0 36px;font-size:15px}
           </div>
         </div></div>
       </div>
-
       <div class="moment">
         <div class="mtext">
           <div class="mnum"><b>2</b><span data-en="Client checks">Vérification du client</span></div>
-          <h3 data-en="Run your AML checks as soon as the file opens">Lancez vos contrôles AML dès l'ouverture</h3>
-          <p data-en="Identity, beneficial owners, sanctions, PEPs and adverse media: Norvy runs the checks, with no limit. You analyse and decide, and everything is recorded.">Identité, bénéficiaires effectifs, sanctions, PPE et médias défavorables : Norvy lance les vérifications, sans limite. Vous analysez et vous décidez, tout est enregistré.</p>
-          <span class="gain" data-en="✓ Every decision documented">✓ Chaque décision documentée</span>
+          <p class="mprob" data-en="AML checks often happen in a separate tool.">Les vérifications AML se font souvent dans un autre outil.</p>
+          <h3 data-en="Run your AML checks as the matter opens">Lancez vos contrôles AML dès l'ouverture</h3>
+          <p data-en="Identity, beneficial owners, sanctions, PEPs and adverse media are checked inside the matter. You analyse and decide.">Identité, bénéficiaires effectifs, sanctions, PPE et médias défavorables sont vérifiés dans le dossier. Vous analysez et vous décidez.</p>
+          <span class="gain" data-en="✓ Every decision recorded in the matter">✓ Chaque décision enregistrée dans le dossier</span>
         </div>
         <div class="mvis" data-anim="checks"><div class="app">
           <div class="app-top"><div class="lg"><b>n</b>norvy</div><span class="ttl">Helix Holdings</span></div>
@@ -416,13 +461,13 @@ footer{padding:56px 0 36px;font-size:15px}
           </div>
         </div></div>
       </div>
-
       <div class="moment">
         <div class="mtext">
           <div class="mnum"><b>3</b><span data-en="Billing">Facturation</span></div>
-          <h3 data-en="Turn your hours into invoices, without retyping">Transformez vos heures en factures, sans ressaisie</h3>
-          <p data-en="Check your hours, create the invoice in one click. Reminders go out on their own if it is not paid.">Vérifiez vos heures, créez la facture en un clic. Les relances partent seules si elle n'est pas payée.</p>
-          <span class="gain" data-en="✓ Get paid faster">✓ Vous êtes payé plus vite</span>
+          <p class="mprob" data-en="When it is time to bill, hours go missing.">Au moment de facturer, des heures manquent.</p>
+          <h3 data-en="Bill from the time you recorded">Facturez à partir du temps saisi</h3>
+          <p data-en="Time recorded on the matter flows into the invoice. You check, send, then track what has been paid.">Les temps enregistrés sur le dossier sont repris dans la facture. Vous vérifiez, vous envoyez, puis vous suivez ce qui est réglé.</p>
+          <span class="gain" data-en="✓ Fewer hours left unbilled">✓ Moins d'heures oubliées</span>
         </div>
         <div class="mvis" data-anim="invoice"><div class="app">
           <div class="app-top"><div class="lg"><b>n</b>norvy</div><span class="ttl" data-en="Time · Helix Holdings">Temps · Helix Holdings</span></div>
@@ -431,17 +476,17 @@ footer{padding:56px 0 36px;font-size:15px}
             <div class="trow f"><b data-en="Client meeting">Rendez-vous client</b><b>1 h 00</b><span data-en="Tue. · Me Laurent">Mar. · Me Laurent</span></div>
             <div class="trow f"><b data-en="Review of the articles">Relecture des statuts</b><b>2 h 00</b><span data-en="Wed. · Me Martin">Mer. · Me Martin</span></div>
             <div class="f" style="margin:6px 0 2px"><span class="btnmock" data-en="Check and create the invoice">Vérifier et créer la facture</span></div>
-            <div class="invoice f"><small style="color:#7A849E" data-en="Invoice F-2026-118 · 6 h 30">Facture F-2026-118 · 6 h 30</small><div class="tot">1 625 €</div><small style="color:#7A849E" data-en="Sent by email · paid on 14 Nov., reminder cancelled">Envoyée par e-mail · payée le 14/11, relance annulée</small><span class="stamp" data-en="PAID">PAYÉE</span></div>
+            <div class="invoice f"><small style="color:#7A849E" data-en="Invoice F-2026-118 · 6 h 30">Facture F-2026-118 · 6 h 30</small><div class="tot">1 625 €</div><small style="color:#7A849E;display:block;padding-right:90px" data-en="Sent by email on 4 Nov. · paid on 14 Nov.">Envoyée par e-mail le 4/11 · réglée le 14/11</small><span class="stamp" data-en="PAID">PAYÉE</span></div>
           </div>
         </div></div>
       </div>
-
       <div class="moment">
         <div class="mtext">
           <div class="mnum"><b>4</b><span data-en="Calendar">Agenda</span></div>
+          <p class="mprob" data-en="Hearings and time limits are noted in several places.">Audiences et délais sont notés à plusieurs endroits.</p>
           <h3 data-en="All your deadlines in one place">Toutes vos échéances au même endroit</h3>
           <p data-en="Hearings, time limits, meetings and tasks, synced both ways with Outlook. A reminder the day before.">Audiences, délais, rendez-vous et tâches, synchronisés dans les deux sens avec Outlook. Un rappel la veille.</p>
-          <span class="gain" data-en="✓ Never miss a deadline">✓ Plus aucun délai oublié</span>
+          <span class="gain" data-en="✓ A reminder before each deadline">✓ Un rappel avant chaque échéance</span>
         </div>
         <div class="mvis" data-anim="week"><div class="app">
           <div class="app-top"><div class="lg"><b>n</b>norvy</div><span class="ttl" data-en="Calendar · this week">Agenda · cette semaine</span></div>
@@ -457,13 +502,13 @@ footer{padding:56px 0 36px;font-size:15px}
           </div>
         </div></div>
       </div>
-
       <div class="moment">
         <div class="mtext">
-          <div class="mnum"><b>5</b><span data-en="Inspection">Contrôle</span></div>
-          <h3 data-en="Your whole history, in one click">Tout votre historique, en un clic</h3>
-          <p data-en="Checks, documents received, alerts and decisions: every step is recorded and dated. You are ready for an inspection.">Vérifications, pièces reçues, alertes et décisions : chaque étape est enregistrée et datée. Vous êtes prêt pour un contrôle.</p>
-          <span class="gain" data-en="✓ Proof in seconds">✓ Vos preuves en quelques secondes</span>
+          <div class="mnum"><b>5</b><span data-en="History">Historique</span></div>
+          <p class="mprob" data-en="Finding what was done on a matter takes time.">Retrouver ce qui a été fait sur un dossier prend du temps.</p>
+          <h3 data-en="See the matter's history in one click">Retrouvez l'historique du dossier en un clic</h3>
+          <p data-en="Checks, documents received, alerts and decisions are recorded and dated. You export the evidence file as a PDF.">Vérifications, pièces reçues, alertes et décisions sont enregistrées et datées. Vous exportez le dossier de justificatifs en PDF.</p>
+          <span class="gain" data-en="✓ Evidence ready to show">✓ Des justificatifs prêts à présenter</span>
         </div>
         <div class="mvis" data-anim="proof"><div class="app">
           <div class="app-top"><div class="lg"><b>n</b>norvy</div><span class="ttl" data-en="History · Helix Holdings">Historique · Helix Holdings</span></div>
@@ -480,94 +525,86 @@ footer{padding:56px 0 36px;font-size:15px}
           </div>
         </div></div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- 3. POURQUOI NORVY -->
-<section id="pourquoi" class="paper">
+<!-- 4. PROFILS -->
+<section class="paper" id="equipe">
   <div class="wrap">
-    <div class="center">
-      <h2 data-en="Why law firms choose Norvy">Pourquoi les cabinets choisissent Norvy</h2>
-    </div>
-    <div class="why">
-      <div><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 5h14a1 1 0 011 1v9a1 1 0 01-1 1H9l-4 3v-3H4a1 1 0 01-1-1V6a1 1 0 011-1z"/><path d="M7.5 10.5h7"/></svg></span><b data-en="Support included">Accompagnement inclus</b><span data-en="Onboarding and support are part of the subscription, at no extra cost.">Prise en main et assistance comprises dans l'abonnement, sans surcoût.</span></div>
-      <div><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 11c3-6 13-6 16 0-3 6-13 6-16 0z"/><circle cx="11" cy="11" r="2.5"/></svg></span><b data-en="Unlimited AML checks">Contrôles AML illimités</b><span data-en="Check all your clients, as often as needed, at no extra cost.">Vérifiez tous vos clients, aussi souvent que nécessaire, sans surcoût.</span></div>
-      <div><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h12M12 4l4 4-4 4M18 15H6M10 11l-4 4 4 4"/></svg></span><b data-en="Free migration">Migration offerte</b><span data-en="An audit of your current software first, then we move your files for you.">Un audit de votre logiciel actuel d'abord, puis nous transférons vos dossiers.</span></div>
-      <div><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="10" width="12" height="9" rx="2"/><path d="M8 10V7a3 3 0 016 0v3"/></svg></span><b data-en="Secure data">Données sécurisées</b><span data-en="Hosted in Europe, encrypted, backed up every day.">Hébergées en Europe, chiffrées, sauvegardées chaque jour.</span><a href="securite.html" style="display:inline-block;margin-top:10px;color:var(--blue);font-weight:600;font-size:15px" data-en="Security details →">Détails sécurité →</a></div>
-    </div>
-    <h3 class="center" style="font-size:26px;margin:72px 0 0" data-en="Easier for the whole team">Plus simple pour toute l'équipe</h3>
+    <div class="center"><h2 data-en="What each person at the firm gains">Ce que chacun y gagne au cabinet</h2></div>
     <div class="team">
-      <div><b data-en="Partners">Associés</b><span data-en="See activity, billing and risks across the firm at a glance.">Voyez l'activité, la facturation et les risques du cabinet d'un coup d'œil.</span></div>
-      <div><b data-en="Associates">Collaborateurs</b><span data-en="Everything about a file in one place. Fewer repetitive tasks.">Tout le dossier au même endroit. Moins de tâches répétitives.</span></div>
-      <div><b data-en="Assistants">Assistantes</b><span data-en="No more retyping or chasing clients by hand: documents and reminders are handled.">Plus de ressaisie ni de relances à la main : pièces et rappels sont gérés.</span></div>
+<div><b data-en="Partners">Associés</b><ul><li data-en="Follow activity, hours and payments across the firm on one dashboard.">Suivez l'activité, les heures et les encaissements du cabinet sur un tableau de bord.</li><li data-en="Approve the clients that need your decision.">Validez les clients qui demandent votre décision.</li></ul></div>
+<div><b data-en="Associates">Collaborateurs</b><ul><li data-en="Record your time on each matter as the day goes.">Saisissez votre temps sur chaque dossier, au fil de la journée.</li><li data-en="Find documents, deadlines and history without searching.">Retrouvez pièces, échéances et historique sans chercher.</li></ul></div>
+<div><b data-en="Assistants">Assistantes</b><ul><li data-en="Send the client a link to upload their documents.">Envoyez au client un lien pour déposer ses pièces.</li><li data-en="Track deadlines and invoices to chase.">Suivez les échéances et les factures à relancer.</li></ul></div>
     </div>
   </div>
 </section>
 
-<!-- 4. COMPARATIF -->
+<!-- 5. LA DIFFÉRENCE -->
 <section id="comparatif">
   <div class="wrap" style="max-width:980px">
     <div class="center">
-      <h2 data-en="One tool instead of three">Un seul outil au lieu de trois</h2>
-      <p class="sub" data-en="Norvy compared with what practice software and separate AML tools usually offer.">Norvy comparé à ce que proposent en général les logiciels de gestion et les outils AML vendus à part.</p>
+      <h2 data-en="One tool instead of several">Un seul outil au lieu de plusieurs</h2>
+      <p class="sub" data-en="What changes when everything lives in Norvy.">Ce qui change quand tout est dans Norvy.</p>
     </div>
-    <div class="vswrap">
-    <table class="vs">
-      <thead><tr><th scope="col" data-en="Feature">Fonctionnalité</th><th scope="col">Norvy</th><th scope="col" data-en="Usual practice software">Logiciel de gestion habituel</th><th scope="col" data-en="AML tool sold separately">Outil AML vendu à part</th></tr></thead>
+    <div class="vswrap"><table class="vs vs2">
+      <thead><tr><th scope="col"></th><th scope="col" data-en="With several separate tools">Avec plusieurs outils séparés</th><th scope="col" data-en="With Norvy">Avec Norvy</th></tr></thead>
       <tbody>
-        <tr class="grp"><th colspan="4" scope="colgroup" data-en="Running the firm">Gestion du cabinet</th></tr>
-        <tr><th scope="row" data-en="Matters and clients">Dossiers et clients</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
-        <tr><th scope="row" data-en="Company file filled from registers">Fiche société remplie depuis les registres</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
-        <tr><th scope="row" data-en="Time recording and timer">Temps passé et chronomètre</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
-        <tr><th scope="row" data-en="Billing, pro formas and reminders">Facturation, proformas et relances</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
-        <tr><th scope="row" data-en="Fee agreements and e-signature">Conventions d'honoraires et signature électronique</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
-        <tr><th scope="row" data-en="Outlook calendar and tasks">Agenda Outlook et tâches</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
-        <tr><th scope="row" data-en="Conflict-of-interest check">Contrôle des conflits d'intérêts</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
-        <tr><th scope="row" data-en="Firm dashboard">Tableau de bord du cabinet</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
-        <tr class="grp"><th colspan="4" scope="colgroup" data-en="AML/KYC compliance">Conformité AML/KYC</th></tr>
-        <tr><th scope="row" data-en="KYC built into matter opening">KYC intégré à l'ouverture du dossier</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
-        <tr><th scope="row" data-en="Due diligence level set per matter">Niveau de vigilance adapté à chaque dossier</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
-        <tr><th scope="row" data-en="Document collection via client link">Collecte des pièces par lien client</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
-        <tr><th scope="row" data-en="Automatic document reading">Lecture automatique des pièces</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
-        <tr><th scope="row" data-en="Beneficial ownership chart">Organigramme des bénéficiaires effectifs</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
-        <tr><th scope="row" data-en="Sanctions, PEP, adverse media screening">Screening sanctions, PPE, adverse media</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic y" aria-label="Oui">✓</span></td></tr>
-        <tr><th scope="row" data-en="Ongoing monitoring and expiry alerts">Surveillance continue et alertes d'expiration</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
-        <tr><th scope="row" data-en="Unlimited screening, no volume fees">Screening illimité, sans coût au volume</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
-        <tr><th scope="row" data-en="Time-stamped evidence file in one click">Dossier de preuves horodaté en un clic</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
-        <tr class="grp"><th colspan="4" scope="colgroup" data-en="Day to day">Au quotidien</th></tr>
-        <tr><th scope="row" data-en="One subscription for everything">Un seul abonnement pour tout</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
-        <tr><th scope="row" data-en="Enter once, no duplicate data">Une seule saisie, aucune double donnée</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
-        <tr><th scope="row" data-en="Migration included">Migration incluse</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
-        <tr><th scope="row" data-en="Free export of your data">Export libre de vos données</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
-        <tr><th scope="row" data-en="Annual questionnaire filled automatically">Questionnaire annuel rempli automatiquement</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
+<tr><th scope="row" data-en="Running the firm">Gestion du cabinet</th><td data-en="Clients and matters in one tool, documents elsewhere">Clients et dossiers dans un logiciel, documents ailleurs</td><td data-en="Clients, matters and documents in the same tool">Clients, dossiers et documents dans le même outil</td></tr>
+<tr><th scope="row" data-en="Time and billing">Temps et facturation</th><td data-en="Hours noted separately, then retyped into the invoice">Heures notées à part, puis ressaisies dans la facture</td><td data-en="The invoice uses the time recorded on the matter">La facture reprend le temps saisi sur le dossier</td></tr>
+<tr><th scope="row" data-en="Calendar">Agenda</th><td data-en="Deadlines spread across several places">Échéances réparties entre plusieurs supports</td><td data-en="One calendar, synced with Outlook">Agenda unique, synchronisé avec Outlook</td></tr>
+<tr><th scope="row" data-en="AML checks">Vérifications AML</th><td data-en="One more tool, with its own data entry">Un outil de plus, avec ses propres saisies</td><td data-en="Run from the matter, with no limit">Lancées depuis le dossier, sans limite</td></tr>
+<tr><th scope="row" data-en="History and evidence">Historique et justificatifs</th><td data-en="Evidence gathered by hand">Preuves à rassembler à la main</td><td data-en="Dated history, PDF export">Historique daté, export PDF</td></tr>
+<tr><th scope="row" data-en="Migration and support">Migration et accompagnement</th><td data-en="Often charged on top">Souvent facturés en plus</td><td data-en="Free and included">Offerts et inclus</td></tr>
       </tbody>
-    </table>
-    </div>
-    <div class="legend"><span><span class="ic y" aria-label="Oui">✓</span><span data-en="Included">Inclus</span></span><span><span class="ic p" aria-label="En option ou partiel">~</span><span data-en="Often a paid option or partial">Souvent en option payante ou partiel</span></span><span><span class="ic n" aria-label="Non">✕</span><span data-en="Usually not available">Généralement absent</span></span></div>
-
+    </table></div>
   </div>
 </section>
 
-<!-- 5. CHANGER DE LOGICIEL -->
+<!-- 6. MIGRATION -->
 <section class="paper" id="migration">
   <div class="wrap center">
     <h2 data-en="Switch software without starting from scratch">Changez de logiciel sans repartir de zéro</h2>
-    <p class="sub" data-en="Your files, your habits, your organisation: we take care of the move.">Vos dossiers, vos habitudes, votre organisation : nous nous occupons du passage.</p>
+    <p class="sub" data-en="Our team handles the move. It is free and starts with an audit.">Notre équipe s'occupe du passage. C'est offert, et cela commence par un audit.</p>
     <div class="steps" data-anim="steps">
-      <div class="step"><i>1</i><b data-en="We audit your tools">Nous auditons vos outils</b><span data-en="We look at your current software and set the plan and the schedule with you.">Nous étudions votre logiciel actuel et fixons avec vous le plan et le calendrier.</span></div>
-      <div class="step"><i>2</i><b data-en="We move your files">Nous transférons vos dossiers</b><span data-en="Your clients, matters and documents are brought into Norvy.">Vos clients, dossiers et documents sont repris dans Norvy.</span><em data-en="Free">Offert</em></div>
-      <div class="step"><i>3</i><b data-en="We help your team get started">Nous accompagnons votre équipe</b><span data-en="Onboarding and support for everyone at the firm.">Prise en main et assistance pour tout le cabinet.</span><em data-en="Included">Inclus</em></div>
+      <div class="step"><i>1</i><b data-en="Audit of your tools">Audit de vos outils</b><span data-en="We review your current software with you and set which data to bring over and the schedule.">Nous étudions avec vous votre logiciel actuel et fixons les données à reprendre et le calendrier.</span></div>
+      <div class="step"><i>2</i><b data-en="Transfer by our team">Transfert par notre équipe</b><span data-en="Your clients, matters and documents are brought into Norvy by our team.">Vos clients, dossiers et documents sont repris dans Norvy par notre équipe.</span><em data-en="Free">Offert</em></div>
+      <div class="step"><i>3</i><b data-en="Getting started">Prise en main</b><span data-en="We train your team and stay available afterwards.">Nous formons votre équipe et restons disponibles ensuite.</span><em data-en="Included">Inclus</em></div>
     </div>
   </div>
 </section>
 
-<!-- 6. TARIFS -->
-<section id="tarifs">
+<!-- 7. SÉCURITÉ -->
+<section id="securite">
+  <div class="wrap">
+    <div class="center">
+      <h2 data-en="Your data stays protected and yours">Vos données restent protégées et à vous</h2>
+      <p class="sub" data-en="Professional secrecy is at the heart of your work. Here is what Norvy puts in place.">Le secret professionnel est au cœur de votre métier. Voici ce que Norvy met en place.</p>
+    </div>
+    <div class="sgrid">
+<div class="scard"><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 2a9 9 0 100 18 9 9 0 000-18zM2 11h18M11 2c2.5 2.5 3.5 5.5 3.5 9s-1 6.5-3.5 9c-2.5-2.5-3.5-5.5-3.5-9s1-6.5 3.5-9z"/></svg></span><b data-en="Hosted in Europe">Hébergement en Europe</b><span data-en="Your data stays in the European Union.">Vos données restent dans l'Union européenne.</span></div>
+<div class="scard"><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="14" height="9" rx="2"/><path d="M7 10V7a4 4 0 018 0v3"/></svg></span><b data-en="Encrypted data">Données chiffrées</b><span data-en="Data is encrypted so it cannot be read without authorisation.">Les données sont chiffrées pour rester illisibles sans autorisation.</span></div>
+<div class="scard"><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a7 7 0 1 0 2-5M4 4v4h4"/></svg></span><b data-en="Daily backups">Sauvegarde quotidienne</b><span data-en="Your data is backed up every day.">Vos données sont sauvegardées chaque jour.</span></div>
+<div class="scard"><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M3 18c0-3 2.5-5 5-5s5 2 5 5M15 7h4M15 11h4M17 15h2"/></svg></span><b data-en="Access by role">Accès par rôle</b><span data-en="Each team member only sees what they need.">Chaque membre du cabinet ne voit que ce dont il a besoin.</span></div>
+<div class="scard"><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 2l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V5z"/><path d="M8 11l2 2 4-4"/></svg></span><b data-en="Confidentiality">Confidentialité</b><span data-en="Your data is never used to train artificial intelligence.">Vos données ne servent jamais à entraîner une intelligence artificielle.</span></div>
+<div class="scard"><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 3v11M7 10l4 4 4-4M4 18h14"/></svg></span><b data-en="Free to leave">Réversibilité</b><span data-en="You export all your matters and documents, at any time, at no cost.">Vous exportez tous vos dossiers et documents, à tout moment, sans frais.</span></div>
+    </div>
+    <p class="center" style="margin-top:26px;font-size:15px;color:var(--muted)"><span data-en="Two-factor authentication: coming soon.">Double authentification : bientôt disponible.</span> <a href="securite.html" style="color:var(--blue);font-weight:600" data-en="Security details →">Détails sécurité →</a></p>
+  </div>
+</section>
+
+<!-- 8. TARIFS -->
+<section id="tarifs" class="paper">
   <div class="wrap center">
     <h2 data-en="A simple price, no commitment">Un prix simple, sans engagement</h2>
-    <p class="sub" data-en="The price per user depends on the size of your team, and applies to all users. Example: with 6 users, all 6 pay €139.">Le prix par utilisateur dépend de la taille de votre équipe et s'applique à tous. Exemple : à 6 utilisateurs, les 6 paient 139 €.</p>
+    <ul class="rules">
+      <li data-en="Price per user per month, excl. VAT">Prix par utilisateur et par mois, HT</li>
+      <li data-en="The tier price applies to all users: with 6 users, all 6 pay €139">Le prix de la tranche s'applique à tous : à 6 utilisateurs, les 6 paient 139 €</li>
+      <li data-en="Annual payment: about 15% less">Paiement annuel : environ 15 % de moins</li>
+      <li data-en="All features, whatever the size of the firm">Toutes les fonctionnalités, quelle que soit la taille du cabinet</li>
+      <li data-en="No commitment">Sans engagement</li>
+    </ul>
     <div class="pricebox">
       <div class="calc">
         <label for="nusers" data-en="How many people will use Norvy?">Combien de personnes utiliseront Norvy ?</label>
@@ -593,55 +630,51 @@ footer{padding:56px 0 36px;font-size:15px}
           <li data-en="Audit and migration of your files: free">Audit et migration de vos dossiers offerts</li>
           <li data-en="Onboarding and support included">Prise en main et assistance incluses</li>
         </ul>
-        <a class="btn btn-light" href="#" onclick="return openCalendly(event)" data-en="Book my demo (30 min)">Réserver ma démo (30 min)</a>
+        <a class="btn btn-primary" href="#" onclick="return openCalendly(event)" data-en="Book a demo">Réserver une démonstration</a>
       </div>
     </div>
     <p style="margin-top:20px;color:var(--muted);font-size:15px"><span data-en="More than 50 users?">Plus de 50 utilisateurs ?</span> <a href="#" onclick="return openCalendly(event)" style="color:var(--blue);font-weight:600" data-en="Contact us">Contactez-nous</a></p>
   </div>
 </section>
 
-<!-- 7. BONUS DIAGNOSTIC -->
-<section style="padding-top:0">
-  <div class="wrap" style="max-width:980px">
-    <div class="bonusbox">
-      <div>
-        <h2 data-en="Check your AML compliance in 5 minutes">Faites le point sur votre conformité AML en 5 minutes</h2>
-        <p data-en="Free diagnostic: your priorities and an action plan to download.">Diagnostic gratuit : vos priorités et un plan d'action à télécharger.</p>
-        <small data-en="A first indication, not a certification of compliance.">Une première indication, pas une certification de conformité.</small>
-      </div>
-      <div class="ctas">
-        <a class="btn btn-primary" href="diagnostic.html" data-en="Take the diagnostic">Faire le diagnostic</a>
-        <a class="btn btn-ghost" style="color:var(--blue)" href="Norvy-Checklist-AMLR-2024-1624.pdf" data-en-href="Norvy-AMLR-Checklist-2024-1624-EN.pdf" download data-en="Checklist (PDF)">Checklist (PDF)</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 8. FAQ -->
-<section class="paper">
+<!-- 9. FAQ -->
+<section id="faq">
   <div class="wrap" style="max-width:860px">
-    <h2 style="margin-bottom:30px" data-en="Questions">Questions fréquentes</h2>
+    <h2 style="margin-bottom:30px" data-en="Frequently asked questions">Questions fréquentes</h2>
     <details><summary data-en="Who is Norvy for?">À qui s'adresse Norvy ?</summary><div class="faqa" data-en="To every lawyer, from sole practitioners to business law firms, in Luxembourg, France and Belgium.">À tous les avocats, de l'indépendant au cabinet d'affaires, au Luxembourg, en France et en Belgique.</div></details>
     <details><summary data-en="I rarely handle AML-relevant matters. Is Norvy for me?">Je fais peu de dossiers soumis à l'AML. Norvy m'est-il utile ?</summary><div class="faqa" data-en="Yes. Norvy is first of all a practice management tool: matters, time, invoices and calendar. AML checks are there for the matters that need them.">Oui. Norvy est d'abord un logiciel de gestion : dossiers, temps, factures et agenda. Les contrôles AML sont là pour les dossiers qui en ont besoin.</div></details>
-    <details><summary data-en="Are AML checks automated?">Les vérifications AML sont-elles automatisées ?</summary><div class="faqa" data-en="Yes. Identity, beneficial owners, sanctions, PEPs and adverse media are checked when the file opens, then monitored over time.">Oui. Identité, bénéficiaires effectifs, sanctions, PPE et médias défavorables sont vérifiés à l'ouverture du dossier, puis surveillés dans la durée.</div></details>
-    <details><summary data-en="Do I still have to review the alerts?">Dois-je toujours valider les alertes ?</summary><div class="faqa" data-en="Yes. Norvy flags the points to look at. You analyse and decide, and your decision is recorded in the file under your name.">Oui. Norvy signale les points à examiner. Vous analysez et vous décidez, et votre décision est enregistrée dans le dossier à votre nom.</div></details>
-    <details><summary data-en="How does switching from my current software work?">Comment se passe le changement de logiciel ?</summary><div class="faqa" data-en="We start with an audit of your current tools. It sets the migration plan and schedule. Then our team moves your files for you. Migration is free.">Nous commençons par un audit de vos outils actuels. Il définit le plan et le calendrier. Ensuite, notre équipe transfère vos dossiers pour vous. La migration est offerte.</div></details>
+    <details><summary data-en="How does switching from my current software work?">Comment se passe le changement de logiciel ?</summary><div class="faqa" data-en="We start with an audit of your current tools. It sets which data to bring over and the schedule. Our team then carries out the transfer. Migration is free.">Nous commençons par un audit de vos outils actuels. Il fixe les données à reprendre et le calendrier. Notre équipe réalise ensuite le transfert. La migration est offerte.</div></details>
+    <details><summary data-en="How is the price calculated?">Comment le prix est-il calculé ?</summary><div class="faqa" data-en="The price is per user per month, excl. VAT. It depends on the size of the firm and applies to all users: €149 for 1 to 5, €139 for 6 to 10, €129 for 11 to 50. About 15% less with annual payment. No commitment.">Le prix est par utilisateur et par mois, HT. Il dépend de la taille du cabinet et s'applique à tous les utilisateurs : 149 € de 1 à 5, 139 € de 6 à 10, 129 € de 11 à 50. Environ 15 % de moins en paiement annuel. Sans engagement.</div></details>
+    <details><summary data-en="Are AML checks automated?">Les vérifications AML sont-elles automatisées ?</summary><div class="faqa" data-en="Yes. Identity, beneficial owners, sanctions, PEPs and adverse media are checked when the matter opens, then monitored over time. Checks are unlimited.">Oui. Identité, bénéficiaires effectifs, sanctions, PPE et médias défavorables sont vérifiés à l'ouverture du dossier, puis surveillés dans la durée. Les contrôles sont illimités.</div></details>
+    <details><summary data-en="Do I still have to review the alerts?">Dois-je toujours valider les alertes ?</summary><div class="faqa" data-en="Yes. Norvy flags the points to look at. You analyse and decide, and your decision is recorded in the matter under your name.">Oui. Norvy signale les points à examiner. Vous analysez et vous décidez, et votre décision est enregistrée dans le dossier à votre nom.</div></details>
     <details><summary data-en="Can each team member have different rights?">Chaque collaborateur peut-il avoir des droits différents ?</summary><div class="faqa" data-en="Yes. Access is managed by role: each person only sees what they need.">Oui. Les accès sont gérés par rôle : chacun voit ce dont il a besoin.</div></details>
-    <details><summary data-en="Is my data protected?">Mes données sont-elles protégées ?</summary><div class="faqa" data-en="Yes: hosted in Europe, encrypted, backed up every day. See our &lt;a href=&quot;securite.html&quot;&gt;security page&lt;/a&gt;.">Oui : hébergées en Europe, chiffrées et sauvegardées chaque jour. Voir notre <a href="securite.html">page sécurité</a>.</div></details>
-    <details><summary data-en="Are AML checks really unlimited?">Les contrôles AML sont-ils vraiment illimités ?</summary><div class="faqa" data-en="Yes. Checks and ongoing monitoring are included in the price per user.">Oui. Les vérifications et la surveillance continue sont comprises dans le prix par utilisateur.</div></details>
-    <details><summary data-en="Does it work with Outlook?">Puis-je garder Outlook ?</summary><div class="faqa" data-en="Yes. Your calendar is synced both ways: what you add in Outlook appears in Norvy, and the other way round.">Oui. Votre agenda est synchronisé dans les deux sens : ce que vous ajoutez dans Outlook apparaît dans Norvy, et inversement.</div></details>
-    <details><summary data-en="What does the support include?">Que comprend l'accompagnement ?</summary><div class="faqa" data-en="The audit of your current tools, the migration of your files, onboarding for your team and ongoing support. All included in the subscription.">L'audit de vos outils actuels, la migration de vos dossiers, la prise en main par votre équipe et l'assistance au quotidien. Le tout compris dans l'abonnement.</div></details>
-    <details><summary data-en="What if we decide to leave Norvy?">Et si nous quittons Norvy ?</summary><div class="faqa" data-en="You export all your files and documents yourself, at any time and at no cost.">Vous exportez vous-même tous vos dossiers et documents, à tout moment et sans frais.</div></details>
+    <details><summary data-en="Is my data protected?">Mes données sont-elles protégées ?</summary><div class="faqa" data-en="It is hosted in Europe, encrypted and backed up every day. It is never used to train AI. Two-factor authentication is coming soon. See the &lt;a href=&quot;securite.html&quot;&gt;security page&lt;/a&gt;.">Elles sont hébergées en Europe, chiffrées et sauvegardées chaque jour. Elles ne servent jamais à entraîner une IA. La double authentification arrive bientôt. Voir la <a href="securite.html">page sécurité</a>.</div></details>
+    <details><summary data-en="Can I keep Outlook?">Puis-je garder Outlook ?</summary><div class="faqa" data-en="Yes. Your calendar is synced both ways: what you add in Outlook appears in Norvy, and the other way round.">Oui. Votre agenda est synchronisé dans les deux sens : ce que vous ajoutez dans Outlook apparaît dans Norvy, et inversement.</div></details>
+    <details><summary data-en="What does the support include?">Que comprend l'accompagnement ?</summary><div class="faqa" data-en="The audit of your tools, the migration of your files, training for your team and day-to-day support. All included in the subscription.">L'audit de vos outils, la migration de vos dossiers, la formation de votre équipe et l'assistance au quotidien. Le tout compris dans l'abonnement.</div></details>
+    <details><summary data-en="What if we decide to leave Norvy?">Et si nous quittons Norvy ?</summary><div class="faqa" data-en="You export all your matters and documents yourself, at any time and at no cost.">Vous exportez vous-même tous vos dossiers et documents, à tout moment et sans frais.</div></details>
   </div>
 </section>
 
-<!-- 9. CTA -->
+<!-- 10. DIAGNOSTIC (secondaire) -->
+<section class="mini paper">
+  <div class="wrap" style="max-width:860px">
+    <p class="diagline"><b data-en="Free AML diagnostic.">Diagnostic AML gratuit.</b> <span data-en="In 5 minutes, see your priorities and download an action plan. A first indication, not a certification of compliance.">En 5 minutes, voyez vos priorités et téléchargez un plan d'action. Une première indication, pas une certification de conformité.</span> <a href="diagnostic.html" data-en="Take the diagnostic →">Faire le diagnostic →</a></p>
+  </div>
+</section>
+
+<!-- 11. CTA -->
 <section class="dark" style="border-top:var(--band) solid var(--blue)">
   <div class="wrap center" style="max-width:780px">
-    <h2 data-en="See Norvy on files like yours">Voyez Norvy sur des dossiers comme les vôtres</h2>
-    <p class="sub" data-en="30 minutes by video. We look at how you work and what Norvy can simplify. Nothing to prepare, no commitment.">30 minutes en visio. Nous regardons votre façon de travailler et ce que Norvy peut simplifier. Rien à préparer, sans engagement.</p>
+    <h2 data-en="What you will see in 30 minutes">Ce que vous verrez en 30 minutes</h2>
+    <ul class="showlist">
+      <li data-en="Opening a matter, with the AML checks">L'ouverture d'un dossier, avec les contrôles AML</li>
+      <li data-en="From recorded time to the invoice">Du temps saisi à la facture</li>
+      <li data-en="The calendar synced with Outlook">L'agenda synchronisé avec Outlook</li>
+      <li data-en="How the move from your current software works">Le passage depuis votre logiciel actuel</li>
+    </ul>
+    <p class="sub" data-en="By video, based on how your firm works. Nothing to prepare, no commitment.">En visio, à partir de l'organisation de votre cabinet. Rien à préparer, sans engagement.</p>
     <div class="ctas" style="justify-content:center;margin-top:30px">
-      <a class="btn btn-light" href="#" onclick="return openCalendly(event)" data-en="Book my demo (30 min)">Réserver ma démo (30 min)</a>
+      <a class="btn btn-primary btn-lg" href="#" onclick="return openCalendly(event)" data-en="Book a demo">Réserver une démonstration</a>
     </div>
   </div>
 </section>
@@ -652,7 +685,7 @@ footer{padding:56px 0 36px;font-size:15px}
   <div class="wrap">
     <div class="fgrid">
       <div><div class="flogo">norvy<i></i></div><p style="color:var(--muted);max-width:300px;margin:10px 0 0" data-en="The practice management software for law firms. For lawyers, by lawyers.">Le logiciel de gestion pour cabinets d'avocats. For lawyers, by lawyers.</p></div>
-      <div><h4 data-en="Product">Produit</h4><a href="#journee" data-en="Features">Fonctionnalités</a><a href="#tarifs" data-en="Pricing">Tarifs</a><a href="diagnostic.html" data-en="AML diagnostic">Diagnostic AML</a></div>
+      <div><h4 data-en="Product">Produit</h4><a href="#journee" data-en="Features">Fonctionnalités</a><a href="#tarifs" data-en="Pricing">Tarifs</a><a href="diagnostic.html" data-en="AML diagnostic">Diagnostic AML</a><a href="Norvy-Checklist-AMLR-2024-1624.pdf" data-en-href="Norvy-AMLR-Checklist-2024-1624-EN.pdf" data-en="AMLR checklist (PDF)">Checklist AMLR (PDF)</a></div>
       <div><h4 data-en="Company">Société</h4><a href="#" onclick="return mailContact(event)">Contact</a><a href="https://www.linkedin.com/company/norvy/" target="_blank" rel="noopener">LinkedIn</a></div>
       <div><h4 data-en="Legal">Légal</h4><a href="legal.html#mentions" data-en="Legal notice">Mentions légales</a><a href="securite.html" data-en="Security">Sécurité</a><a href="legal.html#confidentialite" data-en="Privacy">Confidentialité</a><a href="cgu.html" data-en="Terms">CGU</a></div>
     </div>
@@ -660,7 +693,7 @@ footer{padding:56px 0 36px;font-size:15px}
   </div>
 </footer>
 
-<div class="mobcta" id="mobcta"><a class="btn btn-primary" href="#" onclick="return openCalendly(event)" data-en="Book my demo (30 min)">Réserver ma démo (30 min)</a></div>
+<div class="mobcta" id="mobcta"><a class="btn btn-primary" href="#" onclick="return openCalendly(event)" data-en="Book a demo">Réserver une démonstration</a></div>
 
 <dialog id="vid" aria-label="Vidéo de présentation de Norvy">
   <button class="x" type="button" onclick="closeVideo()" aria-label="Fermer">×</button>
@@ -678,7 +711,7 @@ function applyLang(l){
   document.querySelectorAll('[data-en]').forEach(function(el){if(el._fr===undefined)el._fr=el.innerHTML;el.innerHTML=LANG==='en'?el.getAttribute('data-en'):el._fr;});
   document.querySelectorAll('[data-en-href]').forEach(function(el){if(el._frhref===undefined)el._frhref=el.getAttribute('href');el.setAttribute('href',LANG==='en'?el.getAttribute('data-en-href'):el._frhref);});
   document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lang===LANG));});
-  document.title=T("Norvy — Récupérez vos heures | Logiciel de gestion pour avocats","Norvy — Win back your hours | Practice management for lawyers");
+  document.title=T("Norvy — Logiciel de gestion pour cabinets d'avocats, avec AML intégré","Norvy — Practice management for law firms, with built-in AML");
   try{localStorage.setItem('norvy-lang',LANG);}catch(e){}
   price();
 }
