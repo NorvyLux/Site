@@ -447,7 +447,7 @@ section.calm{padding:120px 0}
     <h1 data-en="The practice management software for lawyers, with built-in AML checks.">Le logiciel de gestion pour avocats avec les contrôles AML intégrés.</h1>
     <p class="sub" data-en="Matters, time, invoices, calendar and client checks, together in one tool built for law firms.">Dossiers, temps, factures, agenda et vérifications clients, réunis dans un seul outil pensé pour les cabinets d'avocats.</p>
     <figure class="herovid">
-      <video id="herov" src="norvy-presentation.mp4" poster="norvy-presentation-poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="Présentation de Norvy en vidéo" data-en-aria="Norvy video overview"></video>
+      <video id="herov" src="norvy-presentation.mp4" poster="norvy-presentation-poster.jpg" data-en-src="norvy-presentation-en.mp4" data-en-poster="norvy-presentation-poster-en.jpg" autoplay muted loop playsinline preload="auto" aria-label="Présentation de Norvy en vidéo" data-en-aria="Norvy video overview"></video>
     </figure>
     <div class="ctas herocta">
       <a class="btn btn-primary btn-lg" href="#" onclick="return openCalendly(event)" data-en="Book a demo">Réserver une démonstration</a>
@@ -583,6 +583,10 @@ function applyLang(l){
   LANG=l==='en'?'en':'fr';document.documentElement.lang=LANG;
   document.querySelectorAll('[data-en]').forEach(function(el){if(el._fr===undefined)el._fr=el.innerHTML;el.innerHTML=LANG==='en'?el.getAttribute('data-en'):el._fr;});
   document.querySelectorAll('[data-en-href]').forEach(function(el){if(el._frhref===undefined)el._frhref=el.getAttribute('href');el.setAttribute('href',LANG==='en'?el.getAttribute('data-en-href'):el._frhref);});
+  (function(){var v=document.getElementById('herov');if(!v)return;if(v._frsrc===undefined){v._frsrc=v.getAttribute('src');v._frposter=v.getAttribute('poster');}
+    var src=LANG==='en'?v.getAttribute('data-en-src'):v._frsrc,po=LANG==='en'?v.getAttribute('data-en-poster'):v._frposter;
+    if(v.getAttribute('src')!==src){v.setAttribute('poster',po);v.setAttribute('src',src);v.load();if(!REDUCE){var pr=v.play();if(pr&&pr.catch)pr.catch(function(){});}}
+    v.setAttribute('aria-label',LANG==='en'?'Norvy video overview':'Présentation de Norvy en vidéo');})();
   document.querySelectorAll('[data-en-alt]').forEach(function(el){if(el._fralt===undefined)el._fralt=el.getAttribute('alt');el.setAttribute('alt',LANG==='en'?el.getAttribute('data-en-alt'):el._fralt);});
   document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lang===LANG));});
   document.title=T("Norvy — Le logiciel de gestion pour avocats avec les contrôles AML intégrés","Norvy — Practice management software for lawyers, with built-in AML checks");
