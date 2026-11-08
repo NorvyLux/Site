@@ -400,6 +400,7 @@ section.calm{padding:120px 0}
 .tile .flist li::before{content:"✓";position:absolute;left:0;top:0;color:var(--blue);font-weight:800}
 @media (max-width:980px){.tiles.t3{grid-template-columns:1fr 1fr}}
 @media (max-width:640px){.tiles.t3{grid-template-columns:1fr}}
+@media (max-width:640px){#comparatif .vs{min-width:0;table-layout:fixed;font-size:13px}#comparatif .vs th[scope=row]{width:46%;padding:10px 8px}#comparatif .vs td{padding:10px 2px}#comparatif .vs thead th{font-size:11px;padding:12px 4px;line-height:1.25}#comparatif .vs thead th:first-child{padding-left:8px;width:44%}#comparatif .vs .ic{width:24px;height:24px;font-size:13px}#comparatif .vs .grp th{padding:10px 8px}}
 .secline{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;margin:44px auto 0;font-size:15px;color:var(--muted);text-align:center}
 .secline .ico{width:30px;height:30px;border-radius:8px;background:#E6ECFB;color:var(--blue);display:inline-flex;align-items:center;justify-content:center}
 .secline .ico svg{width:16px;height:16px}
@@ -447,6 +448,7 @@ section.calm{padding:120px 0}
     <nav class="navlinks" aria-label="Navigation">
       <a href="#fonctionnalites" data-en="Features">Fonctionnalités</a>
       <a href="#pourquoi" data-en="Why Norvy">Pourquoi Norvy</a>
+      <a href="#comparatif" data-en="Compare">Comparatif</a>
       <a href="#tarifs" data-en="Pricing">Tarifs</a>
       <a href="#faq" data-en="FAQ">FAQ</a>
     </nav>
@@ -462,6 +464,7 @@ section.calm{padding:120px 0}
   <div class="mobmenu" id="mobmenu">
     <a href="#fonctionnalites" data-en="Features">Fonctionnalités</a>
     <a href="#pourquoi" data-en="Why Norvy">Pourquoi Norvy</a>
+    <a href="#comparatif" data-en="Compare">Comparatif</a>
     <a href="#tarifs" data-en="Pricing">Tarifs</a>
     <a href="#faq" data-en="FAQ">FAQ</a>
     <a href="#" onclick="return openCalendly(event)" data-en="Book a demo">Réserver une démonstration</a>
@@ -509,6 +512,49 @@ section.calm{padding:120px 0}
 <div class="tile"><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18V10M9 18V5M14 18v-6M19 18V8"/></svg></span><b><span data-en="Running the firm">Pilotage du cabinet</span></b><p data-en="The dashboard shows you where the firm stands, without having to ask.">Le tableau de bord vous montre où en est le cabinet, sans avoir à le demander.</p><ul class="flist"><li data-en="Billable hours, billed and collected">Heures facturables, facturé et encaissé</li><li data-en="AML matters and alerts to handle">Dossiers AML et alertes à traiter</li><li data-en="Annual AML questionnaire prefilled">Questionnaire annuel AML prérempli</li></ul></div>
     </div>
     <p class="secline"><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="14" height="9" rx="2"/><path d="M7 10V7a4 4 0 018 0v3"/></svg></span><span data-en="Data hosted in Europe, encrypted and backed up every day. Never used to train AI.">Données hébergées en Europe, chiffrées et sauvegardées chaque jour. Jamais utilisées pour entraîner une IA.</span> <a href="securite.html" data-en="Security →">Sécurité →</a></p>
+  </div>
+</section>
+
+<section id="comparatif" class="calm">
+  <div class="wrap" style="max-width:980px">
+    <div class="center">
+      <h2 data-en="Compare for yourself">Comparez par vous-même</h2>
+      <p class="sub" data-en="Norvy against the usual practice software and AML tools sold separately.">Norvy face aux logiciels de gestion habituels et aux outils AML vendus à part.</p>
+    </div>
+    <div class="vswrap">
+    <table class="vs">
+      <thead><tr><th scope="col" data-en="Feature">Fonctionnalité</th><th scope="col">Norvy</th><th scope="col" data-en="Usual practice software">Logiciel de gestion habituel</th><th scope="col" data-en="AML tool sold separately">Outil AML vendu à part</th></tr></thead>
+      <tbody>
+        <tr class="grp"><th colspan="4" scope="colgroup" data-en="Running the firm">Gestion du cabinet</th></tr>
+        <tr><th scope="row" data-en="Matters and clients">Dossiers et clients</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
+        <tr><th scope="row" data-en="Company file filled from registers">Fiche société remplie depuis les registres</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
+        <tr><th scope="row" data-en="Time recording and timer">Temps passé et chronomètre</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
+        <tr><th scope="row" data-en="Billing, pro formas and reminders">Facturation, proformas et relances</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
+        <tr><th scope="row" data-en="Fee agreements and e-signature">Conventions d'honoraires et signature électronique</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
+        <tr><th scope="row" data-en="Outlook calendar and tasks">Agenda Outlook et tâches</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
+        <tr><th scope="row" data-en="Conflict-of-interest check">Contrôle des conflits d'intérêts</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
+        <tr><th scope="row" data-en="Firm dashboard">Tableau de bord du cabinet</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
+        <tr class="grp"><th colspan="4" scope="colgroup" data-en="AML/KYC compliance">Conformité AML/KYC</th></tr>
+        <tr><th scope="row" data-en="KYC built into matter opening">KYC intégré à l'ouverture du dossier</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
+        <tr><th scope="row" data-en="Due diligence level set per matter">Niveau de vigilance adapté à chaque dossier</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
+        <tr><th scope="row" data-en="Document collection via client link">Collecte des pièces par lien client</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
+        <tr><th scope="row" data-en="Automatic document reading">Lecture automatique des pièces</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
+        <tr><th scope="row" data-en="Beneficial ownership chart">Organigramme des bénéficiaires effectifs</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
+        <tr><th scope="row" data-en="Sanctions, PEP, adverse media screening">Screening sanctions, PPE et médias défavorables</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic y" aria-label="Oui">✓</span></td></tr>
+        <tr><th scope="row" data-en="Ongoing monitoring and expiry alerts">Surveillance continue et alertes d'expiration</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
+        <tr><th scope="row" data-en="Unlimited screening, no volume fees">Screening illimité, sans coût au volume</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
+        <tr><th scope="row" data-en="Time-stamped evidence file in one click">Dossier de preuves horodaté en un clic</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
+        <tr class="grp"><th colspan="4" scope="colgroup" data-en="Day to day">Au quotidien</th></tr>
+        <tr><th scope="row" data-en="One subscription for everything">Un seul abonnement pour tout</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
+        <tr><th scope="row" data-en="Enter once, no duplicate data">Une seule saisie, aucune double donnée</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
+        <tr><th scope="row" data-en="Migration included">Migration incluse</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
+        <tr><th scope="row" data-en="Free export of your data">Export libre de vos données</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
+        <tr><th scope="row" data-en="Annual questionnaire filled automatically">Questionnaire annuel rempli automatiquement</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="legend"><span><span class="ic y" aria-label="Oui">✓</span><span data-en="Included">Inclus</span></span><span><span class="ic p" aria-label="En option ou partiel">~</span><span data-en="Paid option or partial">En option payante ou partiel</span></span><span><span class="ic n" aria-label="Non">✕</span><span data-en="Not available">Non disponible</span></span></div>
+
   </div>
 </section>
 
