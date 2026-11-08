@@ -1,0 +1,38 @@
+{
+ "plenary_date": "2026-10-30",
+ "date_fr": "30 octobre 2026",
+ "date_en": "30 October 2026",
+ "source": "https://www.fatf-gafi.org/en/publications/High-risk-and-other-monitored-jurisdictions.html",
+ "black": {
+  "408": "North Korea",
+  "364": "Iran",
+  "104": "Myanmar"
+ },
+ "grey": {
+  "120": "Cameroon",
+  "332": "Haiti",
+  "368": "Iraq",
+  "404": "Kenya",
+  "414": "Kuwait",
+  "418": "Laos",
+  "422": "Lebanon",
+  "524": "Nepal",
+  "598": "Papua New Guinea",
+  "704": "Vietnam",
+  "728": "S. Sudan",
+  "760": "Syria",
+  "862": "Venezuela",
+  "887": "Yemen",
+  "092": "British Virgin Is.",
+  "070": "Bosnia and Herz.",
+  "068": "Bolivia",
+  "024": "Angola"
+ },
+ "scenario_counterparty": {
+  "iso": "704",
+  "code": "VN",
+  "fr": "Vietnam",
+  "en": "Vietnam",
+  "note": "Pays fictif de contrepartie, doit être en liste grise pour le scénario '1 pays lié en liste grise'"
+ }
+}

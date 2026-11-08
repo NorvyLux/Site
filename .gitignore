@@ -1,0 +1,10 @@
+map/node_modules/
+film2.html
+film2-en.html
+list_*.txt
+check_*.jpg
+seg/*.tmp.mp4
+seg/fr.txt
+seg/en.txt
+k*.jpg
+__pycache__/

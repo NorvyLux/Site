@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<link rel="stylesheet" href="app.css">
+<style>
+@font-face{font-family:"Jakarta";src:url(jakarta.woff2) format("woff2");font-weight:200 800}
+:root{--ink:#0F1830;--navy:#1A2649;--paper:#F4F6FB;--blue:#2F5BD8;--peri:#A9B9F2;--ok:#16794A;--okbg:#DDF3E6;--warn:#9A6400;--warnbg:#FFF0D1;--app:#4F6CA8}
+*{box-sizing:border-box;transition:none!important;animation:none!important}
+html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:var(--ink);font-family:"Jakarta",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.scene{position:absolute;inset:0;opacity:0}
+.bg-dark{background:radial-gradient(1200px 700px at 70% 30%,#1B2A55 0%,var(--ink) 60%)}
+.bg-light{background:var(--paper)}
+.band{position:absolute;left:0;right:0;top:0;height:10px;background:var(--blue)}
+[data-at]{opacity:0}
+.cap{position:absolute;left:150px;top:0;bottom:0;width:640px;display:flex;flex-direction:column;justify-content:center}
+.cap small{font-size:22px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
+.cap h2{margin:18px 0 0;font-size:64px;line-height:1.08;letter-spacing:-.035em;color:#131A2E;font-weight:700}
+.cap p{margin:26px 0 0;font-size:28px;line-height:1.45;color:#59647F}
+.mock{position:absolute;right:140px;top:50%;width:880px;transform:translateY(-50%)}
+.mock .app{border-radius:22px;box-shadow:0 40px 100px -30px rgba(15,24,48,.45);border:1px solid #E1E5EE;zoom:1.6;width:550px}
+.mock .app-body{min-height:300px}
+.big{position:absolute;left:0;right:0;text-align:center;color:#EEF1FA;font-weight:700;letter-spacing:-.035em}
+.logo{font-size:150px;letter-spacing:-.05em;color:#fff;font-weight:700}
+.logo i{display:inline-block;width:30px;height:30px;border-radius:50%;background:var(--peri);margin-left:10px}
+.card{position:absolute;width:300px;height:190px;border-radius:18px;background:#fff;box-shadow:0 30px 70px -20px rgba(0,0,0,.6);padding:22px;font-weight:700;font-size:24px;color:#131A2E}
+.card .ln{height:12px;border-radius:6px;background:#E3E8F3;margin-top:14px}
+.card .ln.s{width:60%}
+.card .tg{display:inline-block;font-size:15px;padding:4px 12px;border-radius:999px;margin-bottom:6px}
+.chart{background:#fff;border:1px solid #E1E5EE;border-radius:12px;padding:14px;margin-top:10px}
+.chart small{font-size:11px;font-weight:600;color:#7A849E}
+.bars{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;height:140px;align-items:end;margin-top:12px}
+.bars div{display:flex;gap:3px;align-items:end;height:100%;position:relative;padding-bottom:18px}
+.bars i{flex:1;height:0;background:#C9D5F5;border-radius:4px 4px 0 0}
+.bars i.c{background:var(--app)}
+.bars span{position:absolute;bottom:0;left:0;right:0;text-align:center;font-size:10.5px;color:#7A849E;font-weight:600}
+.end small{display:block;margin-top:26px;font-size:28px;color:#B9C2DC;font-weight:500;letter-spacing:0}
+.cta{display:inline-block;margin-top:56px;background:var(--blue);color:#fff;font-size:34px;font-weight:600;padding:26px 50px;border-radius:16px;letter-spacing:-.01em}
+</style></head><body>
+
+<!-- 1. constat -->
+<section class="scene bg-dark" data-s="0" data-e="5.6" data-out="1">
+  <div class="big" style="top:150px;font-size:58px" data-at="0.3" data-lang-fr>Dossiers, temps, factures, agenda, vérifications clients…</div>
+  <div class="big" style="top:235px;font-size:58px;color:var(--peri)" data-at="1.6">…souvent répartis entre plusieurs outils.</div>
+</section>
+<!-- cards layer (scenes 1-2) -->
+<section class="scene" id="cards" data-s="0" data-e="8.2" style="background:none">
+  <div class="card" data-x="300" data-y="470" data-r="-6"><span class="tg" style="background:#E6ECFB;color:#2F4A86">Dossiers</span><div class="ln"></div><div class="ln s"></div><div class="ln"></div></div>
+  <div class="card" data-x="700" data-y="640" data-r="4"><span class="tg" style="background:var(--okbg);color:var(--ok)">Tableur</span><div class="ln"></div><div class="ln"></div><div class="ln s"></div></div>
+  <div class="card" data-x="1060" data-y="450" data-r="-3"><span class="tg" style="background:var(--warnbg);color:var(--warn)">Agenda</span><div class="ln s"></div><div class="ln"></div><div class="ln"></div></div>
+  <div class="card" data-x="1420" data-y="610" data-r="7"><span class="tg" style="background:#FBE1DF;color:#C2372D">E-mails</span><div class="ln"></div><div class="ln s"></div><div class="ln"></div></div>
+  <div class="card" data-x="1500" data-y="330" data-r="-8"><span class="tg" style="background:#EDE6FB;color:#5B3BA8">Outil AML</span><div class="ln"></div><div class="ln"></div><div class="ln s"></div></div>
+</section>
+<!-- 2. norvy -->
+<section class="scene bg-dark" data-s="5.6" data-e="11" style="background:none">
+  <div class="big" style="top:330px" data-at="1.9"><span class="logo">norvy<i></i></span></div>
+  <div class="big" style="top:600px;font-size:64px;line-height:1.15" data-at="2.6">Gérez votre cabinet.<br>Votre conformité AML suit.</div>
+</section>
+
+<!-- 3. dossier -->
+<section class="scene bg-light" data-s="11" data-e="18" id="s-open" data-cfo="1">
+  <div class="cap"><small data-at="0.2">Dossiers et clients</small><h2 data-at="0.4">Ouvrez un dossier en quelques clics.</h2><p data-at="0.8">Les informations du client restent au même endroit, pour toute l'équipe.</p></div>
+  <div class="mock" data-at="0.5"><div class="app">
+    <div class="app-top"><div class="lg"><b>n</b>norvy</div><span class="ttl">Nouveau dossier</span></div>
+    <div class="app-body">
+      <div class="search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#4F6CA8" stroke-width="2"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg><span data-type="Helix Holdings" data-tat="1.4"></span><span class="caret"></span></div>
+      <div data-at="3.0"><span class="pill ok">✓ Fiche complétée</span><div style="height:10px"></div></div>
+      <div class="field" data-at="3.3"><small>Dénomination</small><span>Helix Holdings S.à r.l.</span></div>
+      <div class="field" data-at="3.6"><small>Type de dossier</small><span>Droit des sociétés</span></div>
+      <div class="field" data-at="3.9"><small>Responsable</small><span>Me Laurent</span></div>
+      <div class="field" data-at="4.2"><small>Contact</small><span>A. Keller</span></div>
+    </div></div></div>
+</section>
+
+<!-- 4. AML -->
+<section class="scene bg-light" data-s="18" data-e="26.5" id="s-aml" data-cfo="1" data-cut="1">
+  <div class="cap"><small data-at="0.2">Vérifications AML</small><h2 data-at="0.4">Les contrôles AML, directement dans le dossier.</h2><p data-at="0.8">Vous analysez, vous décidez. Les justificatifs restent attachés au client.</p></div>
+  <div class="mock" data-at="0.5"><div class="app">
+    <div class="app-top"><div class="lg"><b>n</b>norvy</div><span class="ttl">Helix Holdings</span></div>
+    <div class="app-body">
+      <div class="chk" data-done="1.8"><span>Identité</span><i class="st"></i></div>
+      <div class="chk" data-done="2.6"><span>Bénéficiaires effectifs</span><i class="st"></i></div>
+      <div class="chk" data-done="3.4"><span>Sanctions</span><i class="st"></i></div>
+      <div class="chk" data-done="4.2" data-flag="1"><span>Personnes politiquement exposées</span><i class="st"></i></div>
+      <div class="banner" data-at="4.6" style="background:#FFF0D1;color:#9A6400">1 point à examiner</div>
+      <div data-at="5.2" style="margin-top:10px;display:flex;gap:10px;align-items:center"><span class="btnmock" data-press="6.0">Valider le client</span><span style="font-size:12px;color:#7A849E" data-at="6.4">✓ Décision enregistrée dans le dossier</span></div>
+    </div></div></div>
+</section>
+
+<!-- 5. facture -->
+<section class="scene bg-light" data-s="26.5" data-e="33.5" id="s-inv" data-cfo="1" data-cut="1">
+  <div class="cap"><small data-at="0.2">Temps et facturation</small><h2 data-at="0.4">Le temps saisi devient une facture.</h2><p data-at="0.8">Sans ressaisie, puis vous suivez les règlements.</p></div>
+  <div class="mock" data-at="0.5"><div class="app">
+    <div class="app-top"><div class="lg"><b>n</b>norvy</div><span class="ttl">Temps · Helix Holdings</span></div>
+    <div class="app-body">
+      <div class="trow" data-at="1.2"><b>Rédaction du pacte d'associés</b><b>3 h 30</b><span>Lun. · Me Laurent</span></div>
+      <div class="trow" data-at="1.6"><b>Rendez-vous client</b><b>1 h 00</b><span>Mar. · Me Laurent</span></div>
+      <div class="trow" data-at="2.0"><b>Relecture des statuts</b><b>2 h 00</b><span>Mer. · Me Martin</span></div>
+      <div data-at="2.5" style="margin:6px 0 2px"><span class="btnmock" data-press="3.0">Créer la facture</span></div>
+      <div class="invoice" data-at="3.5"><small style="color:#7A849E;display:block;padding-right:90px">Facture F-2026-118 · 6 h 30</small><div class="tot">1 625 €</div><small style="color:#7A849E">Envoyée le 4/11 · réglée le 14/11</small><span class="stamp" data-stamp="5.0">PAYÉE</span></div>
+    </div></div></div>
+</section>
+
+<!-- 6. agenda -->
+<section class="scene bg-light" data-s="33.5" data-e="39.5" id="s-week" data-cfo="1" data-cut="1">
+  <div class="cap"><small data-at="0.2">Agenda</small><h2 data-at="0.4">Toutes vos échéances au même endroit.</h2><p data-at="0.8">Synchronisées avec Outlook, dans les deux sens.</p></div>
+  <div class="mock" data-at="0.5"><div class="app">
+    <div class="app-top"><div class="lg"><b>n</b>norvy</div><span class="ttl">Agenda · cette semaine</span></div>
+    <div class="app-body">
+      <div class="week">
+        <div class="d"><small>Lun</small><div class="ev a" data-at="1.2">9 h 30 Audience</div></div>
+        <div class="d"><small>Mar</small><div class="ev c" data-at="1.5">14 h Rendez-vous</div></div>
+        <div class="d"><small>Mer</small><div class="ev a" data-at="1.8">10 h Médiation</div><div class="ev c" data-at="2.1">16 h Signature</div></div>
+        <div class="d"><small>Jeu</small><div class="ev b" data-at="2.4">Délai d'appel</div><div class="ev c" data-at="2.7">Conclusions</div></div>
+        <div class="d"><small>Ven</small><div class="ev a" data-at="3.0">11 h Tribunal</div></div>
+      </div>
+      <div class="notif" data-at="3.6"><span>🔔</span><span>Rappel : audience demain à 9 h 30</span></div>
+    </div></div></div>
+</section>
+
+<!-- 7. tableau de bord -->
+<section class="scene bg-light" data-s="39.5" data-e="45.5" id="s-dash" data-cut="1">
+  <div class="cap"><small data-at="0.2">Tableau de bord</small><h2 data-at="0.4">Le cabinet, d'un coup d'œil.</h2><p data-at="0.8">Activité, facturation et alertes, au même endroit.</p></div>
+  <div class="mock" data-at="0.5"><div class="app">
+    <div class="app-top"><div class="lg"><b>n</b>norvy</div><span class="ttl">Tableau de bord</span></div>
+    <div class="app-body">
+      <div class="kpis" style="margin-top:0">
+        <div><small>Dossiers actifs</small><b data-count="42" data-cat="1.0">0</b><em>+6 ce mois</em></div>
+        <div><small>Heures facturables</small><b><span data-count="98" data-cat="1.0">0</span> h</b><em>ce mois</em></div>
+        <div><small>Encaissé</small><b><span data-count="82" data-cat="1.0">0</span> %</b><em>des factures</em></div>
+        <div><small>Alertes AML</small><b><span data-count="2" data-cat="1.0">0</span></b><em>à examiner</em></div>
+      </div>
+      <div class="chart"><small>Facturé et encaissé, 6 derniers mois</small>
+        <div class="bars">
+          <div><i data-h="55"></i><i class="c" data-h="48"></i><span>Juin</span></div>
+          <div><i data-h="62"></i><i class="c" data-h="55"></i><span>Juil</span></div>
+          <div><i data-h="40"></i><i class="c" data-h="38"></i><span>Août</span></div>
+          <div><i data-h="70"></i><i class="c" data-h="58"></i><span>Sep</span></div>
+          <div><i data-h="78"></i><i class="c" data-h="66"></i><span>Oct</span></div>
+          <div><i data-h="86"></i><i class="c" data-h="70"></i><span>Nov</span></div>
+        </div></div>
+    </div></div></div>
+</section>
+
+<!-- 8. fin -->
+<section class="scene bg-dark end" data-s="45.5" data-e="52">
+  <div class="band"></div>
+  <div class="big" style="top:250px" data-at="0.4"><span class="logo">norvy<i></i></span></div>
+  <div class="big" style="top:500px;font-size:48px" data-at="0.9">Découvrez Norvy en 30 minutes.</div>
+  <div class="big" style="top:590px" data-at="1.4"><span class="cta">Réserver une démonstration · norvy.lu</span></div>
+  <div class="big" style="top:790px" data-at="1.9"><small>Données hébergées en Europe · Migration offerte · Sans engagement</small></div>
+</section>
+
+<script>
+var FADE=0.6;
+function cl(x){return Math.max(0,Math.min(1,x));}
+function ease(x){x=cl(x);return 1-Math.pow(1-x,3);}
+function render(t){
+  document.querySelectorAll('.scene').forEach(function(sc){
+    var s=+sc.dataset.s,e=+sc.dataset.e,lt=t-s;
+    var o=sc.dataset.out?cl((e-t)/FADE):(s===0?1:(sc.dataset.cut?(t>=s?1:0):cl((t-s)/FADE))); if(!sc.dataset.out&&t>e+FADE)o=0;
+    if(sc.dataset.cfo){var co=cl((e-t)/0.45);[].forEach.call(sc.children,function(ch){ch.style.filter='opacity('+co+')';});}
+    sc.style.opacity=o; sc.style.visibility=o>0?'visible':'hidden';
+    if(o<=0)return;
+    sc.querySelectorAll('[data-at]').forEach(function(el){var p=ease((lt-+el.dataset.at)/0.5);el.style.opacity=p;
+      if(!el.classList.contains('mock'))el.style.transform='translateY('+((1-p)*18)+'px)';
+      else el.style.transform='translateY(calc(-50% + '+((1-p)*30)+'px))';});
+    sc.querySelectorAll('[data-type]').forEach(function(el){var n=Math.floor(cl((lt-+el.dataset.tat)/1.2)*el.dataset.type.length);el.textContent=el.dataset.type.slice(0,n);});
+    sc.querySelectorAll('.caret').forEach(function(c){c.style.opacity=(Math.floor(lt*2)%2)?0:1;});
+    sc.querySelectorAll('[data-done]').forEach(function(el){var d=lt>=+el.dataset.done;el.classList.toggle('done',d&&!el.dataset.flag);el.classList.toggle('flag',d&&!!el.dataset.flag);
+      var st=el.querySelector('.st');st.style.transform=d?'none':'rotate('+(lt*450)+'deg)';});
+    sc.querySelectorAll('[data-press]').forEach(function(el){var k=lt-+el.dataset.press;var sc2=(k>0&&k<0.4)?1-0.08*Math.sin(k/0.4*Math.PI):1;el.style.transform='scale('+sc2+')';el.style.display='inline-block';el.style.background=(k>0&&k<0.4)?'#3B568F':'';});
+    sc.querySelectorAll('[data-stamp]').forEach(function(el){var p=cl((lt-+el.dataset.stamp)/0.35);var s3=1.6-0.6*ease(p);el.style.opacity=p;el.style.transform='rotate(-8deg) scale('+s3+')';});
+    sc.querySelectorAll('[data-count]').forEach(function(el){var p=ease((lt-+el.dataset.cat)/1.4);el.textContent=Math.round(+el.dataset.count*p);});
+    sc.querySelectorAll('[data-h]').forEach(function(el,k){var p=ease((lt-1.0-k*0.08)/0.7);el.style.height=(+el.dataset.h*p)+'%';});
+  });
+  // cards: drift in scene 1, converge in scene 2
+  var cards=document.querySelectorAll('#cards .card');
+  cards.forEach(function(c,k){var x=+c.dataset.x,y=+c.dataset.y,r=+c.dataset.r;
+    var appear=ease((t-0.8-k*0.25)/0.6);
+    var drift=Math.sin(t*0.9+k)*8;
+    var conv=ease((t-5.9)/1.6);
+    var cx=810,cy=445;
+    var X=x+(cx-x)*conv, Y=y+drift*(1-conv)+(cy-y)*conv, R=r*(1-conv), S=1-0.55*conv;
+    c.style.left=X+'px';c.style.top=Y+'px';c.style.transform='rotate('+R+'deg) scale('+S+')';
+    c.style.opacity=appear*(1-ease((t-7.0)/0.8));});
+  document.getElementById('cards').style.opacity=1;document.getElementById('cards').style.visibility=t<8.2?'visible':'hidden';
+  // scene 2 dark background persists: body bg is ink
+}
+window.render=render;render(0);
+</script>
+</body></html>
