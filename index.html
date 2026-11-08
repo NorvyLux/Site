@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Norvy — Le logiciel de gestion de cabinet d'avocats</title>
+<title>Norvy — Gagnez du temps et restez conforme | Logiciel pour avocats</title>
 <meta name="description" content="Norvy, le logiciel de gestion de cabinet d'avocats : dossiers, heures, factures, agenda et contrôles AML dans un seul outil. Données hébergées en Europe.">
 <meta name="theme-color" content="#0F1830">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -11,7 +11,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Norvy">
 <meta property="og:url" content="https://www.norvy.lu/">
-<meta property="og:title" content="Norvy — Le logiciel de gestion de cabinet d'avocats">
+<meta property="og:title" content="Gagnez jusqu'à 5 heures par semaine et restez conforme — Norvy">
 <meta property="og:description" content="Dossiers, heures, factures, agenda et contrôles AML dans un seul outil.">
 <meta property="og:image" content="https://www.norvy.lu/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -232,7 +232,7 @@ footer{padding:56px 0 36px;font-size:15px}
 .flogo{font-size:25px;font-weight:700;letter-spacing:-.04em}.flogo i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--blue);margin-left:3px}
 .fbot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding-top:20px;color:var(--muted);font-size:14px}
 
-@media (max-width:1380px){.toasts{display:none}}
+@media (max-width:1520px){.toasts{display:none}}
 @media (max-width:980px){
   .moment,.diag,.pricebox{grid-template-columns:1fr;gap:28px}
   .moment:nth-child(even) .mtext{order:0}
@@ -284,11 +284,11 @@ footer{padding:56px 0 36px;font-size:15px}
 <!-- 1. CE QU'EST NORVY -->
 <section id="top" class="hero dark">
   <div class="wrap">
-    <h1 data-en="The practice management software for law firms.">Le logiciel de gestion pour cabinets d'avocats.</h1>
-    <p class="sub" data-en="Matters, hours, invoices, calendar and AML checks: your whole firm in one tool.">Dossiers, heures, factures, agenda et contrôles AML : tout votre cabinet dans un seul outil.</p>
+    <h1 data-en="Save up to 5 hours a week and stay compliant without thinking about it.">Gagnez jusqu'à 5 heures par semaine et restez conforme sans y penser.</h1>
+    <p class="sub" data-en="Norvy brings your matters, invoices, calendar and AML checks together. Less admin, more time for your clients and your growth.">Norvy réunit vos dossiers, vos factures, votre agenda et vos contrôles AML. Moins d'administratif, plus de temps pour vos clients et le développement de votre cabinet.</p>
     <div class="ctas">
-      <a class="btn btn-light" href="#" onclick="return openCalendly(event)" data-en="Book a free demo">Réserver une démo gratuite</a>
-      <button class="btn btn-ghost" type="button" onclick="openVideo()"><span class="play"><svg width="12" height="12" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"/></svg></span><span data-en="See Norvy in 1 minute">Découvrir Norvy en 1 minute</span></button>
+      <a class="btn btn-light" href="#" onclick="return openCalendly(event)" data-en="Book my free demo">Réserver ma démo gratuite</a>
+      <button class="btn btn-ghost" type="button" onclick="openVideo()"><span class="play"><svg width="12" height="12" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"/></svg></span><span data-en="See how in 1 minute">Voir comment en 1 minute</span></button>
     </div>
     <span class="shotlabel" data-en="Your Norvy dashboard ↓">Votre tableau de bord Norvy ↓</span>
     <div class="herostage" data-anim="hero">
@@ -608,7 +608,7 @@ function applyLang(l){
   document.querySelectorAll('[data-en]').forEach(function(el){if(el._fr===undefined)el._fr=el.innerHTML;el.innerHTML=LANG==='en'?el.getAttribute('data-en'):el._fr;});
   document.querySelectorAll('[data-en-href]').forEach(function(el){if(el._frhref===undefined)el._frhref=el.getAttribute('href');el.setAttribute('href',LANG==='en'?el.getAttribute('data-en-href'):el._frhref);});
   document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lang===LANG));});
-  document.title=T("Norvy — Le logiciel de gestion de cabinet d'avocats","Norvy — Practice management software for law firms");
+  document.title=T("Norvy — Gagnez du temps et restez conforme | Logiciel pour avocats","Norvy — Save time and stay compliant | Software for lawyers");
   try{localStorage.setItem('norvy-lang',LANG);}catch(e){}
   price();
 }
