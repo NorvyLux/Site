@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sécurité et confidentialité — Norvy</title>
+<meta name="description" content="Comment Norvy protège les données de votre cabinet : hébergement en Europe, chiffrement, sauvegardes quotidiennes, accès par rôle, réversibilité.">
+<meta name="theme-color" content="#0F1830">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/jakarta.woff2" as="font" type="font/woff2" crossorigin>
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<style>
+@font-face{font-family:"Jakarta";src:url(assets/fonts/jakarta.woff2) format("woff2");font-weight:200 800;font-display:swap}
+:root{--ink:#0F1830;--navy:#1A2649;--paper:#F4F6FB;--text:#131A2E;--muted:#59647F;--blue:#2F5BD8;--peri:#A9B9F2;--line:rgba(19,26,46,.12);--band:6px}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Jakarta",-apple-system,"Segoe UI",Arial,sans-serif;color:var(--text);background:#fff;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+h1,h2,h3{margin:0;letter-spacing:-.025em;line-height:1.1}
+.nav{background:var(--ink);color:#fff;border-top:var(--band) solid var(--blue)}
+.nav .wrap{height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-size:25px;font-weight:700;letter-spacing:-.04em;text-decoration:none;color:#fff}
+.logo i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--peri);margin-left:3px}
+.navr{display:flex;align-items:center;gap:14px}
+.lang{display:inline-flex;border:1px solid rgba(255,255,255,.22);border-radius:8px;overflow:hidden}
+.lang button{font:inherit;font-size:13px;font-weight:600;background:transparent;color:#C9D1EA;border:0;padding:6px 10px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:#fff;color:var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;font:inherit;font-size:16px;font-weight:600;text-decoration:none;padding:14px 24px;border-radius:10px;border:0;cursor:pointer}
+.btn-primary{background:var(--blue);color:#fff}.btn-light{background:#fff;color:var(--ink)}
+.nav .btn{padding:9px 16px;font-size:15px}
+@media (max-width:640px){.nav .btn{display:none}}
+.head{background:var(--ink);color:#fff;padding:72px 0 80px;border-bottom:var(--band) solid var(--blue)}
+.head h1{font-size:clamp(34px,5vw,56px);letter-spacing:-.04em;max-width:760px}
+.head p{color:#B9C2DC;font-size:19px;max-width:620px;margin:18px 0 0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:-40px 0 0}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px;box-shadow:0 20px 50px -30px rgba(15,24,48,.35)}
+.card .ico{width:46px;height:46px;border-radius:12px;background:#E6ECFB;color:var(--blue);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.card b{display:block;font-size:19px;margin-bottom:6px}
+.card > span{color:var(--muted);font-size:15px}
+.card b span{font-size:inherit;color:inherit}
+.card b .soon{font-size:12px;color:#9A6400}
+.soon{display:inline-block;font-size:12px;font-weight:700;color:#9A6400;background:#FFF0D1;padding:2px 8px;border-radius:999px;margin-left:6px;vertical-align:middle}
+.end{background:var(--paper);padding:72px 0;margin-top:80px;text-align:center}
+.end h2{font-size:clamp(26px,3.4vw,36px)}
+.end p{color:var(--muted);margin:12px auto 26px;max-width:560px}
+footer{padding:30px 0;font-size:14px;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+@media (max-width:900px){.grid{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="nav"><div class="wrap">
+  <a class="logo" href="index.html">norvy<i></i></a>
+  <div class="navr">
+    <div class="lang" role="group" aria-label="Langue / Language"><button type="button" data-lang="fr" aria-pressed="true">FR</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
+    <a class="btn btn-primary" href="#" onclick="return openCalendly(event)" data-en="Book a demo">Réserver une démo</a>
+  </div>
+</div></header>
+<main>
+<section class="head"><div class="wrap">
+  <h1 data-en="Your clients' data deserves the highest protection.">Les données de vos clients méritent la meilleure protection.</h1>
+  <p data-en="Professional secrecy is at the heart of your work. Here is how Norvy protects your firm's data.">Le secret professionnel est au cœur de votre métier. Voici comment Norvy protège les données de votre cabinet.</p>
+</div></section>
+<div class="wrap">
+  <div class="grid">
+    <div class="card"><span class="ico"><svg width="22" height="22" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10" cy="10" r="7.5"/><path d="M2.5 10h15M10 2.5c2.2 2.4 2.2 12.6 0 15M10 2.5c-2.2 2.4-2.2 12.6 0 15"/></svg></span><b data-en="Hosted in Europe">Hébergement en Europe</b><span data-en="Your data stays in Europe, under European law and the GDPR.">Vos données restent en Europe, sous droit européen et RGPD.</span></div>
+    <div class="card"><span class="ico"><svg width="22" height="22" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="4" y="9" width="12" height="8.5" rx="1.5"/><path d="M6.5 9V6.5a3.5 3.5 0 017 0V9"/></svg></span><b data-en="Encrypted data">Données chiffrées</b><span data-en="Your files and documents are encrypted.">Vos dossiers et documents sont chiffrés.</span></div>
+    <div class="card"><span class="ico"><svg width="22" height="22" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 10a7 7 0 1112 5M15 11v4h-4"/></svg></span><b data-en="Daily backups">Sauvegarde quotidienne</b><span data-en="Your data is backed up every day.">Vos données sont sauvegardées chaque jour.</span></div>
+    <div class="card"><span class="ico"><svg width="22" height="22" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="7" cy="7" r="3"/><path d="M2 17c0-3 2.2-5 5-5s5 2 5 5M14 6h4M14 10h4M14 14h3"/></svg></span><b data-en="Access by role">Accès par rôle</b><span data-en="Each team member only sees what they need.">Chaque membre de l'équipe ne voit que ce dont il a besoin.</span></div>
+    <div class="card"><span class="ico"><svg width="22" height="22" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="5" y="2.5" width="10" height="15" rx="2"/><path d="M9 14.5h2"/></svg></span><b><span data-en="Two-factor authentication">Double authentification</span> <span class="soon" data-en="Coming soon">Bientôt</span></b><span data-en="A second check at login to protect each account.">Une seconde vérification à la connexion pour protéger chaque compte.</span></div>
+    <div class="card"><span class="ico"><svg width="22" height="22" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M10 2.5v10M6 8.5l4 4 4-4M3.5 15.5h13"/></svg></span><b data-en="Free to leave">Libre de partir</b><span data-en="Export all your files and documents yourself, at any time, at no cost.">Exportez vous-même tous vos dossiers et documents, à tout moment, sans frais.</span></div>
+  </div>
+  <p style="color:var(--muted);font-size:15px;margin:36px 0 0;max-width:760px" data-en="Your data is never used to train artificial intelligence models. For any question about security or the processing of your data: &lt;a href=&quot;#&quot; onclick=&quot;return mailContact(event)&quot;&gt;contact@norvy.fr&lt;/a&gt;.">Vos données ne servent jamais à entraîner des modèles d'intelligence artificielle. Pour toute question sur la sécurité ou le traitement de vos données : <a href="#" onclick="return mailContact(event)">contact@norvy.fr</a>.</p>
+</div>
+<section class="end"><div class="wrap">
+  <h2 data-en="Questions about security?">Des questions sur la sécurité ?</h2>
+  <p data-en="We answer them during the demo, with your IT team if you wish.">Nous y répondons pendant la démo, avec votre informaticien si vous le souhaitez.</p>
+  <a class="btn btn-primary" href="#" onclick="return openCalendly(event)" data-en="Book a demo">Réserver une démo</a>
+</div></section>
+</main>
+<footer><div class="wrap"><span>© 2026 Norvy</span><span><a href="index.html" data-en="Home">Accueil</a> · <a href="legal.html#confidentialite" data-en="Privacy">Confidentialité</a> · <a href="legal.html#mentions" data-en="Legal notice">Mentions légales</a></span></div></footer>
+<script>
+var CAL_URL='https://calendly.com/mchouhad-norvy/30min';var LANG='fr';
+function openCalendly(e){if(e&&e.preventDefault)e.preventDefault();if(window.Calendly&&window.Calendly.initPopupWidget){window.Calendly.initPopupWidget({url:CAL_URL});}else{window.open(CAL_URL,'_blank','noopener');}return false;}
+function mailContact(e){if(e)e.preventDefault();location.href='mailto:contact'+'@'+'norvy.fr';return false;}
+function applyLang(l){LANG=l==='en'?'en':'fr';document.documentElement.lang=LANG;
+  document.querySelectorAll('[data-en]').forEach(function(el){if(el._fr===undefined)el._fr=el.innerHTML;el.innerHTML=LANG==='en'?el.getAttribute('data-en'):el._fr;});
+  document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lang===LANG));});
+  document.title=LANG==='en'?'Security and confidentiality — Norvy':'Sécurité et confidentialité — Norvy';try{localStorage.setItem('norvy-lang',LANG);}catch(e){}}
+document.querySelectorAll('.lang button').forEach(function(b){b.addEventListener('click',function(){applyLang(b.dataset.lang);});});
+(function(){var l=null;try{l=new URLSearchParams(location.search).get('lang')||localStorage.getItem('norvy-lang');}catch(e){}if(!l)l=(navigator.language||'fr').toLowerCase().indexOf('fr')===0?'fr':'en';applyLang(l);})();
+</script>
+</body>
+</html>

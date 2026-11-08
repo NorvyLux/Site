@@ -180,6 +180,10 @@ section{padding:100px 0}
 
 
 
+.team{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
+.team div{background:#fff;border:1px solid var(--line);border-left:var(--band) solid var(--blue);border-radius:14px;padding:22px}
+.team b{display:block;font-size:18px;margin-bottom:4px}.team span{color:var(--muted);font-size:15px}
+@media (max-width:860px){.team{grid-template-columns:1fr}}
 /* diagnostic */
 .diag{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
 .gets{list-style:none;padding:0;margin:24px 0 30px;display:grid;gap:10px}
@@ -330,7 +334,7 @@ footer{padding:56px 0 36px;font-size:15px}
         <div class="mtext">
           <div class="mnum"><b>1</b><span data-en="New client">Nouveau client</span></div>
           <h3 data-en="Open a file in a few clicks">Ouvrez un dossier en quelques clics</h3>
-          <p data-en="Type the company name. Norvy fills in the details from the official registers.">Tapez le nom de la société. Norvy remplit la fiche à partir des registres officiels.</p>
+          <p data-en="Type the company name. Norvy pre-fills the file from the official registers. You check and approve.">Tapez le nom de la société. Norvy préremplit la fiche depuis les registres officiels. Vous vérifiez, vous validez.</p>
           <span class="gain" data-en="✓ No more copying by hand">✓ Plus de saisie à la main</span>
         </div>
         <div class="mvis" data-anim="open"><div class="app">
@@ -349,9 +353,9 @@ footer{padding:56px 0 36px;font-size:15px}
       <div class="moment">
         <div class="mtext">
           <div class="mnum"><b>2</b><span data-en="Client checks">Vérification du client</span></div>
-          <h3 data-en="AML checks run on their own">Les contrôles AML se font tout seuls</h3>
-          <p data-en="Identity, beneficial owners, sanctions lists: Norvy checks everything as soon as the file is created.">Identité, bénéficiaires, listes de sanctions : Norvy vérifie tout dès la création du dossier.</p>
-          <span class="gain" data-en="✓ Unlimited, at no extra cost">✓ En illimité, sans surcoût</span>
+          <h3 data-en="Your AML checks start as soon as the file opens">Vos contrôles AML lancés dès l'ouverture</h3>
+          <p data-en="Identity, beneficial owners, sanctions, PEPs: Norvy runs the checks. You analyse and decide, and everything is recorded.">Identité, bénéficiaires, sanctions, PPE : Norvy lance les vérifications. Vous analysez et vous décidez, tout est enregistré.</p>
+          <span class="gain" data-en="✓ Every decision documented">✓ Chaque décision documentée</span>
         </div>
         <div class="mvis" data-anim="checks"><div class="app">
           <div class="app-top"><div class="lg"><b>n</b>norvy</div><span class="ttl">Helix Holdings</span></div>
@@ -361,7 +365,7 @@ footer{padding:56px 0 36px;font-size:15px}
             <div class="chk"><span data-en="EU and UN sanctions lists">Listes de sanctions UE et ONU</span><i class="st"></i></div>
             <div class="chk" data-flag="1"><span data-en="Politically exposed persons">Personnes politiquement exposées</span><i class="st"></i></div>
             <div class="chk"><span data-en="Press and adverse media">Presse et informations négatives</span><i class="st"></i></div>
-            <div class="banner f"><span data-en="Client verified · 1 point to review · monitoring on">Client vérifié · 1 point à revoir · surveillance activée</span></div>
+            <div class="banner f" style="background:#FFF0D1;color:#9A6400"><span data-en="Checks complete · 1 point for you to analyse">Vérifications terminées · 1 point à analyser</span></div><div class="f" style="margin-top:8px;display:flex;gap:8px;align-items:center"><span class="btnmock" data-en="Approve the client">Valider le client</span><span style="font-size:12px;color:#7A849E" data-en="Decision recorded under your name">Décision enregistrée à votre nom</span></div>
           </div>
         </div></div>
       </div>
@@ -369,8 +373,8 @@ footer{padding:56px 0 36px;font-size:15px}
       <div class="moment">
         <div class="mtext">
           <div class="mnum"><b>3</b><span data-en="Billing">Facturation</span></div>
-          <h3 data-en="Your hours become an invoice">Vos heures deviennent une facture</h3>
-          <p data-en="One click to invoice the time recorded. Reminders go out automatically.">Un clic pour facturer le temps saisi. Les relances partent automatiquement.</p>
+          <h3 data-en="Turn your hours into invoices, without retyping">Transformez vos heures en factures, sans ressaisie</h3>
+          <p data-en="Check your hours, create the invoice in one click. Reminders go out on their own if it is not paid.">Vérifiez vos heures, créez la facture en un clic. Les relances partent seules si elle n'est pas payée.</p>
           <span class="gain" data-en="✓ Get paid faster">✓ Vous êtes payé plus vite</span>
         </div>
         <div class="mvis" data-anim="invoice"><div class="app">
@@ -379,8 +383,8 @@ footer{padding:56px 0 36px;font-size:15px}
             <div class="trow f"><b data-en="Drafting shareholders' agreement">Rédaction du pacte d'associés</b><b>3 h 30</b><span data-en="Mon. · Me Laurent">Lun. · Me Laurent</span></div>
             <div class="trow f"><b data-en="Client meeting">Rendez-vous client</b><b>1 h 00</b><span data-en="Tue. · Me Laurent">Mar. · Me Laurent</span></div>
             <div class="trow f"><b data-en="Review of the articles">Relecture des statuts</b><b>2 h 00</b><span data-en="Wed. · Me Martin">Mer. · Me Martin</span></div>
-            <div class="f" style="margin:6px 0 2px"><span class="btnmock" data-en="Create the invoice">Créer la facture</span></div>
-            <div class="invoice f"><small style="color:#7A849E" data-en="Invoice F-2026-118 · 6 h 30">Facture F-2026-118 · 6 h 30</small><div class="tot">1 625 €</div><small style="color:#7A849E" data-en="Sent by email · reminder on day 15">Envoyée par e-mail · relance à J+15</small><span class="stamp" data-en="PAID">PAYÉE</span></div>
+            <div class="f" style="margin:6px 0 2px"><span class="btnmock" data-en="Check and create the invoice">Vérifier et créer la facture</span></div>
+            <div class="invoice f"><small style="color:#7A849E" data-en="Invoice F-2026-118 · 6 h 30">Facture F-2026-118 · 6 h 30</small><div class="tot">1 625 €</div><small style="color:#7A849E" data-en="Sent by email · paid on 14 Nov., reminder cancelled">Envoyée par e-mail · payée le 14/11, relance annulée</small><span class="stamp" data-en="PAID">PAYÉE</span></div>
           </div>
         </div></div>
       </div>
@@ -388,9 +392,9 @@ footer{padding:56px 0 36px;font-size:15px}
       <div class="moment">
         <div class="mtext">
           <div class="mnum"><b>4</b><span data-en="Calendar">Agenda</span></div>
-          <h3 data-en="Never miss a hearing">Ne manquez plus aucune audience</h3>
-          <p data-en="Hearings and deadlines are in your Outlook calendar, with a reminder the day before.">Audiences et échéances arrivent dans votre agenda Outlook, avec un rappel la veille.</p>
-          <span class="gain" data-en="✓ Synced with Outlook">✓ Synchronisé avec Outlook</span>
+          <h3 data-en="All your deadlines in one place">Toutes vos échéances au même endroit</h3>
+          <p data-en="Hearings, time limits, meetings and tasks, synced both ways with Outlook. A reminder the day before.">Audiences, délais, rendez-vous et tâches, synchronisés dans les deux sens avec Outlook. Un rappel la veille.</p>
+          <span class="gain" data-en="✓ Never miss a deadline">✓ Plus aucun délai oublié</span>
         </div>
         <div class="mvis" data-anim="week"><div class="app">
           <div class="app-top"><div class="lg"><b>n</b>norvy</div><span class="ttl" data-en="Calendar · this week">Agenda · cette semaine</span></div>
@@ -399,7 +403,7 @@ footer{padding:56px 0 36px;font-size:15px}
               <div class="d"><small data-en="Mon">Lun</small><div class="ev a f" data-en="9:30 Hearing · Helix">9 h 30 Audience · Helix</div></div>
               <div class="d"><small data-en="Tue">Mar</small><div class="ev c f" data-en="14:00 Weber meeting">14 h RDV Weber</div></div>
               <div class="d"><small data-en="Wed">Mer</small><div class="ev a f" data-en="10:00 Mediation">10 h Médiation</div><div class="ev c f" data-en="16:00 Signing">16 h Signature</div></div>
-              <div class="d"><small data-en="Thu">Jeu</small><div class="ev b f" data-en="Filing deadline">Échéance de dépôt</div></div>
+              <div class="d"><small data-en="Thu">Jeu</small><div class="ev b f" data-en="Appeal deadline">Délai d'appel</div><div class="ev c f" data-en="Task: submissions">Tâche : conclusions</div></div>
               <div class="d"><small data-en="Fri">Ven</small><div class="ev a f" data-en="11:00 Court">11 h Tribunal</div></div>
             </div>
             <div class="notif f"><span>🔔</span><span data-en="Reminder: hearing tomorrow at 9:30, Commercial court">Rappel : audience demain 9 h 30, tribunal de commerce</span></div>
@@ -410,8 +414,8 @@ footer{padding:56px 0 36px;font-size:15px}
       <div class="moment">
         <div class="mtext">
           <div class="mnum"><b>5</b><span data-en="Inspection">Contrôle</span></div>
-          <h3 data-en="Ready the day you are inspected">Prêt le jour d'un contrôle</h3>
-          <p data-en="Every check is recorded and dated. One click to export everything.">Chaque vérification est enregistrée et datée. Un clic pour tout exporter.</p>
+          <h3 data-en="Your whole history, in one click">Tout votre historique, en un clic</h3>
+          <p data-en="Checks, documents received, alerts and decisions: every step is recorded and dated. You are ready for an inspection.">Vérifications, pièces reçues, alertes et décisions : chaque étape est enregistrée et datée. Vous êtes prêt pour un contrôle.</p>
           <span class="gain" data-en="✓ Proof in seconds">✓ Vos preuves en quelques secondes</span>
         </div>
         <div class="mvis" data-anim="proof"><div class="app">
@@ -423,6 +427,7 @@ footer{padding:56px 0 36px;font-size:15px}
               <li class="f"><time>09:13</time><span data-en="Sanctions and PEP lists checked">Listes de sanctions et PPE vérifiées</span></li>
               <li class="f"><time>10:40</time><span data-en="Documents received from the client">Pièces reçues du client</span></li>
               <li class="f"><time>10:41</time><span data-en="Beneficial owners approved by Me Laurent">Bénéficiaires validés par Me Laurent</span></li>
+              <li class="f"><time>10:43</time><span data-en="PEP alert analysed, decision recorded">Alerte PPE analysée, décision enregistrée</span></li>
             </ul>
             <div class="f" style="margin-top:6px"><span class="btnmock" data-en="Export the evidence (PDF)">Exporter les preuves (PDF)</span></div>
           </div>
@@ -440,10 +445,16 @@ footer{padding:56px 0 36px;font-size:15px}
       <h2 data-en="Why law firms choose Norvy">Pourquoi les cabinets choisissent Norvy</h2>
     </div>
     <div class="why">
-      <div><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="16" height="16" rx="3"/><path d="M7 11h8M11 7v8"/></svg></span><b data-en="One tool instead of three">Un outil au lieu de trois</b><span data-en="Management, billing and AML in the same software. One subscription.">Gestion, facturation et AML dans le même logiciel. Un seul abonnement.</span></div>
-      <div><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 11c3-6 13-6 16 0-3 6-13 6-16 0z"/><circle cx="11" cy="11" r="2.5"/></svg></span><b data-en="Unlimited checks">Contrôles illimités</b><span data-en="Check all your clients, as often as needed, at no extra cost.">Vérifiez tous vos clients, aussi souvent que nécessaire, sans surcoût.</span></div>
-      <div><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h12M12 4l4 4-4 4M18 15H6M10 11l-4 4 4 4"/></svg></span><b data-en="Free migration">Migration offerte</b><span data-en="We move your files from your current software for you.">Nous transférons vos dossiers depuis votre logiciel actuel.</span></div>
-      <div><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="10" width="12" height="9" rx="2"/><path d="M8 10V7a3 3 0 016 0v3"/></svg></span><b data-en="Your data in Europe">Vos données en Europe</b><span data-en="Hosted in Europe. You can export everything, at any time.">Hébergées en Europe. Vous pouvez tout récupérer, à tout moment.</span></div>
+      <div><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="16" height="16" rx="3"/><path d="M7 11h8M11 7v8"/></svg></span><b data-en="One tool instead of three">Un outil au lieu de trois</b><span data-en="Management, billing and AML in the same software. One subscription, one login.">Gestion, facturation et AML dans le même logiciel. Un abonnement, un seul accès.</span></div>
+      <div><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 11c3-6 13-6 16 0-3 6-13 6-16 0z"/><circle cx="11" cy="11" r="2.5"/></svg></span><b data-en="Unlimited AML checks">Contrôles AML illimités</b><span data-en="Check all your clients, as often as needed, at no extra cost.">Vérifiez tous vos clients, aussi souvent que nécessaire, sans surcoût.</span></div>
+      <div><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h12M12 4l4 4-4 4M18 15H6M10 11l-4 4 4 4"/></svg></span><b data-en="Free migration">Migration offerte</b><span data-en="We audit your current software, then move your files for you.">Nous auditons votre logiciel actuel, puis transférons vos dossiers pour vous.</span></div>
+      <div><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="10" width="12" height="9" rx="2"/><path d="M8 10V7a3 3 0 016 0v3"/></svg></span><b data-en="Secure data">Données sécurisées</b><span data-en="Hosted in Europe, encrypted, backed up every day.">Hébergées en Europe, chiffrées, sauvegardées chaque jour.</span><a href="securite.html" style="display:inline-block;margin-top:10px;color:var(--blue);font-weight:600;font-size:15px" data-en="Security details →">Détails sécurité →</a></div>
+    </div>
+    <h3 class="center" style="font-size:26px;margin:72px 0 0" data-en="Easier for the whole team">Plus simple pour toute l'équipe</h3>
+    <div class="team">
+      <div><b data-en="Partners">Associés</b><span data-en="See activity, billing and risks across the firm at a glance.">Voyez l'activité, la facturation et les risques du cabinet d'un coup d'œil.</span></div>
+      <div><b data-en="Associates">Collaborateurs</b><span data-en="Everything about a file in one place. Fewer repetitive tasks.">Tout le dossier au même endroit. Moins de tâches répétitives.</span></div>
+      <div><b data-en="Assistants">Assistantes</b><span data-en="No more retyping or chasing clients by hand: documents and reminders are handled.">Plus de ressaisie ni de relances à la main : pièces et rappels sont gérés.</span></div>
     </div>
   </div>
 </section>
@@ -496,20 +507,20 @@ footer{padding:56px 0 36px;font-size:15px}
 <section class="paper">
   <div class="wrap diag">
     <div>
-      <h2 data-en="Is your firm ready for the new AML rules?">Votre cabinet est-il prêt pour les nouvelles règles AML ?</h2>
-      <p class="sub" data-en="From 10 July 2027, a new European regulation applies to lawyers. Find out where you stand in 4 minutes.">À partir du 10 juillet 2027, un nouveau règlement européen s'applique aux avocats. Faites le point en 4 minutes.</p>
+      <h2 data-en="New AML rules are coming. Where does your firm stand?">Les nouvelles règles AML approchent. Où en est votre cabinet ?</h2>
+      <p class="sub" data-en="From 10 July 2027, the EU AML Regulation applies to lawyers for certain transactions (companies, real estate, funds). Assess your firm in 4 minutes.">Dès le 10 juillet 2027, le règlement européen AMLR s'applique aux avocats pour certaines opérations (sociétés, immobilier, fonds). Évaluez votre cabinet en 4 minutes.</p>
       <ul class="gets">
         <li data-en="Your compliance score">Votre score de conformité</li>
         <li data-en="Your priorities, obligation by obligation">Vos priorités, obligation par obligation</li>
         <li data-en="An action plan to download">Un plan d'action à télécharger</li>
       </ul>
       <div class="ctas">
-        <a class="btn btn-primary" href="diagnostic.html" data-en="Start the free diagnostic">Faire le diagnostic gratuit</a>
+        <a class="btn btn-primary" href="diagnostic.html" data-en="Assess my firm for free">Évaluer mon cabinet gratuitement</a>
         <a class="btn btn-ghost" style="color:var(--blue)" href="Norvy-Checklist-AMLR-2024-1624.pdf" data-en-href="Norvy-AMLR-Checklist-2024-1624-EN.pdf" download data-en="Download the checklist">Télécharger la checklist</a>
       </div>
     </div>
     <div class="gaugecard" data-anim="gauge" aria-hidden="true">
-      <small data-en="Example of a result">Exemple de résultat</small>
+      <small data-en="Example: maturity score across the 7 obligations of the Regulation">Exemple : score de maturité sur les 7 obligations du règlement</small>
       <svg viewBox="0 0 220 130" width="100%" style="max-width:320px;display:block;margin:10px auto 0">
         <path d="M20 115a90 90 0 01180 0" fill="none" stroke="#E3E7F1" stroke-width="18" stroke-linecap="round"/>
         <path class="garc" d="M20 115a90 90 0 01180 0" fill="none" stroke="#2F5BD8" stroke-width="18" stroke-linecap="round" stroke-dasharray="283" stroke-dashoffset="283" style="transition:stroke-dashoffset 1.4s ease"/>
@@ -524,7 +535,7 @@ footer{padding:56px 0 36px;font-size:15px}
 <section id="tarifs">
   <div class="wrap center">
     <h2 data-en="A simple price, per user">Un prix simple, par utilisateur</h2>
-    <p class="sub" data-en="Each user pays a monthly subscription. The more users you have, the lower the price per user.">Chaque utilisateur paie un abonnement mensuel. Plus vous êtes nombreux, plus le prix par utilisateur baisse.</p>
+    <p class="sub" data-en="The price per user depends on the size of your team, and applies to all users. Example: with 6 users, all 6 pay €139.">Le prix par utilisateur dépend de la taille de votre équipe et s'applique à tous. Exemple : à 6 utilisateurs, les 6 paient 139 €.</p>
     <div class="pricebox">
       <div class="calc">
         <label for="nusers" data-en="How many people will use Norvy?">Combien de personnes utiliseront Norvy ?</label>
@@ -546,7 +557,7 @@ footer{padding:56px 0 36px;font-size:15px}
         <ul>
           <li data-en="All features, nothing extra to pay">Toutes les fonctionnalités, rien à payer en plus</li>
           <li data-en="Unlimited AML checks">Contrôles AML illimités</li>
-          <li data-en="Migration of your files included">Transfert de vos dossiers inclus</li>
+          <li data-en="Audit and migration of your files included">Audit et transfert de vos dossiers inclus</li>
           <li data-en="Support included">Assistance incluse</li>
         </ul>
         <a class="btn btn-light" href="#" onclick="return openCalendly(event)" data-en="Book a demo">Réserver une démo</a>
@@ -560,10 +571,13 @@ footer{padding:56px 0 36px;font-size:15px}
 <section class="paper">
   <div class="wrap" style="max-width:860px">
     <h2 style="margin-bottom:30px" data-en="Questions">Questions fréquentes</h2>
-    <details><summary data-en="Who is Norvy for?">À qui s'adresse Norvy ?</summary><div class="faqa" data-en="To every lawyer, from sole practitioners to business law firms. Norvy manages your whole firm, and AML checks are built in.">À tous les avocats, de l'indépendant au cabinet d'affaires. Norvy gère tout votre cabinet, et les contrôles AML sont intégrés.</div></details>
-    <details><summary data-en="How long does it take to get started?">Combien de temps pour démarrer ?</summary><div class="faqa" data-en="We move your files from your current software and train your team. You focus on your clients.">Nous transférons vos dossiers depuis votre logiciel actuel et formons votre équipe. Vous restez concentré sur vos clients.</div></details>
+    <details><summary data-en="Who is Norvy for?">À qui s'adresse Norvy ?</summary><div class="faqa" data-en="To every lawyer, from sole practitioners to business law firms, in Luxembourg, France and Belgium.">À tous les avocats, de l'indépendant au cabinet d'affaires, au Luxembourg, en France et en Belgique.</div></details>
+    <details><summary data-en="Do AML checks replace my own analysis?">Les contrôles AML remplacent-ils mon analyse ?</summary><div class="faqa" data-en="No. Norvy runs the checks and gathers the information. You analyse and decide, and your decision is recorded in the file.">Non. Norvy lance les vérifications et rassemble les informations. Vous analysez et vous décidez, et votre décision est enregistrée dans le dossier.</div></details>
+    <details><summary data-en="How does switching from my current software work?">Comment se passe le changement de logiciel ?</summary><div class="faqa" data-en="We start with an audit of your current tools. It sets the migration plan and schedule. Then our team moves your files for you.">Nous commençons par un audit de vos outils actuels. Il définit le plan et le calendrier de migration. Ensuite, notre équipe transfère vos dossiers pour vous.</div></details>
+    <details><summary data-en="Can each team member have different rights?">Chaque collaborateur peut-il avoir des droits différents ?</summary><div class="faqa" data-en="Yes. Access is managed by role: each person only sees what they need.">Oui. Les accès sont gérés par rôle : chacun voit ce dont il a besoin.</div></details>
+    <details><summary data-en="Is my data protected?">Mes données sont-elles protégées ?</summary><div class="faqa" data-en="Yes: hosted in Europe, encrypted, backed up every day. See our &lt;a href=&quot;securite.html&quot;&gt;security page&lt;/a&gt;.">Oui : hébergées en Europe, chiffrées et sauvegardées chaque jour. Voir notre <a href="securite.html">page sécurité</a>.</div></details>
     <details><summary data-en="Are AML checks really unlimited?">Les contrôles AML sont-ils vraiment illimités ?</summary><div class="faqa" data-en="Yes. Checks and ongoing monitoring are included in the price per user.">Oui. Les vérifications et la surveillance continue sont comprises dans le prix par utilisateur.</div></details>
-    <details><summary data-en="Can we leave with our data?">Pouvons-nous récupérer nos données ?</summary><div class="faqa" data-en="Yes, at any time and at no cost. You export your files yourself.">Oui, à tout moment et sans frais. Vous exportez vous-même vos dossiers.</div></details>
+    <details><summary data-en="What if we decide to leave Norvy?">Et si nous quittons Norvy ?</summary><div class="faqa" data-en="You export all your files and documents yourself, at any time and at no cost.">Vous exportez vous-même tous vos dossiers et documents, à tout moment et sans frais.</div></details>
   </div>
 </section>
 
@@ -571,7 +585,7 @@ footer{padding:56px 0 36px;font-size:15px}
 <section class="dark" style="border-top:var(--band) solid var(--blue)">
   <div class="wrap center" style="max-width:780px">
     <h2 data-en="See Norvy with a file like yours">Voyez Norvy avec un dossier comme les vôtres</h2>
-    <p class="sub" data-en="A 30-minute demo, by video, with no commitment.">Une démo de 30 minutes, en visio, sans engagement.</p>
+    <p class="sub" data-en="In 30 minutes by video, we show you how Norvy fits the way your firm works. Nothing to prepare, no commitment.">En 30 minutes en visio, nous vous montrons comment Norvy s'intègre à votre organisation. Rien à préparer, sans engagement.</p>
     <div class="ctas" style="justify-content:center;margin-top:30px">
       <a class="btn btn-light" href="#" onclick="return openCalendly(event)" data-en="Book a free demo">Réserver une démo gratuite</a>
     </div>
@@ -586,7 +600,7 @@ footer{padding:56px 0 36px;font-size:15px}
       <div><div class="flogo">norvy<i></i></div><p style="color:var(--muted);max-width:300px;margin:10px 0 0" data-en="The practice management software for law firms. For lawyers, by lawyers.">Le logiciel de gestion pour cabinets d'avocats. For lawyers, by lawyers.</p></div>
       <div><h4 data-en="Product">Produit</h4><a href="#journee" data-en="Features">Fonctionnalités</a><a href="#tarifs" data-en="Pricing">Tarifs</a><a href="diagnostic.html" data-en="AML diagnostic">Diagnostic AML</a></div>
       <div><h4 data-en="Company">Société</h4><a href="#" onclick="return mailContact(event)">Contact</a><a href="https://www.linkedin.com/company/norvy/" target="_blank" rel="noopener">LinkedIn</a></div>
-      <div><h4 data-en="Legal">Légal</h4><a href="legal.html#mentions" data-en="Legal notice">Mentions légales</a><a href="legal.html#confidentialite" data-en="Privacy">Confidentialité</a><a href="cgu.html" data-en="Terms">CGU</a></div>
+      <div><h4 data-en="Legal">Légal</h4><a href="legal.html#mentions" data-en="Legal notice">Mentions légales</a><a href="securite.html" data-en="Security">Sécurité</a><a href="legal.html#confidentialite" data-en="Privacy">Confidentialité</a><a href="cgu.html" data-en="Terms">CGU</a></div>
     </div>
     <div class="fbot"><span>© 2026 Norvy</span><span data-en="Hosted in Europe, GDPR and professional secrecy">Hébergé en Europe, RGPD et secret professionnel</span></div>
   </div>
