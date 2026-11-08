@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Norvy — Le logiciel qui automatise vos dossiers clients et vos contrôles AML</title>
+<title>Norvy — Logiciel de gestion pour cabinets d’avocats, conformité AML automatisée</title>
 <meta name="description" content="Norvy, le logiciel de gestion pour avocats où dossiers, facturation et contrôles AML partagent la même base. Sans engagement, migration offerte.">
 <meta name="theme-color" content="#0F1830">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -11,7 +11,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Norvy">
 <meta property="og:url" content="https://norvy.lu/">
-<meta property="og:title" content="Le logiciel qui automatise la gestion de vos dossiers clients et vos contrôles AML — Norvy">
+<meta property="og:title" content="Simplifiez la gestion de votre cabinet et automatisez vos démarches de conformité — Norvy">
 <meta property="og:description" content="Dossiers, heures, factures, agenda et contrôles AML dans un seul outil.">
 <meta property="og:image" content="https://norvy.lu/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -465,9 +465,9 @@ section.calm{padding:120px 0}
 
 <section id="top" class="hero dark">
   <div class="wrap">
-    <span class="eyebrow" data-en="Practice management software for lawyers">Logiciel de gestion pour avocats</span>
-    <h1 data-en="The software that automates your client matters and your AML checks.">Le logiciel qui automatise la gestion de vos dossiers clients et vos contrôles AML.</h1>
-    <p class="sub" data-en="From opening the matter to signing documents, from reading supporting documents to regulatory checks, Norvy centralises and automates your processes.">De la création du dossier à la signature des documents, de l'analyse des pièces aux vérifications réglementaires, Norvy centralise et automatise vos processus.</p>
+    <span class="eyebrow" data-en="Practice management software for law firms">Logiciel de gestion pour cabinets d’avocats</span>
+    <h1 data-en="Simplify the running of your firm and automate your compliance.">Simplifiez la gestion de votre cabinet et automatisez vos démarches de conformité.</h1>
+    <p class="sub" data-en="Norvy brings together your clients, matters, calendar and billing, while automating document collection, KYC files and AML checks.">Norvy centralise vos clients, dossiers, agenda et facturation, tout en automatisant la collecte des pièces, la constitution des dossiers KYC et les contrôles AML.</p>
     <figure class="herovid">
       <video id="herov" src="norvy-presentation.mp4" poster="norvy-presentation-poster.jpg" data-en-src="norvy-presentation-en.mp4" data-en-poster="norvy-presentation-poster-en.jpg" autoplay muted loop playsinline preload="auto" aria-label="Présentation de Norvy en vidéo" data-en-aria="Norvy video overview"></video>
     </figure>
@@ -594,7 +594,7 @@ function applyLang(l){
     v.setAttribute('aria-label',LANG==='en'?'Norvy video overview':'Présentation de Norvy en vidéo');})();
   document.querySelectorAll('[data-en-alt]').forEach(function(el){if(el._fralt===undefined)el._fralt=el.getAttribute('alt');el.setAttribute('alt',LANG==='en'?el.getAttribute('data-en-alt'):el._fralt);});
   document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lang===LANG));});
-  document.title=T("Norvy — Le logiciel qui automatise vos dossiers clients et vos contrôles AML","Norvy — The software that automates your client matters and AML checks");
+  document.title=T("Norvy — Logiciel de gestion pour cabinets d’avocats, conformité AML automatisée","Norvy — Practice management software for law firms, automated AML compliance");
   try{localStorage.setItem('norvy-lang',LANG);}catch(e){}
   price();
 }
