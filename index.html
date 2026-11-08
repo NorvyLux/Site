@@ -545,16 +545,17 @@ footer{padding:56px 0 36px;font-size:15px}
           <button type="button" id="billY" aria-pressed="false" data-en="Annual payment −15%">Paiement annuel −15 %</button>
         </div>
         <div class="tiers">
-          <div data-t="1"><small data-en="1 to 5 users">1 à 5 utilisateurs</small><b class="tp" data-m="149" data-y="127">149</b> € <small data-en="per user / month">par utilisateur / mois</small></div>
-          <div data-t="2"><small data-en="6 to 10 users">6 à 10 utilisateurs</small><b class="tp" data-m="139" data-y="118">139</b> € <small data-en="per user / month">par utilisateur / mois</small></div>
-          <div data-t="3"><small data-en="11 to 50 users">11 à 50 utilisateurs</small><b class="tp" data-m="129" data-y="110">129</b> € <small data-en="per user / month">par utilisateur / mois</small></div>
+          <div data-t="1"><small data-en="1 to 5 users">1 à 5 utilisateurs</small><b class="tp" data-m="149" data-y="127">149</b> € <small data-en="per user / month, excl. VAT">par utilisateur / mois HT</small></div>
+          <div data-t="2"><small data-en="6 to 10 users">6 à 10 utilisateurs</small><b class="tp" data-m="139" data-y="118">139</b> € <small data-en="per user / month, excl. VAT">par utilisateur / mois HT</small></div>
+          <div data-t="3"><small data-en="11 to 50 users">11 à 50 utilisateurs</small><b class="tp" data-m="129" data-y="110">129</b> € <small data-en="per user / month, excl. VAT">par utilisateur / mois HT</small></div>
         </div>
       </div>
       <div class="total" aria-live="polite">
-        <span class="line" data-en="Your monthly price">Votre prix par mois</span>
+        <span class="line" data-en="Your monthly price, excl. VAT">Votre prix par mois, hors taxes</span>
         <div class="big" id="tot">447 €</div>
         <span class="line" id="totline">3 × 149 €</span>
         <ul>
+          <li data-en="No commitment: stop whenever you want">Sans engagement : vous arrêtez quand vous voulez</li>
           <li data-en="All features, nothing extra to pay">Toutes les fonctionnalités, rien à payer en plus</li>
           <li data-en="Unlimited AML checks">Contrôles AML illimités</li>
           <li data-en="Audit and migration of your files included">Audit et transfert de vos dossiers inclus</li>
@@ -645,7 +646,7 @@ function price(){
   document.querySelectorAll('.tiers > div').forEach(function(d){d.classList.toggle('on',+d.dataset.t===tier);});
   document.querySelectorAll('.tp').forEach(function(p){p.textContent=p.getAttribute(billing==='y'?'data-y':'data-m');});
   var unit=+document.querySelector('.tiers > div[data-t="'+tier+'"] .tp').textContent;
-  document.getElementById('tot').textContent=eur(n*unit);
+  document.getElementById('tot').textContent=eur(n*unit)+T(' HT',' excl. VAT');
   document.getElementById('totline').textContent=n+' × '+eur(unit)+' '+T(n>1?'par utilisateur':'par utilisateur',n>1?'per user':'per user')+(billing==='y'?T(' · paiement annuel',' · annual payment'):'');
 }
 document.getElementById('nusers').addEventListener('input',price);
