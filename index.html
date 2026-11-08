@@ -351,6 +351,7 @@ section.calm{padding:120px 0}
 .tile b{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:18px;letter-spacing:-.01em}
 .tile b em{font-style:normal;font-size:11px;font-weight:700;background:var(--blue);color:#fff;padding:2px 8px;border-radius:999px}
 .tile p{margin:10px 0 0;color:var(--muted);font-size:15.5px;line-height:1.55}
+.split .mvis .app{border-radius:16px;box-shadow:0 24px 60px -24px rgba(15,24,48,.45);border:1px solid #E1E5EE}
 .split{display:grid;grid-template-columns:.9fr 1.1fr;gap:72px;align-items:center}
 .split>*{min-width:0}
 .kicker{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
@@ -438,7 +439,6 @@ section.calm{padding:120px 0}
 
 <section id="top" class="hero dark">
   <div class="wrap">
-    <span class="eyebrow" data-en="Software for lawyers · Luxembourg, France, Belgium">Logiciel pour avocats · Luxembourg, France, Belgique</span>
     <h1 data-en="The practice management software for lawyers, with built-in AML checks.">Le logiciel de gestion pour avocats avec les contrôles AML intégrés.</h1>
     <p class="sub" data-en="Matters, time, invoices, calendar and client checks, together in one tool built for law firms.">Dossiers, temps, factures, agenda et vérifications clients, réunis dans un seul outil pensé pour les cabinets d'avocats.</p>
     <div class="ctas">
@@ -485,9 +485,17 @@ section.calm{padding:120px 0}
       <h2 data-en="AML checks, right inside the client matter">Les contrôles AML, directement dans le dossier client</h2>
       <p class="lead" data-en="Checks start when the matter opens and stay attached to the client, with their evidence. Unlimited and included in the subscription.">Les vérifications se lancent à l'ouverture du dossier et restent attachées au client, avec leurs justificatifs. Illimitées et incluses dans l'abonnement.</p>
     </div>
-    <figure class="shot">
-      <img src="assets/screening-kyc-crop.png" width="1632" height="804" loading="lazy" alt="Aperçu d'un écran de vérification AML dans Norvy" data-en-alt="Preview of an AML check screen in Norvy">
-    </figure>
+    <div class="mvis" data-anim="checks"><div class="app">
+          <div class="app-top"><div class="lg"><b>n</b>norvy</div><span class="ttl">Helix Holdings</span></div>
+          <div class="app-body">
+            <div class="chk"><span data-en="Identity">Identité</span><i class="st"></i></div>
+            <div class="chk"><span data-en="Beneficial owners">Bénéficiaires effectifs</span><i class="st"></i></div>
+            <div class="chk"><span data-en="Sanctions">Sanctions</span><i class="st"></i></div>
+            <div class="chk" data-flag="1"><span data-en="Politically exposed persons">Personnes politiquement exposées</span><i class="st"></i></div>
+            <div class="banner f" style="background:#FFF0D1;color:#9A6400"><span data-en="1 point for you to review">1 point à examiner</span></div>
+            <div class="f" style="margin-top:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span class="btnmock" data-en="Approve the client">Valider le client</span><span style="font-size:12px;color:#7A849E" data-en="Decision recorded in the matter">Décision enregistrée dans le dossier</span></div>
+          </div>
+        </div></div>
   </div>
 </section>
 
