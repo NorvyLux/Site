@@ -379,6 +379,11 @@ section.calm{padding:120px 0}
 .more{margin:8px 0 0;font-size:14px;color:var(--muted)}.more a{color:var(--blue);font-weight:600}
 @media (max-width:980px){.tiles{grid-template-columns:1fr 1fr}.split{grid-template-columns:1fr;gap:36px}}
 @media (max-width:640px){section.calm{padding:80px 0}.tiles,.duo{grid-template-columns:1fr}.duo>div{padding:26px}#tarifs .tiers{grid-template-columns:1fr}#tarifs .tiers div{display:flex;justify-content:space-between;align-items:center;text-align:left;padding:16px 18px}#tarifs .pr{margin:0}#tarifs .pr b{font-size:28px}.calcline{justify-content:flex-start}.hero .herostage{margin-top:44px}}
+.hero{padding-bottom:110px!important}
+.herovid{margin:56px auto 0;max-width:1040px}
+.herovid video{display:block;width:100%;height:auto;aspect-ratio:16/9;border-radius:18px;background:var(--navy);box-shadow:0 40px 100px -30px rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.08)}
+.herocta{justify-content:center;margin-top:36px}
+@media (max-width:640px){.hero{padding-bottom:72px!important}.herovid{margin-top:36px}.herovid video{border-radius:12px}.herocta{margin-top:26px}}
 /* barre mobile */
 .mobcta{display:none}
 @media (max-width:860px){
@@ -441,27 +446,11 @@ section.calm{padding:120px 0}
   <div class="wrap">
     <h1 data-en="The practice management software for lawyers, with built-in AML checks.">Le logiciel de gestion pour avocats avec les contrôles AML intégrés.</h1>
     <p class="sub" data-en="Matters, time, invoices, calendar and client checks, together in one tool built for law firms.">Dossiers, temps, factures, agenda et vérifications clients, réunis dans un seul outil pensé pour les cabinets d'avocats.</p>
-    <div class="ctas">
+    <figure class="herovid">
+      <video id="herov" src="norvy-presentation.mp4" poster="norvy-presentation-poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="Présentation de Norvy en vidéo" data-en-aria="Norvy video overview"></video>
+    </figure>
+    <div class="ctas herocta">
       <a class="btn btn-primary btn-lg" href="#" onclick="return openCalendly(event)" data-en="Book a demo">Réserver une démonstration</a>
-      <button class="link-video" type="button" onclick="openVideo()"><span class="play"><svg width="10" height="10" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"/></svg></span><span data-en="Watch the video (1 min)">Voir la vidéo (1 min)</span></button>
-    </div>
-    <div class="herostage" data-anim="hero">
-      <div class="app" role="img" aria-label="Tableau de bord Norvy, données de démonstration">
-        <div class="app-top"><div class="lg"><b>n</b>norvy</div><span class="ttl" data-en="Dashboard">Tableau de bord</span></div>
-        <div class="app-body">
-          <div class="welcome">
-            <small data-en="Good morning, Maître Laurent">Bonjour, Maître Laurent</small>
-            <strong data-en="Here is your day">Voici votre journée</strong>
-            <p data-en="2 hearings · 3 invoices to send · 1 client check to review">2 audiences · 3 factures à envoyer · 1 contrôle client à revoir</p>
-          </div>
-          <div class="kpis">
-            <div><small data-en="Active matters">Dossiers actifs</small><b data-count="42">42</b><em data-en="+6 this month">+6 ce mois</em></div>
-            <div><small data-en="Hours this month">Heures ce mois</small><b><span data-count="126">126</span> h</b><em data-en="98 h billable">98 h facturables</em></div>
-            <div><small data-en="Invoiced">Facturé</small><b><span data-count="48250" data-fmt="1">48 250</span> €</b><em data-en="this month">ce mois</em></div>
-            <div><small data-en="Collected">Encaissé</small><b><span data-count="82">82</span> %</b><em data-en="of invoices">des factures</em></div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -674,6 +663,7 @@ function finalState(el){var k=el.dataset.anim;el.classList.add('go');el.querySel
   var tp=el.querySelector('.typed');if(tp)tp.textContent='Helix Holdings';var st=el.querySelector('.stamp');if(st)st.classList.add('on');
   if(k==='gauge'){el.querySelector('.garc').style.strokeDashoffset=283*(1-.68);el.querySelector('.gval').textContent='68';}}
 function run(el){stop(el);var loop=ANIM[el.dataset.anim](el);if(loop){later(el,loop,function(){if(el._vis)run(el);});}}
+(function(){var v=document.getElementById('herov');if(v&&REDUCE){v.removeAttribute('autoplay');v.pause();v.controls=true;}})();
 var els=[].slice.call(document.querySelectorAll('[data-anim]'));
 if(REDUCE||!('IntersectionObserver' in window)){els.forEach(finalState);}
 else{var io=new IntersectionObserver(function(es){es.forEach(function(e){var el=e.target;if(e.isIntersecting){if(!el._vis){el._vis=true;run(el);}}else{el._vis=false;stop(el);}});},{threshold:.4});els.forEach(function(el){io.observe(el);});}
