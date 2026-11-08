@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Norvy — Gagnez du temps et restez conforme | Logiciel pour avocats</title>
+<title>Norvy — Récupérez vos heures | Logiciel de gestion pour avocats</title>
 <meta name="description" content="Norvy, le logiciel de gestion de cabinet d'avocats : dossiers, heures, factures, agenda et contrôles AML dans un seul outil. Données hébergées en Europe.">
 <meta name="theme-color" content="#0F1830">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -11,7 +11,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Norvy">
 <meta property="og:url" content="https://www.norvy.lu/">
-<meta property="og:title" content="Gagnez jusqu'à 5 heures par semaine et restez conforme — Norvy">
+<meta property="og:title" content="Récupérez les heures que l'administratif vole à votre cabinet — Norvy">
 <meta property="og:description" content="Dossiers, heures, factures, agenda et contrôles AML dans un seul outil.">
 <meta property="og:image" content="https://www.norvy.lu/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -237,10 +237,46 @@ footer{padding:56px 0 36px;font-size:15px}
 .fbot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding-top:20px;color:var(--muted);font-size:14px}
 
 @media (max-width:1520px){.toasts{display:none}}
+.eyebrow{display:inline-block;font-size:14px;font-weight:600;color:var(--peri);letter-spacing:.02em;margin-bottom:18px}
+.marks{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 22px;margin-top:22px;font-size:14px;color:#B9C2DC}
+.marks span{display:inline-flex;align-items:center;gap:7px}
+.marks span::before{content:"✓";color:var(--peri);font-weight:800}
+/* vous vous reconnaissez */
+.pains{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:44px}
+.pain{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;text-align:left;opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.pain.on{opacity:1;transform:none}
+.pain .ico{width:44px;height:44px;border-radius:12px;background:var(--badbg);color:var(--bad);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.pain b{display:block;font-size:17px;line-height:1.35;letter-spacing:-.01em}
+.answer{margin:40px auto 0;display:inline-flex;align-items:center;gap:12px;font-size:clamp(22px,2.6vw,28px);font-weight:700;letter-spacing:-.02em;color:var(--blue);opacity:0;transform:scale(.96);transition:opacity .5s ease,transform .5s ease}
+.answer.on{opacity:1;transform:none}
+/* changement de logiciel */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px;counter-reset:st;position:relative}
+.step{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px;text-align:left;opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.step.on{opacity:1;transform:none}
+.step i{display:inline-flex;width:36px;height:36px;border-radius:50%;background:var(--blue);color:#fff;font-style:normal;font-weight:700;align-items:center;justify-content:center;margin-bottom:14px}
+.step b{display:block;font-size:19px;letter-spacing:-.01em;margin-bottom:6px}
+.step span{color:var(--muted);font-size:15px}
+.step em{display:table;margin-top:14px;font-style:normal;font-size:13px;font-weight:700;color:var(--ok);background:var(--okbg);padding:4px 10px;border-radius:999px}
+/* bonus diagnostic */
+.bonusbox{display:flex;align-items:center;justify-content:space-between;gap:28px;background:#fff;border:1px solid var(--line);border-left:var(--band) solid var(--blue);border-radius:16px;padding:28px 32px}
+.bonusbox h2{font-size:clamp(22px,2.6vw,28px)}
+.bonusbox p{margin:8px 0 0;color:var(--muted);font-size:16px}
+.bonusbox small{display:block;margin-top:10px;color:var(--muted);font-size:13px}
+.bonusbox .ctas{flex:none}
+/* barre mobile */
+.mobcta{display:none}
+@media (max-width:860px){
+  .mobcta{display:block;position:fixed;left:0;right:0;bottom:0;z-index:70;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(15,24,48,.96);transform:translateY(110%);transition:transform .3s ease}
+  .mobcta.show{transform:none}
+  .mobcta .btn{width:100%}
+  footer{padding-bottom:96px}
+}
 @media (max-width:980px){
   .moment,.diag,.pricebox{grid-template-columns:1fr;gap:28px}
   .moment:nth-child(even) .mtext{order:0}
-  .why{grid-template-columns:1fr 1fr}
+  .why,.pains{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr}
+  .bonusbox{flex-direction:column;align-items:flex-start}
   .kpis{grid-template-columns:1fr 1fr}
   .moments{gap:72px}
 }
@@ -250,8 +286,8 @@ footer{padding:56px 0 36px;font-size:15px}
   .fgrid{grid-template-columns:1fr}
   .vs{font-size:14px;min-width:520px}.vs th,.vs td{padding:12px 6px}.vs .ic{width:28px;height:28px;font-size:15px}
 }
-@media (max-width:560px){.pill{white-space:normal}.why{grid-template-columns:1fr}.ctas .btn{width:100%}.tiers{grid-template-columns:1fr}.week .d{min-height:170px}}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}.f,.toast{opacity:1!important;transform:none!important}}
+@media (max-width:560px){.pill{white-space:normal}.why,.pains{grid-template-columns:1fr}.hero .sub{font-size:18px}.ctas .btn{width:100%}.tiers{grid-template-columns:1fr}.week .d{min-height:170px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}.f,.toast,.pain,.step,.answer{opacity:1!important;transform:none!important}}
 </style>
 </head>
 <body>
@@ -270,7 +306,7 @@ footer{padding:56px 0 36px;font-size:15px}
         <button type="button" data-lang="fr" aria-pressed="true">FR</button>
         <button type="button" data-lang="en" aria-pressed="false">EN</button>
       </div>
-      <a class="btn btn-primary" href="#" onclick="return openCalendly(event)" data-en="Book a demo">Réserver une démo</a>
+      <a class="btn btn-primary" href="#" onclick="return openCalendly(event)" data-en="Book my demo">Réserver ma démo</a>
       <button class="burger" type="button" aria-expanded="false" aria-controls="mobmenu" aria-label="Menu" onclick="toggleMenu(this)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
     </div>
   </div>
@@ -279,7 +315,7 @@ footer{padding:56px 0 36px;font-size:15px}
     <a href="#pourquoi" data-en="Why Norvy">Pourquoi Norvy</a>
     <a href="#tarifs" data-en="Pricing">Tarifs</a>
     <a href="diagnostic.html" data-en="AML diagnostic">Diagnostic AML</a>
-    <a href="#" onclick="return openCalendly(event)" data-en="Book a demo">Réserver une démo</a>
+    <a href="#" onclick="return openCalendly(event)" data-en="Book my demo (30 min)">Réserver ma démo (30 min)</a>
   </div>
 </header>
 
@@ -288,12 +324,14 @@ footer{padding:56px 0 36px;font-size:15px}
 <!-- 1. CE QU'EST NORVY -->
 <section id="top" class="hero dark">
   <div class="wrap">
-    <h1 data-en="Save up to 5 hours a week and stay compliant without thinking about it.">Gagnez jusqu'à 5 heures par semaine et restez conforme sans y penser.</h1>
-    <p class="sub" data-en="Norvy brings your matters, invoices, calendar and AML checks together. Less admin, more time for your clients and your growth.">Norvy réunit vos dossiers, vos factures, votre agenda et vos contrôles AML. Moins d'administratif, plus de temps pour vos clients et le développement de votre cabinet.</p>
+    <span class="eyebrow" data-en="Practice management software for lawyers · Luxembourg, France, Belgium">Logiciel de gestion pour avocats · Luxembourg, France, Belgique</span>
+    <h1 data-en="Win back the hours admin steals from your firm.">Récupérez les heures que l'administratif vole à votre cabinet.</h1>
+    <p class="sub" data-en="Matters, time, invoices, calendar and AML checks in one tool. You enter it once, Norvy chases, reminds and keeps a record of everything.">Dossiers, temps, factures, agenda et contrôles AML dans un seul outil. Vous saisissez une fois, Norvy relance, rappelle et garde la trace de tout.</p>
     <div class="ctas">
-      <a class="btn btn-light" href="#" onclick="return openCalendly(event)" data-en="Book my free demo">Réserver ma démo gratuite</a>
-      <button class="btn btn-ghost" type="button" onclick="openVideo()"><span class="play"><svg width="12" height="12" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"/></svg></span><span data-en="See how in 1 minute">Voir comment en 1 minute</span></button>
+      <a class="btn btn-light" href="#" onclick="return openCalendly(event)" data-en="Book my demo (30 min)">Réserver ma démo (30 min)</a>
+      <button class="btn btn-ghost" type="button" onclick="openVideo()"><span class="play"><svg width="12" height="12" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"/></svg></span><span data-en="See Norvy in 1 minute">Voir Norvy en 1 minute</span></button>
     </div>
+    <div class="marks"><span data-en="Data hosted in Europe">Données hébergées en Europe</span><span data-en="No commitment">Sans engagement</span><span data-en="Synced with Outlook">Synchronisé avec Outlook</span></div>
     <span class="shotlabel" data-en="Your Norvy dashboard ↓">Votre tableau de bord Norvy ↓</span>
     <div class="herostage" data-anim="hero">
       <div class="app" role="img" aria-label="Tableau de bord Norvy (données fictives)">
@@ -312,12 +350,21 @@ footer{padding:56px 0 36px;font-size:15px}
           </div>
         </div>
       </div>
-      <div class="toasts" aria-hidden="true">
-        <div class="toast"><i style="background:var(--okbg);color:var(--ok)">€</i><div><b data-en="Invoice paid">Facture payée</b><span data-en="Helix Holdings · €4,200">Helix Holdings · 4 200 €</span></div></div>
-        <div class="toast"><i style="background:#E6ECFB;color:#2F4A86">✓</i><div><b data-en="Client verified">Client vérifié</b><span data-en="Weber · no sanctions match">Weber · aucune sanction</span></div></div>
-        <div class="toast"><i style="background:var(--warnbg);color:var(--warn)">9h</i><div><b data-en="Hearing tomorrow">Audience demain</b><span data-en="Commercial court · 9:30">Tribunal de commerce · 9 h 30</span></div></div>
-      </div>
     </div>
+  </div>
+</section>
+
+<!-- 2. VOUS VOUS RECONNAISSEZ ? -->
+<section class="paper" id="probleme">
+  <div class="wrap center">
+    <h2 data-en="Does your firm still run like this?">Votre cabinet tourne encore comme ça ?</h2>
+    <div class="pains" data-anim="pains">
+      <div class="pain"><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="2" y="4" width="7" height="6" rx="1.5"/><rect x="13" y="4" width="7" height="6" rx="1.5"/><rect x="7.5" y="13" width="7" height="6" rx="1.5"/></svg></span><b data-en="The same details retyped in three tools.">Les mêmes informations ressaisies dans trois outils.</b></div>
+      <div class="pain"><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="12" r="7.5"/><path d="M11 8v4l2.5 2M8 2h6"/></svg></span><b data-en="Hours worked that never make it onto an invoice.">Des heures travaillées qui ne finissent jamais sur une facture.</b></div>
+      <div class="pain"><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="2.5" y="5" width="17" height="12" rx="2"/><path d="M3 6l8 6 8-6"/></svg></span><b data-en="KYC documents hunted down in your emails.">Des pièces KYC cherchées dans les e-mails.</b></div>
+      <div class="pain"><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="16" height="15" rx="2"/><path d="M3 9h16M8 2v4M14 2v4"/></svg></span><b data-en="Deadlines scattered across calendar, Excel and sticky notes.">Des échéances dispersées entre agenda, Excel et post-it.</b></div>
+    </div>
+    <p class="answer" data-en="Norvy puts everything back in one place. ↓">Norvy remet tout au même endroit. ↓</p>
   </div>
 </section>
 
@@ -325,8 +372,8 @@ footer{padding:56px 0 36px;font-size:15px}
 <section id="journee">
   <div class="wrap">
     <div class="center">
-      <h2 data-en="What Norvy changes in your day">Ce que Norvy change dans votre journée</h2>
-      <p class="sub" data-en="Five everyday moments, made simpler.">Cinq moments du quotidien, en plus simple.</p>
+      <h2 data-en="A day at the firm, in 5 steps">Une journée au cabinet, en 5 gestes</h2>
+      <p class="sub" data-en="From opening the matter to the invoice.">De l'ouverture du dossier à la facture.</p>
     </div>
     <div class="moments">
 
@@ -353,8 +400,8 @@ footer{padding:56px 0 36px;font-size:15px}
       <div class="moment">
         <div class="mtext">
           <div class="mnum"><b>2</b><span data-en="Client checks">Vérification du client</span></div>
-          <h3 data-en="Your AML checks start as soon as the file opens">Vos contrôles AML lancés dès l'ouverture</h3>
-          <p data-en="Identity, beneficial owners, sanctions, PEPs: Norvy runs the checks. You analyse and decide, and everything is recorded.">Identité, bénéficiaires, sanctions, PPE : Norvy lance les vérifications. Vous analysez et vous décidez, tout est enregistré.</p>
+          <h3 data-en="Run your AML checks as soon as the file opens">Lancez vos contrôles AML dès l'ouverture</h3>
+          <p data-en="Identity, beneficial owners, sanctions, PEPs and adverse media: Norvy runs the checks, with no limit. You analyse and decide, and everything is recorded.">Identité, bénéficiaires effectifs, sanctions, PPE et médias défavorables : Norvy lance les vérifications, sans limite. Vous analysez et vous décidez, tout est enregistré.</p>
           <span class="gain" data-en="✓ Every decision documented">✓ Chaque décision documentée</span>
         </div>
         <div class="mvis" data-anim="checks"><div class="app">
@@ -364,7 +411,7 @@ footer{padding:56px 0 36px;font-size:15px}
             <div class="chk"><span data-en="Beneficial owners identified">Bénéficiaires effectifs identifiés</span><i class="st"></i></div>
             <div class="chk"><span data-en="EU and UN sanctions lists">Listes de sanctions UE et ONU</span><i class="st"></i></div>
             <div class="chk" data-flag="1"><span data-en="Politically exposed persons">Personnes politiquement exposées</span><i class="st"></i></div>
-            <div class="chk"><span data-en="Press and adverse media">Presse et informations négatives</span><i class="st"></i></div>
+            <div class="chk"><span data-en="Adverse media">Médias défavorables</span><i class="st"></i></div>
             <div class="banner f" style="background:#FFF0D1;color:#9A6400"><span data-en="Checks complete · 1 point for you to analyse">Vérifications terminées · 1 point à analyser</span></div><div class="f" style="margin-top:8px;display:flex;gap:8px;align-items:center"><span class="btnmock" data-en="Approve the client">Valider le client</span><span style="font-size:12px;color:#7A849E" data-en="Decision recorded under your name">Décision enregistrée à votre nom</span></div>
           </div>
         </div></div>
@@ -445,9 +492,9 @@ footer{padding:56px 0 36px;font-size:15px}
       <h2 data-en="Why law firms choose Norvy">Pourquoi les cabinets choisissent Norvy</h2>
     </div>
     <div class="why">
-      <div><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="16" height="16" rx="3"/><path d="M7 11h8M11 7v8"/></svg></span><b data-en="One tool instead of three">Un outil au lieu de trois</b><span data-en="Management, billing and AML in the same software. One subscription, one login.">Gestion, facturation et AML dans le même logiciel. Un abonnement, un seul accès.</span></div>
+      <div><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 5h14a1 1 0 011 1v9a1 1 0 01-1 1H9l-4 3v-3H4a1 1 0 01-1-1V6a1 1 0 011-1z"/><path d="M7.5 10.5h7"/></svg></span><b data-en="Support included">Accompagnement inclus</b><span data-en="Onboarding and support are part of the subscription, at no extra cost.">Prise en main et assistance comprises dans l'abonnement, sans surcoût.</span></div>
       <div><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 11c3-6 13-6 16 0-3 6-13 6-16 0z"/><circle cx="11" cy="11" r="2.5"/></svg></span><b data-en="Unlimited AML checks">Contrôles AML illimités</b><span data-en="Check all your clients, as often as needed, at no extra cost.">Vérifiez tous vos clients, aussi souvent que nécessaire, sans surcoût.</span></div>
-      <div><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h12M12 4l4 4-4 4M18 15H6M10 11l-4 4 4 4"/></svg></span><b data-en="Free migration">Migration offerte</b><span data-en="We audit your current software, then move your files for you.">Nous auditons votre logiciel actuel, puis transférons vos dossiers pour vous.</span></div>
+      <div><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h12M12 4l4 4-4 4M18 15H6M10 11l-4 4 4 4"/></svg></span><b data-en="Free migration">Migration offerte</b><span data-en="An audit of your current software first, then we move your files for you.">Un audit de votre logiciel actuel d'abord, puis nous transférons vos dossiers.</span></div>
       <div><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="10" width="12" height="9" rx="2"/><path d="M8 10V7a3 3 0 016 0v3"/></svg></span><b data-en="Secure data">Données sécurisées</b><span data-en="Hosted in Europe, encrypted, backed up every day.">Hébergées en Europe, chiffrées, sauvegardées chaque jour.</span><a href="securite.html" style="display:inline-block;margin-top:10px;color:var(--blue);font-weight:600;font-size:15px" data-en="Security details →">Détails sécurité →</a></div>
     </div>
     <h3 class="center" style="font-size:26px;margin:72px 0 0" data-en="Easier for the whole team">Plus simple pour toute l'équipe</h3>
@@ -463,8 +510,8 @@ footer{padding:56px 0 36px;font-size:15px}
 <section id="comparatif">
   <div class="wrap" style="max-width:980px">
     <div class="center">
-      <h2 data-en="Compare for yourself">Comparez par vous-même</h2>
-      <p class="sub" data-en="Norvy against the usual practice software and AML tools sold separately.">Norvy face aux logiciels de gestion habituels et aux outils AML vendus à part.</p>
+      <h2 data-en="One tool instead of three">Un seul outil au lieu de trois</h2>
+      <p class="sub" data-en="Norvy compared with what practice software and separate AML tools usually offer.">Norvy comparé à ce que proposent en général les logiciels de gestion et les outils AML vendus à part.</p>
     </div>
     <div class="vswrap">
     <table class="vs">
@@ -493,40 +540,25 @@ footer{padding:56px 0 36px;font-size:15px}
         <tr><th scope="row" data-en="One subscription for everything">Un seul abonnement pour tout</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
         <tr><th scope="row" data-en="Enter once, no duplicate data">Une seule saisie, aucune double donnée</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
         <tr><th scope="row" data-en="Migration included">Migration incluse</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td><td><span class="ic n" aria-label="Non">✕</span></td></tr>
-        <tr><th scope="row" data-en="Free export of your data">Export libre de vos données</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
+        <tr><th scope="row" data-en="Free export of your data">Export libre de vos données</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
         <tr><th scope="row" data-en="Annual questionnaire filled automatically">Questionnaire annuel rempli automatiquement</th><td><span class="ic y" aria-label="Oui">✓</span></td><td><span class="ic n" aria-label="Non">✕</span></td><td><span class="ic p" aria-label="En option ou partiel">~</span></td></tr>
       </tbody>
     </table>
     </div>
-    <div class="legend"><span><span class="ic y" aria-label="Oui">✓</span><span data-en="Included">Inclus</span></span><span><span class="ic p" aria-label="En option ou partiel">~</span><span data-en="Paid option or partial">En option payante ou partiel</span></span><span><span class="ic n" aria-label="Non">✕</span><span data-en="Not available">Non disponible</span></span></div>
+    <div class="legend"><span><span class="ic y" aria-label="Oui">✓</span><span data-en="Included">Inclus</span></span><span><span class="ic p" aria-label="En option ou partiel">~</span><span data-en="Often a paid option or partial">Souvent en option payante ou partiel</span></span><span><span class="ic n" aria-label="Non">✕</span><span data-en="Usually not available">Généralement absent</span></span></div>
 
   </div>
 </section>
 
-<!-- 5. DIAGNOSTIC -->
-<section class="paper">
-  <div class="wrap diag">
-    <div>
-      <h2 data-en="New AML rules are coming. Where does your firm stand?">Les nouvelles règles AML approchent. Où en est votre cabinet ?</h2>
-      <p class="sub" data-en="From 10 July 2027, the EU AML Regulation applies to lawyers for certain transactions (companies, real estate, funds). Assess your firm in 4 minutes.">Dès le 10 juillet 2027, le règlement européen AMLR s'applique aux avocats pour certaines opérations (sociétés, immobilier, fonds). Évaluez votre cabinet en 4 minutes.</p>
-      <ul class="gets">
-        <li data-en="Your compliance score">Votre score de conformité</li>
-        <li data-en="Your priorities, obligation by obligation">Vos priorités, obligation par obligation</li>
-        <li data-en="An action plan to download">Un plan d'action à télécharger</li>
-      </ul>
-      <div class="ctas">
-        <a class="btn btn-primary" href="diagnostic.html" data-en="Assess my firm for free">Évaluer mon cabinet gratuitement</a>
-        <a class="btn btn-ghost" style="color:var(--blue)" href="Norvy-Checklist-AMLR-2024-1624.pdf" data-en-href="Norvy-AMLR-Checklist-2024-1624-EN.pdf" download data-en="Download the checklist">Télécharger la checklist</a>
-      </div>
-    </div>
-    <div class="gaugecard" data-anim="gauge" aria-hidden="true">
-      <small data-en="Example: maturity score across the 7 obligations of the Regulation">Exemple : score de maturité sur les 7 obligations du règlement</small>
-      <svg viewBox="0 0 220 130" width="100%" style="max-width:320px;display:block;margin:10px auto 0">
-        <path d="M20 115a90 90 0 01180 0" fill="none" stroke="#E3E7F1" stroke-width="18" stroke-linecap="round"/>
-        <path class="garc" d="M20 115a90 90 0 01180 0" fill="none" stroke="#2F5BD8" stroke-width="18" stroke-linecap="round" stroke-dasharray="283" stroke-dashoffset="283" style="transition:stroke-dashoffset 1.4s ease"/>
-        <text x="110" y="100" text-anchor="middle" font-size="40" font-weight="700" fill="#131A2E" font-family="Jakarta,Arial"><tspan class="gval">0</tspan><tspan font-size="18" fill="#59647F">/100</tspan></text>
-      </svg>
-      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:8px"><span class="pill ok" data-en="Screening ✓">Screening ✓</span><span class="pill warn" data-en="Beneficial owners: to improve">Bénéficiaires : à renforcer</span></div>
+<!-- 5. CHANGER DE LOGICIEL -->
+<section class="paper" id="migration">
+  <div class="wrap center">
+    <h2 data-en="Switch software without starting from scratch">Changez de logiciel sans repartir de zéro</h2>
+    <p class="sub" data-en="Your files, your habits, your organisation: we take care of the move.">Vos dossiers, vos habitudes, votre organisation : nous nous occupons du passage.</p>
+    <div class="steps" data-anim="steps">
+      <div class="step"><i>1</i><b data-en="We audit your tools">Nous auditons vos outils</b><span data-en="We look at your current software and set the plan and the schedule with you.">Nous étudions votre logiciel actuel et fixons avec vous le plan et le calendrier.</span></div>
+      <div class="step"><i>2</i><b data-en="We move your files">Nous transférons vos dossiers</b><span data-en="Your clients, matters and documents are brought into Norvy.">Vos clients, dossiers et documents sont repris dans Norvy.</span><em data-en="Free">Offert</em></div>
+      <div class="step"><i>3</i><b data-en="We help your team get started">Nous accompagnons votre équipe</b><span data-en="Onboarding and support for everyone at the firm.">Prise en main et assistance pour tout le cabinet.</span><em data-en="Included">Inclus</em></div>
     </div>
   </div>
 </section>
@@ -534,7 +566,7 @@ footer{padding:56px 0 36px;font-size:15px}
 <!-- 6. TARIFS -->
 <section id="tarifs">
   <div class="wrap center">
-    <h2 data-en="A simple price, per user">Un prix simple, par utilisateur</h2>
+    <h2 data-en="A simple price, no commitment">Un prix simple, sans engagement</h2>
     <p class="sub" data-en="The price per user depends on the size of your team, and applies to all users. Example: with 6 users, all 6 pay €139.">Le prix par utilisateur dépend de la taille de votre équipe et s'applique à tous. Exemple : à 6 utilisateurs, les 6 paient 139 €.</p>
     <div class="pricebox">
       <div class="calc">
@@ -558,37 +590,58 @@ footer{padding:56px 0 36px;font-size:15px}
           <li data-en="No commitment: stop whenever you want">Sans engagement : vous arrêtez quand vous voulez</li>
           <li data-en="All features, nothing extra to pay">Toutes les fonctionnalités, rien à payer en plus</li>
           <li data-en="Unlimited AML checks">Contrôles AML illimités</li>
-          <li data-en="Audit and migration of your files included">Audit et transfert de vos dossiers inclus</li>
-          <li data-en="Support included">Assistance incluse</li>
+          <li data-en="Audit and migration of your files: free">Audit et migration de vos dossiers offerts</li>
+          <li data-en="Onboarding and support included">Prise en main et assistance incluses</li>
         </ul>
-        <a class="btn btn-light" href="#" onclick="return openCalendly(event)" data-en="Book a demo">Réserver une démo</a>
+        <a class="btn btn-light" href="#" onclick="return openCalendly(event)" data-en="Book my demo (30 min)">Réserver ma démo (30 min)</a>
       </div>
     </div>
     <p style="margin-top:20px;color:var(--muted);font-size:15px"><span data-en="More than 50 users?">Plus de 50 utilisateurs ?</span> <a href="#" onclick="return openCalendly(event)" style="color:var(--blue);font-weight:600" data-en="Contact us">Contactez-nous</a></p>
   </div>
 </section>
 
-<!-- 7. FAQ -->
+<!-- 7. BONUS DIAGNOSTIC -->
+<section style="padding-top:0">
+  <div class="wrap" style="max-width:980px">
+    <div class="bonusbox">
+      <div>
+        <h2 data-en="Check your AML compliance in 5 minutes">Faites le point sur votre conformité AML en 5 minutes</h2>
+        <p data-en="Free diagnostic: your priorities and an action plan to download.">Diagnostic gratuit : vos priorités et un plan d'action à télécharger.</p>
+        <small data-en="A first indication, not a certification of compliance.">Une première indication, pas une certification de conformité.</small>
+      </div>
+      <div class="ctas">
+        <a class="btn btn-primary" href="diagnostic.html" data-en="Take the diagnostic">Faire le diagnostic</a>
+        <a class="btn btn-ghost" style="color:var(--blue)" href="Norvy-Checklist-AMLR-2024-1624.pdf" data-en-href="Norvy-AMLR-Checklist-2024-1624-EN.pdf" download data-en="Checklist (PDF)">Checklist (PDF)</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. FAQ -->
 <section class="paper">
   <div class="wrap" style="max-width:860px">
     <h2 style="margin-bottom:30px" data-en="Questions">Questions fréquentes</h2>
     <details><summary data-en="Who is Norvy for?">À qui s'adresse Norvy ?</summary><div class="faqa" data-en="To every lawyer, from sole practitioners to business law firms, in Luxembourg, France and Belgium.">À tous les avocats, de l'indépendant au cabinet d'affaires, au Luxembourg, en France et en Belgique.</div></details>
-    <details><summary data-en="Do AML checks replace my own analysis?">Les contrôles AML remplacent-ils mon analyse ?</summary><div class="faqa" data-en="No. Norvy runs the checks and gathers the information. You analyse and decide, and your decision is recorded in the file.">Non. Norvy lance les vérifications et rassemble les informations. Vous analysez et vous décidez, et votre décision est enregistrée dans le dossier.</div></details>
-    <details><summary data-en="How does switching from my current software work?">Comment se passe le changement de logiciel ?</summary><div class="faqa" data-en="We start with an audit of your current tools. It sets the migration plan and schedule. Then our team moves your files for you.">Nous commençons par un audit de vos outils actuels. Il définit le plan et le calendrier de migration. Ensuite, notre équipe transfère vos dossiers pour vous.</div></details>
+    <details><summary data-en="I rarely handle AML-relevant matters. Is Norvy for me?">Je fais peu de dossiers soumis à l'AML. Norvy m'est-il utile ?</summary><div class="faqa" data-en="Yes. Norvy is first of all a practice management tool: matters, time, invoices and calendar. AML checks are there for the matters that need them.">Oui. Norvy est d'abord un logiciel de gestion : dossiers, temps, factures et agenda. Les contrôles AML sont là pour les dossiers qui en ont besoin.</div></details>
+    <details><summary data-en="Are AML checks automated?">Les vérifications AML sont-elles automatisées ?</summary><div class="faqa" data-en="Yes. Identity, beneficial owners, sanctions, PEPs and adverse media are checked when the file opens, then monitored over time.">Oui. Identité, bénéficiaires effectifs, sanctions, PPE et médias défavorables sont vérifiés à l'ouverture du dossier, puis surveillés dans la durée.</div></details>
+    <details><summary data-en="Do I still have to review the alerts?">Dois-je toujours valider les alertes ?</summary><div class="faqa" data-en="Yes. Norvy flags the points to look at. You analyse and decide, and your decision is recorded in the file under your name.">Oui. Norvy signale les points à examiner. Vous analysez et vous décidez, et votre décision est enregistrée dans le dossier à votre nom.</div></details>
+    <details><summary data-en="How does switching from my current software work?">Comment se passe le changement de logiciel ?</summary><div class="faqa" data-en="We start with an audit of your current tools. It sets the migration plan and schedule. Then our team moves your files for you. Migration is free.">Nous commençons par un audit de vos outils actuels. Il définit le plan et le calendrier. Ensuite, notre équipe transfère vos dossiers pour vous. La migration est offerte.</div></details>
     <details><summary data-en="Can each team member have different rights?">Chaque collaborateur peut-il avoir des droits différents ?</summary><div class="faqa" data-en="Yes. Access is managed by role: each person only sees what they need.">Oui. Les accès sont gérés par rôle : chacun voit ce dont il a besoin.</div></details>
     <details><summary data-en="Is my data protected?">Mes données sont-elles protégées ?</summary><div class="faqa" data-en="Yes: hosted in Europe, encrypted, backed up every day. See our &lt;a href=&quot;securite.html&quot;&gt;security page&lt;/a&gt;.">Oui : hébergées en Europe, chiffrées et sauvegardées chaque jour. Voir notre <a href="securite.html">page sécurité</a>.</div></details>
     <details><summary data-en="Are AML checks really unlimited?">Les contrôles AML sont-ils vraiment illimités ?</summary><div class="faqa" data-en="Yes. Checks and ongoing monitoring are included in the price per user.">Oui. Les vérifications et la surveillance continue sont comprises dans le prix par utilisateur.</div></details>
+    <details><summary data-en="Does it work with Outlook?">Puis-je garder Outlook ?</summary><div class="faqa" data-en="Yes. Your calendar is synced both ways: what you add in Outlook appears in Norvy, and the other way round.">Oui. Votre agenda est synchronisé dans les deux sens : ce que vous ajoutez dans Outlook apparaît dans Norvy, et inversement.</div></details>
+    <details><summary data-en="What does the support include?">Que comprend l'accompagnement ?</summary><div class="faqa" data-en="The audit of your current tools, the migration of your files, onboarding for your team and ongoing support. All included in the subscription.">L'audit de vos outils actuels, la migration de vos dossiers, la prise en main par votre équipe et l'assistance au quotidien. Le tout compris dans l'abonnement.</div></details>
     <details><summary data-en="What if we decide to leave Norvy?">Et si nous quittons Norvy ?</summary><div class="faqa" data-en="You export all your files and documents yourself, at any time and at no cost.">Vous exportez vous-même tous vos dossiers et documents, à tout moment et sans frais.</div></details>
   </div>
 </section>
 
-<!-- 8. CTA -->
+<!-- 9. CTA -->
 <section class="dark" style="border-top:var(--band) solid var(--blue)">
   <div class="wrap center" style="max-width:780px">
-    <h2 data-en="See Norvy with a file like yours">Voyez Norvy avec un dossier comme les vôtres</h2>
-    <p class="sub" data-en="In 30 minutes by video, we show you how Norvy fits the way your firm works. Nothing to prepare, no commitment.">En 30 minutes en visio, nous vous montrons comment Norvy s'intègre à votre organisation. Rien à préparer, sans engagement.</p>
+    <h2 data-en="See Norvy on files like yours">Voyez Norvy sur des dossiers comme les vôtres</h2>
+    <p class="sub" data-en="30 minutes by video. We look at how you work and what Norvy can simplify. Nothing to prepare, no commitment.">30 minutes en visio. Nous regardons votre façon de travailler et ce que Norvy peut simplifier. Rien à préparer, sans engagement.</p>
     <div class="ctas" style="justify-content:center;margin-top:30px">
-      <a class="btn btn-light" href="#" onclick="return openCalendly(event)" data-en="Book a free demo">Réserver une démo gratuite</a>
+      <a class="btn btn-light" href="#" onclick="return openCalendly(event)" data-en="Book my demo (30 min)">Réserver ma démo (30 min)</a>
     </div>
   </div>
 </section>
@@ -607,6 +660,8 @@ footer{padding:56px 0 36px;font-size:15px}
   </div>
 </footer>
 
+<div class="mobcta" id="mobcta"><a class="btn btn-primary" href="#" onclick="return openCalendly(event)" data-en="Book my demo (30 min)">Réserver ma démo (30 min)</a></div>
+
 <dialog id="vid" aria-label="Vidéo de présentation de Norvy">
   <button class="x" type="button" onclick="closeVideo()" aria-label="Fermer">×</button>
   <video id="vidv" src="norvy-presentation.mp4" poster="norvy-presentation-poster.jpg" controls playsinline preload="none" style="width:100%;display:block"></video>
@@ -623,7 +678,7 @@ function applyLang(l){
   document.querySelectorAll('[data-en]').forEach(function(el){if(el._fr===undefined)el._fr=el.innerHTML;el.innerHTML=LANG==='en'?el.getAttribute('data-en'):el._fr;});
   document.querySelectorAll('[data-en-href]').forEach(function(el){if(el._frhref===undefined)el._frhref=el.getAttribute('href');el.setAttribute('href',LANG==='en'?el.getAttribute('data-en-href'):el._frhref);});
   document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lang===LANG));});
-  document.title=T("Norvy — Gagnez du temps et restez conforme | Logiciel pour avocats","Norvy — Save time and stay compliant | Software for lawyers");
+  document.title=T("Norvy — Récupérez vos heures | Logiciel de gestion pour avocats","Norvy — Win back your hours | Practice management for lawyers");
   try{localStorage.setItem('norvy-lang',LANG);}catch(e){}
   price();
 }
@@ -688,11 +743,14 @@ var ANIM={
   },
   week:function(el){resetF(el);fades(el).forEach(function(f,k){later(el,300+k*450,function(){f.classList.add('on');});});return 7500;},
   proof:function(el){resetF(el);fades(el).forEach(function(f,k){later(el,300+k*550,function(){f.classList.add('on');});});return 7500;},
+  pains:function(el){var c=[].slice.call(el.querySelectorAll('.pain')),ans=el.parentNode.querySelector('.answer');c.forEach(function(x){x.classList.remove('on');});ans.classList.remove('on');
+    c.forEach(function(x,k){later(el,150+k*450,function(){x.classList.add('on');});});later(el,150+c.length*450+300,function(){ans.classList.add('on');});return 0;},
+  steps:function(el){var c=[].slice.call(el.querySelectorAll('.step'));c.forEach(function(x){x.classList.remove('on');});c.forEach(function(x,k){later(el,150+k*500,function(){x.classList.add('on');});});return 0;},
   gauge:function(el){var arc=el.querySelector('.garc'),v=el.querySelector('.gval'),to=68;arc.style.strokeDashoffset=283;void arc.getBoundingClientRect();
     later(el,50,function(){arc.style.strokeDashoffset=283*(1-to/100);});
     var t0=null;function step(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/1400,1);v.textContent=Math.round(to*p);if(p<1)requestAnimationFrame(step);}requestAnimationFrame(step);return 0;}
 };
-function finalState(el){var k=el.dataset.anim;el.classList.add('go');fades(el).forEach(function(f){f.classList.add('on');});
+function finalState(el){var k=el.dataset.anim;el.classList.add('go');el.querySelectorAll('.pain,.step').forEach(function(x){x.classList.add('on');});if(k==='pains'){var a=el.parentNode.querySelector('.answer');if(a)a.classList.add('on');}fades(el).forEach(function(f){f.classList.add('on');});
   el.querySelectorAll('.chk').forEach(function(r){r.classList.add(r.dataset.flag?'flag':'done');});
   var tp=el.querySelector('.typed');if(tp)tp.textContent='Helix Holdings';var st=el.querySelector('.stamp');if(st)st.classList.add('on');
   if(k==='gauge'){el.querySelector('.garc').style.strokeDashoffset=283*(1-.68);el.querySelector('.gval').textContent='68';}}
@@ -701,6 +759,8 @@ var els=[].slice.call(document.querySelectorAll('[data-anim]'));
 if(REDUCE||!('IntersectionObserver' in window)){els.forEach(finalState);}
 else{var io=new IntersectionObserver(function(es){es.forEach(function(e){var el=e.target;if(e.isIntersecting){if(!el._vis){el._vis=true;run(el);}}else{el._vis=false;stop(el);}});},{threshold:.4});els.forEach(function(el){io.observe(el);});}
 
+(function(){var b=document.getElementById('mobcta'),h=document.getElementById('top');if(!b||!('IntersectionObserver' in window)){if(b)b.classList.add('show');return;}
+  new IntersectionObserver(function(es){b.classList.toggle('show',!es[0].isIntersecting);}).observe(h);})();
 (function(){var l=null;try{l=new URLSearchParams(location.search).get('lang')||localStorage.getItem('norvy-lang');}catch(e){}
   if(!l){l=(navigator.language||'fr').toLowerCase().indexOf('fr')===0?'fr':'en';}applyLang(l);})();
 </script>
